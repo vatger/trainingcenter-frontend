@@ -1,0 +1,19 @@
+import { TableColumn } from "react-data-table-component";
+import { PermissionModel, RoleModel } from "../../../../../../models/Permission.model";
+import RolePermissionTableTypes from "../_types/RolePermissionTable.types";
+import { useNavigate } from "react-router-dom";
+import { Table } from "../../../../../../components/ui/Table/Table";
+import { Dispatch } from "react";
+
+export function RolePermissionTablePartial(props: {
+    loading: boolean;
+    permissions: PermissionModel[];
+    role: RoleModel | undefined;
+    setRole: Dispatch<RoleModel>;
+}) {
+    const navigate = useNavigate();
+
+    const rolePermissionColumns: TableColumn<PermissionModel>[] = RolePermissionTableTypes.getColumns(navigate, props.permissions, props.role, props.setRole);
+
+    return <Table loading={props.loading} columns={rolePermissionColumns} data={props.permissions} />;
+}

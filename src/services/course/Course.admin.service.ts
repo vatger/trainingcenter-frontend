@@ -1,0 +1,225 @@
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { Dispatch, useEffect, useState } from "react";
+import { CourseModel, CourseSkillTemplateModel } from "../../models/Course.model";
+import { Axios, AxiosError, AxiosResponse } from "axios";
+import { UserModel } from "../../models/User.model";
+import { APIResponseError } from "../../exceptions/APIResponseError";
+import { MentorGroupModel } from "../../models/MentorGroup.model";
+
+export async function getEditableCourses() {
+    return axiosInstance.get("/administration/course/editable");
+}
+
+type GetInformationByUUIDT = {
+    course: CourseModel | undefined;
+    setCourse: Dispatch<CourseModel | undefined>;
+    loading: boolean;
+    loadingError: APIResponseError;
+};
+function getInformationByUUID(course_uuid?: string): GetInformationByUUIDT {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [course, setCourse] = useState<CourseModel | undefined>(undefined);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/administration/course/info", { params: { uuid: course_uuid } })
+            .then((res: AxiosResponse) => {
+                setCourse(res.data as CourseModel);
+            })
+            .catch((err: AxiosError) => {
+                setLoadingError({
+                    error: err,
+                    custom: {
+                        code: "ERR_API_LOAD_COURSE_INFO",
+                        message: "Failed to load course information",
+                    },
+                });
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        course,
+        setCourse,
+        loading,
+        loadingError,
+    };
+}
+
+/**
+ * Gets all users associated to this course (excluding sensitive information such as E-Mail...)
+ */
+type GetUsersByUUIDT = { users: UserModel[]; setUsers: Dispatch<UserModel[]>; loading: boolean; loadingError: APIResponseError };
+function getUsersByUUID(course_uuid?: string): GetUsersByUUIDT {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [users, setUsers] = useState<UserModel[]>([]);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/administration/course/info/user", { params: { uuid: course_uuid } })
+            .then((res: AxiosResponse) => {
+                setUsers(res.data as UserModel[]);
+            })
+            .catch((err: AxiosError) => {
+                setLoadingError({
+                    error: err,
+                    custom: {
+                        code: "ERR_API_LOAD_COURSE_USERS",
+                        message: "Failed to load users in this course",
+                    },
+                });
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        users,
+        setUsers,
+        loading,
+        loadingError,
+    };
+}
+
+/**
+ * Removes a user from the specified course
+ * @param course_id
+ * @param user_id
+ */
+function removeUserByID(course_id?: string | number, user_id?: number): Promise<void> {
+    return axiosInstance
+        .delete("/administration/course/info/user", {
+            data: {
+                data: {
+                    course_id: course_id,
+                    user_id: user_id,
+                },
+            },
+        })
+        .then(() => {
+            return;
+        })
+        .catch((err: AxiosError) => {
+            throw err;
+        });
+}
+
+/**
+ * Gets a list of mentor groups that are associated to this course, specified by the UUID
+ */
+type GetMentorGroupsByUUIDT = {
+    mentorGroups: MentorGroupModel[];
+    setMentorGroups: Dispatch<MentorGroupModel[]>;
+    loading: boolean;
+    loadingError: APIResponseError;
+};
+function getMentorGroupsByUUID(course_uuid?: string): GetMentorGroupsByUUIDT {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [mentorGroups, setMentorGroups] = useState<MentorGroupModel[]>([]);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/administration/course/info/mentor-group", { params: { uuid: course_uuid } })
+            .then((res: AxiosResponse) => {
+                setMentorGroups(res.data as MentorGroupModel[]);
+            })
+            .catch((err: AxiosError) => {})
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        mentorGroups,
+        setMentorGroups,
+        loading,
+        loadingError,
+    };
+}
+
+/**
+ * Remove mentor group with mentor_group_id from course with course_uuid
+ * @param course_id
+ * @param mentor_group_id
+ */
+function removeMentorGroupByID(course_id: number, mentor_group_id: number): Promise<void> {
+    return axiosInstance
+        .delete("/administration/course/info/mentor-group", {
+            data: {
+                data: {
+                    course_id: course_id,
+                    mentor_group_id: mentor_group_id,
+                },
+            },
+        })
+        .then(() => {
+            return;
+        })
+        .catch((err: AxiosError) => {
+            throw err;
+        });
+}
+
+type GetSkillTemplateT = { skillTemplates: CourseSkillTemplateModel[]; loading: boolean; loadingError: APIResponseError };
+function getSkillTemplates(): GetSkillTemplateT {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [skillTemplates, setSkillTemplates] = useState<CourseSkillTemplateModel[]>([]);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/administration/course-skill-template")
+            .then((res: AxiosResponse) => {
+                setSkillTemplates(res.data as CourseSkillTemplateModel[]);
+            })
+            .catch((err: AxiosError) => {
+                setLoadingError({
+                    error: err,
+                    custom: {
+                        code: "ERR_API_LOAD_SKILL_TEMPLATE",
+                        message: "Failed to load skill templates",
+                    },
+                });
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        skillTemplates,
+        loading,
+        loadingError,
+    };
+}
+
+async function create(data: object): Promise<CourseModel> {
+    return axiosInstance
+        .put("/administration/course", { data: data })
+        .then((res: AxiosResponse) => {
+            return res.data as CourseModel;
+        })
+        .catch((err: AxiosError) => {
+            throw err;
+        });
+}
+
+async function update(data: object): Promise<CourseModel> {
+    return axiosInstance
+        .patch("/administration/course/info/update", { data: data })
+        .then((res: AxiosResponse) => {
+            return res.data as CourseModel;
+        })
+        .catch((err: AxiosError) => {
+            throw err;
+        });
+}
+
+export default {
+    create,
+    update,
+    getSkillTemplates,
+    getInformationByUUID,
+    getUsersByUUID,
+    removeUserByID,
+    getMentorGroupsByUUID,
+    removeMentorGroupByID,
+};
