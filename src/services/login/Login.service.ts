@@ -36,10 +36,9 @@ async function validateSession(): Promise<UserModel> {
 
 /**
  * Gets the redirect uri from the backend
- * This is the URI that a user must be redirected to to start the OAuth flow
+ * This is the URI that a user must be redirected to start the OAuth flow
  */
-type GetOAuthRedirectUriT = { uri: string; loading: boolean; loadingError: APIResponseError };
-function getOAuthRedirectUri(): GetOAuthRedirectUriT {
+function getOAuthRedirectUri() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [redirectUri, setRedirectUri] = useState<string>("");

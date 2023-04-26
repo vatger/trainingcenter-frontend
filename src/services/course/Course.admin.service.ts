@@ -10,13 +10,7 @@ export async function getEditableCourses() {
     return axiosInstance.get("/administration/course/editable");
 }
 
-type GetInformationByUUIDT = {
-    course: CourseModel | undefined;
-    setCourse: Dispatch<CourseModel | undefined>;
-    loading: boolean;
-    loadingError: APIResponseError;
-};
-function getInformationByUUID(course_uuid?: string): GetInformationByUUIDT {
+function getInformationByUUID(course_uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [course, setCourse] = useState<CourseModel | undefined>(undefined);
@@ -50,8 +44,7 @@ function getInformationByUUID(course_uuid?: string): GetInformationByUUIDT {
 /**
  * Gets all users associated to this course (excluding sensitive information such as E-Mail...)
  */
-type GetUsersByUUIDT = { users: UserModel[]; setUsers: Dispatch<UserModel[]>; loading: boolean; loadingError: APIResponseError };
-function getUsersByUUID(course_uuid?: string): GetUsersByUUIDT {
+function getUsersByUUID(course_uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [users, setUsers] = useState<UserModel[]>([]);
@@ -108,13 +101,7 @@ function removeUserByID(course_id?: string | number, user_id?: number): Promise<
 /**
  * Gets a list of mentor groups that are associated to this course, specified by the UUID
  */
-type GetMentorGroupsByUUIDT = {
-    mentorGroups: MentorGroupModel[];
-    setMentorGroups: Dispatch<MentorGroupModel[]>;
-    loading: boolean;
-    loadingError: APIResponseError;
-};
-function getMentorGroupsByUUID(course_uuid?: string): GetMentorGroupsByUUIDT {
+function getMentorGroupsByUUID(course_uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [mentorGroups, setMentorGroups] = useState<MentorGroupModel[]>([]);
@@ -160,8 +147,10 @@ function removeMentorGroupByID(course_id: number, mentor_group_id: number): Prom
         });
 }
 
-type GetSkillTemplateT = { skillTemplates: CourseSkillTemplateModel[]; loading: boolean; loadingError: APIResponseError };
-function getSkillTemplates(): GetSkillTemplateT {
+/**
+ * Gets a list of skill templates
+ */
+function getSkillTemplates() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [skillTemplates, setSkillTemplates] = useState<CourseSkillTemplateModel[]>([]);

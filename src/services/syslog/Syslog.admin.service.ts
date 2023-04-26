@@ -7,8 +7,7 @@ import { AxiosError, AxiosResponse } from "axios";
 /**
  * Returns an array of all System-logs currently stored in the database
  */
-type GetAllT = { systemLogs: SystemlogModel[]; loading: boolean; loadingError: APIResponseError };
-function getAll(): GetAllT {
+function getAll() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [systemLogs, setSystemLogs] = useState<SystemlogModel[]>([]);
@@ -41,8 +40,7 @@ function getAll(): GetAllT {
 /**
  * Gets all information associated with system log
  */
-type GetInformationByIDT = { systemLog: SystemlogModel | undefined; loading: boolean; loadingError: APIResponseError };
-function getInformationByID(id?: string | number): GetInformationByIDT {
+function getInformationByID(id?: string | number) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [systemLog, setSystemLog] = useState<SystemlogModel | undefined>(undefined);

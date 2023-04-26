@@ -4,6 +4,9 @@ import { TrainingRequestModel } from "../../models/TrainingRequest.model";
 import { axiosInstance } from "../../utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 
+/**
+ * Returns a list of the currently signed-in user's training requests
+ */
 function getAllTrainingRequests() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
@@ -28,6 +31,10 @@ function getAllTrainingRequests() {
     };
 }
 
+/**
+ * Get a list of all training-requests made by this user for a specified course
+ * @param course_uuid
+ */
 function getActiveTrainingRequestsByCourseUUID(course_uuid?: string | number) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
@@ -58,6 +65,10 @@ function getActiveTrainingRequestsByCourseUUID(course_uuid?: string | number) {
     };
 }
 
+/**
+ * Deletes a training request specified by the UUID
+ * @param uuid
+ */
 function destroyTrainingRequestByUUID(uuid?: string): Promise<void> {
     return axiosInstance
         .delete("/training-request", {

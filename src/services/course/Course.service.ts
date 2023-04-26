@@ -8,8 +8,7 @@ import { APIResponseError } from "../../exceptions/APIResponseError";
  * Gets all courses that I am not in any way affiliated to
  * i.e. not enrolled and not completed!
  */
-type GetAvailableCoursesT = { courses: CourseModel[]; loading: boolean; loadingError: APIResponseError };
-function getAvailableCourses(): GetAvailableCoursesT {
+function getAvailableCourses() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [courses, setCourses] = useState<CourseModel[]>([]);

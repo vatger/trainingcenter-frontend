@@ -7,8 +7,7 @@ import { APIResponseError } from "../../exceptions/APIResponseError";
 /**
  * Gets all training log templates that are stored in the database
  */
-type GetAllT = { trainingLogTemplates: TrainingLogTemplateModel[]; loading: boolean; loadingError: APIResponseError };
-function getAll(): GetAllT {
+function getAll() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [trainingLogTemplates, setTrainingLogTemplates] = useState<TrainingLogTemplateModel[]>([]);

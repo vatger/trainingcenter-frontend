@@ -8,8 +8,7 @@ import { TrainingStationModel } from "../../models/TrainingStation.model";
 /**
  * Gets all training exceptions currently stored in the database
  */
-type GetAllT = { trainingTypes: TrainingTypeModel[]; loading: boolean; loadingError: APIResponseError };
-function getAll(): GetAllT {
+function getAll() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [trainingTypes, setTrainingTypes] = useState<TrainingTypeModel[]>([]);
@@ -39,13 +38,11 @@ function getAll(): GetAllT {
     };
 }
 
-type GetByIDT = {
-    trainingType: TrainingTypeModel | undefined;
-    setTrainingType: Dispatch<TrainingTypeModel | undefined>;
-    loading: boolean;
-    loadingError: APIResponseError;
-};
-function getByID(id?: number | string): GetByIDT {
+/**
+ * Gets the training type by its id
+ * @param id
+ */
+function getByID(id?: number | string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [trainingType, setTrainingType] = useState<TrainingTypeModel | undefined>(undefined);

@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { APIResponseError } from "../../exceptions/APIResponseError";
 import { PermissionModel } from "../../models/Permission.model";
 import { axiosInstance } from "../../utils/network/AxiosInstance";
@@ -19,8 +19,7 @@ export const enum PermissionCreateEnum {
  *
  * @return - Returns the values of ResponseType (PermissionModel[], (PermissionModel) => any, boolean, APIResponseError)
  */
-type GetPermissionT = { permissions: PermissionModel[]; setPermissions: Dispatch<PermissionModel[]>; loading: boolean; loadingError: APIResponseError };
-function getPermissions(): GetPermissionT {
+function getPermissions() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [permissions, setPermissions] = useState<PermissionModel[]>([]);

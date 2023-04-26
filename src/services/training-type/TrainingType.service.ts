@@ -4,8 +4,7 @@ import { TrainingTypeModel } from "../../models/TrainingType.model";
 import { axiosInstance } from "../../utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 
-type GetByIDT = { trainingType: TrainingTypeModel | undefined; loading: boolean; loadingError: APIResponseError };
-function getByID(id?: number | string): GetByIDT {
+function getByID(id?: number | string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [trainingType, setTrainingType] = useState<TrainingTypeModel | undefined>(undefined);

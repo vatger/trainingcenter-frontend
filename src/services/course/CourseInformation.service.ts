@@ -8,8 +8,7 @@ import { APIResponseError } from "../../exceptions/APIResponseError";
 /**
  * Returns course information (i.e. the course's data), specified by uuid
  */
-type GetCourseInformationByUUIT = { course: CourseModel | undefined; loading: boolean; loadingError: APIResponseError };
-function getCourseInformationByUUID(uuid?: string): GetCourseInformationByUUIT {
+function getCourseInformationByUUID(uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [course, setCourse] = useState<CourseModel | undefined>(undefined);
@@ -49,8 +48,7 @@ function getCourseInformationByUUID(uuid?: string): GetCourseInformationByUUIT {
  * Returns user information for a given course
  * Includes the users_belong_to_courses table entry for the current user
  */
-type GetMyCourseInformationByUUIDT = { course: CourseModel | undefined; loading: boolean; loadingError: APIResponseError };
-function getMyCourseInformationByUUID(uuid?: string): GetMyCourseInformationByUUIDT {
+function getMyCourseInformationByUUID(uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [course, setCourse] = useState<CourseModel | undefined>(undefined);
@@ -89,8 +87,7 @@ function getMyCourseInformationByUUID(uuid?: string): GetMyCourseInformationByUU
 /**
  * Get training information of course from course UUID
  */
-type GetCourseTrainingInformationByUUIDT = { trainingData: TrainingSessionModel[]; loading: boolean; loadingError: APIResponseError };
-function getCourseTrainingInformationByUUID(course_uuid?: string): GetCourseTrainingInformationByUUIDT {
+function getCourseTrainingInformationByUUID(course_uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [trainingData, setTrainingData] = useState<TrainingSessionModel[]>([]);

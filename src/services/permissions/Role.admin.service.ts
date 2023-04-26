@@ -1,5 +1,5 @@
 import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RoleModel } from "../../models/Permission.model";
 import { AxiosError, AxiosResponse } from "axios";
 import { APIResponseError } from "../../exceptions/APIResponseError";
@@ -8,8 +8,7 @@ import { APIResponseError } from "../../exceptions/APIResponseError";
  * Retrieve all roles from the API
  * @return - Returns the values of ResponseType (RoleModel[], (RoleModel) => any, boolean, APIResponseError)
  */
-type GetRolesT = { roles: RoleModel[]; setRoles: Dispatch<RoleModel[]>; loading: boolean; loadingError: APIResponseError };
-function getRoles(): GetRolesT {
+function getRoles() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [roles, setRoles] = useState<RoleModel[]>([]);
@@ -39,8 +38,7 @@ function getRoles(): GetRolesT {
  * Gets a role's information (such as associated
  * @param role_id
  */
-type GetRoleInformationT = { roleData: RoleModel | undefined; setRoleData: Dispatch<RoleModel | undefined>; loading: boolean; loadingError: APIResponseError };
-function getRoleInformation(role_id: string | number | undefined): GetRoleInformationT {
+function getRoleInformation(role_id: string | number | undefined) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [roleData, setRoleData] = useState<RoleModel | undefined>(undefined);

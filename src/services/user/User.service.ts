@@ -8,8 +8,7 @@ import { APIResponseError } from "../../exceptions/APIResponseError";
 /**
  * Returns all courses that are associated to the current user (i.e. enrolled in course or completed)
  */
-type GetCoursesT = { courses: CourseModel[]; loading: boolean; loadingError: APIResponseError };
-function getCourses(): GetCoursesT {
+function getCourses() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [courses, setCourses] = useState<CourseModel[]>([]);
@@ -42,7 +41,7 @@ function getCourses(): GetCoursesT {
 /**
  * Gets courses that are active and associated to the current user (i.e. not completed)
  */
-function getActiveCourses(): GetCoursesT {
+function getActiveCourses() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [courses, setCourses] = useState<CourseModel[]>([]);
@@ -75,8 +74,7 @@ function getActiveCourses(): GetCoursesT {
 /**
  * Gets the current user's mentor groups that are in some way affiliated to him (user, admin, course-manager)
  */
-type GetMentorGroupsT = { mentorGroups: MentorGroupModel[]; loading: boolean; loadingError: APIResponseError };
-function getMentorGroups(): GetMentorGroupsT {
+function getMentorGroups() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [mentorGroups, setMentorGroups] = useState<MentorGroupModel[]>([]);
@@ -109,7 +107,7 @@ function getMentorGroups(): GetMentorGroupsT {
 /**
  * Gets the current user's mentor groups in which he/she is a course-manager (can_manage_course flag set)
  */
-function getCourseManagerMentorGroups(): GetMentorGroupsT {
+function getCourseManagerMentorGroups() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [mentorGroups, setMentorGroups] = useState<MentorGroupModel[]>([]);

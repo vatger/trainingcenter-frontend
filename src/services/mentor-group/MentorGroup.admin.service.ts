@@ -58,8 +58,7 @@ function getByID(mentor_group_id: string | number | undefined) {
 /**
  * Gets an array of mentor groups that I can edit (i.e. the admin flag is set)
  */
-type GetEditableMentorGroupsT = { mentorGroups: MentorGroupModel[]; loading: boolean; loadingError: APIResponseError };
-function getEditableMentorGroups(): GetEditableMentorGroupsT {
+function getEditableMentorGroups() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [mentorGroups, setMentorGroups] = useState<MentorGroupModel[]>([]);
