@@ -1,8 +1,9 @@
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { TbChevronDown } from "react-icons/all";
 import { RenderIf } from "../../conditionals/RenderIf";
+import {AccordionProps} from "./Accordion.props";
 
-export function Accordion(props: { expanded?: boolean; title?: string; children?: ReactElement | ReactElement[]; className?: string }) {
+export function Accordion(props: AccordionProps) {
     const [expanded, setExpanded] = useState<boolean>(props.expanded ?? false);
 
     return (

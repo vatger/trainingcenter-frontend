@@ -1,11 +1,12 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { RenderIf } from "../../conditionals/RenderIf";
+import {TimeLineItemProps, TimeLineProps} from "./TimeLine.props";
 
-export function TimeLine(props: { children: ReactElement[] | ReactElement }) {
+export function TimeLine(props: TimeLineProps) {
     return <ul className="timeline">{props.children}</ul>;
 }
 
-export function TimeLineItem(props: { color: string; avatarIcon: ReactElement; showConnectionLine: boolean; children?: ReactElement | ReactElement[] }) {
+export function TimeLineItem(props: TimeLineItemProps) {
     return (
         <li className="timeline-item">
             <div className="timeline-item-wrapper">

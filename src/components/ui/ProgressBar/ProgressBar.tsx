@@ -1,6 +1,7 @@
 import { RenderIf } from "../../conditionals/RenderIf";
+import {ProgressBarProps} from "./ProgressBar.props";
 
-export function ProgressBar(props: { value: number; text?: string; className?: string; hidePercentage?: boolean }) {
+export function ProgressBar(props: ProgressBarProps) {
     return (
         <div className={"progress line " + (props.className ?? "")}>
             <div className="progress-wrapper">

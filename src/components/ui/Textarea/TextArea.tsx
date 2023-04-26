@@ -1,32 +1,9 @@
-import { ReactElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
 import { TbAlertCircle } from "react-icons/all";
 import { getColorClassBasedOnPercentage } from "../../../utils/helper/ColorHelper";
 import { RenderIf } from "../../conditionals/RenderIf";
-
-type TextAreaProps = {
-    className?: string;
-    label?: string;
-    labelSmall?: boolean;
-    disabled?: boolean;
-    loading?: boolean;
-    noResize?: boolean;
-    description?: string;
-    children?: string | any[];
-    name?: string;
-    placeholder?: string;
-    value?: string;
-    textAreaClassName?: string;
-    required?: boolean;
-    inputError?: boolean;
-
-    rows?: number;
-    maxLength?: number;
-
-    regex?: RegExp;
-    regexMatchEmpty?: boolean;
-    regexCheckInitial?: boolean;
-};
+import {TextAreaProps} from "./TextArea.props";
 
 export function TextArea(props: TextAreaProps) {
     const [inputVal, setInputVal] = useState<string>(props.value ?? "");

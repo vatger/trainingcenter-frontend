@@ -1,13 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { TbArrowLeft } from "react-icons/all";
-import { ReactElement } from "react";
-
-type PageHeaderProps = {
-    title: string | ReactElement;
-    breadcrumbs?: ReactElement | string;
-    hideBackLink?: boolean;
-    navigateHref?: string;
-};
+import {PageHeaderProps} from "./PageHeader.props";
 
 export function PageHeader(props: PageHeaderProps) {
     const navigate = useNavigate();

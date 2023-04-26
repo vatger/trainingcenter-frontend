@@ -1,11 +1,5 @@
-import { ReactElement, useEffect, useState } from "react";
-
-export type TabProps = {
-    tabHeaders: ReactElement[] | string[];
-    children: ReactElement[];
-    type: "pills" | "underline";
-    onChange?: (index: number) => any;
-};
+import { useState } from "react";
+import {TabsProps} from "./Tabs.props";
 
 function getInitialPage(tabHeaders: string[]) {
     let hash = window.location.hash;
@@ -22,7 +16,7 @@ function getInitialPage(tabHeaders: string[]) {
     return 0;
 }
 
-export function Tabs(props: TabProps) {
+export function Tabs(props: TabsProps) {
     const [activePage, setActivePage] = useState<number>(getInitialPage(props.tabHeaders as string[]));
 
     const headerClasses = {

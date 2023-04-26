@@ -1,15 +1,8 @@
 import { TbX } from "react-icons/all";
 import { RenderIf } from "../../conditionals/RenderIf";
-import React, { ReactElement, useRef } from "react";
+import React, { useRef } from "react";
 import { Separator } from "../Separator/Separator";
-
-type ModalProps = {
-    show: boolean;
-    onClose?: () => any;
-    title: string;
-    children?: ReactElement | ReactElement[];
-    footer?: ReactElement | ReactElement[];
-};
+import {ModalProps} from "./Modal.props";
 
 export function Modal(props: ModalProps) {
     const modalRef = useRef<HTMLDivElement>(null);

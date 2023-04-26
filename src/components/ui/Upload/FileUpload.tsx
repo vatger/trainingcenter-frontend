@@ -1,47 +1,15 @@
-import { AiOutlineFileImage, AiOutlineFileJpg, AiOutlineFilePdf, AiOutlineFileUnknown, AiOutlineFileZip, TbCheck, TbUpload, TbX } from "react-icons/all";
-import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import { TbCheck, TbUpload, TbX } from "react-icons/all";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { MapArray } from "../../conditionals/MapArray";
 import prettyBytes from "pretty-bytes";
 import { Button } from "../Button/Button";
 import { COLOR_OPTS } from "../../../configs/theme/theme.config";
 import { RenderIf } from "../../conditionals/RenderIf";
 import { ProgressBar } from "../ProgressBar/ProgressBar";
+import {FileUploadProps} from "./FileUpload.props";
+import FileUploadHelper from "./FileUpload.helper";
 
-function renderFileImage(fileExt: string) {
-    switch (fileExt.toLowerCase()) {
-        case "jpg":
-            return <AiOutlineFileJpg size={30} />;
-
-        case "png":
-            return <AiOutlineFileImage size={30} />;
-
-        case "pdf":
-            return <AiOutlineFilePdf size={30} />;
-
-        case "zip":
-            return <AiOutlineFileZip size={30} />;
-
-        default:
-            return <AiOutlineFileUnknown size={30} />;
-    }
-}
-
-export type UploadProps = {
-    accept: string[];
-    isUploading: boolean;
-    progress: number;
-    disabled?: boolean;
-    onSubmit?: (data: FormData) => any;
-    showSuccess: boolean;
-    fileLimit?: number;
-    customButtonIcon?: ReactElement;
-    onFileChange?: (files: File[]) => any;
-    customButtonText?: string;
-    buttonIsSubmit?: boolean;
-    inputName?: string;
-};
-
-export function FileUpload(props: UploadProps) {
+export function FileUpload(props: FileUploadProps) {
     const [isHover, setIsHover] = useState<boolean>(false);
     const [fileList, setFileList] = useState<File[] | undefined>(undefined);
 
@@ -106,7 +74,7 @@ export function FileUpload(props: UploadProps) {
                     readOnly={(props.disabled || props.isUploading || (props.fileLimit ?? 999) == fileList?.length) ?? false}
                     onDragEnter={() => setIsHover(true)}
                     onDragExit={() => setIsHover(false)}
-                    onInput={e => {
+                    onInput={() => {
                         setIsHover(false);
                     }}
                     onChange={handleFileChange}
@@ -157,7 +125,7 @@ export function FileUpload(props: UploadProps) {
                                 return (
                                     <div key={index} className="upload-file">
                                         <div className="flex">
-                                            <div className="upload-file-thumbnail">{renderFileImage(value.name.split(".").pop() ?? "pdf")}</div>
+                                            <div className="upload-file-thumbnail">{FileUploadHelper.fileImage(value.name.split(".").pop() ?? "pdf")}</div>
                                             <div className="upload-file-info">
                                                 <h6 className="upload-file-name">{value.name}</h6>
                                                 <span className="upload-file-size">{prettyBytes(value.size)}</span>
