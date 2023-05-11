@@ -24,9 +24,9 @@ export function TrainingTypeViewView() {
                 truthValue={loading}
                 elementTrue={<TrainingTypeViewSkeleton />}
                 elementFalse={
-                    <Card bordered>
+                    <Card>
                         <Tabs type={"underline"} tabHeaders={tabHeaders}>
-                            <TrainingTypeViewSettingsSubpage loading={loading} trainingType={trainingType} />
+                            <TrainingTypeViewSettingsSubpage loading={loading} trainingType={trainingType} setTrainingType={setTrainingType} />
                             <TrainingTypeViewTrainingStationsSubpage loading={loading} trainingType={trainingType} setTrainingType={setTrainingType} />
                         </Tabs>
                     </Card>

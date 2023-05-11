@@ -1,9 +1,9 @@
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { TrainingTypeModel } from "../../models/TrainingType.model";
-import { AxiosError, AxiosResponse } from "axios";
-import { APIResponseError } from "../../exceptions/APIResponseError";
-import { Dispatch, useEffect, useState } from "react";
-import { TrainingStationModel } from "../../models/TrainingStation.model";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {TrainingTypeModel} from "../../models/TrainingType.model";
+import {AxiosError, AxiosResponse} from "axios";
+import {APIResponseError} from "../../exceptions/APIResponseError";
+import {useEffect, useState} from "react";
+import {TrainingStationModel} from "../../models/TrainingStation.model";
 
 /**
  * Gets all training exceptions currently stored in the database
@@ -141,7 +141,7 @@ async function create(data: object): Promise<TrainingTypeModel> {
  */
 async function update(id: number | string, data: object): Promise<TrainingTypeModel> {
     return axiosInstance
-        .put("/administration/training-type/" + id, {
+        .patch("/administration/training-type/" + id, {
             data: data,
         })
         .then((res: AxiosResponse) => {

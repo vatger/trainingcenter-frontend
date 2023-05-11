@@ -1,4 +1,3 @@
-import { Card } from "../../../../../../components/ui/Card/Card";
 import { Input } from "../../../../../../components/ui/Input/Input";
 import { TbBook2, TbCirclePlus, TbEdit, TbId, TbTemplate, TbTrash } from "react-icons/all";
 import { Select } from "../../../../../../components/ui/Select/Select";
@@ -6,7 +5,7 @@ import { Separator } from "../../../../../../components/ui/Separator/Separator";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../configs/theme/theme.config";
 import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, {Dispatch, FormEvent, useEffect, useState} from "react";
 import { TrainingTypeModel, TrainingTypes } from "../../../../../../models/TrainingType.model";
 import { AddLogTemplateModalPartial } from "../../_partials/AddLogTemplateModal.partial";
 import { TrainingLogTemplateModel } from "../../../../../../models/TrainingLogTemplate.model";
@@ -17,6 +16,7 @@ import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 type TrainingTypeViewSettingsSubpageProps = {
     loading: boolean;
     trainingType?: TrainingTypeModel;
+    setTrainingType: Dispatch<TrainingTypeModel>;
 };
 
 export function TrainingTypeViewSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) {
@@ -45,7 +45,8 @@ export function TrainingTypeViewSettingsSubpage(props: TrainingTypeViewSettingsS
 
         const data = FormHelper.getEntries(e.target);
         TrainingTypeAdminService.update(props.trainingType?.id ?? -1, data)
-            .then(() => {
+            .then((res: TrainingTypeModel) => {
+                props.setTrainingType(res);
                 ToastHelper.success("Trainingstyp erfolgreich aktualisiert");
             })
             .catch(() => {
