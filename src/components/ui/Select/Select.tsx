@@ -1,8 +1,8 @@
-import { SelectProps } from "./Select.props";
-import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
-import { TbAlertCircle, TbChevronDown } from "react-icons/all";
-import { useState } from "react";
-import { Spinner } from "../Spinner/Spinner";
+import {SelectProps} from "./Select.props";
+import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
+import {TbAlertCircle, TbChevronDown} from "react-icons/all";
+import {useState} from "react";
+import {Spinner} from "../Spinner/Spinner";
 
 export function Select(props: SelectProps) {
     const [focus, setFocus] = useState<boolean>(false);

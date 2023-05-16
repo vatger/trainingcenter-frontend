@@ -1,5 +1,5 @@
-import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
-import { getBadgeColorClass } from "./Badge.helper";
+import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
+import {getBadgeColorClass} from "./Badge.helper";
 import {BadgeProps} from "./Badge.props";
 
 export function Badge(props: BadgeProps) {

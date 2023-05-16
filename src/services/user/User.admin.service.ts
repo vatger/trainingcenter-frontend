@@ -1,8 +1,8 @@
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { AxiosError, AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
-import { UserModel } from "../../models/User.model";
-import { APIResponseError } from "../../exceptions/APIResponseError";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {AxiosError, AxiosResponse} from "axios";
+import {useEffect, useState} from "react";
+import {UserModel} from "../../models/User.model";
+import {APIResponseError} from "../../exceptions/APIResponseError";
 
 /**
  * Gets the user's data (VATSIM Data) excluding sensitive data like the E-Mail

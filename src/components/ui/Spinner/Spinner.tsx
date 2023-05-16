@@ -1,5 +1,4 @@
-import { SpinnerProps } from "./Spinner.props";
-import { CgSpinner } from "react-icons/all";
+import {SpinnerProps} from "./Spinner.props";
 
 import "./spinner.css";
 

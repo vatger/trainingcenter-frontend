@@ -1,4 +1,4 @@
-import { TrainingTypeModel } from "./TrainingType.model";
+import {TrainingTypeModel} from "./TrainingType.model";
 
 export type CourseModel = {
     id: number;

@@ -1,5 +1,5 @@
 import React from "react";
-import { RenderIf } from "../../conditionals/RenderIf";
+import {RenderIf} from "../../conditionals/RenderIf";
 import {TimeLineItemProps, TimeLineProps} from "./TimeLine.props";
 
 export function TimeLine(props: TimeLineProps) {

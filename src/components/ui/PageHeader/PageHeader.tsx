@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { TbArrowLeft } from "react-icons/all";
+import {useNavigate} from "react-router-dom";
+import {TbArrowLeft} from "react-icons/all";
 import {PageHeaderProps} from "./PageHeader.props";
 
 export function PageHeader(props: PageHeaderProps) {
     const navigate = useNavigate();
 
     return (
-        <div className={`flex flex-col ${props.hideBackLink == true && "mb-7"}`}>
+        <div className={`flex flex-col ${(props.hideBackLink == true || new URL(window.location.href).searchParams.has("r")) && "mb-7"}`}>
             <div className={"flex w-full justify-between flex-col md:flex-row"}>
                 <h2 style={{ marginBottom: 0 }} className={"mb-4 pb-0 mr-7"}>
                     {props.title}
@@ -16,7 +16,7 @@ export function PageHeader(props: PageHeaderProps) {
                 )}
             </div>
 
-            {(props.hideBackLink == null || !props.hideBackLink) && (
+            {((props.hideBackLink == null || !props.hideBackLink) && !new URL(window.location.href).searchParams.has("r")) && (
                 <div className={"flex justify-between mt-3 mb-7"}>
                     <div onClick={() => navigate(-1)} className={"back-link hover:underline hover:cursor-pointer"}>
                         <div className={"flex"}>

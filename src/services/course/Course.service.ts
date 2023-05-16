@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { CourseModel } from "../../models/Course.model";
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { AxiosError, AxiosResponse } from "axios";
-import { APIResponseError } from "../../exceptions/APIResponseError";
+import {useEffect, useState} from "react";
+import {CourseModel} from "../../models/Course.model";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {AxiosError, AxiosResponse} from "axios";
+import {APIResponseError} from "../../exceptions/APIResponseError";
 
 /**
  * Gets all courses that I am not in any way affiliated to

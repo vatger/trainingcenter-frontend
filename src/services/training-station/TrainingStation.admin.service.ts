@@ -1,8 +1,8 @@
-import { APIResponseError } from "../../exceptions/APIResponseError";
-import { useEffect, useState } from "react";
-import { TrainingStationModel } from "../../models/TrainingStation.model";
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { AxiosError, AxiosResponse } from "axios";
+import {APIResponseError} from "../../exceptions/APIResponseError";
+import {useEffect, useState} from "react";
+import {TrainingStationModel} from "../../models/TrainingStation.model";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {AxiosError, AxiosResponse} from "axios";
 
 /**
  * Gets a list of all training stations stored in the database

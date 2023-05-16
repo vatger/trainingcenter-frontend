@@ -1,9 +1,9 @@
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { MentorGroupModel } from "../../models/MentorGroup.model";
-import { AxiosError, AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
-import { CourseModel } from "../../models/Course.model";
-import { APIResponseError } from "../../exceptions/APIResponseError";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {MentorGroupModel} from "../../models/MentorGroup.model";
+import {AxiosError, AxiosResponse} from "axios";
+import {useEffect, useState} from "react";
+import {CourseModel} from "../../models/Course.model";
+import {APIResponseError} from "../../exceptions/APIResponseError";
 
 /**
  * Returns all courses that are associated to the current user (i.e. enrolled in course or completed)

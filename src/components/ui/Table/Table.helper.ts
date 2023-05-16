@@ -1,4 +1,4 @@
-import { TableColumn } from "react-data-table-component";
+import {TableColumn} from "react-data-table-component";
 
 export function search(headers: (TableColumn<any> & { searchable?: boolean })[], data: Object[], searchString: string): Object[] {
     const lowerCaseSearchString = searchString.toLowerCase();

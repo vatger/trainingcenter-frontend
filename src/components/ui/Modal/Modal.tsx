@@ -1,7 +1,7 @@
-import { TbX } from "react-icons/all";
-import { RenderIf } from "../../conditionals/RenderIf";
-import React, { useRef } from "react";
-import { Separator } from "../Separator/Separator";
+import {TbX} from "react-icons/all";
+import {RenderIf} from "../../conditionals/RenderIf";
+import React, {useRef} from "react";
+import {Separator} from "../Separator/Separator";
 import {ModalProps} from "./Modal.props";
 
 export function Modal(props: ModalProps) {

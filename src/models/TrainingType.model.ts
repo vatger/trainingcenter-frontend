@@ -1,5 +1,5 @@
-import { TrainingLogTemplateModel } from "./TrainingLogTemplate.model";
-import { TrainingStationModel } from "./TrainingStation.model";
+import {TrainingLogTemplateModel} from "./TrainingLogTemplate.model";
+import {TrainingStationModel} from "./TrainingStation.model";
 
 export type TrainingTypes = "online" | "sim" | "cpt" | "lesson";
 

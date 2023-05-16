@@ -1,4 +1,4 @@
-import { UserModel } from "./User.model";
+import {UserModel} from "./User.model";
 
 type MentorGroupsBelongsToCourses = {
     id: number;

@@ -1,6 +1,6 @@
-import { TbBell, TbClipboardList, TbMailOpened } from "react-icons/all";
-import { useEffect, useRef, useState } from "react";
-import { generateUUID } from "../../../utils/helper/UUIDHelper";
+import {TbBell, TbClipboardList, TbMailOpened} from "react-icons/all";
+import {useEffect, useRef, useState} from "react";
+import {generateUUID} from "../../../utils/helper/UUIDHelper";
 
 export function NotificationHeader() {
     const selectNotificationUUID = useRef(generateUUID());

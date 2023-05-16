@@ -1,11 +1,11 @@
-import { TbCheck, TbUpload, TbX } from "react-icons/all";
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { MapArray } from "../../conditionals/MapArray";
+import {TbCheck, TbUpload, TbX} from "react-icons/all";
+import React, {ChangeEvent, useEffect, useState} from "react";
+import {MapArray} from "../../conditionals/MapArray";
 import prettyBytes from "pretty-bytes";
-import { Button } from "../Button/Button";
-import { COLOR_OPTS } from "../../../configs/theme/theme.config";
-import { RenderIf } from "../../conditionals/RenderIf";
-import { ProgressBar } from "../ProgressBar/ProgressBar";
+import {Button} from "../Button/Button";
+import {COLOR_OPTS} from "../../../assets/theme.config";
+import {RenderIf} from "../../conditionals/RenderIf";
+import {ProgressBar} from "../ProgressBar/ProgressBar";
 import {FileUploadProps} from "./FileUpload.props";
 import FileUploadHelper from "./FileUpload.helper";
 

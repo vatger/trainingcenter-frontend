@@ -1,10 +1,10 @@
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { Dispatch, useEffect, useState } from "react";
-import { CourseModel, CourseSkillTemplateModel } from "../../models/Course.model";
-import { Axios, AxiosError, AxiosResponse } from "axios";
-import { UserModel } from "../../models/User.model";
-import { APIResponseError } from "../../exceptions/APIResponseError";
-import { MentorGroupModel } from "../../models/MentorGroup.model";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {useEffect, useState} from "react";
+import {CourseModel, CourseSkillTemplateModel} from "../../models/Course.model";
+import {AxiosError, AxiosResponse} from "axios";
+import {UserModel} from "../../models/User.model";
+import {APIResponseError} from "../../exceptions/APIResponseError";
+import {MentorGroupModel} from "../../models/MentorGroup.model";
 
 export async function getEditableCourses() {
     return axiosInstance.get("/administration/course/editable");

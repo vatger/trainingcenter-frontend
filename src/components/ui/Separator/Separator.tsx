@@ -1,4 +1,4 @@
-import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
+import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
 import {SeparatorProps} from "./Separator.props";
 
 export function Separator(props: SeparatorProps) {

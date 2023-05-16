@@ -1,10 +1,10 @@
-import { UserModel, UserSettingsModel } from "../../models/User.model";
-import { createContext, Dispatch, ReactElement, useEffect, useState } from "react";
-import { Config } from "../../core/Config";
-import { RenderIf } from "../../components/conditionals/RenderIf";
-import { AuthContextLoadingView } from "./views/AuthContextLoadingView";
+import {UserModel, UserSettingsModel} from "../../models/User.model";
+import {createContext, Dispatch, ReactElement, useEffect, useState} from "react";
+import {Config} from "../../core/Config";
+import {RenderIf} from "../../components/conditionals/RenderIf";
+import {AuthContextLoadingView} from "./views/AuthContextLoadingView";
 import LoginService from "../../services/login/Login.service";
-import { PermissionModel, RoleModel } from "../../models/Permission.model";
+import {PermissionModel, RoleModel} from "../../models/Permission.model";
 
 type AuthContextProps = {
     user: UserModel | undefined;

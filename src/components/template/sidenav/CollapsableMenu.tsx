@@ -1,10 +1,10 @@
-import { FaChevronDown } from "react-icons/all";
-import React, { useContext, useRef } from "react";
-import { MENU_ITEM_HEIGHT } from "../../../configs/theme/theme.config";
-import { generateUUID } from "../../../utils/helper/UUIDHelper";
-import { sideNavMenuContext } from "../../../utils/contexts/SideNavMenuContext";
+import {FaChevronDown} from "react-icons/all";
+import React, {useContext, useRef} from "react";
+import {MENU_ITEM_HEIGHT} from "../../../assets/theme.config";
+import {generateUUID} from "../../../utils/helper/UUIDHelper";
+import {sideNavMenuContext} from "../../../utils/contexts/SideNavMenuContext";
 import authContext from "../../../utils/contexts/AuthContext";
-import { RenderIf } from "../../conditionals/RenderIf";
+import {RenderIf} from "../../conditionals/RenderIf";
 
 export function CollapsableMenu(props: any) {
     const uuid = useRef(generateUUID());

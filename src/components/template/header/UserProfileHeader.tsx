@@ -1,13 +1,12 @@
-import { TbActivityHeartbeat, TbLogout, TbSettings, TbUser } from "react-icons/all";
-import { MenuItem } from "../../ui/MenuItem/MenuItem";
-import { useContext, useEffect, useRef, useState } from "react";
-import { generateUUID } from "../../../utils/helper/UUIDHelper";
-import { Simulate } from "react-dom/test-utils";
+import {TbActivityHeartbeat, TbLogout, TbSettings, TbUser} from "react-icons/all";
+import {MenuItem} from "../../ui/MenuItem/MenuItem";
+import {useContext, useEffect, useRef, useState} from "react";
+import {generateUUID} from "../../../utils/helper/UUIDHelper";
 
 import "./GenericHeaderAnimation.scss";
 import authContext from "../../../utils/contexts/AuthContext";
-import { axiosInstance } from "../../../utils/network/AxiosInstance";
-import { Spinner } from "../../ui/Spinner/Spinner";
+import {axiosInstance} from "../../../utils/network/AxiosInstance";
+import {Spinner} from "../../ui/Spinner/Spinner";
 
 export function UserProfileHeader() {
     const { user } = useContext(authContext);

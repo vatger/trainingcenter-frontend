@@ -1,8 +1,8 @@
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { SystemlogModel } from "../../models/Systemlog.model";
-import { APIResponseError } from "../../exceptions/APIResponseError";
-import { useEffect, useState } from "react";
-import { AxiosError, AxiosResponse } from "axios";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {SystemlogModel} from "../../models/Systemlog.model";
+import {APIResponseError} from "../../exceptions/APIResponseError";
+import {useEffect, useState} from "react";
+import {AxiosError, AxiosResponse} from "axios";
 
 /**
  * Returns an array of all System-logs currently stored in the database

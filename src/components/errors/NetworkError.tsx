@@ -1,10 +1,10 @@
-import { Alert } from "../ui/Alert/Alert";
-import { TYPE_OPTS } from "../../configs/theme/theme.config";
-import { AxiosError } from "axios";
-import { NetworkErrorModal } from "./NetworkErrorModal";
-import { useRef, useState } from "react";
-import { generateUUID } from "../../utils/helper/UUIDHelper";
-import { RenderIf } from "../conditionals/RenderIf";
+import {Alert} from "../ui/Alert/Alert";
+import {TYPE_OPTS} from "../../assets/theme.config";
+import {AxiosError} from "axios";
+import {NetworkErrorModal} from "./NetworkErrorModal";
+import {useRef, useState} from "react";
+import {generateUUID} from "../../utils/helper/UUIDHelper";
+import {RenderIf} from "../conditionals/RenderIf";
 
 type NetworkErrorProps = {
     error: AxiosError | string | undefined | null;

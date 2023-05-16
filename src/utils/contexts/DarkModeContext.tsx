@@ -1,6 +1,6 @@
-import { createContext, ReactElement, useContext, useEffect, useState } from "react";
+import {createContext, ReactElement, useContext, useEffect, useState} from "react";
 import authContext from "./AuthContext";
-import { UserModel, UserSettingsModel } from "../../models/User.model";
+import {UserSettingsModel} from "../../models/User.model";
 
 type DarkModeContextProps = {
     darkMode: boolean;

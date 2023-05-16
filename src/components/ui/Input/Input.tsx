@@ -1,8 +1,8 @@
-import { InputProps } from "./Input.props";
-import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
-import { Spinner } from "../Spinner/Spinner";
-import { useEffect, useState } from "react";
-import { TbAlertCircle, TbError404, TbExclamationMark } from "react-icons/all";
+import {InputProps} from "./Input.props";
+import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
+import {Spinner} from "../Spinner/Spinner";
+import {useEffect, useState} from "react";
+import {TbAlertCircle} from "react-icons/all";
 
 export function Input(props: InputProps) {
     const [inputVal, setInputVal] = useState<string>(props.value ?? "");

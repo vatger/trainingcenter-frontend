@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { APIResponseError } from "../../exceptions/APIResponseError";
-import { PermissionModel } from "../../models/Permission.model";
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { AxiosError, AxiosResponse } from "axios";
+import {useEffect, useState} from "react";
+import {APIResponseError} from "../../exceptions/APIResponseError";
+import {PermissionModel} from "../../models/Permission.model";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {AxiosError, AxiosResponse} from "axios";
 
 export const enum PermissionCreateEnum {
     OK,

@@ -1,5 +1,5 @@
-import { CardProps } from "./Card.props";
-import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
+import {CardProps} from "./Card.props";
+import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
 
 export function Card(props: CardProps) {
     const cardClasses = joinClassNames(

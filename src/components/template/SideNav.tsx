@@ -1,8 +1,8 @@
 import vaccLogo from "../../assets/img/vacc_logo.png";
 import vaccLogoDark from "../../assets/img/vacc_logo_dark.png";
 
-import React, { useContext, useEffect } from "react";
-import { MenuItem } from "../ui/MenuItem/MenuItem";
+import React, {useContext, useEffect} from "react";
+import {MenuItem} from "../ui/MenuItem/MenuItem";
 import {
     TbAdjustments,
     TbBooks,
@@ -15,31 +15,26 @@ import {
     TbClipboardList,
     TbClipboardText,
     TbClock,
-    TbClock2,
     TbDashboard,
-    TbDots,
     TbFilePlus,
     TbInbox,
     TbList,
     TbListCheck,
     TbListDetails,
     TbLock,
-    TbOutlet,
-    TbRotateClockwise,
     TbRss,
     TbSearch,
     TbSettings,
     TbSquareCheck,
     TbTemplate,
-    TbTrain,
     TbUsers,
     TbX,
 } from "react-icons/all";
-import { CollapsableMenu } from "./sidenav/CollapsableMenu";
-import { sideNavMenuContext } from "../../utils/contexts/SideNavMenuContext";
-import { handleResize } from "./sidenav/SideNav.helper";
+import {CollapsableMenu} from "./sidenav/CollapsableMenu";
+import {sideNavMenuContext} from "../../utils/contexts/SideNavMenuContext";
+import {handleResize} from "./sidenav/SideNav.helper";
 import darkModeContext from "../../utils/contexts/DarkModeContext";
-import { RenderIf } from "../conditionals/RenderIf";
+import {RenderIf} from "../conditionals/RenderIf";
 import authContext from "../../utils/contexts/AuthContext";
 
 const SIDENAV_WIDTH = "290px";

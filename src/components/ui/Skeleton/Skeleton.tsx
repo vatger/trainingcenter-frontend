@@ -1,5 +1,5 @@
-import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
-import { SkeletonProps } from "./Skeleton.props";
+import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
+import {SkeletonProps} from "./Skeleton.props";
 
 export function Skeleton(props: SkeletonProps) {
     const classes = joinClassNames(

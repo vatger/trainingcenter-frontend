@@ -1,6 +1,6 @@
-import { Id, toast, ToastOptions, UpdateOptions } from "react-toastify";
-import { TbCircleCheck, TbCircleX } from "react-icons/all";
-import { Spinner } from "../../components/ui/Spinner/Spinner";
+import {Id, toast, ToastOptions, UpdateOptions} from "react-toastify";
+import {TbCircleCheck, TbCircleX} from "react-icons/all";
+import {Spinner} from "../../components/ui/Spinner/Spinner";
 
 /**
  * Used for updating

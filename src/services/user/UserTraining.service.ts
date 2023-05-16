@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { APIResponseError } from "../../exceptions/APIResponseError";
-import { TrainingRequestModel } from "../../models/TrainingRequest.model";
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { AxiosError, AxiosResponse } from "axios";
+import {useEffect, useState} from "react";
+import {APIResponseError} from "../../exceptions/APIResponseError";
+import {TrainingRequestModel} from "../../models/TrainingRequest.model";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {AxiosError, AxiosResponse} from "axios";
 
 /**
  * Returns a list of the currently signed-in user's training requests

@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useState } from "react";
+import {createContext, ReactElement, useState} from "react";
 
 export const enum LanguageEnum {
     DE = "de",

@@ -1,8 +1,8 @@
-import { axiosInstance } from "../../utils/network/AxiosInstance";
-import { AxiosError, AxiosResponse } from "axios";
-import { MentorGroupModel } from "../../models/MentorGroup.model";
-import { useEffect, useState } from "react";
-import { APIResponseError } from "../../exceptions/APIResponseError";
+import {axiosInstance} from "../../utils/network/AxiosInstance";
+import {AxiosError, AxiosResponse} from "axios";
+import {MentorGroupModel} from "../../models/MentorGroup.model";
+import {useEffect, useState} from "react";
+import {APIResponseError} from "../../exceptions/APIResponseError";
 
 /**
  * Creates a new mentor group taking in data

@@ -1,11 +1,9 @@
-import { TbActivityHeartbeat, TbLogout, TbMenu2, TbSettings, TbUser } from "react-icons/all";
-import { MenuItem } from "../../ui/MenuItem/MenuItem";
-import { useContext, useEffect, useRef, useState } from "react";
-import { generateUUID } from "../../../utils/helper/UUIDHelper";
-import { sideNavMenuContext } from "../../../utils/contexts/SideNavMenuContext";
-import { UserProfileHeader } from "./UserProfileHeader";
-import { SelectLanguageHeader } from "./SelectLanguageHeader";
-import { NotificationHeader } from "./NotificationHeader";
+import {TbMenu2} from "react-icons/all";
+import {useContext} from "react";
+import {sideNavMenuContext} from "../../../utils/contexts/SideNavMenuContext";
+import {UserProfileHeader} from "./UserProfileHeader";
+import {SelectLanguageHeader} from "./SelectLanguageHeader";
+import {NotificationHeader} from "./NotificationHeader";
 
 export function Header() {
     const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
