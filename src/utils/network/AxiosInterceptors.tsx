@@ -1,11 +1,11 @@
 import {axiosInstance} from "./AxiosInstance";
-import {useNavigate} from "react-router-dom";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {AxiosResponse} from "axios";
 import {ConversionUtils} from "turbocommons-ts";
 
 export function AxiosInterceptors() {
-    const navigate = useNavigate();
+    const navigate: NavigateFunction = useNavigate();
 
     useEffect(() => {
         const responseHandler = (config: AxiosResponse) => {
@@ -27,7 +27,7 @@ export function AxiosInterceptors() {
             return Promise.reject(error);
         };
 
-        const responseInterceptor = axiosInstance.interceptors.response.use(responseHandler, responseErrorInterceptor);
+        const responseInterceptor: number = axiosInstance.interceptors.response.use(responseHandler, responseErrorInterceptor);
 
         return () => {
             axiosInstance.interceptors.response.eject(responseInterceptor);

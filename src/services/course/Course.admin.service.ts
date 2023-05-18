@@ -6,6 +6,8 @@ import {UserModel} from "../../models/User.model";
 import {APIResponseError} from "../../exceptions/APIResponseError";
 import {MentorGroupModel} from "../../models/MentorGroup.model";
 
+//TODO: Rename all service files to <PascalCase name>Service.ts
+
 export async function getEditableCourses() {
     return axiosInstance.get("/administration/course/editable");
 }

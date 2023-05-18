@@ -1,4 +1,5 @@
 export const MENU_ITEM_HEIGHT = 40;
+export const SIDENAV_WIDTH = "290px";
 
 export enum SIZE_OPTS {
     XS,

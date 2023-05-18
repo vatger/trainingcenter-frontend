@@ -1,4 +1,4 @@
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation, Location} from "react-router-dom";
 import {UserListView} from "./mentor/users/user-search/UserList.view";
 import {UserViewView} from "./mentor/users/user-view/UserView.view";
 import {RequestFastTrackView} from "./mentor/users/user-view/_subpages/RequestFastTrack.subpage";
@@ -23,7 +23,7 @@ import {ViewUserNotesView} from "./mentor/users/user-view/_subpages/ViewUserNote
 import {OpenRequestViewView} from "./mentor/request/open-request-view/OpenRequestView.view";
 
 export function AdministrationRouter() {
-    const location = useLocation();
+    const location: Location = useLocation();
 
     return (
         <Routes>

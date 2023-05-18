@@ -61,9 +61,15 @@ export function AuthProvider(props: { children: ReactElement | ReactElement[] })
         <>
             <RenderIf
                 truthValue={user?.id == null && !window.location.href.includes("login")}
-                elementTrue={<AuthContextLoadingView />}
+                elementTrue={<AuthContextLoadingView/>}
                 elementFalse={
-                    <authContext.Provider value={{ user, changeUser, userPermissions, userSettings, setUserSettings }}>{props.children}</authContext.Provider>
+                    <authContext.Provider value={{
+                        user,
+                        changeUser,
+                        userPermissions,
+                        userSettings,
+                        setUserSettings
+                    }}>{props.children}</authContext.Provider>
                 }
             />
         </>

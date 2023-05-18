@@ -36,13 +36,15 @@ import {handleResize} from "./sidenav/SideNav.helper";
 import darkModeContext from "../../utils/contexts/DarkModeContext";
 import {RenderIf} from "../conditionals/RenderIf";
 import authContext from "../../utils/contexts/AuthContext";
-
-const SIDENAV_WIDTH = "290px";
+import languageContext from "../../utils/contexts/LanguageContext";
+import courseSidenavTranslation from "../../assets/lang/sidenav/courseSidenav.translation";
+import {SIDENAV_WIDTH} from "../../assets/theme.config";
 
 export function SideNav() {
     const { userPermissions } = useContext(authContext);
     const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
     const { darkMode } = useContext(darkModeContext);
+    const {language} = useContext(languageContext);
 
     function toggleMobileNav() {
         const backdrop = document.getElementById("backdrop-small-nav");
@@ -117,15 +119,15 @@ export function SideNav() {
                                 <div className="menu-group">
                                     <div className="menu-title menu-title-transparent">Ausbildung</div>
 
-                                    <CollapsableMenu title={"Kurse"} icon={<TbBooks size={20} />}>
+                                    <CollapsableMenu title={courseSidenavTranslation[language].title} icon={<TbBooks size={20} />}>
                                         <MenuItem href={"course/search"} icon={<TbSearch size={20} />}>
-                                            Kurse Suchen
+                                            {courseSidenavTranslation[language].search}
                                         </MenuItem>
                                         <MenuItem href={"course/active"} icon={<TbListDetails size={20} />}>
-                                            Aktive Kurse
+                                            {courseSidenavTranslation[language].active}
                                         </MenuItem>
                                         <MenuItem href={"course/completed"} icon={<TbCheckupList size={20} />}>
-                                            Abgeschlossene Kurse
+                                            {courseSidenavTranslation[language].completed}
                                         </MenuItem>
                                     </CollapsableMenu>
 

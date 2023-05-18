@@ -1,4 +1,4 @@
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation, Location} from "react-router-dom";
 import {Overview} from "./authenticated/overview/Overview";
 import {ManageAccountView} from "./authenticated/account/manage-account/ManageAccount.view";
 import {Error403} from "./errors/403";
@@ -16,7 +16,7 @@ import {
 } from "./authenticated/training/training-open-request-view/TrainingOpenRequestView.view";
 
 export function MainRouter() {
-    const location = useLocation();
+    const location: Location = useLocation();
 
     return (
         <Routes>
