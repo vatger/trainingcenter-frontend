@@ -1,24 +1,17 @@
 # Trainingcenter-Frontend
 
-Short description outlining the aim of the project and the functionality this project / application provides. 
-An example of this can be found [here](https://github.com/vatger/teamspeak-station-bot).
+The trainingcenter-frontend project contains the frontend code for the VATSIM Germany ATC Training Center. Built using React, this project focuses on providing an interactive user interface for both trainees and mentors alike. Data is exchanged with the underlying SQL database using the Express.js based [trainingcenter-backend](https://github.com/vatger/trainingcenter-backend) project. 
 
 ## Contact
 
 |      Name    | Responsible for |                      Contact                      |
 |:------------:|:---------------:|:-------------------------------------------------:|
-|   Nikolas G. |    Frontend     |  `email@example.com` or `Example#1234` (Discord)  |
+|   Nikolas G. - 1373921 |    *     |  `git@vatger.de`  |
 
 ## Prerequisites
-- **TBD**
+- **Node.js** (https://nodejs.org/en)
 
 ## Running the Application
 
-This section should outline how the project can be executed in a local environment and should
-include any non-standard packages that are required to be installed before executing the
-application.
-
 1. Run `npm install`
-2. Run `npm run start:dev`
-
-## Any other subsections that could be useful for users/developers
+4. Run `npm run dev`
