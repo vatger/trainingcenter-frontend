@@ -1,4 +1,4 @@
-import {TableColumn} from "react-data-table-component";
+import { TableColumn } from "react-data-table-component";
 
 export type TableProps = {
     className?: string;

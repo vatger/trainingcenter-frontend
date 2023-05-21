@@ -1,14 +1,17 @@
-import {TableColumn} from "react-data-table-component";
-import {TrainingRequestModel} from "../../../../../models/TrainingRequest.model";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
+import { TableColumn } from "react-data-table-component";
+import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
 import moment from "moment";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../assets/theme.config";
-import {TbEye, TbTrash} from "react-icons/all";
-import React, {Dispatch} from "react";
-import {NavigateFunction} from "react-router-dom";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { TbEye, TbTrash } from "react-icons/all";
+import React, { Dispatch } from "react";
+import { NavigateFunction } from "react-router-dom";
 
-function getColumns(setDeleteTrainingRequestModal: Dispatch<{ show: boolean; trainingRequest?: TrainingRequestModel }>, navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
+function getColumns(
+    setDeleteTrainingRequestModal: Dispatch<{ show: boolean; trainingRequest?: TrainingRequestModel }>,
+    navigate: NavigateFunction
+): TableColumn<TrainingRequestModel>[] {
     return [
         {
             name: "Name",
@@ -31,7 +34,7 @@ function getColumns(setDeleteTrainingRequestModal: Dispatch<{ show: boolean; tra
         },
         {
             name: "Station",
-            selector: row => row.training_station?.callsign ?? "N/A"
+            selector: row => row.training_station?.callsign ?? "N/A",
         },
         {
             name: "Ablaufdatum",

@@ -1,12 +1,12 @@
-import {TableColumn} from "react-data-table-component";
-import {SystemlogModel} from "../../../../../../models/Systemlog.model";
+import { TableColumn } from "react-data-table-component";
+import { SyslogModel } from "../../../../../../models/SyslogModel";
 import moment from "moment/moment";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {TbEye} from "react-icons/all";
-import {NavigateFunction} from "react-router-dom";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { TbEye } from "react-icons/all";
+import { NavigateFunction } from "react-router-dom";
 
-function getColumns(navigate: NavigateFunction): TableColumn<SystemlogModel>[] {
+function getColumns(navigate: NavigateFunction): TableColumn<SyslogModel>[] {
     return [
         {
             name: "Method",

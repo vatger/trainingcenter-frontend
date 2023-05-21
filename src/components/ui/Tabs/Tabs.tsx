@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {TabsProps} from "./Tabs.props";
+import { useEffect, useState } from "react";
+import { TabsProps } from "./Tabs.props";
 
 function getTabByLocationHash(tabHeaders: string[]): number {
     let hash = window.location.hash;
@@ -26,7 +26,7 @@ export function Tabs(props: TabsProps) {
 
     useEffect(() => {
         setActivePage(getTabByLocationHash(props.tabHeaders as string[]));
-    }, [window.location.hash])
+    }, [window.location.hash]);
 
     return (
         <div className="tabs">

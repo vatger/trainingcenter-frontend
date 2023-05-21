@@ -1,17 +1,17 @@
-import {PageHeader} from "../../../../components/ui/PageHeader/PageHeader";
-import {useNavigate, useParams} from "react-router-dom";
-import {Card} from "../../../../components/ui/Card/Card";
-import {Input} from "../../../../components/ui/Input/Input";
-import {TbCalendar, TbCalendarEvent, TbEye, TbId, TbListCheck, TbRadar, TbTrash,} from "react-icons/all";
+import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
+import { useNavigate, useParams } from "react-router-dom";
+import { Card } from "../../../../components/ui/Card/Card";
+import { Input } from "../../../../components/ui/Input/Input";
+import { TbCalendar, TbCalendarEvent, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
 import React from "react";
-import TrainingRequestService from "../../../../services/training-request/TrainingRequest.service";
-import {Button} from "../../../../components/ui/Button/Button";
-import {Separator} from "../../../../components/ui/Separator/Separator";
-import {COLOR_OPTS} from "../../../../assets/theme.config";
+import TrainingRequestService from "../../../../services/training-request/TrainingRequestService";
+import { Button } from "../../../../components/ui/Button/Button";
+import { Separator } from "../../../../components/ui/Separator/Separator";
+import { COLOR_OPTS } from "../../../../assets/theme.config";
 import moment from "moment";
 import StringHelper from "../../../../utils/helper/StringHelper";
-import {TextArea} from "../../../../components/ui/Textarea/TextArea";
-import {RenderIf} from "../../../../components/conditionals/RenderIf";
+import { TextArea } from "../../../../components/ui/Textarea/TextArea";
+import { RenderIf } from "../../../../components/conditionals/RenderIf";
 
 export function TrainingOpenRequestViewView() {
     const navigate = useNavigate();

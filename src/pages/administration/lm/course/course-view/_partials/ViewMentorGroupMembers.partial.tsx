@@ -1,8 +1,8 @@
-import {UserModel} from "../../../../../../models/User.model";
-import {Modal} from "../../../../../../components/ui/Modal/Modal";
-import {MentorGroupModel} from "../../../../../../models/MentorGroup.model";
-import {Table} from "../../../../../../components/ui/Table/Table";
-import {TableColumn} from "react-data-table-component";
+import { UserModel } from "../../../../../../models/UserModel";
+import { Modal } from "../../../../../../components/ui/Modal/Modal";
+import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
+import { Table } from "../../../../../../components/ui/Table/Table";
+import { TableColumn } from "react-data-table-component";
 
 const userTableColumn: TableColumn<UserModel>[] = [
     {

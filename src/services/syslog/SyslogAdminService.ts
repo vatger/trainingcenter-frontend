@@ -1,8 +1,8 @@
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {SystemlogModel} from "../../models/Systemlog.model";
-import {APIResponseError} from "../../exceptions/APIResponseError";
-import {useEffect, useState} from "react";
-import {AxiosError, AxiosResponse} from "axios";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { SyslogModel } from "../../models/SyslogModel";
+import { APIResponseError } from "../../exceptions/APIResponseError";
+import { useEffect, useState } from "react";
+import { AxiosError, AxiosResponse } from "axios";
 
 /**
  * Returns an array of all System-logs currently stored in the database
@@ -10,13 +10,13 @@ import {AxiosError, AxiosResponse} from "axios";
 function getAll() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [systemLogs, setSystemLogs] = useState<SystemlogModel[]>([]);
+    const [systemLogs, setSystemLogs] = useState<SyslogModel[]>([]);
 
     useEffect(() => {
         axiosInstance
             .get("/administration/syslog")
             .then((res: AxiosResponse) => {
-                setSystemLogs(res.data as SystemlogModel[]);
+                setSystemLogs(res.data as SyslogModel[]);
             })
             .catch((err: AxiosError) => {
                 setLoadingError({
@@ -43,13 +43,13 @@ function getAll() {
 function getInformationByID(id?: string | number) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [systemLog, setSystemLog] = useState<SystemlogModel | undefined>(undefined);
+    const [systemLog, setSystemLog] = useState<SyslogModel | undefined>(undefined);
 
     useEffect(() => {
         axiosInstance
             .get("/administration/syslog/" + id)
             .then((res: AxiosResponse) => {
-                setSystemLog(res.data as SystemlogModel);
+                setSystemLog(res.data as SyslogModel);
             })
             .catch((err: AxiosError) => {
                 setLoadingError({

@@ -1,14 +1,14 @@
-import {CourseModel} from "../../../../../models/Course.model";
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import {Input} from "../../../../../components/ui/Input/Input";
-import React, {useState} from "react";
-import {TbCertificate, TbCheckbox, TbClock, TbId} from "react-icons/all";
-import {getAtcRatingLong, getAtcRatingShort} from "../../../../../utils/helper/vatsim/AtcRatingHelper";
-import {TextArea} from "../../../../../components/ui/Textarea/TextArea";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {EnrolModalPartial} from "./EnrolModal.partial";
+import { CourseModel } from "../../../../../models/CourseModel";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { Input } from "../../../../../components/ui/Input/Input";
+import React, { useState } from "react";
+import { TbCertificate, TbCheckbox, TbClock, TbId } from "react-icons/all";
+import { getAtcRatingLong, getAtcRatingShort } from "../../../../../utils/helper/vatsim/AtcRatingHelper";
+import { TextArea } from "../../../../../components/ui/Textarea/TextArea";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { EnrolModalPartial } from "./EnrolModal.partial";
 
 function getDuration(data: any) {
     if (data == null) return "Keine Angabe";

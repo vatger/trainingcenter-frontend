@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
-import {CourseModel} from "../../models/Course.model";
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {AxiosError, AxiosResponse} from "axios";
-import {TrainingSessionModel} from "../../models/TrainingSession.model";
-import {APIResponseError} from "../../exceptions/APIResponseError";
+import { useEffect, useState } from "react";
+import { CourseModel } from "../../models/CourseModel";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
+import { TrainingSessionModel } from "../../models/TrainingSessionModel";
+import { APIResponseError } from "../../exceptions/APIResponseError";
 
 /**
  * Returns course information (i.e. the course's data), specified by uuid

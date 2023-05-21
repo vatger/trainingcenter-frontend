@@ -1,20 +1,20 @@
-import {PageHeader} from "../../../../../components/ui/PageHeader/PageHeader";
-import {AddLogTemplateModalPartial} from "../_partials/AddLogTemplateModal.partial";
-import {TrainingLogTemplateModel} from "../../../../../models/TrainingLogTemplate.model";
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Input} from "../../../../../components/ui/Input/Input";
-import {TbBook2, TbCirclePlus, TbFilePlus, TbId, TbTemplate, TbTrash} from "react-icons/all";
-import {Select} from "../../../../../components/ui/Select/Select";
-import {Separator} from "../../../../../components/ui/Separator/Separator";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../assets/theme.config";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {FormEvent, useState} from "react";
+import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import { AddLogTemplateModalPartial } from "../_partials/AddLogTemplateModal.partial";
+import { TrainingLogTemplateModel } from "../../../../../models/TrainingLogTemplateModel";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { TbBook2, TbCirclePlus, TbFilePlus, TbId, TbTemplate, TbTrash } from "react-icons/all";
+import { Select } from "../../../../../components/ui/Select/Select";
+import { Separator } from "../../../../../components/ui/Separator/Separator";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { FormEvent, useState } from "react";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import TrainingTypeAdminService from "../../../../../services/training-type/TrainingType.admin.service";
-import {useNavigate} from "react-router-dom";
-import {TrainingTypeModel, TrainingTypes} from "../../../../../models/TrainingType.model";
+import TrainingTypeAdminService from "../../../../../services/training-type/TrainingTypeAdminService";
+import { useNavigate } from "react-router-dom";
+import { TrainingTypeModel, TrainingTypes } from "../../../../../models/TrainingTypeModel";
 
 export function TrainingTypeCreateView() {
     const navigate = useNavigate();

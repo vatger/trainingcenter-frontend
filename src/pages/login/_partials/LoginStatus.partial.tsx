@@ -1,9 +1,9 @@
-import {RenderIf} from "../../../components/conditionals/RenderIf";
-import {NetworkError} from "../../../components/errors/NetworkError";
+import { RenderIf } from "../../../components/conditionals/RenderIf";
+import { NetworkError } from "../../../components/errors/NetworkError";
 import React from "react";
-import {APIResponseError} from "../../../exceptions/APIResponseError";
-import {Alert} from "../../../components/ui/Alert/Alert";
-import {TYPE_OPTS} from "../../../assets/theme.config";
+import { APIResponseError } from "../../../exceptions/APIResponseError";
+import { Alert } from "../../../components/ui/Alert/Alert";
+import { TYPE_OPTS } from "../../../assets/theme.config";
 
 export function LoginStatusPartial(props: { loadingError: APIResponseError }) {
     const url = new URL(window.location.toString());

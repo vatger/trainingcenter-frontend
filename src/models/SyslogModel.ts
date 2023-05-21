@@ -1,4 +1,4 @@
-export type SystemlogModel = {
+export type SyslogModel = {
     id: number;
     user_id?: string;
     path: string;

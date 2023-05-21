@@ -1,10 +1,10 @@
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Table} from "../../../../../components/ui/Table/Table";
-import React, {Dispatch} from "react";
-import {DeleteTrainingRequestModalPartial} from "./DeleteTrainingRequestModal.partial";
-import {TrainingRequestModel} from "../../../../../models/TrainingRequest.model";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Table } from "../../../../../components/ui/Table/Table";
+import React, { Dispatch } from "react";
+import { DeleteTrainingRequestModalPartial } from "./DeleteTrainingRequestModal.partial";
+import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
 import ActiveCourseTrainingRequestListTypes from "../_types/ActiveCourseTrainingRequestList.types";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type ActiveCourseTrainingRequestsPartialProps = {
     trainingRequests: TrainingRequestModel[];

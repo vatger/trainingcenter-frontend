@@ -1,7 +1,7 @@
-import {ManageAccountElementPartial} from "../_partials/ManageAccountElement.partial";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import {TbLogout, TbTrash} from "react-icons/all";
+import { ManageAccountElementPartial } from "../_partials/ManageAccountElement.partial";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { TbLogout, TbTrash } from "react-icons/all";
 
 export function ManageAccountDangerPartial() {
     return (

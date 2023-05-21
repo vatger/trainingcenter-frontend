@@ -1,11 +1,11 @@
-import {TableColumn} from "react-data-table-component";
-import {UserInMentorGroupT} from "../mentor-group-create/MentorGroupCreate.view";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../assets/theme.config";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {TbCheck, TbEdit, TbTrash} from "react-icons/all";
-import {Dispatch, useState} from "react";
-import {Checkbox} from "../../../../../components/ui/Checkbox/Checkbox";
+import { TableColumn } from "react-data-table-component";
+import { UserInMentorGroupT } from "../mentor-group-create/MentorGroupCreate.view";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { TbCheck, TbEdit, TbTrash } from "react-icons/all";
+import { Dispatch, useState } from "react";
+import { Checkbox } from "../../../../../components/ui/Checkbox/Checkbox";
 
 enum EditType {
     ADMIN,

@@ -1,12 +1,12 @@
-import {Dispatch, useState} from "react";
-import {LogTemplateElement, LogTemplateElementRating, LogTemplateType} from "../_types/LogTemplateElement.types";
-import {Modal} from "../../../../../../components/ui/Modal/Modal";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {TbListNumbers, TbSection, TbTextDirectionLtr} from "react-icons/all";
-import {RenderIf} from "../../../../../../components/conditionals/RenderIf";
-import {Input} from "../../../../../../components/ui/Input/Input";
-import {Checkbox} from "../../../../../../components/ui/Checkbox/Checkbox";
+import { Dispatch, useState } from "react";
+import { LogTemplateElement, LogTemplateElementRating, LogTemplateType } from "../_types/LogTemplateElement.types";
+import { Modal } from "../../../../../../components/ui/Modal/Modal";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { TbListNumbers, TbSection, TbTextDirectionLtr } from "react-icons/all";
+import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
+import { Input } from "../../../../../../components/ui/Input/Input";
+import { Checkbox } from "../../../../../../components/ui/Checkbox/Checkbox";
 
 function renderSectionSelection(setSelectedElement: Dispatch<LogTemplateType>, setShowingSecondPage: Dispatch<boolean>) {
     return (
@@ -19,7 +19,7 @@ function renderSectionSelection(setSelectedElement: Dispatch<LogTemplateType>, s
                 className={"border border-gray-200 hover:border-gray-300 transition-colors rounded p-3 hover:cursor-pointer"}>
                 <div className={"flex"}>
                     <h6>Abschnitt</h6>
-                    <TbSection size={18} className={"h6 ml-3"}/>
+                    <TbSection size={18} className={"h6 ml-3"} />
                 </div>
                 <p>Ein Platzhalter, welches verschiedene Teile des Logs unterteilt.</p>
             </div>
@@ -32,7 +32,7 @@ function renderSectionSelection(setSelectedElement: Dispatch<LogTemplateType>, s
                 className={"border border-gray-200 hover:border-gray-300 transition-colors rounded p-3 hover:cursor-pointer mt-3"}>
                 <div className={"flex"}>
                     <h6>Textfeld</h6>
-                    <TbTextDirectionLtr size={18} className={"h6 ml-3"}/>
+                    <TbTextDirectionLtr size={18} className={"h6 ml-3"} />
                 </div>
                 <p>Ein einfaches Textfeld, welches von einem Mentor mit Text gefüllt wird.</p>
             </div>
@@ -45,10 +45,9 @@ function renderSectionSelection(setSelectedElement: Dispatch<LogTemplateType>, s
                 className={"border border-gray-200 hover:border-gray-300 transition-colors rounded p-3 hover:cursor-pointer mt-3"}>
                 <div className={"flex"}>
                     <h6>Bewertung</h6>
-                    <TbListNumbers size={18} className={"h6 ml-3"}/>
+                    <TbListNumbers size={18} className={"h6 ml-3"} />
                 </div>
-                <p>Ein Feld, welches einen Wert von 0 - X annimmt. Zusätzlich kann ein kleiner Text dazu geschrieben -
-                    falls dies nicht deaktiviert wird.</p>
+                <p>Ein Feld, welches einen Wert von 0 - X annimmt. Zusätzlich kann ein kleiner Text dazu geschrieben - falls dies nicht deaktiviert wird.</p>
             </div>
         </>
     );
@@ -64,7 +63,7 @@ function renderCreateSectionElement(setElement: Dispatch<LogTemplateElement>) {
             description={"Name des Abschnitts"}
             labelSmall
             required
-            onChange={e => setElement({type: "section", title: e.target.value})}
+            onChange={e => setElement({ type: "section", title: e.target.value })}
         />
     );
 }
@@ -80,7 +79,7 @@ function renderCreateTextAreaElement(element: LogTemplateElement, setElement: Di
                 regex={RegExp("^(?!\\s*$).+")}
                 regexMatchEmpty
                 regexCheckInitial
-                onChange={e => setElement({...element, type: "textarea", title: e.target.value})}
+                onChange={e => setElement({ ...element, type: "textarea", title: e.target.value })}
             />
 
             <Input
@@ -88,7 +87,7 @@ function renderCreateTextAreaElement(element: LogTemplateElement, setElement: Di
                 label={"Beschreibung"}
                 description={"Beschreibung des Textfeldes"}
                 labelSmall
-                onChange={e => setElement({...element, type: "textarea", subtitle: e.target.value})}
+                onChange={e => setElement({ ...element, type: "textarea", subtitle: e.target.value })}
             />
         </>
     );
@@ -105,7 +104,7 @@ function renderCreateRatingElement(element: LogTemplateElement, setElement: Disp
                 regex={RegExp("^(?!\\s*$).+")}
                 regexMatchEmpty
                 regexCheckInitial
-                onChange={e => setElement({...element, type: "rating", title: e.target.value})}
+                onChange={e => setElement({ ...element, type: "rating", title: e.target.value })}
             />
 
             <Input
@@ -113,7 +112,7 @@ function renderCreateRatingElement(element: LogTemplateElement, setElement: Disp
                 label={"Beschreibung"}
                 description={"Beschreibung des Textfeldes"}
                 labelSmall
-                onChange={e => setElement({...element, type: "rating", subtitle: e.target.value})}
+                onChange={e => setElement({ ...element, type: "rating", subtitle: e.target.value })}
             />
 
             <Input
@@ -125,11 +124,10 @@ function renderCreateRatingElement(element: LogTemplateElement, setElement: Disp
                 regexCheckInitial
                 description={"Maximaler Wert der Bewertungsskala"}
                 labelSmall
-                onChange={e => setElement({...element, type: "rating", max: Number(e.target.value)})}
+                onChange={e => setElement({ ...element, type: "rating", max: Number(e.target.value) })}
             />
 
-            <Checkbox className={"mt-4"} checked={false}
-                      onChange={e => setElement({...element, type: "rating", disableText: e})}>
+            <Checkbox className={"mt-4"} checked={false} onChange={e => setElement({ ...element, type: "rating", disableText: e })}>
                 Zusätzlichen Text deaktivieren
             </Checkbox>
         </>
@@ -184,8 +182,7 @@ export function AddLogTemplateElementModal(props: {
                                 className={"mr-3"}>
                                 Zurück
                             </Button>
-                            <Button size={SIZE_OPTS.SM} onClick={() => addSelectedElement(element)} variant={"twoTone"}
-                                    color={COLOR_OPTS.PRIMARY}>
+                            <Button size={SIZE_OPTS.SM} onClick={() => addSelectedElement(element)} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
                                 Hinzufügen
                             </Button>
                         </div>

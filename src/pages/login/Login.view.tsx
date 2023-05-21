@@ -1,16 +1,16 @@
-import {COLOR_OPTS} from "../../assets/theme.config";
-import React, {useContext, useEffect} from "react";
-import {Button} from "../../components/ui/Button/Button";
-import {SelectLanguageHeader} from "../../components/template/header/SelectLanguageHeader";
+import { COLOR_OPTS } from "../../assets/theme.config";
+import React, { useContext, useEffect } from "react";
+import { Button } from "../../components/ui/Button/Button";
+import { SelectLanguageHeader } from "../../components/template/header/SelectLanguageHeader";
 import loginTranslation from "../../assets/lang/login/login.translation";
 import languageContext from "../../utils/contexts/LanguageContext";
 import vaccLogoDark from "../../assets/img/vacc_logo_dark.png";
-import LoginService from "../../services/login/Login.service";
+import LoginService from "../../services/login/LoginService";
 import authContext from "../../utils/contexts/AuthContext";
-import {useNavigate} from "react-router-dom";
-import {UserModel} from "../../models/User.model";
+import { useNavigate } from "react-router-dom";
+import { UserModel } from "../../models/UserModel";
 import vaccLogo from "../../assets/img/vacc_logo.png";
-import {LoginStatusPartial} from "./_partials/LoginStatus.partial";
+import { LoginStatusPartial } from "./_partials/LoginStatus.partial";
 
 export function LoginView() {
     const { language } = useContext(languageContext);

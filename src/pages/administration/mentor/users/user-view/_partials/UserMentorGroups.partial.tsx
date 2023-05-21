@@ -1,12 +1,12 @@
-import {MentorGroupModel} from "../../../../../../models/MentorGroup.model";
-import {Card} from "../../../../../../components/ui/Card/Card";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {Table} from "../../../../../../components/ui/Table/Table";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbPlus} from "react-icons/all";
+import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
+import { Card } from "../../../../../../components/ui/Card/Card";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Table } from "../../../../../../components/ui/Table/Table";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbPlus } from "react-icons/all";
 import React from "react";
-import {TableColumn} from "react-data-table-component";
-import {useNavigate} from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { useNavigate } from "react-router-dom";
 import MentorGroupListTypes from "../_types/MentorGroupList.types";
 
 type UserMentorGroupsPartialProps = {

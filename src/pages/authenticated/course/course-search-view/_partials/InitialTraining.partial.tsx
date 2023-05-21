@@ -1,8 +1,8 @@
-import {CourseModel} from "../../../../../models/Course.model";
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Input} from "../../../../../components/ui/Input/Input";
+import { CourseModel } from "../../../../../models/CourseModel";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Input } from "../../../../../components/ui/Input/Input";
 import React from "react";
-import {TbId} from "react-icons/all";
+import { TbId } from "react-icons/all";
 
 function getTypeString(type: "online" | "sim" | "cpt" | "lesson") {
     switch (type) {

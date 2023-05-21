@@ -1,6 +1,6 @@
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {AxiosError, AxiosResponse} from "axios";
-import {UserModel} from "../../models/User.model";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
+import { UserModel } from "../../models/UserModel";
 import moment from "moment";
 
 function getData(): Promise<void> {

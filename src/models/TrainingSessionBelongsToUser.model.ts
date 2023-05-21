@@ -1,5 +1,5 @@
-import {TrainingTypeModel} from "./TrainingType.model";
-import {TrainingSessionModel} from "./TrainingSession.model";
+import { TrainingTypeModel } from "./TrainingTypeModel";
+import { TrainingSessionModel } from "./TrainingSessionModel";
 
 export type TrainingSessionBelongsToUserModel = {
     id: number;

@@ -1,7 +1,7 @@
-import {Skeleton} from "../../../../../../components/ui/Skeleton/Skeleton";
+import { Skeleton } from "../../../../../../components/ui/Skeleton/Skeleton";
 import React from "react";
-import {RenderIf} from "../../../../../../components/conditionals/RenderIf";
-import {Separator} from "../../../../../../components/ui/Separator/Separator";
+import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
+import { Separator } from "../../../../../../components/ui/Separator/Separator";
 
 export function UserNoteSkeleton(props: { isFirst: boolean }) {
     return (

@@ -1,11 +1,11 @@
-import {TableColumn} from "react-data-table-component";
-import {FastTrackRequestModel} from "../../../../../../models/FastTrackRequest.model";
+import { TableColumn } from "react-data-table-component";
+import { FastTrackRequestModel } from "../../../../../../models/FastTrackRequestModel";
 import React from "react";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {Badge} from "../../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Badge } from "../../../../../../components/ui/Badge/Badge";
 import moment from "moment";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbEye} from "react-icons/all";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbEye } from "react-icons/all";
 
 function getColumns(): TableColumn<FastTrackRequestModel>[] {
     return [

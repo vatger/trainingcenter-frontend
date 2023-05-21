@@ -1,4 +1,4 @@
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
 export type ModalProps = {
     show: boolean;
@@ -6,4 +6,4 @@ export type ModalProps = {
     title: string;
     children?: ReactElement | ReactElement[];
     footer?: ReactElement | ReactElement[];
-}
+};

@@ -1,8 +1,8 @@
-import {UserModel} from "./User.model";
-import {TrainingTypeModel} from "./TrainingType.model";
-import {TrainingSessionModel} from "./TrainingSession.model";
-import {TrainingStationModel} from "./TrainingStation.model";
-import {CourseModel} from "./Course.model";
+import { UserModel } from "./UserModel";
+import { TrainingTypeModel } from "./TrainingTypeModel";
+import { TrainingSessionModel } from "./TrainingSessionModel";
+import { TrainingStationModel } from "./TrainingStationModel";
+import { CourseModel } from "./CourseModel";
 
 type TrainingRequestStatusType = "requested" | "planned" | "cancelled" | "completed";
 

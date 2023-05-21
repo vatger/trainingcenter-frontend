@@ -1,6 +1,6 @@
-import {Card} from "../../../../components/ui/Card/Card";
+import { Card } from "../../../../components/ui/Card/Card";
 import React from "react";
-import {Skeleton} from "../../../../components/ui/Skeleton/Skeleton";
+import { Skeleton } from "../../../../components/ui/Skeleton/Skeleton";
 
 export function CourseInformationSkeleton(props: { className?: string }) {
     return (

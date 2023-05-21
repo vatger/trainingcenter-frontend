@@ -1,15 +1,15 @@
-import {Modal} from "../ui/Modal/Modal";
-import {AxiosError} from "axios";
-import {useContext, useRef, useState} from "react";
+import { Modal } from "../ui/Modal/Modal";
+import { AxiosError } from "axios";
+import { useContext, useRef, useState } from "react";
 import authContext from "../../utils/contexts/AuthContext";
-import {ConversionUtils} from "turbocommons-ts";
+import { ConversionUtils } from "turbocommons-ts";
 import moment from "moment";
-import {Button} from "../ui/Button/Button";
-import {COLOR_OPTS} from "../../assets/theme.config";
-import {TbCheck, TbCopy} from "react-icons/all";
-import {copyText} from "../../utils/helper/clipboard/ClipboardHelper";
-import {Separator} from "../ui/Separator/Separator";
-import {Accordion} from "../ui/Accordion/Accordion";
+import { Button } from "../ui/Button/Button";
+import { COLOR_OPTS } from "../../assets/theme.config";
+import { TbCheck, TbCopy } from "react-icons/all";
+import { copyText } from "../../utils/helper/clipboard/ClipboardHelper";
+import { Separator } from "../ui/Separator/Separator";
+import { Accordion } from "../ui/Accordion/Accordion";
 
 export function NetworkErrorModal(props: { error: AxiosError; show: boolean; title: string; uuid: string; onClose: () => any }) {
     const { user } = useContext(authContext);

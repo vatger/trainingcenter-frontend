@@ -1,7 +1,7 @@
-import {TbArrowLeft, TbZoomQuestion} from "react-icons/all";
-import {useNavigate} from "react-router-dom";
-import {Button} from "../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../assets/theme.config";
+import { TbArrowLeft, TbZoomQuestion } from "react-icons/all";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../assets/theme.config";
 
 export function Error404(props: { path: string }) {
     const navigate = useNavigate();

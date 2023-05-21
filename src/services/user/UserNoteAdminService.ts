@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import {APIResponseError} from "../../exceptions/APIResponseError";
-import {UserNoteModel} from "../../models/UserNote.model";
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {AxiosError, AxiosResponse} from "axios";
+import { useEffect, useState } from "react";
+import { APIResponseError } from "../../exceptions/APIResponseError";
+import { UserNoteModel } from "../../models/UserNoteModel";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
 
 /**
  * Gets the user's notes that are not specifically assigned to any course

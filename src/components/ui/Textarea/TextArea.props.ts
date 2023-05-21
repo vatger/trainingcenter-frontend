@@ -20,4 +20,4 @@ export type TextAreaProps = {
     regex?: RegExp;
     regexMatchEmpty?: boolean;
     regexCheckInitial?: boolean;
-}
+};

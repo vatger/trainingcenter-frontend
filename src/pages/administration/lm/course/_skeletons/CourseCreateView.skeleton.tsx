@@ -1,5 +1,5 @@
-import {Skeleton} from "../../../../../components/ui/Skeleton/Skeleton";
-import {Separator} from "../../../../../components/ui/Separator/Separator";
+import { Skeleton } from "../../../../../components/ui/Skeleton/Skeleton";
+import { Separator } from "../../../../../components/ui/Separator/Separator";
 
 export function CourseCreateViewSkeleton() {
     return (

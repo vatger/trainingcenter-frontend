@@ -1,12 +1,12 @@
-import {PageHeader} from "../../../../../components/ui/PageHeader/PageHeader";
-import SyslogAdminService from "../../../../../services/syslog/Syslog.admin.service";
-import {useParams} from "react-router-dom";
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Input} from "../../../../../components/ui/Input/Input";
+import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import SyslogAdminService from "../../../../../services/syslog/SyslogAdminService";
+import { useParams } from "react-router-dom";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Input } from "../../../../../components/ui/Input/Input";
 import React from "react";
 import moment from "moment";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
 
 export function SyslogViewView() {
     const { id } = useParams();

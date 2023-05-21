@@ -1,15 +1,15 @@
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {Alert} from "../../../../../components/ui/Alert/Alert";
-import {COLOR_OPTS, SIZE_OPTS, TYPE_OPTS} from "../../../../../assets/theme.config";
-import {TimeLine, TimeLineItem} from "../../../../../components/ui/Timeline/TimeLine";
-import {MapArray} from "../../../../../components/conditionals/MapArray";
-import {TrainingSessionModel} from "../../../../../models/TrainingSession.model";
-import {TbClipboardList, TbX} from "react-icons/all";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { Alert } from "../../../../../components/ui/Alert/Alert";
+import { COLOR_OPTS, SIZE_OPTS, TYPE_OPTS } from "../../../../../assets/theme.config";
+import { TimeLine, TimeLineItem } from "../../../../../components/ui/Timeline/TimeLine";
+import { MapArray } from "../../../../../components/conditionals/MapArray";
+import { TrainingSessionModel } from "../../../../../models/TrainingSessionModel";
+import { TbClipboardList, TbX } from "react-icons/all";
 import moment from "moment";
-import {TrainingLogModel} from "../../../../../models/TrainingSessionBelongsToUser.model";
-import {Link} from "react-router-dom";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {Card} from "../../../../../components/ui/Card/Card";
+import { TrainingLogModel } from "../../../../../models/TrainingSessionBelongsToUser.model";
+import { Link } from "react-router-dom";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { Card } from "../../../../../components/ui/Card/Card";
 import React from "react";
 
 type ActiveCourseTrainingHistoryPartialProps = {

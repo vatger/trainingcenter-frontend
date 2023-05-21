@@ -1,9 +1,9 @@
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {useEffect, useState} from "react";
-import {UserModel} from "../../models/User.model";
-import {AxiosError, AxiosResponse} from "axios";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { useEffect, useState } from "react";
+import { UserModel } from "../../models/UserModel";
+import { AxiosError, AxiosResponse } from "axios";
 import moment from "moment";
-import {APIResponseError} from "../../exceptions/APIResponseError";
+import { APIResponseError } from "../../exceptions/APIResponseError";
 
 const axiosAuthTimeout = 7000;
 

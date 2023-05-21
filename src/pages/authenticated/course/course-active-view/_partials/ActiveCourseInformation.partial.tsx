@@ -1,15 +1,15 @@
-import {RequestTrainingModalPartial} from "./RequestTrainingModal.partial";
-import {CourseModel} from "../../../../../models/Course.model";
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../assets/theme.config";
-import {Input} from "../../../../../components/ui/Input/Input";
-import {TbCalendar, TbCertificate, TbChevronsRight, TbId} from "react-icons/all";
+import { RequestTrainingModalPartial } from "./RequestTrainingModal.partial";
+import { CourseModel } from "../../../../../models/CourseModel";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { TbCalendar, TbCertificate, TbChevronsRight, TbId } from "react-icons/all";
 import moment from "moment";
-import {getAtcRatingCombined} from "../../../../../utils/helper/vatsim/AtcRatingHelper";
-import {Button} from "../../../../../components/ui/Button/Button";
-import React, {Dispatch} from "react";
-import {TrainingRequestModel} from "../../../../../models/TrainingRequest.model";
+import { getAtcRatingCombined } from "../../../../../utils/helper/vatsim/AtcRatingHelper";
+import { Button } from "../../../../../components/ui/Button/Button";
+import React, { Dispatch } from "react";
+import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
 
 type ActiveCourseInformationPartialProps = {
     showRequestTrainingModal: boolean;

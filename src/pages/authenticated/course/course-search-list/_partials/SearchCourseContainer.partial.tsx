@@ -1,10 +1,10 @@
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Link} from "react-router-dom";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import {CourseModel} from "../../../../../models/Course.model";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
-import {TbClipboardText} from "react-icons/all";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Link } from "react-router-dom";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { CourseModel } from "../../../../../models/CourseModel";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { TbClipboardText } from "react-icons/all";
 
 export function SearchCourseContainerPartial(props: { course: CourseModel }) {
     const cardHeader = (

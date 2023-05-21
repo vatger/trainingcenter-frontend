@@ -1,9 +1,9 @@
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {TrainingTypeModel} from "../../models/TrainingType.model";
-import {AxiosError, AxiosResponse} from "axios";
-import {APIResponseError} from "../../exceptions/APIResponseError";
-import {useEffect, useState} from "react";
-import {TrainingStationModel} from "../../models/TrainingStation.model";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { TrainingTypeModel } from "../../models/TrainingTypeModel";
+import { AxiosError, AxiosResponse } from "axios";
+import { APIResponseError } from "../../exceptions/APIResponseError";
+import { useEffect, useState } from "react";
+import { TrainingStationModel } from "../../models/TrainingStationModel";
 
 /**
  * Gets all training exceptions currently stored in the database

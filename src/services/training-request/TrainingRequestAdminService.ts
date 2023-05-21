@@ -1,8 +1,8 @@
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {AxiosError, AxiosResponse} from "axios";
-import {useEffect, useState} from "react";
-import {APIResponseError} from "../../exceptions/APIResponseError";
-import {TrainingRequestModel} from "../../models/TrainingRequest.model";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
+import { APIResponseError } from "../../exceptions/APIResponseError";
+import { TrainingRequestModel } from "../../models/TrainingRequestModel";
 
 /**
  * Returns all courses that I can mentor (depending on my mentor group and course relation)
@@ -41,31 +41,29 @@ function getOpen() {
  * Gets a training request based by the UUID
  * @param uuid
  */
-function getByUUID(uuid: string | undefined)
-{
+function getByUUID(uuid: string | undefined) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [trainingRequest, setTrainingRequest] = useState<TrainingRequestModel | undefined>(undefined);
 
     useEffect(() => {
-        axiosInstance.get("/administration/training-request/" + (uuid ?? "-1"))
+        axiosInstance
+            .get("/administration/training-request/" + (uuid ?? "-1"))
             .then((res: AxiosResponse) => {
                 setTrainingRequest(res.data as TrainingRequestModel);
             })
-            .catch((err: AxiosError) => {
-
-            })
+            .catch((err: AxiosError) => {})
             .finally(() => setLoading(false));
     }, []);
 
     return {
         trainingRequest,
         loading,
-        loadingError
-    }
+        loadingError,
+    };
 }
 
 export default {
     getOpen,
-    getByUUID
+    getByUUID,
 };

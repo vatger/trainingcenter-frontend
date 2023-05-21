@@ -1,8 +1,8 @@
-import {PageHeader} from "../../../../components/ui/PageHeader/PageHeader";
-import {useParams} from "react-router-dom";
-import CourseInformationService from "../../../../services/course/CourseInformation.service";
-import {GeneralInformationPartial} from "./_partials/GeneralInformation.partial";
-import {InitialTrainingPartial} from "./_partials/InitialTraining.partial";
+import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
+import { useParams } from "react-router-dom";
+import CourseInformationService from "../../../../services/course/CourseInformationService";
+import { GeneralInformationPartial } from "./_partials/GeneralInformation.partial";
+import { InitialTrainingPartial } from "./_partials/InitialTraining.partial";
 
 export function CourseSearchView() {
     const { uuid } = useParams();

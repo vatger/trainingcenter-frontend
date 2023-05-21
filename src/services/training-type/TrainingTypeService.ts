@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import {APIResponseError} from "../../exceptions/APIResponseError";
-import {TrainingTypeModel} from "../../models/TrainingType.model";
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {AxiosError, AxiosResponse} from "axios";
+import { useEffect, useState } from "react";
+import { APIResponseError } from "../../exceptions/APIResponseError";
+import { TrainingTypeModel } from "../../models/TrainingTypeModel";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
 
 function getByID(id?: number | string) {
     const [loading, setLoading] = useState<boolean>(true);

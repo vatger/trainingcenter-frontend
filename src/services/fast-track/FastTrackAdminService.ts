@@ -1,8 +1,8 @@
-import {AxiosError, AxiosProgressEvent, AxiosResponse} from "axios";
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {FastTrackModel} from "../../models/FastTrack.model";
-import {useEffect, useState} from "react";
-import {APIResponseError} from "../../exceptions/APIResponseError";
+import { AxiosError, AxiosProgressEvent, AxiosResponse } from "axios";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { FastTrackModel } from "../../models/FastTrackModel";
+import { useEffect, useState } from "react";
+import { APIResponseError } from "../../exceptions/APIResponseError";
 
 /**
  * Creates a fast track request

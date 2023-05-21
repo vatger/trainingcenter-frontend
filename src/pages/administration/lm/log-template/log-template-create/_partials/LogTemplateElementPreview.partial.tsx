@@ -5,9 +5,9 @@ import {
     LogTemplateElementTextarea,
     LogTemplateType,
 } from "../_types/LogTemplateElement.types";
-import {ProgressBar} from "../../../../../../components/ui/ProgressBar/ProgressBar";
-import {Separator} from "../../../../../../components/ui/Separator/Separator";
-import {RenderIf} from "../../../../../../components/conditionals/RenderIf";
+import { ProgressBar } from "../../../../../../components/ui/ProgressBar/ProgressBar";
+import { Separator } from "../../../../../../components/ui/Separator/Separator";
+import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
 
 function render(type: LogTemplateType, element: LogTemplateElement, index: number) {
     let elem;

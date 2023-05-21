@@ -1,19 +1,19 @@
-import {PageHeader} from "../../../../../components/ui/PageHeader/PageHeader";
-import TrainingRequestAdminService from "../../../../../services/training-request/TrainingRequest.admin.service";
-import {Table} from "../../../../../components/ui/Table/Table";
-import {TableColumn} from "react-data-table-component";
-import {TrainingRequestModel} from "../../../../../models/TrainingRequest.model";
+import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import TrainingRequestAdminService from "../../../../../services/training-request/TrainingRequestAdminService";
+import { Table } from "../../../../../components/ui/Table/Table";
+import { TableColumn } from "react-data-table-component";
+import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
 import OpenRequestListTypes from "./_types/OpenRequestList.types";
-import {useNavigate} from "react-router-dom";
-import {Input} from "../../../../../components/ui/Input/Input";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {TbFilter} from "react-icons/all";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import {useState} from "react";
-import {useDebounce} from "../../../../../utils/hooks/useDebounce";
-import {useFilter} from "../../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import {Card} from "../../../../../components/ui/Card/Card";
+import { useNavigate } from "react-router-dom";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { TbFilter } from "react-icons/all";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { useState } from "react";
+import { useDebounce } from "../../../../../utils/hooks/useDebounce";
+import { useFilter } from "../../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import { Card } from "../../../../../components/ui/Card/Card";
 
 type SearchFilter = {
     available_only: boolean;

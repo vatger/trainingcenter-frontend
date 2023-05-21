@@ -1,6 +1,6 @@
-import {TbChevronLeft, TbChevronRight, TbDots} from "react-icons/all";
-import {useState} from "react";
-import {PaginationProps} from "./Pagination.props";
+import { TbChevronLeft, TbChevronRight, TbDots } from "react-icons/all";
+import { useState } from "react";
+import { PaginationProps } from "./Pagination.props";
 
 export function Pagination(props: PaginationProps) {
     const [activePage, setActivePage] = useState<number>(props.initialPage ?? 0);

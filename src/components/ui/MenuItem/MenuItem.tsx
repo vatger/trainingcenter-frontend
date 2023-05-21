@@ -1,9 +1,9 @@
-import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
-import React, {useContext} from "react";
-import {MENU_ITEM_HEIGHT} from "../../../assets/theme.config";
-import {MenuItemProps} from "./MenuItem.props";
-import {Link} from "react-router-dom";
-import {RenderIf} from "../../conditionals/RenderIf";
+import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
+import React, { useContext } from "react";
+import { MENU_ITEM_HEIGHT } from "../../../assets/theme.config";
+import { MenuItemProps } from "./MenuItem.props";
+import { Link } from "react-router-dom";
+import { RenderIf } from "../../conditionals/RenderIf";
 import authContext from "../../../utils/contexts/AuthContext";
 
 const menuItemActiveClass = `menu-item-active`;

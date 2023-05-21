@@ -1,6 +1,6 @@
-import {MentorGroupModel} from "./MentorGroup.model";
-import {CourseModel} from "./Course.model";
-import {RoleModel} from "./Permission.model";
+import { MentorGroupModel } from "./MentorGroupModel";
+import { CourseModel } from "./CourseModel";
+import { RoleModel } from "./PermissionModel";
 
 export type UserModel = {
     id: number;

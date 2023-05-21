@@ -1,16 +1,16 @@
-import {ManageAccountElementPartial} from "../_partials/ManageAccountElement.partial";
-import {Checkbox} from "../../../../../components/ui/Checkbox/Checkbox";
-import {Select} from "../../../../../components/ui/Select/Select";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import {useNavigate} from "react-router-dom";
-import {useContext, useState} from "react";
+import { ManageAccountElementPartial } from "../_partials/ManageAccountElement.partial";
+import { Checkbox } from "../../../../../components/ui/Checkbox/Checkbox";
+import { Select } from "../../../../../components/ui/Select/Select";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import darkModeContext from "../../../../../utils/contexts/DarkModeContext";
-import languageContext, {LanguageEnum} from "../../../../../utils/contexts/LanguageContext";
-import GDPRService from "../../../../../services/user/GDPR.service";
+import languageContext, { LanguageEnum } from "../../../../../utils/contexts/LanguageContext";
+import GDPRService from "../../../../../services/user/UserGDPRService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import {TbDownload, TbRefresh, TbRefreshOff} from "react-icons/all";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
+import { TbDownload, TbRefresh, TbRefreshOff } from "react-icons/all";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
 import authContext from "../../../../../utils/contexts/AuthContext";
 import moment from "moment";
 

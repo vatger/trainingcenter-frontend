@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, { ReactElement } from "react";
 
 export type InputProps = {
     label?: string | ReactElement;

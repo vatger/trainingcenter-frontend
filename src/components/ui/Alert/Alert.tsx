@@ -1,9 +1,9 @@
-import {AlertProps} from "./Alert.props";
-import {TwoToneColors} from "../../../assets/styles/ColorMap";
-import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
-import {getAlertIcon} from "./Alert.helper";
-import {TbX} from "react-icons/all";
-import {useState} from "react";
+import { AlertProps } from "./Alert.props";
+import { TwoToneColors } from "../../../assets/styles/ColorMap";
+import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
+import { getAlertIcon } from "./Alert.helper";
+import { TbX } from "react-icons/all";
+import { useState } from "react";
 
 export function Alert(props: AlertProps) {
     const [visible, setVisible] = useState<boolean>(true);

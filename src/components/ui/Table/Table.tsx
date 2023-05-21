@@ -1,12 +1,12 @@
-import {TableProps} from "./Table.props";
-import {Input} from "../Input/Input";
+import { TableProps } from "./Table.props";
+import { Input } from "../Input/Input";
 import DataTable from "react-data-table-component";
-import {TbSortDescending} from "react-icons/all";
-import {Spinner} from "../Spinner/Spinner";
-import {RenderIf} from "../../conditionals/RenderIf";
-import {useEffect, useState} from "react";
-import {useDebounce} from "../../../utils/hooks/useDebounce";
-import {search} from "./Table.helper";
+import { TbSortDescending } from "react-icons/all";
+import { Spinner } from "../Spinner/Spinner";
+import { RenderIf } from "../../conditionals/RenderIf";
+import { useEffect, useState } from "react";
+import { useDebounce } from "../../../utils/hooks/useDebounce";
+import { search } from "./Table.helper";
 
 const TABLE_PAGINATION_PER_PAGE_DEFAULT = 15;
 

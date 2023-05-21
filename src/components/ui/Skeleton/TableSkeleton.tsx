@@ -1,6 +1,6 @@
-import {Table} from "../Table/Table";
-import {TableColumn} from "react-data-table-component";
-import {Skeleton} from "./Skeleton";
+import { Table } from "../Table/Table";
+import { TableColumn } from "react-data-table-component";
+import { Skeleton } from "./Skeleton";
 
 export function TableSkeleton(props: { colCount: number; rowCount: number }) {
     let columns: TableColumn<any>[] = [];

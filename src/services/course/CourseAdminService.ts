@@ -1,10 +1,10 @@
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {useEffect, useState} from "react";
-import {CourseModel, CourseSkillTemplateModel} from "../../models/Course.model";
-import {AxiosError, AxiosResponse} from "axios";
-import {UserModel} from "../../models/User.model";
-import {APIResponseError} from "../../exceptions/APIResponseError";
-import {MentorGroupModel} from "../../models/MentorGroup.model";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { useEffect, useState } from "react";
+import { CourseModel, CourseSkillTemplateModel } from "../../models/CourseModel";
+import { AxiosError, AxiosResponse } from "axios";
+import { UserModel } from "../../models/UserModel";
+import { APIResponseError } from "../../exceptions/APIResponseError";
+import { MentorGroupModel } from "../../models/MentorGroupModel";
 
 //TODO: Rename all service files to <PascalCase name>Service.ts
 

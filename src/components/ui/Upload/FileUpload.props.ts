@@ -1,4 +1,4 @@
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
 export type FileUploadProps = {
     accept: string[];
@@ -13,4 +13,4 @@ export type FileUploadProps = {
     customButtonText?: string;
     buttonIsSubmit?: boolean;
     inputName?: string;
-}
+};

@@ -1,9 +1,9 @@
-import {TableColumn} from "react-data-table-component";
+import { TableColumn } from "react-data-table-component";
 import moment from "moment/moment";
-import {NavigateFunction} from "react-router-dom";
-import {CourseModel} from "../../../../../../models/Course.model";
-import {Badge} from "../../../../../../components/ui/Badge/Badge";
-import {COLOR_OPTS} from "../../../../../../assets/theme.config";
+import { NavigateFunction } from "react-router-dom";
+import { CourseModel } from "../../../../../../models/CourseModel";
+import { Badge } from "../../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
 
 export function getCoursesTableColumns(navigate: NavigateFunction): TableColumn<CourseModel>[] {
     return [

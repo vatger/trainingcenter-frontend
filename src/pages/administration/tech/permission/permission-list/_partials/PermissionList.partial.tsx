@@ -1,15 +1,15 @@
-import {Card} from "../../../../../../components/ui/Card/Card";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {Table} from "../../../../../../components/ui/Table/Table";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbPlus} from "react-icons/all";
-import {AddPermissionModalPartial} from "./AddPermissionModal.partial";
-import PermissionAdministrationService from "../../../../../../services/permissions/Permission.admin.service";
-import {useNavigate} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {PermissionModel} from "../../../../../../models/Permission.model";
-import {getPermissionTableColumns} from "../_types/PermissionList.types";
-import {useState} from "react";
+import { Card } from "../../../../../../components/ui/Card/Card";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Table } from "../../../../../../components/ui/Table/Table";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbPlus } from "react-icons/all";
+import { AddPermissionModalPartial } from "./AddPermissionModal.partial";
+import PermissionAdministrationService from "../../../../../../services/permissions/PermissionAdminService";
+import { useNavigate } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { PermissionModel } from "../../../../../../models/PermissionModel";
+import { getPermissionTableColumns } from "../_types/PermissionList.types";
+import { useState } from "react";
 
 export function PermissionListPartial() {
     const navigate = useNavigate();

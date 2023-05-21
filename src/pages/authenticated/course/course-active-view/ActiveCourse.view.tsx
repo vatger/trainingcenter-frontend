@@ -1,16 +1,16 @@
-import {useParams} from "react-router-dom";
-import {PageHeader} from "../../../../components/ui/PageHeader/PageHeader";
-import CourseInformationService from "../../../../services/course/CourseInformation.service";
-import {CourseInformationSkeleton} from "../_skeletons/CourseInformation.skeleton";
-import {RenderIf} from "../../../../components/conditionals/RenderIf";
-import {CourseTrainingHistorySkeleton} from "../_skeletons/CourseTrainingHistory.skeleton";
-import React, {useState} from "react";
-import UserTrainingService from "../../../../services/user/UserTraining.service";
-import {TrainingRequestModel} from "../../../../models/TrainingRequest.model";
-import {ActiveCourseInformationPartial} from "./_partials/ActiveCourseInformation.partial";
-import {ActiveCourseTrainingRequestsPartial} from "./_partials/ActiveCourseTrainingRequests.partial";
-import {ActiveCourseTrainingHistoryPartial} from "./_partials/ActiveCourseTrainingHistory.partial";
-import {TrainingRequestSkeleton} from "../_skeletons/TrainingRequest.skeleton";
+import { useParams } from "react-router-dom";
+import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
+import CourseInformationService from "../../../../services/course/CourseInformationService";
+import { CourseInformationSkeleton } from "../_skeletons/CourseInformation.skeleton";
+import { RenderIf } from "../../../../components/conditionals/RenderIf";
+import { CourseTrainingHistorySkeleton } from "../_skeletons/CourseTrainingHistory.skeleton";
+import React, { useState } from "react";
+import UserTrainingService from "../../../../services/user/UserTrainingService";
+import { TrainingRequestModel } from "../../../../models/TrainingRequestModel";
+import { ActiveCourseInformationPartial } from "./_partials/ActiveCourseInformation.partial";
+import { ActiveCourseTrainingRequestsPartial } from "./_partials/ActiveCourseTrainingRequests.partial";
+import { ActiveCourseTrainingHistoryPartial } from "./_partials/ActiveCourseTrainingHistory.partial";
+import { TrainingRequestSkeleton } from "../_skeletons/TrainingRequest.skeleton";
 
 export function ActiveCourseView() {
     const { uuid } = useParams();

@@ -1,8 +1,8 @@
 import vaccLogo from "../../assets/img/vacc_logo.png";
 import vaccLogoDark from "../../assets/img/vacc_logo_dark.png";
 
-import React, {useContext, useEffect} from "react";
-import {MenuItem} from "../ui/MenuItem/MenuItem";
+import React, { useContext, useEffect } from "react";
+import { MenuItem } from "../ui/MenuItem/MenuItem";
 import {
     TbAdjustments,
     TbBooks,
@@ -30,21 +30,21 @@ import {
     TbUsers,
     TbX,
 } from "react-icons/all";
-import {CollapsableMenu} from "./sidenav/CollapsableMenu";
-import {sideNavMenuContext} from "../../utils/contexts/SideNavMenuContext";
-import {handleResize} from "./sidenav/SideNav.helper";
+import { CollapsableMenu } from "./sidenav/CollapsableMenu";
+import { sideNavMenuContext } from "../../utils/contexts/SideNavMenuContext";
+import { handleResize } from "./sidenav/SideNav.helper";
 import darkModeContext from "../../utils/contexts/DarkModeContext";
-import {RenderIf} from "../conditionals/RenderIf";
+import { RenderIf } from "../conditionals/RenderIf";
 import authContext from "../../utils/contexts/AuthContext";
 import languageContext from "../../utils/contexts/LanguageContext";
 import courseSidenavTranslation from "../../assets/lang/sidenav/courseSidenav.translation";
-import {SIDENAV_WIDTH} from "../../assets/theme.config";
+import { SIDENAV_WIDTH } from "../../assets/theme.config";
 
 export function SideNav() {
     const { userPermissions } = useContext(authContext);
     const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
     const { darkMode } = useContext(darkModeContext);
-    const {language} = useContext(languageContext);
+    const { language } = useContext(languageContext);
 
     function toggleMobileNav() {
         const backdrop = document.getElementById("backdrop-small-nav");
@@ -102,9 +102,7 @@ export function SideNav() {
                             <img className={"sm:w-auto w-[20px]"} style={{ width: "auto" }} src={darkMode ? vaccLogoDark : vaccLogo} alt={"VATGER Logo"} />
                         </a>
                     </div>
-                    <div
-                        onClick={() => toggleMobileNav()}
-                        className="sm:hidden block header-action-item header-action-item-hoverable text-2xl m-auto mt-4">
+                    <div onClick={() => toggleMobileNav()} className="sm:hidden block header-action-item header-action-item-hoverable text-2xl m-auto mt-4">
                         <TbX size={20} />
                     </div>
                 </div>

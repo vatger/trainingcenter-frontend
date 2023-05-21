@@ -10,5 +10,5 @@ export default {
         search: "Search Courses",
         active: "Active Courses",
         completed: "Completed Courses",
-    }
-}
+    },
+};

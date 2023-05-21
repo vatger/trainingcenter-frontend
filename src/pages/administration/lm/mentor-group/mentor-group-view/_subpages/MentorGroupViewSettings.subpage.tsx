@@ -1,19 +1,20 @@
-import {Input} from "../../../../../../components/ui/Input/Input";
-import {TbEdit, TbId, TbMap2} from "react-icons/all";
-import {Select} from "../../../../../../components/ui/Select/Select";
-import {Separator} from "../../../../../../components/ui/Separator/Separator";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../../assets/theme.config";
-import {MentorGroupModel} from "../../../../../../models/MentorGroup.model";
-import {useState} from "react";
+import { Input } from "../../../../../../components/ui/Input/Input";
+import { TbEdit, TbId, TbMap2 } from "react-icons/all";
+import { Select } from "../../../../../../components/ui/Select/Select";
+import { Separator } from "../../../../../../components/ui/Separator/Separator";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
+import { useState } from "react";
 
 export function MentorGroupViewSettingsSubpage(props: { mentorGroup: MentorGroupModel | undefined; loading: boolean }) {
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     return (
-        <form onSubmit={e => {
-            e.preventDefault()
-        }}>
+        <form
+            onSubmit={e => {
+                e.preventDefault();
+            }}>
             <Input
                 name={"name"}
                 type={"text"}
@@ -27,13 +28,13 @@ export function MentorGroupViewSettingsSubpage(props: { mentorGroup: MentorGroup
                 regexMatchEmpty
                 regexCheckInitial
                 value={props.mentorGroup?.name}
-                preIcon={<TbId size={20}/>}
+                preIcon={<TbId size={20} />}
             />
 
             <Select
                 name={"fir"}
                 label={"FIR"}
-                preIcon={<TbMap2 size={20}/>}
+                preIcon={<TbMap2 size={20} />}
                 className={"mt-5"}
                 description={"FIR der Mentorengruppe"}
                 labelSmall
@@ -44,10 +45,9 @@ export function MentorGroupViewSettingsSubpage(props: { mentorGroup: MentorGroup
                 <option value={"edmm"}>EDMM</option>
             </Select>
 
-            <Separator/>
+            <Separator />
 
-            <Button type={"submit"} loading={submitting} icon={<TbEdit size={20}/>} variant={"twoTone"}
-                    color={COLOR_OPTS.PRIMARY}>
+            <Button type={"submit"} loading={submitting} icon={<TbEdit size={20} />} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
                 Änderungen Speichern
             </Button>
         </form>

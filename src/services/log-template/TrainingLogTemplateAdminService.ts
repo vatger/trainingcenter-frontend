@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import {TrainingLogTemplateModel} from "../../models/TrainingLogTemplate.model";
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {AxiosError, AxiosResponse} from "axios";
-import {APIResponseError} from "../../exceptions/APIResponseError";
+import { useEffect, useState } from "react";
+import { TrainingLogTemplateModel } from "../../models/TrainingLogTemplateModel";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
+import { APIResponseError } from "../../exceptions/APIResponseError";
 
 /**
  * Gets all training log templates that are stored in the database

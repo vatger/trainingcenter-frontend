@@ -1,11 +1,11 @@
-import {CourseModel} from "../../../../../models/Course.model";
-import {Modal} from "../../../../../components/ui/Modal/Modal";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import CourseService from "../../../../../services/course/Course.service";
-import {useState} from "react";
+import { CourseModel } from "../../../../../models/CourseModel";
+import { Modal } from "../../../../../components/ui/Modal/Modal";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import CourseService from "../../../../../services/course/CourseService";
+import { useState } from "react";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type EnrollModalPartialProps = {
     course: CourseModel | undefined;

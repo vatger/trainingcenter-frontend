@@ -1,16 +1,23 @@
-import {TableColumn} from "react-data-table-component";
+import { TableColumn } from "react-data-table-component";
 import moment from "moment/moment";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {TbEye} from "react-icons/all";
-import {NavigateFunction} from "react-router-dom";
-import {TrainingRequestModel} from "../../../../../../models/TrainingRequest.model";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { TbEye } from "react-icons/all";
+import { NavigateFunction } from "react-router-dom";
+import { TrainingRequestModel } from "../../../../../../models/TrainingRequestModel";
 
 function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
     return [
         {
             name: "Trainee",
-            cell: row => (row.user == null ? "N/A" : <span className={"text-primary hover:cursor-pointer"} onClick={() => navigate("/administration/users/" + row.user?.id)}>{row.user.first_name} {row.user.last_name}</span>),
+            cell: row =>
+                row.user == null ? (
+                    "N/A"
+                ) : (
+                    <span className={"text-primary hover:cursor-pointer"} onClick={() => navigate("/administration/users/" + row.user?.id)}>
+                        {row.user.first_name} {row.user.last_name}
+                    </span>
+                ),
         },
         {
             name: "Training",

@@ -1,12 +1,10 @@
-import {Modal} from "../../../../../../components/ui/Modal/Modal";
-import {Input} from "../../../../../../components/ui/Input/Input";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../../assets/theme.config";
-import React, {useEffect, useState} from "react";
-import {PermissionModel} from "../../../../../../models/Permission.model";
-import PermissionAdministrationService, {
-    PermissionCreateEnum
-} from "../../../../../../services/permissions/Permission.admin.service";
+import { Modal } from "../../../../../../components/ui/Modal/Modal";
+import { Input } from "../../../../../../components/ui/Input/Input";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import React, { useEffect, useState } from "react";
+import { PermissionModel } from "../../../../../../models/PermissionModel";
+import PermissionAdministrationService, { PermissionCreateEnum } from "../../../../../../services/permissions/PermissionAdminService";
 
 export function AddPermissionModalPartial(props: { show: boolean; onClose: () => any; onCreate: (permission: PermissionModel) => any }) {
     const [loading, setLoading] = useState<boolean>(false);

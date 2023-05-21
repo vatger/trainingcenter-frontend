@@ -1,18 +1,18 @@
-import {Modal} from "../../../../../../components/ui/Modal/Modal";
-import {Input} from "../../../../../../components/ui/Input/Input";
-import {TbCircleCheck, TbSearch} from "react-icons/all";
-import {useContext, useState} from "react";
-import {useDebounce} from "../../../../../../utils/hooks/useDebounce";
-import {MapArray} from "../../../../../../components/conditionals/MapArray";
-import {RenderIf} from "../../../../../../components/conditionals/RenderIf";
-import {Separator} from "../../../../../../components/ui/Separator/Separator";
-import {useFilter} from "../../../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import {UserModel} from "../../../../../../models/User.model";
-import UserAdministrationService from "../../../../../../services/user/User.admin.service";
-import {UserInMentorGroupT} from "../MentorGroupCreate.view";
+import { Modal } from "../../../../../../components/ui/Modal/Modal";
+import { Input } from "../../../../../../components/ui/Input/Input";
+import { TbCircleCheck, TbSearch } from "react-icons/all";
+import { useContext, useState } from "react";
+import { useDebounce } from "../../../../../../utils/hooks/useDebounce";
+import { MapArray } from "../../../../../../components/conditionals/MapArray";
+import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
+import { Separator } from "../../../../../../components/ui/Separator/Separator";
+import { useFilter } from "../../../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import { UserModel } from "../../../../../../models/UserModel";
+import UserAdministrationService from "../../../../../../services/user/UserAdminService";
+import { UserInMentorGroupT } from "../MentorGroupCreate.view";
 import authContext from "../../../../../../utils/contexts/AuthContext";
-import {NetworkError} from "../../../../../../components/errors/NetworkError";
+import { NetworkError } from "../../../../../../components/errors/NetworkError";
 
 const filterTrainingTypeFunction = (logTemplate: UserModel, searchValue: string) => {
     return fuzzySearch(searchValue, [logTemplate.id.toString(), logTemplate.first_name, logTemplate.last_name]).length > 0;

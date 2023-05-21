@@ -1,8 +1,8 @@
-import {Spinner} from "../../../components/ui/Spinner/Spinner";
-import {RenderIf} from "../../../components/conditionals/RenderIf";
+import { Spinner } from "../../../components/ui/Spinner/Spinner";
+import { RenderIf } from "../../../components/conditionals/RenderIf";
 import vaccLogoDark from "../../../assets/img/vacc_logo_dark.png";
 import vaccLogo from "../../../assets/img/vacc_logo.png";
-import {SelectLanguageHeader} from "../../../components/template/header/SelectLanguageHeader";
+import { SelectLanguageHeader } from "../../../components/template/header/SelectLanguageHeader";
 import React from "react";
 
 export function AuthContextLoadingView() {

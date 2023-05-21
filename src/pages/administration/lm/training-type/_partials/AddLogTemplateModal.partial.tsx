@@ -1,16 +1,16 @@
-import {TrainingLogTemplateModel} from "../../../../../models/TrainingLogTemplate.model";
-import {useState} from "react";
-import {useDebounce} from "../../../../../utils/hooks/useDebounce";
-import {Modal} from "../../../../../components/ui/Modal/Modal";
-import {Input} from "../../../../../components/ui/Input/Input";
-import {TbSearch} from "react-icons/all";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {Separator} from "../../../../../components/ui/Separator/Separator";
-import {MapArray} from "../../../../../components/conditionals/MapArray";
-import {useFilter} from "../../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplate.admin.service";
-import {NetworkError} from "../../../../../components/errors/NetworkError";
+import { TrainingLogTemplateModel } from "../../../../../models/TrainingLogTemplateModel";
+import { useState } from "react";
+import { useDebounce } from "../../../../../utils/hooks/useDebounce";
+import { Modal } from "../../../../../components/ui/Modal/Modal";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { TbSearch } from "react-icons/all";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { Separator } from "../../../../../components/ui/Separator/Separator";
+import { MapArray } from "../../../../../components/conditionals/MapArray";
+import { useFilter } from "../../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplateAdminService";
+import { NetworkError } from "../../../../../components/errors/NetworkError";
 
 const filterTrainingLogTemplateFunction = (logTemplate: TrainingLogTemplateModel, searchValue: string) => {
     return fuzzySearch(searchValue, [logTemplate.name]).length > 0;

@@ -1,5 +1,5 @@
-import {Card} from "../../../../components/ui/Card/Card";
-import {Skeleton} from "../../../../components/ui/Skeleton/Skeleton";
+import { Card } from "../../../../components/ui/Card/Card";
+import { Skeleton } from "../../../../components/ui/Skeleton/Skeleton";
 
 export function CourseContainerLoader() {
     return (

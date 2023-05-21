@@ -1,8 +1,8 @@
-import {RenderIf} from "../../../../components/conditionals/RenderIf";
-import {MapArray} from "../../../../components/conditionals/MapArray";
-import {Skeleton} from "../../../../components/ui/Skeleton/Skeleton";
-import {TimeLine} from "../../../../components/ui/Timeline/TimeLine";
-import {Card} from "../../../../components/ui/Card/Card";
+import { RenderIf } from "../../../../components/conditionals/RenderIf";
+import { MapArray } from "../../../../components/conditionals/MapArray";
+import { Skeleton } from "../../../../components/ui/Skeleton/Skeleton";
+import { TimeLine } from "../../../../components/ui/Timeline/TimeLine";
+import { Card } from "../../../../components/ui/Card/Card";
 
 const TIMELINE_COUNT = 3;
 

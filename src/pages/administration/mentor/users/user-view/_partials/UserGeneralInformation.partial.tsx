@@ -1,14 +1,14 @@
-import {UserModel} from "../../../../../../models/User.model";
-import {Badge} from "../../../../../../components/ui/Badge/Badge";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {Input} from "../../../../../../components/ui/Input/Input";
-import {getAtcRatingLong, getAtcRatingShort} from "../../../../../../utils/helper/vatsim/AtcRatingHelper";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbChevronsRight, TbNote} from "react-icons/all";
-import {Card} from "../../../../../../components/ui/Card/Card";
+import { UserModel } from "../../../../../../models/UserModel";
+import { Badge } from "../../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Input } from "../../../../../../components/ui/Input/Input";
+import { getAtcRatingLong, getAtcRatingShort } from "../../../../../../utils/helper/vatsim/AtcRatingHelper";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbChevronsRight, TbNote } from "react-icons/all";
+import { Card } from "../../../../../../components/ui/Card/Card";
 import React from "react";
-import {useNavigate} from "react-router-dom";
-import {getPilotRatingLong, getPilotRatingShort} from "../../../../../../utils/helper/vatsim/PilotRatingHelper";
+import { useNavigate } from "react-router-dom";
+import { getPilotRatingLong, getPilotRatingShort } from "../../../../../../utils/helper/vatsim/PilotRatingHelper";
 
 export function UserGeneralInformationPartial(props: { user: UserModel | null }) {
     const navigate = useNavigate();

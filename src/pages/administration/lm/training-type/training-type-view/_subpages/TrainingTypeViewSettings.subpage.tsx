@@ -1,16 +1,16 @@
-import {Input} from "../../../../../../components/ui/Input/Input";
-import {TbBook2, TbCirclePlus, TbEdit, TbId, TbTemplate, TbTrash} from "react-icons/all";
-import {Select} from "../../../../../../components/ui/Select/Select";
-import {Separator} from "../../../../../../components/ui/Separator/Separator";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {RenderIf} from "../../../../../../components/conditionals/RenderIf";
-import React, {Dispatch, FormEvent, useEffect, useState} from "react";
-import {TrainingTypeModel, TrainingTypes} from "../../../../../../models/TrainingType.model";
-import {AddLogTemplateModalPartial} from "../../_partials/AddLogTemplateModal.partial";
-import {TrainingLogTemplateModel} from "../../../../../../models/TrainingLogTemplate.model";
+import { Input } from "../../../../../../components/ui/Input/Input";
+import { TbBook2, TbCirclePlus, TbEdit, TbId, TbTemplate, TbTrash } from "react-icons/all";
+import { Select } from "../../../../../../components/ui/Select/Select";
+import { Separator } from "../../../../../../components/ui/Separator/Separator";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
+import React, { Dispatch, FormEvent, useEffect, useState } from "react";
+import { TrainingTypeModel, TrainingTypes } from "../../../../../../models/TrainingTypeModel";
+import { AddLogTemplateModalPartial } from "../../_partials/AddLogTemplateModal.partial";
+import { TrainingLogTemplateModel } from "../../../../../../models/TrainingLogTemplateModel";
 import FormHelper from "../../../../../../utils/helper/FormHelper";
-import TrainingTypeAdminService from "../../../../../../services/training-type/TrainingType.admin.service";
+import TrainingTypeAdminService from "../../../../../../services/training-type/TrainingTypeAdminService";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 
 type TrainingTypeViewSettingsSubpageProps = {

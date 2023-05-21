@@ -1,21 +1,21 @@
-import {PageHeader} from "../../../../../components/ui/PageHeader/PageHeader";
-import {Card} from "../../../../../components/ui/Card/Card";
-import {FormEvent, useState} from "react";
-import {Input} from "../../../../../components/ui/Input/Input";
-import {TbEdit, TbEyeCheck, TbFilePlus, TbId} from "react-icons/all";
-import {Separator} from "../../../../../components/ui/Separator/Separator";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../assets/theme.config";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {LogTemplateElement} from "./_types/LogTemplateElement.types";
-import {MapArray} from "../../../../../components/conditionals/MapArray";
-import {LogTemplateElementPartial} from "./_partials/LogTemplateElement.partial";
-import {LogTemplateElementPreviewPartial} from "./_partials/LogTemplateElementPreview.partial";
-import {AddLogTemplateElementModal} from "./_partials/AddLogTemplateElementModal";
+import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { FormEvent, useState } from "react";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { TbEdit, TbEyeCheck, TbFilePlus, TbId } from "react-icons/all";
+import { Separator } from "../../../../../components/ui/Separator/Separator";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { LogTemplateElement } from "./_types/LogTemplateElement.types";
+import { MapArray } from "../../../../../components/conditionals/MapArray";
+import { LogTemplateElementPartial } from "./_partials/LogTemplateElement.partial";
+import { LogTemplateElementPreviewPartial } from "./_partials/LogTemplateElementPreview.partial";
+import { AddLogTemplateElementModal } from "./_partials/AddLogTemplateElementModal";
 import FormHelper from "../../../../../utils/helper/FormHelper";
-import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplate.admin.service";
-import {useNavigate} from "react-router-dom";
-import {TrainingLogTemplateModel} from "../../../../../models/TrainingLogTemplate.model";
+import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplateAdminService";
+import { useNavigate } from "react-router-dom";
+import { TrainingLogTemplateModel } from "../../../../../models/TrainingLogTemplateModel";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 
 export function LogTemplateCreateView() {

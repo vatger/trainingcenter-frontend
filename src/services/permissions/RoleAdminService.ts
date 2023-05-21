@@ -1,8 +1,8 @@
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {useEffect, useState} from "react";
-import {RoleModel} from "../../models/Permission.model";
-import {AxiosError, AxiosResponse} from "axios";
-import {APIResponseError} from "../../exceptions/APIResponseError";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { useEffect, useState } from "react";
+import { RoleModel } from "../../models/PermissionModel";
+import { AxiosError, AxiosResponse } from "axios";
+import { APIResponseError } from "../../exceptions/APIResponseError";
 
 /**
  * Retrieve all roles from the API

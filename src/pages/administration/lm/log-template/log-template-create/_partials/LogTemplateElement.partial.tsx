@@ -5,12 +5,12 @@ import {
     LogTemplateElementTextarea,
     LogTemplateType,
 } from "../_types/LogTemplateElement.types";
-import {ProgressBar} from "../../../../../../components/ui/ProgressBar/ProgressBar";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbArrowDown, TbArrowUp, TbTrash} from "react-icons/all";
-import {COLOR_OPTS} from "../../../../../../assets/theme.config";
-import {Dispatch} from "react";
-import {RenderIf} from "../../../../../../components/conditionals/RenderIf";
+import { ProgressBar } from "../../../../../../components/ui/ProgressBar/ProgressBar";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbArrowDown, TbArrowUp, TbTrash } from "react-icons/all";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import { Dispatch } from "react";
+import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
 
 const borderClass = "border-dashed border-2 border-gray-100 hover:border-gray-300 transition-colors rounded-lg p-3";
 
