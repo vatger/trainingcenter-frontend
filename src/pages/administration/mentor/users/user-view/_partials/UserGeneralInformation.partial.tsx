@@ -20,7 +20,7 @@ export function UserGeneralInformationPartial(props: { user: UserModel | null })
             headerBorder
             headerExtra={userData?.user_data?.subdivision_code?.toLowerCase() !== "ger" ? <Badge color={COLOR_OPTS.PRIMARY}>Gast</Badge> : <></>}>
             <div className={"grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"}>
-                <Input label={"Name"} disabled value={userData?.first_name + " " + userData?.last_name} />
+                <Input label={"Name"} disabled value={`${userData?.first_name} ${userData?.last_name} (${userData.id})`} />
 
                 <Input
                     label={"ATC Rating"}

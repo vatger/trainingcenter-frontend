@@ -63,7 +63,23 @@ function getByUUID(uuid: string | undefined) {
     };
 }
 
+/**
+ * Allows a mentor to delete a training request of another user. This is identified by its UUID.
+ * @param uuid
+ */
+async function destroyTrainingRequestByUUID(uuid: string | undefined) {
+    return axiosInstance
+        .delete("/administration/training-request/" + uuid)
+        .then((res: AxiosResponse) => {
+            return;
+        })
+        .catch((err: AxiosError) => {
+            throw err;
+        });
+}
+
 export default {
     getOpen,
     getByUUID,
+    destroyTrainingRequestByUUID,
 };

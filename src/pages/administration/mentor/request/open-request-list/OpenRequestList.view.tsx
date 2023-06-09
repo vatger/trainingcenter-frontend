@@ -20,7 +20,15 @@ type SearchFilter = {
 };
 
 const filterTrainingRequestFunction = (trainingRequest: TrainingRequestModel, searchValue: string) => {
-    return fuzzySearch(searchValue, [trainingRequest.training_type?.name ?? ""]).length > 0;
+    return (
+        fuzzySearch(searchValue, [
+            trainingRequest.training_type?.name ?? "",
+            trainingRequest.user?.first_name,
+            trainingRequest.user?.last_name,
+            trainingRequest.user?.id,
+            trainingRequest.training_station?.callsign,
+        ]).length > 0
+    );
 };
 
 export function OpenRequestListView() {
@@ -46,7 +54,9 @@ export function OpenRequestListView() {
                         className={"mb-2 w-full"}
                         disabled={loading}
                         label={"Kurse Filtern"}
-                        placeholder={trainingRequests?.length > 0 ? trainingRequests[0].training_type?.name : "Frankfurt S1 Lesson"}
+                        placeholder={
+                            trainingRequests?.length > 0 ? `${trainingRequests[0].user?.first_name} ${trainingRequests[0].user?.last_name}` : "Max Mustermann"
+                        }
                     />
 
                     <Button

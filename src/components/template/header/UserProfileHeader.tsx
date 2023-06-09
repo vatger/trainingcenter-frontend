@@ -72,7 +72,7 @@ export function UserProfileHeader() {
                 }, 150);
             }
         });
-    });
+    }, []);
 
     return (
         <div>

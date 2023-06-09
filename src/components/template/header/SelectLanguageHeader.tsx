@@ -74,7 +74,7 @@ export function SelectLanguageHeader() {
                 }, 150);
             }
         });
-    });
+    }, []);
 
     return (
         <div>

@@ -20,8 +20,12 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
                 ),
         },
         {
+            name: "CID",
+            selector: row => row.user?.id ?? "N/A",
+        },
+        {
             name: "Training",
-            selector: row => row.training_type?.name ?? "",
+            selector: row => row.training_type?.name ?? "N/A",
         },
         {
             name: "Station",

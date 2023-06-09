@@ -10,6 +10,7 @@ import {
     TbCalendarEvent,
     TbCalendarStats,
     TbCertificate,
+    TbCertificate2,
     TbCheckupList,
     TbChevronsRight,
     TbClipboardList,
@@ -154,12 +155,15 @@ export function SideNav() {
                                                 <MenuItem icon={<TbList size={20} />}>Übersicht Trainees</MenuItem>
                                             </CollapsableMenu>
 
-                                            <CollapsableMenu title={"Trainings | CPTs"} icon={<TbCalendar size={20} />}>
+                                            <CollapsableMenu title={"Trainings"} icon={<TbCalendar size={20} />}>
                                                 <MenuItem icon={<TbList size={20} />}>Meine Trainings</MenuItem>
                                                 <MenuItem href={"administration/training-request/open"} icon={<TbInbox size={20} />}>
                                                     Offene Trainingsanfragen
                                                 </MenuItem>
                                                 <MenuItem icon={<TbCalendarStats size={20} />}>Geplante Trainings</MenuItem>
+                                            </CollapsableMenu>
+
+                                            <CollapsableMenu title={"CPTs"} icon={<TbCertificate size={20} />}>
                                                 <MenuItem icon={<TbCalendarEvent size={20} />}>CPT Übersicht</MenuItem>
                                             </CollapsableMenu>
                                         </>

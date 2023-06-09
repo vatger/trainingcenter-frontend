@@ -13,6 +13,8 @@ import UserAdministrationService from "../../../../../../services/user/UserAdmin
 import { UserInMentorGroupT } from "../MentorGroupCreate.view";
 import authContext from "../../../../../../utils/contexts/AuthContext";
 import { NetworkError } from "../../../../../../components/errors/NetworkError";
+import { Badge } from "../../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
 
 const filterTrainingTypeFunction = (logTemplate: UserModel, searchValue: string) => {
     return fuzzySearch(searchValue, [logTemplate.id.toString(), logTemplate.first_name, logTemplate.last_name]).length > 0;
@@ -83,7 +85,7 @@ export function AddUserModalPartial(props: {
                                                 className={
                                                     "flex mt-2 justify-between flex-row rounded border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500 transition-all border hover:shadow-sm p-3 cursor-pointer"
                                                 }>
-                                                <span className={"flex"}>{`${value.id} - ${value.first_name + " " + value.last_name}`} </span>
+                                                <span className={"flex select-none"}>{`${value.id} - ${value.first_name + " " + value.last_name}`} </span>
                                             </div>
                                         );
                                     }
@@ -99,7 +101,7 @@ export function AddUserModalPartial(props: {
                                             className={
                                                 "flex mt-2 justify-between flex-row rounded border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500 transition-all border hover:shadow-sm p-3 cursor-pointer"
                                             }>
-                                            <span className={"flex"}>{`${value.id} - ${value.first_name + " " + value.last_name}`} </span>
+                                            <span className={"flex select-none"}>{`${value.id} - ${value.first_name + " " + value.last_name}`}</span>
                                             <span>
                                                 <TbCircleCheck size={20} className={"text-success"} />
                                             </span>
