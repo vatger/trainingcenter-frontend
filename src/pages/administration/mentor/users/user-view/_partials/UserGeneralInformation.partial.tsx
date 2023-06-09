@@ -48,7 +48,12 @@ export function UserGeneralInformationPartial(props: { user: UserModel | null })
             </div>
 
             <div className={"flex flex-col lg:flex-row mt-7"}>
-                <Button icon={<TbChevronsRight size={20} />} size={SIZE_OPTS.SM} onClick={() => navigate("f")} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
+                <Button
+                    icon={<TbChevronsRight size={20} />}
+                    size={SIZE_OPTS.SM}
+                    onClick={() => navigate("fast-track")}
+                    variant={"twoTone"}
+                    color={COLOR_OPTS.PRIMARY}>
                     Fast-Track Beantragen
                 </Button>
 
@@ -56,7 +61,7 @@ export function UserGeneralInformationPartial(props: { user: UserModel | null })
                     className={"mt-3 lg:mt-0 lg:ml-3"}
                     icon={<TbNote size={20} />}
                     size={SIZE_OPTS.SM}
-                    onClick={() => navigate("n")}
+                    onClick={() => navigate("notes")}
                     variant={"twoTone"}
                     color={COLOR_OPTS.PRIMARY}>
                     Notizen

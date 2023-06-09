@@ -11,7 +11,7 @@ import { APIResponseError } from "../../exceptions/APIResponseError";
 function getCourseInformationByUUID(uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [course, setCourse] = useState<CourseModel | undefined>(undefined);
+    const [course, setCourse] = useState<(CourseModel & { enrolled?: boolean }) | undefined>(undefined);
 
     useEffect(() => {
         axiosInstance

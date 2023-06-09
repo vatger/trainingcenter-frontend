@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { TabsProps } from "./Tabs.props";
 
 function getTabByLocationHash(tabHeaders: string[]): number {
-    let hash = window.location.hash;
-    hash = hash.replace("#", "");
-    if (hash == null) return 0;
+    let hash = window.location.hash.substring(1);
+    if (hash == null || hash.length == 0) return 0;
 
     tabHeaders = tabHeaders.map(value => value.toLowerCase());
     hash = hash.toLowerCase();
 
     if (Array.isArray(tabHeaders)) {
-        const idx = tabHeaders.indexOf(hash);
+        const idx = tabHeaders.indexOf(decodeURIComponent(hash));
         return idx == -1 ? 0 : idx;
     }
     return 0;
@@ -42,7 +41,7 @@ export function Tabs(props: TabsProps) {
                             key={index}
                             onClick={() => {
                                 setActivePage(index);
-                                window.location.hash = (value as string).toLowerCase();
+                                window.history.replaceState(null, "", `#${(value as string).toLowerCase()}`);
                                 props.onChange?.(index);
                             }}
                             className={"w-full select-none sm:w-auto " + headerClasses.inactive + (index === activePage ? " " + headerClasses.active : "")}

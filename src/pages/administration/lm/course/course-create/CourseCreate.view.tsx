@@ -12,7 +12,6 @@ import { TbActivity, TbCirclePlus, TbFilePlus, TbId, TbLock, TbTemplate, TbTrash
 import { Select } from "../../../../../components/ui/Select/Select";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { useNavigate } from "react-router-dom";
-import { CourseViewSettingsSkeleton } from "../_skeletons/CourseViewSettings.skeleton";
 import UserService from "../../../../../services/user/UserService";
 import { MentorGroupModel } from "../../../../../models/MentorGroupModel";
 import { MapArray } from "../../../../../components/conditionals/MapArray";
@@ -24,17 +23,24 @@ import { NetworkError } from "../../../../../components/errors/NetworkError";
 import { Alert } from "../../../../../components/ui/Alert/Alert";
 import { AddTrainingTypeModalPartial } from "../_partials/AddTrainingTypeModal.partial";
 import { AddSkillTypeModalPartial } from "../_partials/AddSkillTemplateModal.partial";
+import { CourseCreateViewSkeleton } from "../_skeletons/CourseCreateView.skeleton";
 
 export function CourseCreateView() {
     const uuid = useRef<string>(generateUUID());
     const navigate = useNavigate();
 
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-    const [modalStates, setModalStates] = useState<{ trainingTypeModalOpen: boolean; skillTemplateModalOpen: boolean }>({
+    const [modalStates, setModalStates] = useState<{
+        trainingTypeModalOpen: boolean;
+        skillTemplateModalOpen: boolean;
+    }>({
         trainingTypeModalOpen: false,
         skillTemplateModalOpen: false,
     });
-    const [assignedTypes, setAssignedTypes] = useState<{ trainingType: TrainingTypeModel | null; skillTemplate: CourseSkillTemplateModel | null }>({
+    const [assignedTypes, setAssignedTypes] = useState<{
+        trainingType: TrainingTypeModel | null;
+        skillTemplate: CourseSkillTemplateModel | null;
+    }>({
         trainingType: null,
         skillTemplate: null,
     });
@@ -74,7 +80,7 @@ export function CourseCreateView() {
 
             <RenderIf
                 truthValue={loading}
-                elementTrue={<CourseViewSettingsSkeleton />}
+                elementTrue={<CourseCreateViewSkeleton />}
                 elementFalse={
                     <RenderIf
                         truthValue={loadingError != null}
@@ -90,7 +96,12 @@ export function CourseCreateView() {
                                 elementFalse={
                                     <Card>
                                         <AddTrainingTypeModalPartial
-                                            onClose={() => setModalStates({ ...modalStates, trainingTypeModalOpen: false })}
+                                            onClose={() =>
+                                                setModalStates({
+                                                    ...modalStates,
+                                                    trainingTypeModalOpen: false,
+                                                })
+                                            }
                                             open={modalStates.trainingTypeModalOpen}
                                             onSelect={tType => {
                                                 handleTrainingTypeChange(tType);
@@ -98,7 +109,12 @@ export function CourseCreateView() {
                                         />
 
                                         <AddSkillTypeModalPartial
-                                            onClose={() => setModalStates({ ...modalStates, skillTemplateModalOpen: false })}
+                                            onClose={() =>
+                                                setModalStates({
+                                                    ...modalStates,
+                                                    skillTemplateModalOpen: false,
+                                                })
+                                            }
                                             open={modalStates.skillTemplateModalOpen}
                                             onSelect={skillTemplate => {
                                                 handleSkillTemplateTypeChange(skillTemplate);
@@ -224,7 +240,12 @@ export function CourseCreateView() {
 
                                             <Button
                                                 type={"button"}
-                                                onClick={() => setModalStates({ ...modalStates, trainingTypeModalOpen: true })}
+                                                onClick={() =>
+                                                    setModalStates({
+                                                        ...modalStates,
+                                                        trainingTypeModalOpen: true,
+                                                    })
+                                                }
                                                 icon={<TbCirclePlus size={20} />}
                                                 className={"mt-5 w-full md:w-auto"}
                                                 variant={"default"}
@@ -250,7 +271,12 @@ export function CourseCreateView() {
                                             <div className={"flex lg:flex-row flex-col"}>
                                                 <Button
                                                     type={"button"}
-                                                    onClick={() => setModalStates({ ...modalStates, skillTemplateModalOpen: true })}
+                                                    onClick={() =>
+                                                        setModalStates({
+                                                            ...modalStates,
+                                                            skillTemplateModalOpen: true,
+                                                        })
+                                                    }
                                                     icon={<TbCirclePlus size={20} />}
                                                     className={"mt-5 lg:mr-2"}
                                                     variant={"default"}
@@ -262,7 +288,12 @@ export function CourseCreateView() {
                                                     elementTrue={
                                                         <Button
                                                             type={"button"}
-                                                            onClick={() => setAssignedTypes({ ...assignedTypes, skillTemplate: null })}
+                                                            onClick={() =>
+                                                                setAssignedTypes({
+                                                                    ...assignedTypes,
+                                                                    skillTemplate: null,
+                                                                })
+                                                            }
                                                             icon={<TbTrash size={20} />}
                                                             className={"mt-5"}
                                                             variant={"default"}

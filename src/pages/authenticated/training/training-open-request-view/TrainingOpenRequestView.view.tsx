@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "../../../../components/ui/Card/Card";
 import { Input } from "../../../../components/ui/Input/Input";
 import { TbCalendar, TbCalendarEvent, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
-import React from "react";
+import React, { useState } from "react";
 import TrainingRequestService from "../../../../services/training-request/TrainingRequestService";
 import { Button } from "../../../../components/ui/Button/Button";
 import { Separator } from "../../../../components/ui/Separator/Separator";
@@ -12,11 +12,14 @@ import moment from "moment";
 import StringHelper from "../../../../utils/helper/StringHelper";
 import { TextArea } from "../../../../components/ui/Textarea/TextArea";
 import { RenderIf } from "../../../../components/conditionals/RenderIf";
+import { DeleteTrainingRequestModalPartial } from "../../course/course-active-view/_partials/DeleteTrainingRequestModal.partial";
+import { TrainingRequestModel } from "../../../../models/TrainingRequestModel";
 
 export function TrainingOpenRequestViewView() {
     const navigate = useNavigate();
     const { uuid: training_request_uuid } = useParams();
 
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const { trainingRequest, loading: loadingTrainingRequest } = TrainingRequestService.getByUUID(training_request_uuid);
 
     return (
@@ -166,6 +169,9 @@ export function TrainingOpenRequestViewView() {
                     <Button
                         className={"lg:mt-0 mt-3"}
                         variant={"twoTone"}
+                        onClick={() => {
+                            setShowDeleteModal(true);
+                        }}
                         color={COLOR_OPTS.DANGER}
                         disabled={trainingRequest?.status != "requested" || trainingRequest.training_session != null}
                         icon={<TbTrash size={20} />}>
@@ -173,6 +179,21 @@ export function TrainingOpenRequestViewView() {
                     </Button>
                 </div>
             </Card>
+
+            <DeleteTrainingRequestModalPartial
+                open={showDeleteModal}
+                trainingRequest={trainingRequest}
+                onClose={() => setShowDeleteModal(false)}
+                onDelete={(tr?: TrainingRequestModel) => {
+                    if (tr == null) return;
+
+                    if (trainingRequest?.course?.uuid == null) {
+                        navigate(-1);
+                    } else {
+                        navigate(`/course/active/${trainingRequest?.course?.uuid}`);
+                    }
+                }}
+            />
         </>
     );
 }

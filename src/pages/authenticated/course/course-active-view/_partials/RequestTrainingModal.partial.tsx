@@ -56,12 +56,12 @@ export function RequestTrainingModalPartial(props: RequestTrainingModalPartialPr
                 elementFalse={
                     <form onSubmit={handleSubmit}>
                         {/* Hidden inputs for form */}
-                        <input type="text" className={"hidden"} name={"course_id"} value={props.course.id} />
-                        <input type="text" className={"hidden"} name={"training_type_id"} value={nextTraining?.id} />
+                        <input type="text" className={"hidden"} name={"course_id"} readOnly value={props.course.id} />
+                        <input type="text" className={"hidden"} name={"training_type_id"} readOnly value={nextTraining?.id} />
 
-                        <Input disabled label={"Name"} labelSmall value={nextTraining?.name ?? ""} />
+                        <Input disabled label={"Name"} labelSmall readOnly value={nextTraining?.name ?? ""} />
 
-                        <Input disabled className={"mt-5"} label={"Typ"} labelSmall value={StringHelper.capitalize(nextTraining?.type) ?? ""} />
+                        <Input disabled className={"mt-5"} label={"Typ"} readOnly labelSmall value={StringHelper.capitalize(nextTraining?.type) ?? ""} />
 
                         <TextArea
                             className={"mt-5"}
@@ -73,7 +73,7 @@ export function RequestTrainingModalPartial(props: RequestTrainingModalPartialPr
                         />
 
                         <RenderIf
-                            truthValue={nextTraining?.training_stations != null && nextTraining.training_stations.length > 0}
+                            truthValue={nextTraining?.training_stations != null && nextTraining.training_stations.length >= 1}
                             elementTrue={
                                 <Select name={"training_station_id"} className={"mt-5"} label={"Station Auswählen"} labelSmall>
                                     <MapArray

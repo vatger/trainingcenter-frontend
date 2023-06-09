@@ -4,14 +4,11 @@ import { Badge } from "../../../../../components/ui/Badge/Badge";
 import moment from "moment";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
-import { TbEye, TbTrash } from "react-icons/all";
-import React, { Dispatch } from "react";
+import { TbEye } from "react-icons/all";
+import React from "react";
 import { NavigateFunction } from "react-router-dom";
 
-function getColumns(
-    setDeleteTrainingRequestModal: Dispatch<{ show: boolean; trainingRequest?: TrainingRequestModel }>,
-    navigate: NavigateFunction
-): TableColumn<TrainingRequestModel>[] {
+function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
     return [
         {
             name: "Name",
@@ -57,18 +54,9 @@ function getColumns(
                             onClick={() => navigate("/training/request/" + row.uuid)}
                             variant={"twoTone"}
                             color={COLOR_OPTS.PRIMARY}
-                            icon={<TbEye size={20} />}
-                        />
-                        <Button
-                            className={"my-3 ml-2"}
-                            size={SIZE_OPTS.SM}
-                            onClick={() => {
-                                setDeleteTrainingRequestModal({ show: true, trainingRequest: row });
-                            }}
-                            variant={"twoTone"}
-                            color={COLOR_OPTS.DANGER}
-                            icon={<TbTrash size={20} />}
-                        />
+                            icon={<TbEye size={20} />}>
+                            Ansehen
+                        </Button>
                     </div>
                 );
             },

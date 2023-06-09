@@ -35,12 +35,10 @@ export function ActiveCoursesListView() {
             <RenderIf
                 truthValue={!loading && searchInput.length == 0 && courses.length == 0}
                 elementTrue={
-                    <Card header={"Fehler"} headerBorder>
-                        <Alert rounded showIcon type={TYPE_OPTS.DANGER}>
-                            Es gibt derzeit keine Kurse in die Du Dich einschreiben kannst. Kontaktiere einen Mentor, falls Du der Meinung bist, dass es sich
-                            hier um einen Fehler handelt.
-                        </Alert>
-                    </Card>
+                    <Alert rounded showIcon type={TYPE_OPTS.DANGER}>
+                        Es gibt derzeit keine Kurse in die Du Dich einschreiben kannst. Kontaktiere einen Mentor, falls Du der Meinung bist, dass es sich hier
+                        um einen Fehler handelt.
+                    </Alert>
                 }
                 elementFalse={
                     <RenderIf

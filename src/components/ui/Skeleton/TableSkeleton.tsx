@@ -20,7 +20,5 @@ export function TableSkeleton(props: { colCount: number; rowCount: number }) {
             });
         });
 
-    console.log(columns);
-
     return <Table columns={columns} data={Array(props.rowCount).fill(0)} />;
 }

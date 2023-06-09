@@ -200,12 +200,6 @@ export function SideNav() {
                                                 <MenuItem icon={<TbListDetails size={20} />}>Skillvorlagen Verwalten</MenuItem>
                                                 <MenuItem icon={<TbFilePlus size={20} />}>Skillvorlage Erstellen</MenuItem>
                                             </CollapsableMenu>
-                                            <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20} />}>
-                                                <MenuItem icon={<TbListDetails size={20} />}>Logvorlagen Verwalten</MenuItem>
-                                                <MenuItem href={"administration/log-template/create"} icon={<TbFilePlus size={20} />}>
-                                                    Logvorlage Erstellen
-                                                </MenuItem>
-                                            </CollapsableMenu>
                                             <CollapsableMenu title={"Aktionen | Bedingungen"} icon={<TbAdjustments size={20} />}>
                                                 <MenuItem icon={<TbListCheck size={20} />}>Verwalten</MenuItem>
                                                 <MenuItem icon={<TbFilePlus size={20} />}>Erstellen</MenuItem>
@@ -223,6 +217,13 @@ export function SideNav() {
                                                 <MenuItem icon={<TbClipboardList size={20} />}>CPTs</MenuItem>
                                                 <MenuItem icon={<TbCalendar size={20} />}>Offene CPTs</MenuItem>
                                                 <MenuItem icon={<TbList size={20} />}>Meine CPTs</MenuItem>
+                                            </CollapsableMenu>
+
+                                            <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20} />}>
+                                                <MenuItem icon={<TbListDetails size={20} />}>Logvorlagen Verwalten</MenuItem>
+                                                <MenuItem href={"administration/log-template/create"} icon={<TbFilePlus size={20} />}>
+                                                    Logvorlage Erstellen
+                                                </MenuItem>
                                             </CollapsableMenu>
 
                                             <MenuItem requiredPerm={"atd.fast_track.view"} icon={<TbChevronsRight size={20} />}>

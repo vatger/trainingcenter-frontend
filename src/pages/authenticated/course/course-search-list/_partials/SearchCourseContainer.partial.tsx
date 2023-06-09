@@ -27,7 +27,7 @@ export function SearchCourseContainerPartial(props: { course: CourseModel }) {
 
     return (
         <Card
-            className={"hover:shadow-sm dark:hover:border-gray-500 transition-all mt-5"}
+            className={"mt-5"}
             header={<h5 className={"font-bold self-start"}>{props.course.name}</h5>}
             headerBorder
             headerExtra={cardHeader}

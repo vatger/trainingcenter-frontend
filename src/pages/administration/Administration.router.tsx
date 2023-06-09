@@ -12,7 +12,7 @@ import { PermissionListView } from "./tech/permission/permission-list/Permission
 import { Error403 } from "../errors/403";
 import { Error404 } from "../errors/404";
 import { RoleViewView } from "./tech/permission/role-view/RoleView.view";
-import { LogTemplateCreateView } from "./lm/log-template/log-template-create/LogTemplateCreate.view";
+import { LogTemplateCreateView } from "./atd/log-template/log-template-create/LogTemplateCreate.view";
 import { MentorGroupCreateView } from "./lm/mentor-group/mentor-group-create/MentorGroupCreate.view";
 import { MentorGroupListView } from "./lm/mentor-group/mentor-group-list/MentorGroupList.view";
 import { SyslogViewView } from "./tech/syslog/syslog-view/SyslogView.view";
@@ -32,8 +32,8 @@ export function AdministrationRouter() {
 
                 <Route path={":user_id"}>
                     <Route path={""} element={<UserViewView />} />
-                    <Route path={"f"} element={<RequestFastTrackView />} />
-                    <Route path={"n"} element={<ViewUserNotesView />} />
+                    <Route path={"fast-track"} element={<RequestFastTrackView />} />
+                    <Route path={"notes"} element={<ViewUserNotesView />} />
                 </Route>
             </Route>
 

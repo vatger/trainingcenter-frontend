@@ -10,9 +10,7 @@ export function Error403() {
 
     const urlParams = new URLSearchParams(window.location.search);
     const m = ConversionUtils.base64ToString(urlParams.get("m") ?? "");
-    const s = urlParams.get("s") ?? false;
-
-    console.log(s);
+    const s = urlParams.get("s") != null;
 
     return (
         <>

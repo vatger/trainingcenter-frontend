@@ -14,7 +14,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
                 row.user == null ? (
                     "N/A"
                 ) : (
-                    <span className={"text-primary hover:cursor-pointer"} onClick={() => navigate("/administration/users/" + row.user?.id)}>
+                    <span className={"text-primary hover:cursor-pointer hover:underline"} onClick={() => navigate("/administration/users/" + row.user?.id)}>
                         {row.user.first_name} {row.user.last_name}
                     </span>
                 ),
