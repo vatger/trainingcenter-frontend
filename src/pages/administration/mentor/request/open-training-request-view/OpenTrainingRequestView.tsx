@@ -14,12 +14,14 @@ import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../../../../assets/theme.config";
 import { DeleteTrainingRequestModalPartial } from "./_partials/DeleteTrainingRequestModalPartial";
 import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
+import { CreateSessionModalPartial } from "./_partials/CreateSessionModalPartial";
 
-export function OpenRequestViewView() {
+export function OpenTrainingRequestView() {
     const navigate = useNavigate();
     const { uuid: training_request_uuid } = useParams();
 
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+    const [createSessionModalOpen, setCreateSessionModalOpen] = useState<boolean>(false);
     const { trainingRequest, loading } = TrainingRequestAdminService.getByUUID(training_request_uuid);
 
     return (
@@ -95,7 +97,12 @@ export function OpenRequestViewView() {
                 <Separator />
 
                 <div className={"flex lg:flex-row flex-col"}>
-                    <Button className={"lg:mr-3"} variant={"twoTone"} color={COLOR_OPTS.PRIMARY} icon={<TbCalendarPlus size={20} />}>
+                    <Button
+                        className={"lg:mr-3"}
+                        variant={"twoTone"}
+                        color={COLOR_OPTS.PRIMARY}
+                        onClick={() => setCreateSessionModalOpen(true)}
+                        icon={<TbCalendarPlus size={20} />}>
                         Session Erstellen
                     </Button>
 
@@ -110,6 +117,13 @@ export function OpenRequestViewView() {
                     </Button>
                 </div>
             </Card>
+
+            <CreateSessionModalPartial
+                open={createSessionModalOpen}
+                onClose={() => setCreateSessionModalOpen(false)}
+                trainingRequest={trainingRequest}
+                onCreate={() => {}}
+            />
 
             <DeleteTrainingRequestModalPartial
                 open={deleteModalOpen}

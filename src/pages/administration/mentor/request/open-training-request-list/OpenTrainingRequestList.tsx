@@ -14,8 +14,10 @@ import { useDebounce } from "../../../../../utils/hooks/useDebounce";
 import { useFilter } from "../../../../../utils/hooks/useFilter";
 import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
 import { Card } from "../../../../../components/ui/Card/Card";
+import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
 
 type SearchFilter = {
+    modal_open: boolean;
     available_only: boolean;
 };
 
@@ -31,11 +33,11 @@ const filterTrainingRequestFunction = (trainingRequest: TrainingRequestModel, se
     );
 };
 
-export function OpenRequestListView() {
+export function OpenTrainingRequestList() {
     const navigate = useNavigate();
-    const { trainingRequests, loading } = TrainingRequestAdminService.getOpen();
+    const { trainingRequests, setTrainingRequests, loading } = TrainingRequestAdminService.getOpenRequests();
 
-    const [searchFilter, setSearchFilter] = useState<SearchFilter>({ available_only: false });
+    const [searchFilter, setSearchFilter] = useState<SearchFilter>({ modal_open: false, available_only: false });
     const [searchInputValue, setSearchInputValue] = useState<string>("");
     const debouncedInput = useDebounce(searchInputValue, 250);
 
@@ -53,7 +55,7 @@ export function OpenRequestListView() {
                         onChange={e => setSearchInputValue(e.target.value)}
                         className={"mb-2 w-full"}
                         disabled={loading}
-                        label={"Kurse Filtern"}
+                        label={"Anfragen Filtern"}
                         placeholder={
                             trainingRequests?.length > 0 ? `${trainingRequests[0].user?.first_name} ${trainingRequests[0].user?.last_name}` : "Max Mustermann"
                         }
@@ -64,6 +66,7 @@ export function OpenRequestListView() {
                         className={"lg:ml-2 mb-2 mt-auto h-[39px]"}
                         variant={"twoTone"}
                         icon={<TbFilter size={20} />}
+                        onClick={() => setSearchFilter({ ...searchFilter, modal_open: true })}
                         color={COLOR_OPTS.PRIMARY}>
                         Filter Hinzufügen (TODO)
                     </Button>
@@ -71,7 +74,24 @@ export function OpenRequestListView() {
             </Card>
 
             <Card className={"mt-5"}>
-                <Table paginate paginationPerPage={15} className={"mt-5"} columns={columns} data={filteredTrainingRequests} loading={loading} />
+                <Tabs tabHeaders={["Trainings", "Lessons"]} type={"underline"}>
+                    <Table
+                        paginate
+                        paginationPerPage={15}
+                        className={"mt-5"}
+                        columns={columns}
+                        data={filteredTrainingRequests.filter((f: TrainingRequestModel) => f.training_type?.type != "lesson")}
+                        loading={loading}
+                    />
+                    <Table
+                        paginate
+                        paginationPerPage={15}
+                        className={"mt-5"}
+                        columns={columns}
+                        data={filteredTrainingRequests.filter((f: TrainingRequestModel) => f.training_type?.type == "lesson")}
+                        loading={loading}
+                    />
+                </Tabs>
             </Card>
         </>
     );

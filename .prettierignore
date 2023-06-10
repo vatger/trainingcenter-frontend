@@ -12,6 +12,7 @@ tsconfig.node.json
 .prettierignore
 .gitlab-ci.yml
 
+CONTRIBUTING.md
 README.md
 .env
 .env.example

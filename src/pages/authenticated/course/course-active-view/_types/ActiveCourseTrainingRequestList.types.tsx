@@ -7,6 +7,8 @@ import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { TbEye } from "react-icons/all";
 import React from "react";
 import { NavigateFunction } from "react-router-dom";
+import dayjs from "dayjs";
+import { Config } from "../../../../../core/Config";
 
 function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
     return [
@@ -36,6 +38,8 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
         {
             name: "Ablaufdatum",
             cell: row => {
+                if (row.status != "requested") return "N/A";
+
                 const date = moment(row.expires).utc();
                 if (date.isBefore(moment())) {
                     return <span className={"text-danger"}>{date.format("DD.MM.YYYY HH:mm")}</span>;

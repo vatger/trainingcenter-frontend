@@ -14,6 +14,8 @@ import { TextArea } from "../../../../components/ui/Textarea/TextArea";
 import { RenderIf } from "../../../../components/conditionals/RenderIf";
 import { DeleteTrainingRequestModalPartial } from "../../course/course-active-view/_partials/DeleteTrainingRequestModal.partial";
 import { TrainingRequestModel } from "../../../../models/TrainingRequestModel";
+import dayjs from "dayjs";
+import { Config } from "../../../../core/Config";
 
 export function TrainingOpenRequestViewView() {
     const navigate = useNavigate();
@@ -110,7 +112,12 @@ export function TrainingOpenRequestViewView() {
                         inputClassName={"mt-auto"}
                         preIcon={<TbListCheck size={20} />}
                         disabled
-                        value={StringHelper.capitalize(trainingRequest?.status)}
+                        value={
+                            StringHelper.capitalize(trainingRequest?.status) +
+                            (trainingRequest?.training_session?.date != null
+                                ? ` (${dayjs.utc(trainingRequest.training_session.date).format(Config.DATETIME_FORMAT)} UTC)`
+                                : "")
+                        }
                     />
                 </div>
 
@@ -161,22 +168,26 @@ export function TrainingOpenRequestViewView() {
                         variant={"twoTone"}
                         color={COLOR_OPTS.PRIMARY}
                         onClick={() => navigate("/course/active/" + trainingRequest?.course?.uuid)}
-                        disabled={trainingRequest?.status != "requested"}
                         icon={<TbEye size={20} />}>
                         Kurs Ansehen
                     </Button>
 
-                    <Button
-                        className={"lg:mt-0 mt-3"}
-                        variant={"twoTone"}
-                        onClick={() => {
-                            setShowDeleteModal(true);
-                        }}
-                        color={COLOR_OPTS.DANGER}
-                        disabled={trainingRequest?.status != "requested" || trainingRequest.training_session != null}
-                        icon={<TbTrash size={20} />}>
-                        Anfrage Löschen
-                    </Button>
+                    <RenderIf
+                        truthValue={trainingRequest?.status == "requested" && trainingRequest.training_session == null}
+                        elementTrue={
+                            <Button
+                                className={"lg:mt-0 mt-3"}
+                                variant={"twoTone"}
+                                onClick={() => {
+                                    setShowDeleteModal(true);
+                                }}
+                                color={COLOR_OPTS.DANGER}
+                                disabled={trainingRequest?.status != "requested" || trainingRequest.training_session != null}
+                                icon={<TbTrash size={20} />}>
+                                Anfrage Löschen
+                            </Button>
+                        }
+                    />
                 </div>
             </Card>
 

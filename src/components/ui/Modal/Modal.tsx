@@ -18,7 +18,9 @@ export function Modal(props: ModalProps) {
             truthValue={props.show}
             elementTrue={
                 <>
-                    <div onClick={e => handleClick(e)} className="dialog-backdrop-animation dialog-overlay dialog-overlay-after-open p-5 z-[120] box-content">
+                    <div
+                        onClick={e => handleClick(e)}
+                        className="dialog-backdrop-animation overflow-y-scroll dialog-overlay dialog-overlay-after-open p-5 z-[120] box-content">
                         <div
                             ref={modalRef}
                             style={{ inset: "unset" }}

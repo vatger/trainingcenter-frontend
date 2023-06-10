@@ -18,9 +18,9 @@ import { MentorGroupListView } from "./lm/mentor-group/mentor-group-list/MentorG
 import { SyslogViewView } from "./tech/syslog/syslog-view/SyslogView.view";
 import { TrainingTypeViewView } from "./lm/training-type/training-type-view/TrainingTypeView.view";
 import { MentorGroupViewView } from "./lm/mentor-group/mentor-group-view/MentorGroupView.view";
-import { OpenRequestListView } from "./mentor/request/open-request-list/OpenRequestList.view";
 import { ViewUserNotesView } from "./mentor/users/user-view/_subpages/ViewUserNotes.subpage";
-import { OpenRequestViewView } from "./mentor/request/open-request-view/OpenRequestView.view";
+import { OpenTrainingRequestList } from "./mentor/request/open-training-request-list/OpenTrainingRequestList";
+import { OpenTrainingRequestView } from "./mentor/request/open-training-request-view/OpenTrainingRequestView";
 
 export function AdministrationRouter() {
     const location: Location = useLocation();
@@ -39,10 +39,9 @@ export function AdministrationRouter() {
 
             <Route path={"training-request"}>
                 <Route path={"open"}>
-                    <Route path={""} element={<OpenRequestListView />} />
-                    <Route path={":uuid"} element={<OpenRequestViewView />} />
+                    <Route path={""} element={<OpenTrainingRequestList />} />
+                    <Route path={":uuid"} element={<OpenTrainingRequestView />} />
                 </Route>
-                <Route path={"planned"} element={<></>} />
             </Route>
 
             <Route path={"course"}>

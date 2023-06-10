@@ -10,6 +10,8 @@ export type NotificationModel = {
 
     author_id?: number;
     link?: string;
+    icon?: string;
+    severity: "default" | "info" | "success" | "danger";
     createdAt?: Date;
     updatedAt?: Date;
 
