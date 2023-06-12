@@ -1,4 +1,4 @@
-import { TrainingLogModel } from "./TrainingSessionBelongsToUser.model";
+import { TrainingLogModel, TrainingSessionBelongsToUserModel } from "./TrainingSessionBelongsToUser.model";
 import { TrainingTypeModel } from "./TrainingTypeModel";
 import { CourseModel } from "./CourseModel";
 import { TrainingStationModel } from "./TrainingStationModel";
@@ -22,4 +22,6 @@ export type TrainingSessionModel = {
     training_station?: TrainingStationModel;
     course?: CourseModel;
     mentor?: UserModel;
+
+    TrainingSessionBelongsToUsers?: TrainingSessionBelongsToUserModel;
 };
