@@ -14,5 +14,5 @@ export const Config = {
     APP_HOST: "http://localhost:8000",
     API_BASE_URL: "http://localhost:8001",
     DATE_FORMAT: "DD.MM.YYYY",
-    DATETIME_FORMAT: "DD.MM.YYYY HH:mm",
+    DATETIME_FORMAT: "DD.MM.YYYY HH:mmz",
 };

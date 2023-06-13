@@ -37,7 +37,7 @@ export function TrainingOpenRequestViewView() {
                     label={"Zuletzt aktualisiert (UTC)"}
                     preIcon={<TbCalendarEvent size={20} />}
                     disabled
-                    value={moment(trainingRequest?.updatedAt).utc().format("DD.MM.YYYY HH:mm")}
+                    value={dayjs.utc(trainingRequest?.updatedAt).format(Config.DATETIME_FORMAT)}
                 />
 
                 <Separator />
