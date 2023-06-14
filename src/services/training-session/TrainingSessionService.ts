@@ -35,6 +35,14 @@ function getSessionByUUID(uuid?: string) {
     };
 }
 
+async function withdrawFromSessionByUUID(sessionUUID?: string) {
+    return axiosInstance.delete("/training-session/withdraw/" + (sessionUUID ?? "-1"))
+        .then((res: AxiosResponse) => {
+            return res;
+        });
+}
+
 export default {
-    getSessionByUUID
+    getSessionByUUID,
+    withdrawFromSessionByUUID
 }

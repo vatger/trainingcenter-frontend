@@ -7,14 +7,13 @@ import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { TbEye } from "react-icons/all";
 import React from "react";
 import { NavigateFunction } from "react-router-dom";
-import dayjs from "dayjs";
-import { Config } from "../../../../../core/Config";
 
 function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
     return [
         {
             name: "Name",
             selector: row => row.training_type?.name ?? "N/A",
+            sortable: true,
         },
         {
             name: "Status",
@@ -26,14 +25,25 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
                     case "planned":
                         return <Badge color={COLOR_OPTS.SUCCESS}>Geplant</Badge>;
 
+                    case "cancelled":
+                        return <Badge color={COLOR_OPTS.DANGER}>Abgesagt</Badge>;
+
+                    case "completed":
+                        return <Badge>Abgeschlossen</Badge>;
+
                     default:
                         return "N/A";
                 }
             },
+            sortable: true,
+            sortFunction: (a: TrainingRequestModel, b: TrainingRequestModel) => {
+                return a.status > b.status ? -1 : 1;
+            }
         },
         {
             name: "Station",
             selector: row => row.training_station?.callsign ?? "N/A",
+            sortable: true,
         },
         {
             name: "Ablaufdatum",
@@ -46,6 +56,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
                 }
                 return moment(row.expires).utc().format("DD.MM.YYYY HH:mm");
             },
+            sortable: true
         },
         {
             name: "Aktion",

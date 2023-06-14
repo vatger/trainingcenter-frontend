@@ -21,7 +21,14 @@ export function ActiveCourseTrainingRequestsPartial(props: ActiveCourseTrainingR
                     Du bekommst zum Ablaufdatum eine E-Mail von uns, in der Du dein weiteres Interesse an diesem Training bestätigen musst. Falls dies nicht
                     innerhalb von x Wochen bestätigt wird, verfällt deine Anfrage automatisch.
                 </p>
-                <Table paginate={false} columns={trainingRequestTableColumns} data={props.trainingRequests} loading={props.loadingTrainingRequests} />
+                <Table
+                    paginate={false}
+                    columns={trainingRequestTableColumns}
+                    data={props.trainingRequests.sort((a, b) => {
+                        return a.status > b.status ? -1 : 1
+                    })}
+                    loading={props.loadingTrainingRequests}
+                />
             </Card>
         </>
     );

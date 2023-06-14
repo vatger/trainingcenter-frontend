@@ -17,7 +17,7 @@ export function ActiveCourseView() {
 
     const { course, loading: loadingCourse } = CourseInformationService.getMyCourseInformationByUUID(uuid);
     const { trainingData, loading: loadingTrainingData } = CourseInformationService.getCourseTrainingInformationByUUID(uuid);
-    const { trainingRequests, setTrainingRequests, loading: loadingTrainingRequests } = UserTrainingService.getActiveTrainingRequestsByCourseUUID(uuid);
+    const { trainingRequests, setTrainingRequests, loading: loadingTrainingRequests } = UserTrainingService.getTrainingRequestsByCourseUUID(uuid);
 
     return (
         <>

@@ -35,21 +35,16 @@ function getAllTrainingRequests() {
  * Get a list of all training-requests made by this user for a specified course
  * @param course_uuid
  */
-function getActiveTrainingRequestsByCourseUUID(course_uuid?: string | number) {
+function getTrainingRequestsByCourseUUID(course_uuid?: string | number) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [trainingRequests, setTrainingRequests] = useState<TrainingRequestModel[]>([]);
 
     useEffect(() => {
         axiosInstance
-            .get("/user-info/training-request/" + course_uuid)
+            .get("/user-info/training-request/" + (course_uuid ?? -1))
             .then((res: AxiosResponse) => {
-                const data: TrainingRequestModel[] = res.data as TrainingRequestModel[];
-                const activeRequests = data.filter((tr: TrainingRequestModel) => {
-                    return tr.status != "completed" && tr.status != "cancelled";
-                });
-
-                setTrainingRequests(activeRequests);
+                setTrainingRequests(res.data as TrainingRequestModel[]);
             })
             .catch((err: AxiosError) => {
                 console.log("Error");
@@ -88,6 +83,6 @@ function destroyTrainingRequestByUUID(uuid?: string): Promise<void> {
 
 export default {
     getAllTrainingRequests,
-    getActiveTrainingRequestsByCourseUUID,
+    getTrainingRequestsByCourseUUID,
     destroyTrainingRequestByUUID,
 };

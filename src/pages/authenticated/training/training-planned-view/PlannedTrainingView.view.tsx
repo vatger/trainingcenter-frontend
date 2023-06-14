@@ -1,6 +1,6 @@
 import {PageHeader} from "../../../../components/ui/PageHeader/PageHeader";
 import TrainingSessionService from "../../../../services/training-session/TrainingSessionService";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Card} from "../../../../components/ui/Card/Card";
 import {Input} from "../../../../components/ui/Input/Input";
 import {
@@ -13,7 +13,7 @@ import {
     TbTrash,
     TbUsers
 } from "react-icons/all";
-import React from "react";
+import React, {useState} from "react";
 import StringHelper from "../../../../utils/helper/StringHelper";
 import dayjs from "dayjs";
 import {Config} from "../../../../core/Config";
@@ -22,10 +22,16 @@ import {Button} from "../../../../components/ui/Button/Button";
 import {COLOR_OPTS} from "../../../../assets/theme.config";
 import {RenderIf} from "../../../../components/conditionals/RenderIf";
 import moment from "moment/moment";
+import ToastHelper from "../../../../utils/helper/ToastHelper";
+import {WithdrawFromSessionModalPartial} from "./_partials/WithdrawFromSessionModal.partial";
 
 export function PlannedTrainingView() {
+    const navigate = useNavigate();
     const {uuid} = useParams();
     const {trainingSession} = TrainingSessionService.getSessionByUUID(uuid);
+
+    const [submitting, setSubmitting] = useState<boolean>(false);
+    const [showWithdrawModal, setShowWithdrawModal] = useState<boolean>(false);
 
     return (
         <>
@@ -71,8 +77,17 @@ export function PlannedTrainingView() {
 
                 <Separator/>
 
-                <Button variant={"twoTone"} color={COLOR_OPTS.DANGER} icon={<TbDoorExit size={20}/>}>Abmelden</Button>
+                <Button variant={"twoTone"} loading={submitting} onClick={() => setShowWithdrawModal(true)} color={COLOR_OPTS.DANGER} icon={<TbDoorExit size={20}/>}>Abmelden</Button>
             </Card>
+
+
+            <WithdrawFromSessionModalPartial
+                show={showWithdrawModal}
+                onClose={() => setShowWithdrawModal(false)}
+                setSubmitting={setSubmitting}
+                submitting={submitting}
+                trainingSession={trainingSession}
+            />
         </>
     )
 }
