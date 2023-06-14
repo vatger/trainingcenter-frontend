@@ -38,7 +38,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
             sortable: true,
             sortFunction: (a: TrainingRequestModel, b: TrainingRequestModel) => {
                 return a.status > b.status ? -1 : 1;
-            }
+            },
         },
         {
             name: "Station",
@@ -56,7 +56,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
                 }
                 return moment(row.expires).utc().format("DD.MM.YYYY HH:mm");
             },
-            sortable: true
+            sortable: true,
         },
         {
             name: "Aktion",

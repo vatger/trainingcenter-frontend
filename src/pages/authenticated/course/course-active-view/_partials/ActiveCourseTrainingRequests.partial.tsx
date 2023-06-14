@@ -25,7 +25,7 @@ export function ActiveCourseTrainingRequestsPartial(props: ActiveCourseTrainingR
                     paginate={false}
                     columns={trainingRequestTableColumns}
                     data={props.trainingRequests.sort((a, b) => {
-                        return a.status > b.status ? -1 : 1
+                        return a.status > b.status ? -1 : 1;
                     })}
                     loading={props.loadingTrainingRequests}
                 />

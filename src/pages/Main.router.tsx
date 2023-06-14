@@ -11,7 +11,7 @@ import { CourseSearchView } from "./authenticated/course/course-search-view/Cour
 import { TrainingOpenRequestListView } from "./authenticated/training/training-open-request-list/TrainingOpenRequestList.view";
 import { TrainingOpenRequestViewView } from "./authenticated/training/training-open-request-view/TrainingOpenRequestView.view";
 import { PlannedTrainingListView } from "./authenticated/training/training-planned-list/PlannedTrainingList.view";
-import {PlannedTrainingView} from "./authenticated/training/training-planned-view/PlannedTrainingView.view";
+import { PlannedTrainingView } from "./authenticated/training/training-planned-view/PlannedTrainingView.view";
 
 export function MainRouter() {
     const location: Location = useLocation();
@@ -44,7 +44,7 @@ export function MainRouter() {
 
                 <Route path={"planned"}>
                     <Route path={""} element={<PlannedTrainingListView />} />
-                    <Route path={":uuid"} element={<PlannedTrainingView/>}/>
+                    <Route path={":uuid"} element={<PlannedTrainingView />} />
                 </Route>
             </Route>
 

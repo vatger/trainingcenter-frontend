@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
-import {APIResponseError} from "../../exceptions/APIResponseError";
-import {TrainingTypeModel} from "../../models/TrainingTypeModel";
-import {axiosInstance} from "../../utils/network/AxiosInstance";
-import {AxiosError, AxiosResponse} from "axios";
-import {TrainingSessionModel} from "../../models/TrainingSessionModel";
+import { useEffect, useState } from "react";
+import { APIResponseError } from "../../exceptions/APIResponseError";
+import { TrainingTypeModel } from "../../models/TrainingTypeModel";
+import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
+import { TrainingSessionModel } from "../../models/TrainingSessionModel";
 
 function getSessionByUUID(uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
@@ -36,13 +36,12 @@ function getSessionByUUID(uuid?: string) {
 }
 
 async function withdrawFromSessionByUUID(sessionUUID?: string) {
-    return axiosInstance.delete("/training-session/withdraw/" + (sessionUUID ?? "-1"))
-        .then((res: AxiosResponse) => {
-            return res;
-        });
+    return axiosInstance.delete("/training-session/withdraw/" + (sessionUUID ?? "-1")).then((res: AxiosResponse) => {
+        return res;
+    });
 }
 
 export default {
     getSessionByUUID,
-    withdrawFromSessionByUUID
-}
+    withdrawFromSessionByUUID,
+};

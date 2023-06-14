@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import { SelectLanguageHeader } from "../../components/template/header/SelectLanguageHeader";
 import { Checkbox } from "../../components/ui/Checkbox/Checkbox";
-import { TbArrowRight, TbRefresh } from "react-icons/all";
+import { TbArrowRight, TbRefresh } from "react-icons/tb";
 import LoginService from "../../services/login/LoginService";
 import { UserModel } from "../../models/UserModel";
 import { RenderIf } from "../../components/conditionals/RenderIf";

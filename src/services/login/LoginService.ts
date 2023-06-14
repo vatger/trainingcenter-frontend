@@ -4,6 +4,7 @@ import { UserModel } from "../../models/UserModel";
 import { AxiosError, AxiosResponse } from "axios";
 import moment from "moment";
 import { APIResponseError } from "../../exceptions/APIResponseError";
+import dayjs from "dayjs";
 
 const axiosAuthTimeout = 7000;
 
@@ -16,7 +17,7 @@ async function validateSession(): Promise<UserModel> {
     if (url.searchParams.get("sinv") != null) throw Error;
 
     return axiosInstance
-        .get(`/auth/data?date=${moment().unix()}`, {
+        .get(`/auth/data?date=${dayjs().unix()}`, {
             timeout: axiosAuthTimeout,
             headers: {
                 "Cache-Control": "no-cache",
