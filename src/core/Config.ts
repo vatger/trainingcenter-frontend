@@ -10,6 +10,7 @@ dayjs.extend(duration);
 
 export const Config = {
     VERSION: "0.0.1-Beta",
+    VATGER_BROWSER_TOKEN_NAME: "vatger_tc_browser_token",
 
     APP_HOST: import.meta.env.VITE_APP_HOST,
     API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
