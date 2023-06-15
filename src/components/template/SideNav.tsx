@@ -89,27 +89,27 @@ export function SideNav() {
             {menuExtended && (
                 <div
                     id={"backdrop-small-nav"}
-                    onClick={() => toggleMobileNav()}
-                    className={"fixed sm:hidden w-full h-[100svh] top-0 left-0 bg-gray-800 transition-opacity opacity-70 z-[98] pointer-events-auto"}
+                    onClick={toggleMobileNav}
+                    className={"fixed sm:hidden w-full max-h-[100dvh] h-[100dvh] top-0 left-0 bg-gray-800 transition-opacity opacity-70 z-[98] pointer-events-auto"}
                 />
             )}
             <div
                 id={"nav-container"}
                 style={{ width: "290px", minWidth: "290px", marginLeft: menuExtended ? "" : `-${SIDENAV_WIDTH}` }}
-                className={"side-nav side-nav-transparent fixed sm:relative z-[99] side-nav-expand dark:bg-gray-800 bg-white h-[100svh] overflow-y-hidden"}>
+                className={"side-nav side-nav-transparent fixed sm:relative z-[99] top-0 dark:bg-gray-800 bg-white h-[100dvh] min-h-[100dvh] max-h-[100dvh] overflow-y-hidden"}>
                 <div className={"side-nav-header flex justify-center"}>
                     <div className={"logo px-6 pt-5 mx-auto"} style={{ width: "auto", maxWidth: "80%" }}>
                         <a target={"_blank"} href={"https://vatsim-germany.org"}>
                             <img className={"sm:w-auto w-[20px]"} style={{ width: "auto" }} src={darkMode ? vaccLogoDark : vaccLogo} alt={"VATGER Logo"} />
                         </a>
                     </div>
-                    <div onClick={() => toggleMobileNav()} className="sm:hidden block header-action-item header-action-item-hoverable text-2xl m-auto mt-4">
+                    <div onClick={toggleMobileNav} className="sm:hidden block header-action-item header-action-item-hoverable text-2xl m-auto mt-4">
                         <TbX size={20} />
                     </div>
                 </div>
                 <div className={"side-nav-content mt-4"}>
                     <div style={{ position: "relative", overflow: "hidden", width: "100%", height: "100%" }}>
-                        <div className={"absolute inset-0 overflow-y-auto mr-0 mb-0 pb-10 side-nav-hide-scrollbar"}>
+                        <div className={"absolute inset-0 overflow-y-auto mr-0 mb-0 pb-16 side-nav-hide-scrollbar"}>
                             <nav className="menu menu-transparent px-4 pt-5">
                                 <MenuItem icon={<TbDashboard size={20} />} href={"overview"}>
                                     Dashboard

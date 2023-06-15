@@ -42,7 +42,7 @@ function App() {
                                     path={"*"}
                                     element={
                                         <div
-                                            className="App flex flex-auto absolute top-0 left-0 w-full h-[100svh] min-w-0 max-h-[100svh]"
+                                            className="App flex flex-auto absolute top-0 left-0 w-full min-w-0 h-[100dvh] min-h-[100dvh] max-h-[100dvh]"
                                             style={{ backgroundColor: "white" }}>
                                             <SideNav />
 
