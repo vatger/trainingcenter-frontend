@@ -8,7 +8,7 @@ export function ContentContainer(props: any) {
 
             <div className="flex flex-auto flex-col justify-between">
                 <main className={"h-full bg-[#f8f8f8] dark:bg-gray-900"}>
-                    <div className="page-container relative sm:h-full h-screen flex flex-auto flex-col px-4 sm:px-6 py-4 sm:py-6 md:px-8">{props.children}</div>
+                    <div className="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 py-4 sm:py-6 md:px-8">{props.children}</div>
                 </main>
 
                 <Footer />
