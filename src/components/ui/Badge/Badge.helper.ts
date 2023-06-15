@@ -1,4 +1,4 @@
-import {COLOR_OPTS} from "../../../assets/theme.config";
+import { COLOR_OPTS } from "../../../assets/theme.config";
 
 export function getBadgeColorClass(color?: COLOR_OPTS): string {
     let classString = "";

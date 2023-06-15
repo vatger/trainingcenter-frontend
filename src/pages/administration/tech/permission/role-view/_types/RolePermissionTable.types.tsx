@@ -1,11 +1,11 @@
-import {NavigateFunction} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {PermissionModel, RoleModel} from "../../../../../../models/Permission.model";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {TbCircleMinus, TbCirclePlus} from "react-icons/all";
-import RoleAdministrationService from "../../../../../../services/permissions/Role.admin.service";
-import {Dispatch, useState} from "react";
+import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { PermissionModel, RoleModel } from "../../../../../../models/PermissionModel";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { TbCircleMinus, TbCirclePlus } from "react-icons/all";
+import RoleAdministrationService from "../../../../../../services/permissions/RoleAdminService";
+import { Dispatch, useState } from "react";
 
 function getColumns(
     navigate: NavigateFunction,

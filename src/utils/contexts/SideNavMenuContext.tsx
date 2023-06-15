@@ -1,4 +1,5 @@
-import {createContext, useState} from "react";
+import { createContext, useState } from "react";
+import { MOBILE_MAX_WIDTH_PX } from "../../assets/theme.config";
 
 export interface ISideNavMenuContext {
     menuExtended: boolean;
@@ -8,7 +9,7 @@ export interface ISideNavMenuContext {
 export const sideNavMenuContext = createContext<ISideNavMenuContext>({} as ISideNavMenuContext);
 
 function getExtendedByWidth(): boolean {
-    return window.innerWidth > 640;
+    return window.innerWidth > MOBILE_MAX_WIDTH_PX;
 }
 
 export function SideNavMenuProvider(props: any) {

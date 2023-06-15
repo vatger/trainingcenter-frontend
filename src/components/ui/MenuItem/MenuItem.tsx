@@ -1,10 +1,11 @@
-import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
-import React, {useContext} from "react";
-import {MENU_ITEM_HEIGHT} from "../../../assets/theme.config";
-import {MenuItemProps} from "./MenuItem.props";
-import {Link} from "react-router-dom";
-import {RenderIf} from "../../conditionals/RenderIf";
+import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
+import React, { MouseEventHandler, useContext } from "react";
+import { MENU_ITEM_HEIGHT, MOBILE_MAX_WIDTH_PX } from "../../../assets/theme.config";
+import { MenuItemProps } from "./MenuItem.props";
+import { Link } from "react-router-dom";
+import { RenderIf } from "../../conditionals/RenderIf";
 import authContext from "../../../utils/contexts/AuthContext";
+import { sideNavMenuContext } from "../../../utils/contexts/SideNavMenuContext";
 
 const menuItemActiveClass = `menu-item-active`;
 const menuItemHoverClass = `menu-item-hoverable`;
@@ -12,6 +13,7 @@ const disabledClass = "menu-item-disabled";
 
 export function MenuItem(props: MenuItemProps) {
     const { userPermissions } = useContext(authContext);
+    const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
 
     const classes = joinClassNames(
         "menu-item",
@@ -21,6 +23,14 @@ export function MenuItem(props: MenuItemProps) {
         props.className ?? ""
     );
 
+    function handleClick(e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLAnchorElement>) {
+        if (menuExtended && window.innerWidth <= MOBILE_MAX_WIDTH_PX) {
+            toggleMenuExtended();
+        }
+
+        props.onClick?.(e);
+    }
+
     return (
         <RenderIf
             truthValue={props.requiredPerm == null || userPermissions.indexOf(props.requiredPerm?.toUpperCase()) != -1}
@@ -28,7 +38,7 @@ export function MenuItem(props: MenuItemProps) {
                 <RenderIf
                     truthValue={props.isNoLink ?? false}
                     elementTrue={
-                        <div onClick={e => props.onClick?.(e)} className={classes} style={{ height: MENU_ITEM_HEIGHT }}>
+                        <div onClick={handleClick} className={classes} style={{ height: MENU_ITEM_HEIGHT }}>
                             <div className="h-full w-full flex flex-row items-center overflow-hidden">
                                 <span className="text-2xl mr-2">{props.icon ?? null}</span>
                                 <span>{props.children}</span>
@@ -38,7 +48,7 @@ export function MenuItem(props: MenuItemProps) {
                         </div>
                     }
                     elementFalse={
-                        <Link onClick={e => props.onClick?.(e)} to={props.href ?? ""}>
+                        <Link onClick={handleClick} to={props.href ?? ""}>
                             <div className={classes} style={{ height: MENU_ITEM_HEIGHT }}>
                                 <div className="h-full w-full flex flex-row items-center overflow-hidden">
                                     <span className="text-2xl mr-2">{props.icon ?? null}</span>

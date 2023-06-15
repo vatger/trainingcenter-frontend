@@ -1,21 +1,21 @@
-import {CourseModel, CourseSkillTemplateModel} from "../../../../../../models/Course.model";
-import {Input} from "../../../../../../components/ui/Input/Input";
-import {TbActivity, TbCalendarEvent, TbCirclePlus, TbEdit, TbId, TbLock, TbTemplate, TbTrash} from "react-icons/all";
+import { CourseModel, CourseSkillTemplateModel } from "../../../../../../models/CourseModel";
+import { Input } from "../../../../../../components/ui/Input/Input";
+import { TbActivity, TbCalendarEvent, TbCirclePlus, TbEdit, TbId, TbLock, TbTemplate, TbTrash } from "react-icons/all";
 import moment from "moment/moment";
-import {RenderIf} from "../../../../../../components/conditionals/RenderIf";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {Select} from "../../../../../../components/ui/Select/Select";
-import {Separator} from "../../../../../../components/ui/Separator/Separator";
-import React, {Dispatch, FormEvent, useEffect, useState} from "react";
-import {AddTrainingTypeModalPartial} from "../../_partials/AddTrainingTypeModal.partial";
-import {TrainingTypeModel} from "../../../../../../models/TrainingType.model";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {CourseViewSettingsSkeleton} from "../../_skeletons/CourseViewSettings.skeleton";
-import {TextArea} from "../../../../../../components/ui/Textarea/TextArea";
-import {AddSkillTypeModalPartial} from "../../_partials/AddSkillTemplateModal.partial";
+import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Select } from "../../../../../../components/ui/Select/Select";
+import { Separator } from "../../../../../../components/ui/Separator/Separator";
+import React, { Dispatch, FormEvent, useEffect, useState } from "react";
+import { AddTrainingTypeModalPartial } from "../../_partials/AddTrainingTypeModal.partial";
+import { TrainingTypeModel } from "../../../../../../models/TrainingTypeModel";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { CourseViewSettingsSkeleton } from "../../_skeletons/CourseViewSettings.skeleton";
+import { TextArea } from "../../../../../../components/ui/Textarea/TextArea";
+import { AddSkillTypeModalPartial } from "../../_partials/AddSkillTemplateModal.partial";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import FormHelper from "../../../../../../utils/helper/FormHelper";
-import CourseAdministrationService from "../../../../../../services/course/Course.admin.service";
+import CourseAdministrationService from "../../../../../../services/course/CourseAdminService";
 
 type CourseViewOverviewPartialProps = {
     loading: boolean;

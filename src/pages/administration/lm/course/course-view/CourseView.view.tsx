@@ -1,12 +1,12 @@
-import {PageHeader} from "../../../../../components/ui/PageHeader/PageHeader";
-import {useParams} from "react-router-dom";
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Tabs} from "../../../../../components/ui/Tabs/Tabs";
-import {CourseViewSettingsSubpage} from "./_subpages/CourseViewSettings.subpage";
-import {CourseViewUsersSubpage} from "./_subpages/CourseViewUsers.subpage";
-import CourseAdminService from "../../../../../services/course/Course.admin.service";
-import {CourseViewMentorgroupsSubpage} from "./_subpages/CourseViewMentorgroups.subpage";
-import {CourseViewDangerSubpage} from "./_subpages/CourseViewDanger.subpage";
+import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import { useParams } from "react-router-dom";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
+import { CourseViewSettingsSubpage } from "./_subpages/CourseViewSettings.subpage";
+import { CourseViewUsersSubpage } from "./_subpages/CourseViewUsers.subpage";
+import CourseAdminService from "../../../../../services/course/CourseAdminService";
+import { CourseViewMentorgroupsSubpage } from "./_subpages/CourseViewMentorgroups.subpage";
+import { CourseViewDangerSubpage } from "./_subpages/CourseViewDanger.subpage";
 
 const tabHeaders = ["Einstellungen", "Mentorgruppen", "Aktionen & Bedingungen", "Teilnehmer", "Gefahrenbereich"];
 

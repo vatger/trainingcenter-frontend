@@ -1,6 +1,6 @@
-import {ButtonProps} from "./Button.props";
-import {CONTROL_SIZES, SIZE_OPTS} from "../../../assets/theme.config";
-import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
+import { ButtonProps } from "./Button.props";
+import { CONTROL_SIZES, SIZE_OPTS } from "../../../assets/theme.config";
+import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
 
 const sizeIconClass = "inline-flex items-center justify-center";
 const disabledClass = "opacity-70 cursor-not-allowed";

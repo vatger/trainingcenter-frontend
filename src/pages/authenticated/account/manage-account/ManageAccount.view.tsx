@@ -1,10 +1,10 @@
-import {Tabs} from "../../../../components/ui/Tabs/Tabs";
-import {PageHeader} from "../../../../components/ui/PageHeader/PageHeader";
-import {ManageAccountProfilePartial} from "./_subpages/ManageAccountProfile.partial";
-import {ManageAccountSettingsPartial} from "./_subpages/ManageAccountSettings.partial";
-import {ManageAccountDangerPartial} from "./_subpages/ManageAccountDanger.partial";
+import { Tabs } from "../../../../components/ui/Tabs/Tabs";
+import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
+import { ManageAccountProfilePartial } from "./_subpages/ManageAccountProfile.partial";
+import { ManageAccountSettingsPartial } from "./_subpages/ManageAccountSettings.partial";
+import { ManageAccountDangerPartial } from "./_subpages/ManageAccountDanger.partial";
 import React from "react";
-import {Card} from "../../../../components/ui/Card/Card";
+import { Card } from "../../../../components/ui/Card/Card";
 
 const tabHeaders = ["Profile", "Settings", "Notifications", "Gefahrenbereich"];
 

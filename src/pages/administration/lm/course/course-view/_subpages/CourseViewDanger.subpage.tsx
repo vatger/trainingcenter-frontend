@@ -1,10 +1,8 @@
-import {
-    ManageAccountElementPartial
-} from "../../../../../authenticated/account/manage-account/_partials/ManageAccountElement.partial";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbRepeat, TbTrash} from "react-icons/all";
-import {COLOR_OPTS} from "../../../../../../assets/theme.config";
-import {useState} from "react";
+import { ManageAccountElementPartial } from "../../../../../authenticated/account/manage-account/_partials/ManageAccountElement.partial";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbRepeat, TbTrash } from "react-icons/all";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import { useState } from "react";
 
 export function CourseViewDangerSubpage(props: { uuid?: string }) {
     const [isDeleting, setIsDeleting] = useState<boolean>(false);

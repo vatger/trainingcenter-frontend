@@ -1,14 +1,14 @@
-import {UserModel} from "../../../../../../models/User.model";
-import {Table} from "../../../../../../components/ui/Table/Table";
-import {useNavigate} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbPlus} from "react-icons/all";
-import {COLOR_OPTS} from "../../../../../../assets/theme.config";
-import {MentorGroupModel} from "../../../../../../models/MentorGroup.model";
+import { UserModel } from "../../../../../../models/UserModel";
+import { Table } from "../../../../../../components/ui/Table/Table";
+import { useNavigate } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbPlus } from "react-icons/all";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
 import CourseMentorGroupsListTypes from "../../_types/CourseMentorGroupsList.types";
-import {Dispatch, useState} from "react";
-import {ViewMentorGroupMembersPartial} from "../_partials/ViewMentorGroupMembers.partial";
+import { Dispatch, useState } from "react";
+import { ViewMentorGroupMembersPartial } from "../_partials/ViewMentorGroupMembers.partial";
 
 export type MentorGroupMembersModalT = {
     show: boolean;

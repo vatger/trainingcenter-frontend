@@ -1,21 +1,21 @@
-import {PageHeader} from "../../../../../components/ui/PageHeader/PageHeader";
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Input} from "../../../../../components/ui/Input/Input";
-import {TbUser} from "react-icons/all";
-import {useContext, useState} from "react";
-import {useDebounce} from "../../../../../utils/hooks/useDebounce";
-import {UserModel} from "../../../../../models/User.model";
-import {Table} from "../../../../../components/ui/Table/Table";
-import {TableColumn} from "react-data-table-component";
-import {getUserSearchTableColumns} from "./_types/UserSearch.types";
-import {useNavigate} from "react-router-dom";
-import UserService from "../../../../../services/user/User.admin.service";
-import {useFilter} from "../../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import {getAtcRatingShort} from "../../../../../utils/helper/vatsim/AtcRatingHelper";
+import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { TbUser } from "react-icons/all";
+import { useContext, useState } from "react";
+import { useDebounce } from "../../../../../utils/hooks/useDebounce";
+import { UserModel } from "../../../../../models/UserModel";
+import { Table } from "../../../../../components/ui/Table/Table";
+import { TableColumn } from "react-data-table-component";
+import { getUserSearchTableColumns } from "./_types/UserSearch.types";
+import { useNavigate } from "react-router-dom";
+import UserService from "../../../../../services/user/UserAdminService";
+import { useFilter } from "../../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import { getAtcRatingShort } from "../../../../../utils/helper/vatsim/AtcRatingHelper";
 import authContext from "../../../../../utils/contexts/AuthContext";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {NetworkError} from "../../../../../components/errors/NetworkError";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { NetworkError } from "../../../../../components/errors/NetworkError";
 
 const filterFunction = (user: UserModel, searchValue: string) => {
     return (

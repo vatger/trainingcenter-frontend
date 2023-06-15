@@ -1,8 +1,8 @@
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
 export type PageHeaderProps = {
     title: string | ReactElement;
-    breadcrumbs?: ReactElement | string;
+    breadcrumbs?: ReactElement | string | number;
     hideBackLink?: boolean;
     navigateHref?: string;
-}
+};

@@ -1,16 +1,16 @@
-import {Modal} from "../../../../../components/ui/Modal/Modal";
-import {Input} from "../../../../../components/ui/Input/Input";
-import {TbSearch} from "react-icons/all";
-import {useState} from "react";
-import {TrainingTypeModel} from "../../../../../models/TrainingType.model";
-import TrainingTypeService from "../../../../../services/training-type/TrainingType.admin.service";
-import {useDebounce} from "../../../../../utils/hooks/useDebounce";
-import {MapArray} from "../../../../../components/conditionals/MapArray";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {Separator} from "../../../../../components/ui/Separator/Separator";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
-import {useFilter} from "../../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import { Modal } from "../../../../../components/ui/Modal/Modal";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { TbSearch } from "react-icons/all";
+import { useState } from "react";
+import { TrainingTypeModel } from "../../../../../models/TrainingTypeModel";
+import TrainingTypeService from "../../../../../services/training-type/TrainingTypeAdminService";
+import { useDebounce } from "../../../../../utils/hooks/useDebounce";
+import { MapArray } from "../../../../../components/conditionals/MapArray";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { Separator } from "../../../../../components/ui/Separator/Separator";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { useFilter } from "../../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
 
 const filterTrainingTypeFunction = (logTemplate: TrainingTypeModel, searchValue: string) => {
     return fuzzySearch(searchValue, [logTemplate.name, logTemplate.type]).length > 0;

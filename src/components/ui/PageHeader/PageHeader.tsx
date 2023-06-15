@@ -1,6 +1,6 @@
-import {useNavigate} from "react-router-dom";
-import {TbArrowLeft} from "react-icons/all";
-import {PageHeaderProps} from "./PageHeader.props";
+import { useNavigate } from "react-router-dom";
+import { TbArrowLeft } from "react-icons/all";
+import { PageHeaderProps } from "./PageHeader.props";
 
 export function PageHeader(props: PageHeaderProps) {
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ export function PageHeader(props: PageHeaderProps) {
                 )}
             </div>
 
-            {((props.hideBackLink == null || !props.hideBackLink) && !new URL(window.location.href).searchParams.has("r")) && (
+            {(props.hideBackLink == null || !props.hideBackLink) && !new URL(window.location.href).searchParams.has("r") && (
                 <div className={"flex justify-between mt-3 mb-7"}>
                     <div onClick={() => navigate(-1)} className={"back-link hover:underline hover:cursor-pointer"}>
                         <div className={"flex"}>

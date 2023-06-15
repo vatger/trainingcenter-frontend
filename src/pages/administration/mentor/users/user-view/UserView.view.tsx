@@ -1,13 +1,13 @@
-import {PageHeader} from "../../../../../components/ui/PageHeader/PageHeader";
-import {useParams} from "react-router-dom";
+import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import { useParams } from "react-router-dom";
 import React from "react";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {UserGeneralInformationPartial} from "./_partials/UserGeneralInformation.partial";
-import {UserCoursesPartial} from "./_partials/UserCourses.partial";
-import {UserViewSkeleton} from "./_skeletons/UserView.skeleton";
-import UserService from "../../../../../services/user/User.admin.service";
-import {NetworkError} from "../../../../../components/errors/NetworkError";
-import {UserMentorGroupsPartial} from "./_partials/UserMentorGroups.partial";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { UserGeneralInformationPartial } from "./_partials/UserGeneralInformation.partial";
+import { UserCoursesPartial } from "./_partials/UserCourses.partial";
+import { UserViewSkeleton } from "./_skeletons/UserView.skeleton";
+import UserService from "../../../../../services/user/UserAdminService";
+import { NetworkError } from "../../../../../components/errors/NetworkError";
+import { UserMentorGroupsPartial } from "./_partials/UserMentorGroups.partial";
 
 export function UserViewView() {
     const { user_id } = useParams();

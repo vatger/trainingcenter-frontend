@@ -1,6 +1,6 @@
-import {NavigateFunction} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {MentorGroupModel} from "../../../../../../models/MentorGroup.model";
+import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
 import moment from "moment";
 
 function getColumns(navigate: NavigateFunction): TableColumn<MentorGroupModel>[] {

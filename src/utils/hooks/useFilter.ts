@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Uses a user defined filter function to filter the provided data.

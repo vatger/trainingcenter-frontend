@@ -1,5 +1,5 @@
-import {RenderIf} from "../../conditionals/RenderIf";
-import {ProgressBarProps} from "./ProgressBar.props";
+import { RenderIf } from "../../conditionals/RenderIf";
+import { ProgressBarProps } from "./ProgressBar.props";
 
 export function ProgressBar(props: ProgressBarProps) {
     return (

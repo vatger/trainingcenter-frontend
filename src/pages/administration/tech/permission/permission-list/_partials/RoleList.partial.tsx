@@ -1,15 +1,15 @@
-import {Card} from "../../../../../../components/ui/Card/Card";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {Table} from "../../../../../../components/ui/Table/Table";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbPlus} from "react-icons/all";
-import {TableColumn} from "react-data-table-component";
-import {RoleModel} from "../../../../../../models/Permission.model";
+import { Card } from "../../../../../../components/ui/Card/Card";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Table } from "../../../../../../components/ui/Table/Table";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbPlus } from "react-icons/all";
+import { TableColumn } from "react-data-table-component";
+import { RoleModel } from "../../../../../../models/PermissionModel";
 import RoleListTypes from "../_types/RoleList.types";
-import {useNavigate} from "react-router-dom";
-import RoleAdministrationService from "../../../../../../services/permissions/Role.admin.service";
-import {NetworkError} from "../../../../../../components/errors/NetworkError";
-import {RenderIf} from "../../../../../../components/conditionals/RenderIf";
+import { useNavigate } from "react-router-dom";
+import RoleAdministrationService from "../../../../../../services/permissions/RoleAdminService";
+import { NetworkError } from "../../../../../../components/errors/NetworkError";
+import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
 
 export function RoleListPartial() {
     const { roles, loading, loadingError } = RoleAdministrationService.getRoles();

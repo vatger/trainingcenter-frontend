@@ -1,9 +1,9 @@
-import {TableColumn} from "react-data-table-component";
-import {PermissionModel, RoleModel} from "../../../../../../models/Permission.model";
+import { TableColumn } from "react-data-table-component";
+import { PermissionModel, RoleModel } from "../../../../../../models/PermissionModel";
 import RolePermissionTableTypes from "../_types/RolePermissionTable.types";
-import {useNavigate} from "react-router-dom";
-import {Table} from "../../../../../../components/ui/Table/Table";
-import {Dispatch} from "react";
+import { useNavigate } from "react-router-dom";
+import { Table } from "../../../../../../components/ui/Table/Table";
+import { Dispatch } from "react";
 
 export function RolePermissionTablePartial(props: {
     loading: boolean;

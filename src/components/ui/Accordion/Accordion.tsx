@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {TbChevronDown} from "react-icons/all";
-import {RenderIf} from "../../conditionals/RenderIf";
-import {AccordionProps} from "./Accordion.props";
+import { useState } from "react";
+import { TbChevronDown } from "react-icons/all";
+import { RenderIf } from "../../conditionals/RenderIf";
+import { AccordionProps } from "./Accordion.props";
 
 export function Accordion(props: AccordionProps) {
     const [expanded, setExpanded] = useState<boolean>(props.expanded ?? false);

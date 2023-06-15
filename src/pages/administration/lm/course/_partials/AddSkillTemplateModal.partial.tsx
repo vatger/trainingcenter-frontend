@@ -1,15 +1,15 @@
-import {Modal} from "../../../../../components/ui/Modal/Modal";
-import {Input} from "../../../../../components/ui/Input/Input";
-import {TbSearch} from "react-icons/all";
-import {useState} from "react";
-import {useDebounce} from "../../../../../utils/hooks/useDebounce";
-import {MapArray} from "../../../../../components/conditionals/MapArray";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {Separator} from "../../../../../components/ui/Separator/Separator";
-import CourseService from "../../../../../services/course/Course.admin.service";
-import {CourseSkillTemplateModel} from "../../../../../models/Course.model";
-import {useFilter} from "../../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import { Modal } from "../../../../../components/ui/Modal/Modal";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { TbSearch } from "react-icons/all";
+import { useState } from "react";
+import { useDebounce } from "../../../../../utils/hooks/useDebounce";
+import { MapArray } from "../../../../../components/conditionals/MapArray";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { Separator } from "../../../../../components/ui/Separator/Separator";
+import CourseService from "../../../../../services/course/CourseAdminService";
+import { CourseSkillTemplateModel } from "../../../../../models/CourseModel";
+import { useFilter } from "../../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
 
 const filterCourseSkillTemplateFunction = (logTemplate: CourseSkillTemplateModel, searchValue: string) => {
     return fuzzySearch(searchValue, [logTemplate.name]).length > 0;

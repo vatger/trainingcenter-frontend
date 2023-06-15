@@ -1,6 +1,6 @@
-import {Table} from "../Table/Table";
-import {TableColumn} from "react-data-table-component";
-import {Skeleton} from "./Skeleton";
+import { Table } from "../Table/Table";
+import { TableColumn } from "react-data-table-component";
+import { Skeleton } from "./Skeleton";
 
 export function TableSkeleton(props: { colCount: number; rowCount: number }) {
     let columns: TableColumn<any>[] = [];
@@ -19,8 +19,6 @@ export function TableSkeleton(props: { colCount: number; rowCount: number }) {
                 },
             });
         });
-
-    console.log(columns);
 
     return <Table columns={columns} data={Array(props.rowCount).fill(0)} />;
 }

@@ -1,9 +1,9 @@
-import {Modal} from "../../../../../components/ui/Modal/Modal";
-import {TrainingRequestModel} from "../../../../../models/TrainingRequest.model";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import {useState} from "react";
-import UserTrainingService from "../../../../../services/user/UserTraining.service";
+import { Modal } from "../../../../../components/ui/Modal/Modal";
+import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { useState } from "react";
+import UserTrainingService from "../../../../../services/user/UserTrainingService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 
 export function DeleteTrainingRequestModalPartial(props: {

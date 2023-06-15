@@ -1,10 +1,10 @@
-import {NavigateFunction} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {CourseModel} from "../../../../../../models/Course.model";
-import {Badge} from "../../../../../../components/ui/Badge/Badge";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbEye} from "react-icons/all";
+import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { CourseModel } from "../../../../../../models/CourseModel";
+import { Badge } from "../../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbEye } from "react-icons/all";
 
 export function getCourseTableColumns(navigate: NavigateFunction): (TableColumn<CourseModel> & { searchable?: boolean })[] {
     return [

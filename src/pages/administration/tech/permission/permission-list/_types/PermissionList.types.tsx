@@ -1,10 +1,10 @@
-import {NavigateFunction} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
+import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
 import moment from "moment";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {TbEye} from "react-icons/all";
-import {PermissionModel} from "../../../../../../models/Permission.model";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { TbEye } from "react-icons/all";
+import { PermissionModel } from "../../../../../../models/PermissionModel";
 
 export function getPermissionTableColumns(navigate: NavigateFunction): TableColumn<PermissionModel>[] {
     return [

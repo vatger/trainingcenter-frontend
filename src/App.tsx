@@ -1,16 +1,16 @@
 import "./assets/styles/app.scss";
-import {SideNav} from "./components/template/SideNav";
-import {ContentContainer} from "./components/template/ContentContainer";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {SideNavMenuProvider} from "./utils/contexts/SideNavMenuContext";
-import {MainRouter} from "./pages/Main.router";
-import {LoginView} from "./pages/login/Login.view";
-import {AuthProvider} from "./utils/contexts/AuthContext";
-import {LoginCallbackView} from "./pages/login/LoginCallbackView";
-import {AxiosInterceptors} from "./utils/network/AxiosInterceptors";
-import {DarkModeProvider} from "./utils/contexts/DarkModeContext";
-import {LanguageProvider} from "./utils/contexts/LanguageContext";
-import {ToastContainer, ToastContainerProps} from "react-toastify";
+import { SideNav } from "./components/template/SideNav";
+import { ContentContainer } from "./components/template/ContentContainer";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { SideNavMenuProvider } from "./utils/contexts/SideNavMenuContext";
+import { MainRouter } from "./pages/Main.router";
+import { LoginView } from "./pages/login/Login.view";
+import { AuthProvider } from "./utils/contexts/AuthContext";
+import { LoginCallbackView } from "./pages/login/LoginCallbackView";
+import { AxiosInterceptors } from "./utils/network/AxiosInterceptors";
+import { DarkModeProvider } from "./utils/contexts/DarkModeContext";
+import { LanguageProvider } from "./utils/contexts/LanguageContext";
+import { ToastContainer, ToastContainerProps } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -42,7 +42,7 @@ function App() {
                                     path={"*"}
                                     element={
                                         <div
-                                            className="App flex flex-auto absolute top-0 left-0 w-full h-full min-w-0 max-h-full"
+                                            className="App flex flex-auto absolute top-0 left-0 w-full min-w-0 h-[100dvh] min-h-[100dvh] max-h-[100dvh]"
                                             style={{ backgroundColor: "white" }}>
                                             <SideNav />
 

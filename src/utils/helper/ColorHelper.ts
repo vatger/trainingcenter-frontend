@@ -1,4 +1,4 @@
-import {COLOR_OPTS} from "../../assets/theme.config";
+import { COLOR_OPTS } from "../../assets/theme.config";
 
 const colors = {
     INDIGO: "rgb(79,70,229)",

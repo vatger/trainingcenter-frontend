@@ -1,13 +1,13 @@
-import {TableColumn} from "react-data-table-component";
-import {TrainingStationModel} from "../../../../../../models/TrainingStation.model";
+import { TableColumn } from "react-data-table-component";
+import { TrainingStationModel } from "../../../../../../models/TrainingStationModel";
 import TrainingTypeViewTrainingStationsListTypes from "../../_types/TrainingTypeViewTrainingStationsList.types";
-import {Table} from "../../../../../../components/ui/Table/Table";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../../assets/theme.config";
-import {TbPlus} from "react-icons/all";
-import {AddTrainingStationModalPartial} from "../_partials/AddTrainingStationModal.partial";
-import {Dispatch, useState} from "react";
-import {TrainingTypeModel} from "../../../../../../models/TrainingType.model";
+import { Table } from "../../../../../../components/ui/Table/Table";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import { TbPlus } from "react-icons/all";
+import { AddTrainingStationModalPartial } from "../_partials/AddTrainingStationModal.partial";
+import { Dispatch, useState } from "react";
+import { TrainingTypeModel } from "../../../../../../models/TrainingTypeModel";
 
 export function TrainingTypeViewTrainingStationsSubpage(props: {
     loading: boolean;

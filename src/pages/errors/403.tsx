@@ -1,18 +1,16 @@
-import {TbArrowLeft, TbLock} from "react-icons/all";
-import {useNavigate} from "react-router-dom";
-import {Button} from "../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../assets/theme.config";
-import {ConversionUtils} from "turbocommons-ts";
-import {RenderIf} from "../../components/conditionals/RenderIf";
+import { TbArrowLeft, TbLock } from "react-icons/all";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../assets/theme.config";
+import { ConversionUtils } from "turbocommons-ts";
+import { RenderIf } from "../../components/conditionals/RenderIf";
 
 export function Error403() {
     const navigate = useNavigate();
 
     const urlParams = new URLSearchParams(window.location.search);
     const m = ConversionUtils.base64ToString(urlParams.get("m") ?? "");
-    const s = urlParams.get("s") ?? false;
-
-    console.log(s);
+    const s = urlParams.get("s") != null;
 
     return (
         <>

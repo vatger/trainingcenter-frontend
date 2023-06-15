@@ -1,8 +1,8 @@
-import {TbX} from "react-icons/all";
-import {RenderIf} from "../../conditionals/RenderIf";
-import React, {useRef} from "react";
-import {Separator} from "../Separator/Separator";
-import {ModalProps} from "./Modal.props";
+import { TbX } from "react-icons/all";
+import { RenderIf } from "../../conditionals/RenderIf";
+import React, { useRef } from "react";
+import { Separator } from "../Separator/Separator";
+import { ModalProps } from "./Modal.props";
 
 export function Modal(props: ModalProps) {
     const modalRef = useRef<HTMLDivElement>(null);
@@ -18,7 +18,9 @@ export function Modal(props: ModalProps) {
             truthValue={props.show}
             elementTrue={
                 <>
-                    <div onClick={e => handleClick(e)} className="dialog-backdrop-animation dialog-overlay dialog-overlay-after-open p-5 z-[120] box-content">
+                    <div
+                        onClick={e => handleClick(e)}
+                        className="dialog-backdrop-animation overflow-y-auto dialog-overlay dialog-overlay-after-open p-5 z-[120] box-content">
                         <div
                             ref={modalRef}
                             style={{ inset: "unset" }}

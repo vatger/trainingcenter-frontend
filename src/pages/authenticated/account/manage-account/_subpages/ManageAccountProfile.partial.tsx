@@ -1,13 +1,13 @@
-import {Input} from "../../../../../components/ui/Input/Input";
-import {ManageAccountElementPartial} from "../_partials/ManageAccountElement.partial";
-import {TbMail, TbMapPin, TbNumbers, TbPlaneDeparture, TbRss, TbUserCircle, TbWorld} from "react-icons/all";
-import {useContext} from "react";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { ManageAccountElementPartial } from "../_partials/ManageAccountElement.partial";
+import { TbMail, TbMapPin, TbNumbers, TbPlaneDeparture, TbRss, TbUserCircle, TbWorld } from "react-icons/all";
+import { useContext } from "react";
 import authContext from "../../../../../utils/contexts/AuthContext";
-import {getAtcRatingLong, getAtcRatingShort} from "../../../../../utils/helper/vatsim/AtcRatingHelper";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import {getPilotRatingLong, getPilotRatingShort} from "../../../../../utils/helper/vatsim/PilotRatingHelper";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
+import { getAtcRatingLong, getAtcRatingShort } from "../../../../../utils/helper/vatsim/AtcRatingHelper";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { getPilotRatingLong, getPilotRatingShort } from "../../../../../utils/helper/vatsim/PilotRatingHelper";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
 
 const guestTag = (
     <div className={"mt-1 lg:mt-0"}>

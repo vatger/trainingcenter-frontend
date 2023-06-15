@@ -1,22 +1,22 @@
-import {Modal} from "../../../../../components/ui/Modal/Modal";
-import {Input} from "../../../../../components/ui/Input/Input";
+import { Modal } from "../../../../../components/ui/Modal/Modal";
+import { Input } from "../../../../../components/ui/Input/Input";
 import StringHelper from "../../../../../utils/helper/StringHelper";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import {Separator} from "../../../../../components/ui/Separator/Separator";
-import {TbChecklist} from "react-icons/all";
-import TrainingTypeService from "../../../../../services/training-type/TrainingType.service";
-import {CourseModel} from "../../../../../models/Course.model";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {RequestTrainingModalSkeleton} from "../../_skeletons/RequestTrainingModal.skeleton";
-import TrainingRequestService from "../../../../../services/training-request/TrainingRequest.service";
-import {Dispatch, FormEvent, useState} from "react";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { Separator } from "../../../../../components/ui/Separator/Separator";
+import { TbChecklist } from "react-icons/all";
+import TrainingTypeService from "../../../../../services/training-type/TrainingTypeService";
+import { CourseModel } from "../../../../../models/CourseModel";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { RequestTrainingModalSkeleton } from "../../_skeletons/RequestTrainingModal.skeleton";
+import TrainingRequestService from "../../../../../services/training-request/TrainingRequestService";
+import { Dispatch, FormEvent, useState } from "react";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import {Select} from "../../../../../components/ui/Select/Select";
-import {MapArray} from "../../../../../components/conditionals/MapArray";
-import {TrainingStationModel} from "../../../../../models/TrainingStation.model";
-import {TrainingRequestModel} from "../../../../../models/TrainingRequest.model";
-import {TextArea} from "../../../../../components/ui/Textarea/TextArea";
+import { Select } from "../../../../../components/ui/Select/Select";
+import { MapArray } from "../../../../../components/conditionals/MapArray";
+import { TrainingStationModel } from "../../../../../models/TrainingStationModel";
+import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
+import { TextArea } from "../../../../../components/ui/Textarea/TextArea";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 
 type RequestTrainingModalPartialProps = {
@@ -56,12 +56,12 @@ export function RequestTrainingModalPartial(props: RequestTrainingModalPartialPr
                 elementFalse={
                     <form onSubmit={handleSubmit}>
                         {/* Hidden inputs for form */}
-                        <input type="text" className={"hidden"} name={"course_id"} value={props.course.id} />
-                        <input type="text" className={"hidden"} name={"training_type_id"} value={nextTraining?.id} />
+                        <input type="text" className={"hidden"} name={"course_id"} readOnly value={props.course.id} />
+                        <input type="text" className={"hidden"} name={"training_type_id"} readOnly value={nextTraining?.id} />
 
-                        <Input disabled label={"Name"} labelSmall value={nextTraining?.name ?? ""} />
+                        <Input disabled label={"Name"} labelSmall readOnly value={nextTraining?.name ?? ""} />
 
-                        <Input disabled className={"mt-5"} label={"Typ"} labelSmall value={StringHelper.capitalize(nextTraining?.type) ?? ""} />
+                        <Input disabled className={"mt-5"} label={"Typ"} readOnly labelSmall value={StringHelper.capitalize(nextTraining?.type) ?? ""} />
 
                         <TextArea
                             className={"mt-5"}
@@ -73,7 +73,7 @@ export function RequestTrainingModalPartial(props: RequestTrainingModalPartialPr
                         />
 
                         <RenderIf
-                            truthValue={nextTraining?.training_stations != null && nextTraining.training_stations.length > 0}
+                            truthValue={nextTraining?.training_stations != null && nextTraining.training_stations.length >= 1}
                             elementTrue={
                                 <Select name={"training_station_id"} className={"mt-5"} label={"Station Auswählen"} labelSmall>
                                     <MapArray

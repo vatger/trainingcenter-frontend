@@ -1,15 +1,15 @@
-import {Modal} from "../../../../../../components/ui/Modal/Modal";
-import {Input} from "../../../../../../components/ui/Input/Input";
-import {TbCircleCheck, TbSearch} from "react-icons/all";
-import {useState} from "react";
-import {useDebounce} from "../../../../../../utils/hooks/useDebounce";
-import {MapArray} from "../../../../../../components/conditionals/MapArray";
-import {RenderIf} from "../../../../../../components/conditionals/RenderIf";
-import {Separator} from "../../../../../../components/ui/Separator/Separator";
-import {useFilter} from "../../../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import {TrainingStationModel} from "../../../../../../models/TrainingStation.model";
-import TrainingStationAdminService from "../../../../../../services/training-station/TrainingStation.admin.service";
+import { Modal } from "../../../../../../components/ui/Modal/Modal";
+import { Input } from "../../../../../../components/ui/Input/Input";
+import { TbCircleCheck, TbSearch } from "react-icons/all";
+import { useState } from "react";
+import { useDebounce } from "../../../../../../utils/hooks/useDebounce";
+import { MapArray } from "../../../../../../components/conditionals/MapArray";
+import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
+import { Separator } from "../../../../../../components/ui/Separator/Separator";
+import { useFilter } from "../../../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import { TrainingStationModel } from "../../../../../../models/TrainingStationModel";
+import TrainingStationAdminService from "../../../../../../services/training-station/TrainingStationAdminService";
 
 const filterTrainingStationTemplateFunction = (logTemplate: TrainingStationModel, searchValue: string) => {
     return fuzzySearch(searchValue, [logTemplate.callsign]).length > 0;

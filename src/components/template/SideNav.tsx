@@ -1,8 +1,8 @@
 import vaccLogo from "../../assets/img/vacc_logo.png";
 import vaccLogoDark from "../../assets/img/vacc_logo_dark.png";
 
-import React, {useContext, useEffect} from "react";
-import {MenuItem} from "../ui/MenuItem/MenuItem";
+import React, { useContext, useEffect } from "react";
+import { MenuItem } from "../ui/MenuItem/MenuItem";
 import {
     TbAdjustments,
     TbBooks,
@@ -10,6 +10,7 @@ import {
     TbCalendarEvent,
     TbCalendarStats,
     TbCertificate,
+    TbCertificate2,
     TbCheckupList,
     TbChevronsRight,
     TbClipboardList,
@@ -30,21 +31,21 @@ import {
     TbUsers,
     TbX,
 } from "react-icons/all";
-import {CollapsableMenu} from "./sidenav/CollapsableMenu";
-import {sideNavMenuContext} from "../../utils/contexts/SideNavMenuContext";
-import {handleResize} from "./sidenav/SideNav.helper";
+import { CollapsableMenu } from "./sidenav/CollapsableMenu";
+import { sideNavMenuContext } from "../../utils/contexts/SideNavMenuContext";
+import { handleResize } from "./sidenav/SideNav.helper";
 import darkModeContext from "../../utils/contexts/DarkModeContext";
-import {RenderIf} from "../conditionals/RenderIf";
+import { RenderIf } from "../conditionals/RenderIf";
 import authContext from "../../utils/contexts/AuthContext";
 import languageContext from "../../utils/contexts/LanguageContext";
 import courseSidenavTranslation from "../../assets/lang/sidenav/courseSidenav.translation";
-import {SIDENAV_WIDTH} from "../../assets/theme.config";
+import { SIDENAV_WIDTH } from "../../assets/theme.config";
 
 export function SideNav() {
     const { userPermissions } = useContext(authContext);
     const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
     const { darkMode } = useContext(darkModeContext);
-    const {language} = useContext(languageContext);
+    const { language } = useContext(languageContext);
 
     function toggleMobileNav() {
         const backdrop = document.getElementById("backdrop-small-nav");
@@ -85,26 +86,19 @@ export function SideNav() {
 
     return (
         <>
-            {menuExtended && (
-                <div
-                    id={"backdrop-small-nav"}
-                    onClick={() => toggleMobileNav()}
-                    className={"fixed sm:hidden w-full h-full top-0 left-0 bg-gray-800 transition-opacity opacity-70 z-[98]"}
-                />
-            )}
             <div
                 id={"nav-container"}
                 style={{ width: "290px", minWidth: "290px", marginLeft: menuExtended ? "" : `-${SIDENAV_WIDTH}` }}
-                className={"side-nav side-nav-transparent absolute sm:relative z-[99] side-nav-expand dark:bg-gray-800 bg-white max-h-full overflow-y-hidden"}>
+                className={
+                    "side-nav flex absolute top-0 left-0 h-[100svh] min-h-[100svh] max-h-[100svh] sm:relative z-[99] dark:bg-gray-800 bg-white overflow-y-hidden"
+                }>
                 <div className={"side-nav-header flex justify-center"}>
                     <div className={"logo px-6 pt-5 mx-auto"} style={{ width: "auto", maxWidth: "80%" }}>
                         <a target={"_blank"} href={"https://vatsim-germany.org"}>
                             <img className={"sm:w-auto w-[20px]"} style={{ width: "auto" }} src={darkMode ? vaccLogoDark : vaccLogo} alt={"VATGER Logo"} />
                         </a>
                     </div>
-                    <div
-                        onClick={() => toggleMobileNav()}
-                        className="sm:hidden block header-action-item header-action-item-hoverable text-2xl m-auto mt-4">
+                    <div onClick={toggleMobileNav} className="sm:hidden block header-action-item header-action-item-hoverable text-2xl m-auto mt-4">
                         <TbX size={20} />
                     </div>
                 </div>
@@ -156,12 +150,15 @@ export function SideNav() {
                                                 <MenuItem icon={<TbList size={20} />}>Übersicht Trainees</MenuItem>
                                             </CollapsableMenu>
 
-                                            <CollapsableMenu title={"Trainings | CPTs"} icon={<TbCalendar size={20} />}>
+                                            <CollapsableMenu title={"Trainings"} icon={<TbCalendar size={20} />}>
                                                 <MenuItem icon={<TbList size={20} />}>Meine Trainings</MenuItem>
                                                 <MenuItem href={"administration/training-request/open"} icon={<TbInbox size={20} />}>
                                                     Offene Trainingsanfragen
                                                 </MenuItem>
                                                 <MenuItem icon={<TbCalendarStats size={20} />}>Geplante Trainings</MenuItem>
+                                            </CollapsableMenu>
+
+                                            <CollapsableMenu title={"CPTs"} icon={<TbCertificate size={20} />}>
                                                 <MenuItem icon={<TbCalendarEvent size={20} />}>CPT Übersicht</MenuItem>
                                             </CollapsableMenu>
                                         </>
@@ -202,12 +199,6 @@ export function SideNav() {
                                                 <MenuItem icon={<TbListDetails size={20} />}>Skillvorlagen Verwalten</MenuItem>
                                                 <MenuItem icon={<TbFilePlus size={20} />}>Skillvorlage Erstellen</MenuItem>
                                             </CollapsableMenu>
-                                            <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20} />}>
-                                                <MenuItem icon={<TbListDetails size={20} />}>Logvorlagen Verwalten</MenuItem>
-                                                <MenuItem href={"administration/log-template/create"} icon={<TbFilePlus size={20} />}>
-                                                    Logvorlage Erstellen
-                                                </MenuItem>
-                                            </CollapsableMenu>
                                             <CollapsableMenu title={"Aktionen | Bedingungen"} icon={<TbAdjustments size={20} />}>
                                                 <MenuItem icon={<TbListCheck size={20} />}>Verwalten</MenuItem>
                                                 <MenuItem icon={<TbFilePlus size={20} />}>Erstellen</MenuItem>
@@ -225,6 +216,13 @@ export function SideNav() {
                                                 <MenuItem icon={<TbClipboardList size={20} />}>CPTs</MenuItem>
                                                 <MenuItem icon={<TbCalendar size={20} />}>Offene CPTs</MenuItem>
                                                 <MenuItem icon={<TbList size={20} />}>Meine CPTs</MenuItem>
+                                            </CollapsableMenu>
+
+                                            <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20} />}>
+                                                <MenuItem icon={<TbListDetails size={20} />}>Logvorlagen Verwalten</MenuItem>
+                                                <MenuItem href={"administration/log-template/create"} icon={<TbFilePlus size={20} />}>
+                                                    Logvorlage Erstellen
+                                                </MenuItem>
                                             </CollapsableMenu>
 
                                             <MenuItem requiredPerm={"atd.fast_track.view"} icon={<TbChevronsRight size={20} />}>
@@ -262,6 +260,16 @@ export function SideNav() {
                     </div>
                 </div>
             </div>
+
+            {menuExtended && (
+                <div
+                    id={"backdrop-small-nav"}
+                    onClick={toggleMobileNav}
+                    className={
+                        "fixed sm:hidden w-full max-h-[100dvh] h-[100dvh] top-0 left-0 bg-gray-800 transition-opacity opacity-70 z-[98] pointer-events-auto"
+                    }
+                />
+            )}
         </>
     );
 }

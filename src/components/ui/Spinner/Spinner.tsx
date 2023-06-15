@@ -1,4 +1,4 @@
-import {SpinnerProps} from "./Spinner.props";
+import { SpinnerProps } from "./Spinner.props";
 
 import "./spinner.css";
 

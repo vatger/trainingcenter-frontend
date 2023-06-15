@@ -1,6 +1,6 @@
-import {joinClassNames} from "../../../utils/helper/ClassNameHelper";
-import {CheckboxProps} from "./Checkbox.props";
-import React, {useEffect, useState} from "react";
+import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
+import { CheckboxProps } from "./Checkbox.props";
+import React, { useEffect, useState } from "react";
 
 export function Checkbox(props: CheckboxProps) {
     const [checked, setChecked] = useState<boolean>(false);

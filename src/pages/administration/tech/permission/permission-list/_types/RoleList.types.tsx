@@ -1,10 +1,10 @@
-import {NavigateFunction} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {RoleModel} from "../../../../../../models/Permission.model";
+import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { RoleModel } from "../../../../../../models/PermissionModel";
 import moment from "moment/moment";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {TbEye} from "react-icons/all";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { TbEye } from "react-icons/all";
 
 function getTableColumn(navigate: NavigateFunction): (TableColumn<RoleModel> & { searchable?: boolean })[] {
     return [

@@ -1,9 +1,9 @@
-import {Footer} from "./footer/Footer";
-import {Header} from "./header/Header";
+import { Footer } from "./footer/Footer";
+import { Header } from "./header/Header";
 
 export function ContentContainer(props: any) {
     return (
-        <div className="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto side-nav-hide-scrollbar max-h-full">
+        <div className="flex flex-col flex-auto relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto side-nav-hide-scrollbar max-h-[100dvh]">
             <Header />
 
             <div className="flex flex-auto flex-col justify-between">

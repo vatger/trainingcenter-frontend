@@ -1,15 +1,15 @@
-import {NavigateFunction} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../assets/theme.config";
-import {TbEye, TbTrash, TbUsers} from "react-icons/all";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
-import {MentorGroupModel} from "../../../../../models/MentorGroup.model";
+import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { TbEye, TbTrash, TbUsers } from "react-icons/all";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { MentorGroupModel } from "../../../../../models/MentorGroupModel";
 import moment from "moment";
-import {Dispatch, useState} from "react";
-import CourseAdminService from "../../../../../services/course/Course.admin.service";
+import { Dispatch, useState } from "react";
+import CourseAdminService from "../../../../../services/course/CourseAdminService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import {MentorGroupMembersModalT} from "../course-view/_subpages/CourseViewMentorgroups.subpage";
+import { MentorGroupMembersModalT } from "../course-view/_subpages/CourseViewMentorgroups.subpage";
 
 function getColumns(
     navigate: NavigateFunction,

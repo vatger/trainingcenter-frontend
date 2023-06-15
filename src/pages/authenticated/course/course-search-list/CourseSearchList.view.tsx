@@ -1,21 +1,21 @@
-import {PageHeader} from "../../../../components/ui/PageHeader/PageHeader";
-import {useState} from "react";
-import {useDebounce} from "../../../../utils/hooks/useDebounce";
-import {RenderIf} from "../../../../components/conditionals/RenderIf";
-import {Input} from "../../../../components/ui/Input/Input";
-import {CourseContainerLoader} from "../_partials/CourseContainerLoader";
-import {MapArray} from "../../../../components/conditionals/MapArray";
-import {CourseModel} from "../../../../models/Course.model";
-import {Alert} from "../../../../components/ui/Alert/Alert";
-import {COLOR_OPTS, TYPE_OPTS} from "../../../../assets/theme.config";
-import {SearchCourseContainerPartial} from "./_partials/SearchCourseContainer.partial";
-import CourseService from "../../../../services/course/Course.service";
-import {useFilter} from "../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import {Button} from "../../../../components/ui/Button/Button";
-import {TbFilter} from "react-icons/all";
-import {Card} from "../../../../components/ui/Card/Card";
-import {Separator} from "../../../../components/ui/Separator/Separator";
+import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
+import { useState } from "react";
+import { useDebounce } from "../../../../utils/hooks/useDebounce";
+import { RenderIf } from "../../../../components/conditionals/RenderIf";
+import { Input } from "../../../../components/ui/Input/Input";
+import { CourseContainerLoader } from "../_partials/CourseContainerLoader";
+import { MapArray } from "../../../../components/conditionals/MapArray";
+import { CourseModel } from "../../../../models/CourseModel";
+import { Alert } from "../../../../components/ui/Alert/Alert";
+import { COLOR_OPTS, TYPE_OPTS } from "../../../../assets/theme.config";
+import { SearchCourseContainerPartial } from "./_partials/SearchCourseContainer.partial";
+import CourseService from "../../../../services/course/CourseService";
+import { useFilter } from "../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import { Button } from "../../../../components/ui/Button/Button";
+import { TbFilter } from "react-icons/all";
+import { Card } from "../../../../components/ui/Card/Card";
+import { Separator } from "../../../../components/ui/Separator/Separator";
 
 type SearchFilter = {
     available_only: boolean;
@@ -41,12 +41,10 @@ export function CourseSearchListView() {
             <RenderIf
                 truthValue={!loadingCourses && searchInput.length == 0 && courses.length == 0}
                 elementTrue={
-                    <Card header={"Fehler"} headerBorder>
-                        <Alert rounded showIcon className={"my-0"} type={TYPE_OPTS.DANGER}>
-                            Es gibt derzeit keine Kurse in die Du Dich einschreiben kannst. Kontaktiere einen Mentor, falls Du der Meinung bist, dass es sich
-                            hier um einen Fehler handelt.
-                        </Alert>
-                    </Card>
+                    <Alert rounded showIcon className={"my-0"} type={TYPE_OPTS.DANGER}>
+                        Es gibt derzeit keine Kurse in die Du Dich einschreiben kannst. Kontaktiere einen Mentor, falls Du der Meinung bist, dass es sich hier
+                        um einen Fehler handelt.
+                    </Alert>
                 }
                 elementFalse={
                     <RenderIf

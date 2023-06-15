@@ -1,10 +1,10 @@
-import {NavigateFunction} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {UserModel} from "../../../../../../models/User.model";
-import {getAtcRatingShort} from "../../../../../../utils/helper/vatsim/AtcRatingHelper";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
-import {TbEye} from "react-icons/all";
+import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { UserModel } from "../../../../../../models/UserModel";
+import { getAtcRatingShort } from "../../../../../../utils/helper/vatsim/AtcRatingHelper";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { TbEye } from "react-icons/all";
 
 export function getUserSearchTableColumns(navigate: NavigateFunction, userPermissions: string[], user?: UserModel): TableColumn<UserModel>[] {
     return [

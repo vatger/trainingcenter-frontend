@@ -1,20 +1,20 @@
 import vaccLogoDark from "../../assets/img/vacc_logo_dark.png";
 import vaccLogo from "../../assets/img/vacc_logo.png";
 
-import {COLOR_OPTS} from "../../assets/theme.config";
-import {Button} from "../../components/ui/Button/Button";
-import React, {useContext, useState} from "react";
+import { COLOR_OPTS } from "../../assets/theme.config";
+import { Button } from "../../components/ui/Button/Button";
+import React, { useContext, useState } from "react";
 import authContext from "../../utils/contexts/AuthContext";
-import {useNavigate} from "react-router-dom";
-import {AxiosError} from "axios";
-import {SelectLanguageHeader} from "../../components/template/header/SelectLanguageHeader";
-import {Checkbox} from "../../components/ui/Checkbox/Checkbox";
-import {TbArrowRight, TbRefresh} from "react-icons/all";
-import LoginService from "../../services/login/Login.service";
-import {UserModel} from "../../models/User.model";
-import {RenderIf} from "../../components/conditionals/RenderIf";
-import {APIResponseError} from "../../exceptions/APIResponseError";
-import {NetworkError} from "../../components/errors/NetworkError";
+import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
+import { SelectLanguageHeader } from "../../components/template/header/SelectLanguageHeader";
+import { Checkbox } from "../../components/ui/Checkbox/Checkbox";
+import { TbArrowRight, TbRefresh } from "react-icons/tb";
+import LoginService from "../../services/login/LoginService";
+import { UserModel } from "../../models/UserModel";
+import { RenderIf } from "../../components/conditionals/RenderIf";
+import { APIResponseError } from "../../exceptions/APIResponseError";
+import { NetworkError } from "../../components/errors/NetworkError";
 
 export function LoginCallbackView() {
     const navigate = useNavigate();

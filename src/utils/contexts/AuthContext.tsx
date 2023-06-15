@@ -1,10 +1,10 @@
-import {UserModel, UserSettingsModel} from "../../models/User.model";
-import {createContext, Dispatch, ReactElement, useEffect, useState} from "react";
-import {Config} from "../../core/Config";
-import {RenderIf} from "../../components/conditionals/RenderIf";
-import {AuthContextLoadingView} from "./views/AuthContextLoadingView";
-import LoginService from "../../services/login/Login.service";
-import {PermissionModel, RoleModel} from "../../models/Permission.model";
+import { UserModel, UserSettingsModel } from "../../models/UserModel";
+import { createContext, Dispatch, ReactElement, useEffect, useState } from "react";
+import { Config } from "../../core/Config";
+import { RenderIf } from "../../components/conditionals/RenderIf";
+import { AuthContextLoadingView } from "./views/AuthContextLoadingView";
+import LoginService from "../../services/login/LoginService";
+import { PermissionModel, RoleModel } from "../../models/PermissionModel";
 
 type AuthContextProps = {
     user: UserModel | undefined;
@@ -61,15 +61,18 @@ export function AuthProvider(props: { children: ReactElement | ReactElement[] })
         <>
             <RenderIf
                 truthValue={user?.id == null && !window.location.href.includes("login")}
-                elementTrue={<AuthContextLoadingView/>}
+                elementTrue={<AuthContextLoadingView />}
                 elementFalse={
-                    <authContext.Provider value={{
-                        user,
-                        changeUser,
-                        userPermissions,
-                        userSettings,
-                        setUserSettings
-                    }}>{props.children}</authContext.Provider>
+                    <authContext.Provider
+                        value={{
+                            user,
+                            changeUser,
+                            userPermissions,
+                            userSettings,
+                            setUserSettings,
+                        }}>
+                        {props.children}
+                    </authContext.Provider>
                 }
             />
         </>

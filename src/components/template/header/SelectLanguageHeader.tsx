@@ -1,10 +1,10 @@
-import {BiCheck} from "react-icons/all";
-import {MenuItem} from "../../ui/MenuItem/MenuItem";
-import {useContext, useEffect, useRef, useState} from "react";
-import {generateUUID} from "../../../utils/helper/UUIDHelper";
+import { BiCheck } from "react-icons/all";
+import { MenuItem } from "../../ui/MenuItem/MenuItem";
+import { useContext, useEffect, useRef, useState } from "react";
+import { generateUUID } from "../../../utils/helper/UUIDHelper";
 
 import "./GenericHeaderAnimation.scss";
-import languageContext, {LanguageEnum} from "../../../utils/contexts/LanguageContext";
+import languageContext, { LanguageEnum } from "../../../utils/contexts/LanguageContext";
 import languageTranslation from "../../../assets/lang/language.translation";
 
 const flag_de = (
@@ -74,7 +74,7 @@ export function SelectLanguageHeader() {
                 }, 150);
             }
         });
-    });
+    }, []);
 
     return (
         <div>

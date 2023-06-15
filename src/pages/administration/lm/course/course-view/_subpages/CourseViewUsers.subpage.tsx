@@ -1,14 +1,14 @@
-import {UserModel} from "../../../../../../models/User.model";
-import {Table} from "../../../../../../components/ui/Table/Table";
+import { UserModel } from "../../../../../../models/UserModel";
+import { Table } from "../../../../../../components/ui/Table/Table";
 import CourseUsersListTypes from "../../_types/CourseUsersList.types";
-import {useNavigate} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbPlus} from "react-icons/all";
-import {COLOR_OPTS} from "../../../../../../assets/theme.config";
-import {Dispatch, useState} from "react";
-import {RemoveUserModalPartial} from "../_partials/RemoveUserModal.partial";
-import {CourseModel} from "../../../../../../models/Course.model";
+import { useNavigate } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbPlus } from "react-icons/all";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import { Dispatch, useState } from "react";
+import { RemoveUserModalPartial } from "../_partials/RemoveUserModal.partial";
+import { CourseModel } from "../../../../../../models/CourseModel";
 
 type CourseViewUsersSubpageProps = {
     loading: boolean;

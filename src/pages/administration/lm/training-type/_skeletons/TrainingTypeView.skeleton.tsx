@@ -1,6 +1,6 @@
-import {Skeleton} from "../../../../../components/ui/Skeleton/Skeleton";
-import {Separator} from "../../../../../components/ui/Separator/Separator";
-import {Card} from "../../../../../components/ui/Card/Card";
+import { Skeleton } from "../../../../../components/ui/Skeleton/Skeleton";
+import { Separator } from "../../../../../components/ui/Separator/Separator";
+import { Card } from "../../../../../components/ui/Card/Card";
 
 export function TrainingTypeViewSkeleton() {
     return (

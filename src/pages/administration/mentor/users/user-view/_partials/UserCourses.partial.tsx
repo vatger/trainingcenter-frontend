@@ -1,13 +1,13 @@
-import {CourseModel} from "../../../../../../models/Course.model";
-import {TableColumn} from "react-data-table-component";
-import {getCoursesTableColumns} from "../_types/CoursesList.types";
-import {useNavigate} from "react-router-dom";
-import {Table} from "../../../../../../components/ui/Table/Table";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
+import { CourseModel } from "../../../../../../models/CourseModel";
+import { TableColumn } from "react-data-table-component";
+import { getCoursesTableColumns } from "../_types/CoursesList.types";
+import { useNavigate } from "react-router-dom";
+import { Table } from "../../../../../../components/ui/Table/Table";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
 import React from "react";
-import {Card} from "../../../../../../components/ui/Card/Card";
-import {Button} from "../../../../../../components/ui/Button/Button";
-import {TbPlus} from "react-icons/all";
+import { Card } from "../../../../../../components/ui/Card/Card";
+import { Button } from "../../../../../../components/ui/Button/Button";
+import { TbPlus } from "react-icons/all";
 
 export function UserCoursesPartial(props: { courses: CourseModel[] | undefined }) {
     const navigate = useNavigate();

@@ -1,9 +1,9 @@
-import {TableColumn} from "react-data-table-component";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../assets/theme.config";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {TbEye, TbEyeOff, TbTrash} from "react-icons/all";
-import {TrainingStationModel} from "../../../../../models/TrainingStation.model";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
+import { TableColumn } from "react-data-table-component";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { TbEye, TbEyeOff, TbTrash } from "react-icons/all";
+import { TrainingStationModel } from "../../../../../models/TrainingStationModel";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
 
 function getColumns(): (TableColumn<TrainingStationModel> & { searchable?: boolean })[] {
     return [

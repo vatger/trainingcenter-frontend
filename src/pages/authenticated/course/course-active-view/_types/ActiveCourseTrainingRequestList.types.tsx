@@ -1,18 +1,19 @@
-import {TableColumn} from "react-data-table-component";
-import {TrainingRequestModel} from "../../../../../models/TrainingRequest.model";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
+import { TableColumn } from "react-data-table-component";
+import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
 import moment from "moment";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../assets/theme.config";
-import {TbEye, TbTrash} from "react-icons/all";
-import React, {Dispatch} from "react";
-import {NavigateFunction} from "react-router-dom";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { TbEye } from "react-icons/all";
+import React from "react";
+import { NavigateFunction } from "react-router-dom";
 
-function getColumns(setDeleteTrainingRequestModal: Dispatch<{ show: boolean; trainingRequest?: TrainingRequestModel }>, navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
+function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
     return [
         {
             name: "Name",
             selector: row => row.training_type?.name ?? "N/A",
+            sortable: true,
         },
         {
             name: "Status",
@@ -24,24 +25,38 @@ function getColumns(setDeleteTrainingRequestModal: Dispatch<{ show: boolean; tra
                     case "planned":
                         return <Badge color={COLOR_OPTS.SUCCESS}>Geplant</Badge>;
 
+                    case "cancelled":
+                        return <Badge color={COLOR_OPTS.DANGER}>Abgesagt</Badge>;
+
+                    case "completed":
+                        return <Badge>Abgeschlossen</Badge>;
+
                     default:
                         return "N/A";
                 }
             },
+            sortable: true,
+            sortFunction: (a: TrainingRequestModel, b: TrainingRequestModel) => {
+                return a.status > b.status ? -1 : 1;
+            },
         },
         {
             name: "Station",
-            selector: row => row.training_station?.callsign ?? "N/A"
+            selector: row => row.training_station?.callsign ?? "N/A",
+            sortable: true,
         },
         {
             name: "Ablaufdatum",
             cell: row => {
+                if (row.status != "requested") return "N/A";
+
                 const date = moment(row.expires).utc();
                 if (date.isBefore(moment())) {
                     return <span className={"text-danger"}>{date.format("DD.MM.YYYY HH:mm")}</span>;
                 }
                 return moment(row.expires).utc().format("DD.MM.YYYY HH:mm");
             },
+            sortable: true,
         },
         {
             name: "Aktion",
@@ -54,18 +69,9 @@ function getColumns(setDeleteTrainingRequestModal: Dispatch<{ show: boolean; tra
                             onClick={() => navigate("/training/request/" + row.uuid)}
                             variant={"twoTone"}
                             color={COLOR_OPTS.PRIMARY}
-                            icon={<TbEye size={20} />}
-                        />
-                        <Button
-                            className={"my-3 ml-2"}
-                            size={SIZE_OPTS.SM}
-                            onClick={() => {
-                                setDeleteTrainingRequestModal({ show: true, trainingRequest: row });
-                            }}
-                            variant={"twoTone"}
-                            color={COLOR_OPTS.DANGER}
-                            icon={<TbTrash size={20} />}
-                        />
+                            icon={<TbEye size={20} />}>
+                            Ansehen
+                        </Button>
                     </div>
                 );
             },

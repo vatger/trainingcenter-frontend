@@ -1,11 +1,11 @@
-import {useNavigate} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {PageHeader} from "../../../../../components/ui/PageHeader/PageHeader";
-import {Table} from "../../../../../components/ui/Table/Table";
+import { useNavigate } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import { Table } from "../../../../../components/ui/Table/Table";
 import MentorGroupListTypes from "./_types/MentorGroupList.types";
-import {MentorGroupModel} from "../../../../../models/MentorGroup.model";
-import MentorGroupAdministrationService from "../../../../../services/mentor-group/MentorGroup.admin.service";
-import {Card} from "../../../../../components/ui/Card/Card";
+import { MentorGroupModel } from "../../../../../models/MentorGroupModel";
+import MentorGroupAdministrationService from "../../../../../services/mentor-group/MentorGroupAdminService";
+import { Card } from "../../../../../components/ui/Card/Card";
 
 export function MentorGroupListView() {
     const navigate = useNavigate();

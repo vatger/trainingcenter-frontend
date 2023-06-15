@@ -1,8 +1,8 @@
-import {axiosInstance} from "./AxiosInstance";
-import {NavigateFunction, useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-import {AxiosResponse} from "axios";
-import {ConversionUtils} from "turbocommons-ts";
+import { axiosInstance } from "./AxiosInstance";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { AxiosResponse } from "axios";
+import { ConversionUtils } from "turbocommons-ts";
 
 export function AxiosInterceptors() {
     const navigate: NavigateFunction = useNavigate();

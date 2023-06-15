@@ -1,15 +1,15 @@
-import {COLOR_OPTS, TYPE_OPTS} from "../../../assets/theme.config";
-import {Card} from "../../../components/ui/Card/Card";
-import {Alert} from "../../../components/ui/Alert/Alert";
-import {Checkbox} from "../../../components/ui/Checkbox/Checkbox";
-import {Tabs} from "../../../components/ui/Tabs/Tabs";
-import {Button} from "../../../components/ui/Button/Button";
-import {Modal} from "../../../components/ui/Modal/Modal";
-import {useState} from "react";
-import {FileUpload} from "../../../components/ui/Upload/FileUpload";
-import {axiosInstance} from "../../../utils/network/AxiosInstance";
-import {AxiosProgressEvent} from "axios";
-import {PageHeader} from "../../../components/ui/PageHeader/PageHeader";
+import { COLOR_OPTS, TYPE_OPTS } from "../../../assets/theme.config";
+import { Card } from "../../../components/ui/Card/Card";
+import { Alert } from "../../../components/ui/Alert/Alert";
+import { Checkbox } from "../../../components/ui/Checkbox/Checkbox";
+import { Tabs } from "../../../components/ui/Tabs/Tabs";
+import { Button } from "../../../components/ui/Button/Button";
+import { Modal } from "../../../components/ui/Modal/Modal";
+import { useState } from "react";
+import { FileUpload } from "../../../components/ui/Upload/FileUpload";
+import { axiosInstance } from "../../../utils/network/AxiosInstance";
+import { AxiosProgressEvent } from "axios";
+import { PageHeader } from "../../../components/ui/PageHeader/PageHeader";
 
 export function Overview() {
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -50,7 +50,7 @@ export function Overview() {
 
     return (
         <>
-            <PageHeader title={"VATSIM Germany Trainingcenter"} hideBackLink/>
+            <PageHeader title={"VATSIM Germany Trainingcenter"} hideBackLink />
 
             <Modal
                 footer={
@@ -65,14 +65,10 @@ export function Overview() {
                 show={showModal}
                 onClose={() => setShowModal(false)}>
                 <p>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                    labore et dolore magna aliquyam erat, sed
-                    diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                    no sea takimata sanctus est Lorem ipsum
-                    dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                    tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                    clita kasd gubergren, no sea takimata
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
+                    diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+                    dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
                     sanctus est Lorem ipsum dolor sit amet.
                 </p>
             </Modal>
@@ -96,8 +92,7 @@ export function Overview() {
                 </Tabs>
             </Card>
 
-            <FileUpload onSubmit={abc} isUploading={isUploading} showSuccess={showSuccess}
-                        progress={uploadProgress * 100} accept={["*"]}/>
+            <FileUpload onSubmit={abc} isUploading={isUploading} showSuccess={showSuccess} progress={uploadProgress * 100} accept={["*"]} />
         </>
     );
 }

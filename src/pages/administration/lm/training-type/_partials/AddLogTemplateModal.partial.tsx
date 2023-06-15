@@ -1,16 +1,16 @@
-import {TrainingLogTemplateModel} from "../../../../../models/TrainingLogTemplate.model";
-import {useState} from "react";
-import {useDebounce} from "../../../../../utils/hooks/useDebounce";
-import {Modal} from "../../../../../components/ui/Modal/Modal";
-import {Input} from "../../../../../components/ui/Input/Input";
-import {TbSearch} from "react-icons/all";
-import {RenderIf} from "../../../../../components/conditionals/RenderIf";
-import {Separator} from "../../../../../components/ui/Separator/Separator";
-import {MapArray} from "../../../../../components/conditionals/MapArray";
-import {useFilter} from "../../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplate.admin.service";
-import {NetworkError} from "../../../../../components/errors/NetworkError";
+import { TrainingLogTemplateModel } from "../../../../../models/TrainingLogTemplateModel";
+import { useState } from "react";
+import { useDebounce } from "../../../../../utils/hooks/useDebounce";
+import { Modal } from "../../../../../components/ui/Modal/Modal";
+import { Input } from "../../../../../components/ui/Input/Input";
+import { TbSearch } from "react-icons/all";
+import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { Separator } from "../../../../../components/ui/Separator/Separator";
+import { MapArray } from "../../../../../components/conditionals/MapArray";
+import { useFilter } from "../../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplateAdminService";
+import { NetworkError } from "../../../../../components/errors/NetworkError";
 
 const filterTrainingLogTemplateFunction = (logTemplate: TrainingLogTemplateModel, searchValue: string) => {
     return fuzzySearch(searchValue, [logTemplate.name]).length > 0;
@@ -21,7 +21,7 @@ export function AddLogTemplateModalPartial(props: { open: boolean; onClose: () =
     const debouncedValue = useDebounce<string>(searchQuery, 250);
 
     const { trainingLogTemplates, loading, loadingError } = TrainingLogTemplateAdminService.getAll();
-    const filteredTemplates = useFilter<TrainingLogTemplateModel>(trainingLogTemplates, searchQuery, debouncedValue, filterTrainingLogTemplateFunction, true);
+    const filteredTemplates = useFilter<TrainingLogTemplateModel>(trainingLogTemplates, searchQuery, debouncedValue, filterTrainingLogTemplateFunction, false);
 
     return (
         <Modal show={props.open} title={"Logvorlage Suchen"} onClose={() => props.onClose()}>
@@ -45,7 +45,7 @@ export function AddLogTemplateModalPartial(props: { open: boolean; onClose: () =
                             labelSmall
                             onChange={e => setSearchQuery(e.target.value)}
                             preIcon={<TbSearch size={20} />}
-                            placeholder={"Frankfurt Tower Sim"}
+                            placeholder={trainingLogTemplates.length > 0 ? trainingLogTemplates[0].name : "Controller Practical Test"}
                         />
 
                         <RenderIf

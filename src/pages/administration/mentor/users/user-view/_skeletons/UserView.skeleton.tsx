@@ -1,9 +1,9 @@
-import {Skeleton} from "../../../../../../components/ui/Skeleton/Skeleton";
-import {Badge} from "../../../../../../components/ui/Badge/Badge";
-import {COLOR_OPTS} from "../../../../../../assets/theme.config";
-import {Card} from "../../../../../../components/ui/Card/Card";
+import { Skeleton } from "../../../../../../components/ui/Skeleton/Skeleton";
+import { Badge } from "../../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import { Card } from "../../../../../../components/ui/Card/Card";
 import React from "react";
-import {MapArray} from "../../../../../../components/conditionals/MapArray";
+import { MapArray } from "../../../../../../components/conditionals/MapArray";
 
 export function UserViewSkeleton() {
     return (

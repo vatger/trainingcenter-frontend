@@ -1,12 +1,12 @@
-import {TableColumn} from "react-data-table-component";
-import {TrainingRequestModel} from "../../../../../models/TrainingRequest.model";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
-import {COLOR_OPTS, SIZE_OPTS} from "../../../../../assets/theme.config";
+import { TableColumn } from "react-data-table-component";
+import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import React from "react";
 import moment from "moment";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {TbEye} from "react-icons/all";
-import {NavigateFunction} from "react-router-dom";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { TbEye } from "react-icons/all";
+import { NavigateFunction } from "react-router-dom";
 
 function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
     return [

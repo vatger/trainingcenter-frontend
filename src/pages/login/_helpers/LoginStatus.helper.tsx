@@ -1,5 +1,5 @@
-import {Alert} from "../../../components/ui/Alert/Alert";
-import {TYPE_OPTS} from "../../../assets/theme.config";
+import { Alert } from "../../../components/ui/Alert/Alert";
+import { TYPE_OPTS } from "../../../assets/theme.config";
 import React from "react";
 
 const welcomeText = (

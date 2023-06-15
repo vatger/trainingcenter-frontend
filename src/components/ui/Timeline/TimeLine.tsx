@@ -1,6 +1,6 @@
 import React from "react";
-import {RenderIf} from "../../conditionals/RenderIf";
-import {TimeLineItemProps, TimeLineProps} from "./TimeLine.props";
+import { RenderIf } from "../../conditionals/RenderIf";
+import { TimeLineItemProps, TimeLineProps } from "./TimeLine.props";
 
 export function TimeLine(props: TimeLineProps) {
     return <ul className="timeline">{props.children}</ul>;

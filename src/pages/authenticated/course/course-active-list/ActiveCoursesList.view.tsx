@@ -1,21 +1,22 @@
-import {PageHeader} from "../../../../components/ui/PageHeader/PageHeader";
-import {Input} from "../../../../components/ui/Input/Input";
-import {CourseContainerLoader} from "../_partials/CourseContainerLoader";
-import React, {useState} from "react";
-import {RenderIf} from "../../../../components/conditionals/RenderIf";
-import {TbFilter} from "react-icons/all";
-import {MapArray} from "../../../../components/conditionals/MapArray";
-import {CourseModel} from "../../../../models/Course.model";
-import {useDebounce} from "../../../../utils/hooks/useDebounce";
-import {Alert} from "../../../../components/ui/Alert/Alert";
-import {COLOR_OPTS, TYPE_OPTS} from "../../../../assets/theme.config";
-import {ActiveCourseContainerPartial} from "./_partials/ActiveCourseContainer.partial";
-import UserService from "../../../../services/user/User.service";
-import {useFilter} from "../../../../utils/hooks/useFilter";
-import {fuzzySearch} from "../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import {Button} from "../../../../components/ui/Button/Button";
-import {Card} from "../../../../components/ui/Card/Card";
-import {Separator} from "../../../../components/ui/Separator/Separator";
+import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
+import { Input } from "../../../../components/ui/Input/Input";
+import { CourseContainerLoader } from "../_partials/CourseContainerLoader";
+import React, { useState } from "react";
+import { RenderIf } from "../../../../components/conditionals/RenderIf";
+import { TbFilter } from "react-icons/all";
+import { MapArray } from "../../../../components/conditionals/MapArray";
+import { CourseModel } from "../../../../models/CourseModel";
+import { useDebounce } from "../../../../utils/hooks/useDebounce";
+import { Alert } from "../../../../components/ui/Alert/Alert";
+import { COLOR_OPTS, TYPE_OPTS } from "../../../../assets/theme.config";
+import { ActiveCourseContainerPartial } from "./_partials/ActiveCourseContainer.partial";
+import UserService from "../../../../services/user/UserService";
+import { useFilter } from "../../../../utils/hooks/useFilter";
+import { fuzzySearch } from "../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import { Button } from "../../../../components/ui/Button/Button";
+import { Card } from "../../../../components/ui/Card/Card";
+import { Separator } from "../../../../components/ui/Separator/Separator";
+import { Link } from "react-router-dom";
 
 const filterFunction = (course: CourseModel, searchValue: string) => {
     return fuzzySearch(searchValue, [course.name]).length > 0;
@@ -33,16 +34,8 @@ export function ActiveCoursesListView() {
             <PageHeader title={"Aktive Kurse"} hideBackLink />
 
             <RenderIf
-                truthValue={!loading && searchInput.length == 0 && courses.length == 0}
+                truthValue={loading || courses.length > 0}
                 elementTrue={
-                    <Card header={"Fehler"} headerBorder>
-                        <Alert rounded showIcon type={TYPE_OPTS.DANGER}>
-                            Es gibt derzeit keine Kurse in die Du Dich einschreiben kannst. Kontaktiere einen Mentor, falls Du der Meinung bist, dass es sich
-                            hier um einen Fehler handelt.
-                        </Alert>
-                    </Card>
-                }
-                elementFalse={
                     <RenderIf
                         truthValue={!loading && courses.length > 0}
                         elementTrue={
@@ -88,6 +81,17 @@ export function ActiveCoursesListView() {
                             />
                         }
                     />
+                }
+                elementFalse={
+                    <Alert rounded showIcon type={TYPE_OPTS.DANGER}>
+                        <>
+                            Du bist aktuell in keinem Kurs eingeschrieben. Klicke{" "}
+                            <Link className={"hover:underline"} to={"/course/search"}>
+                                hier
+                            </Link>{" "}
+                            um eine Übersicht der zur Verfügung stehenden Kurse zu bekommen.{" "}
+                        </>
+                    </Alert>
                 }
             />
         </>

@@ -1,9 +1,10 @@
-import {Card} from "../../../../../components/ui/Card/Card";
-import {Link} from "react-router-dom";
-import {Button} from "../../../../../components/ui/Button/Button";
-import {COLOR_OPTS} from "../../../../../assets/theme.config";
-import {CourseModel} from "../../../../../models/Course.model";
-import {Badge} from "../../../../../components/ui/Badge/Badge";
+import { Card } from "../../../../../components/ui/Card/Card";
+import { Link } from "react-router-dom";
+import { Button } from "../../../../../components/ui/Button/Button";
+import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { CourseModel } from "../../../../../models/CourseModel";
+import { Badge } from "../../../../../components/ui/Badge/Badge";
+import { TbEye, TbEyeCheck, TbSchool } from "react-icons/all";
 
 export function ActiveCourseContainerPartial(props: { course: CourseModel }) {
     const cardHeader = (
@@ -17,7 +18,7 @@ export function ActiveCourseContainerPartial(props: { course: CourseModel }) {
     const cardFooter = (
         <div className={"flex flex-col sm:flex-row"}>
             <Link to={props.course.uuid} className={"sm:mr-3 sm:mb-0 mb-3"}>
-                <Button block variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
+                <Button block icon={<TbEye size={20} />} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
                     Kurs Ansehen
                 </Button>
             </Link>
