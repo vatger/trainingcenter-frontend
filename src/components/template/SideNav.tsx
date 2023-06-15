@@ -90,13 +90,13 @@ export function SideNav() {
                 <div
                     id={"backdrop-small-nav"}
                     onClick={() => toggleMobileNav()}
-                    className={"fixed sm:hidden w-full h-full top-0 left-0 bg-gray-800 transition-opacity opacity-70 z-[98]"}
+                    className={"fixed sm:hidden w-full h-[100svh] top-0 left-0 bg-gray-800 transition-opacity opacity-70 z-[98] pointer-events-auto"}
                 />
             )}
             <div
                 id={"nav-container"}
                 style={{ width: "290px", minWidth: "290px", marginLeft: menuExtended ? "" : `-${SIDENAV_WIDTH}` }}
-                className={"side-nav side-nav-transparent fixed sm:relative z-[99] side-nav-expand dark:bg-gray-800 bg-white max-h-[100svh] overflow-y-hidden"}>
+                className={"side-nav side-nav-transparent fixed sm:relative z-[99] side-nav-expand dark:bg-gray-800 bg-white h-[100svh] overflow-y-hidden"}>
                 <div className={"side-nav-header flex justify-center"}>
                     <div className={"logo px-6 pt-5 mx-auto"} style={{ width: "auto", maxWidth: "80%" }}>
                         <a target={"_blank"} href={"https://vatsim-germany.org"}>
