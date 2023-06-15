@@ -1,4 +1,5 @@
 export const MENU_ITEM_HEIGHT = 40;
+export const MOBILE_MAX_WIDTH_PX = 640;
 export const SIDENAV_WIDTH = "290px";
 
 export enum SIZE_OPTS {

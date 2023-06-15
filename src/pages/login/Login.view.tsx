@@ -40,13 +40,13 @@ export function LoginView() {
                                     <div>
                                         <div className="mb-6 flex items-center gap-4">
                                             <span className="text-white">
-                                                Copyright {new Date().getFullYear()} <span className="font-semibold">VATSIM Germany</span>
+                                                &copy; {new Date().getFullYear()} <span className="font-semibold">VATSIM Germany</span>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-span-2 flex flex-col justify-center items-center bg-white dark:bg-gray-800">
-                                    <div className="xl:min-w-[450px] px-8">
+                                    <div className="xl:min-w-[450px] px-8 sm:pt-auto pt-20 pb-5">
                                         <LoginStatusPartial loadingError={loadingError} />
 
                                         <div className="mb-8">
@@ -103,13 +103,13 @@ export function LoginView() {
                             <img className={"w-[210px] dark:hidden lg:hidden"} src={vaccLogo} alt="VATGER Logo" />
                         </a>
                     </div>
-                    <div className={"m-4 absolute float-right right-0"}>
+                    <div className={"hidden sm:block m-4 absolute float-right right-0"}>
                         <SelectLanguageHeader />
                     </div>
                 </div>
             </div>
 
-            <div className={"absolute bottom-0 right-0 pr-16 pb-6"}>
+            <div className={"hidden sm:block absolute bottom-0 right-0 pr-16 pb-6"}>
                 <pre className={"mb-6 bg-gray-100 dark:bg-gray-700 px-3 rounded text-gray-400"}>{"v" + APP_VERSION}</pre>
             </div>
         </>
