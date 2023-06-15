@@ -96,7 +96,7 @@ export function SideNav() {
             <div
                 id={"nav-container"}
                 style={{ width: "290px", minWidth: "290px", marginLeft: menuExtended ? "" : `-${SIDENAV_WIDTH}` }}
-                className={"side-nav side-nav-transparent absolute sm:relative z-[99] side-nav-expand dark:bg-gray-800 bg-white max-h-full overflow-y-hidden"}>
+                className={"side-nav side-nav-transparent fixed sm:relative z-[99] side-nav-expand dark:bg-gray-800 bg-white max-h-full overflow-y-hidden"}>
                 <div className={"side-nav-header flex justify-center"}>
                     <div className={"logo px-6 pt-5 mx-auto"} style={{ width: "auto", maxWidth: "80%" }}>
                         <a target={"_blank"} href={"https://vatsim-germany.org"}>
