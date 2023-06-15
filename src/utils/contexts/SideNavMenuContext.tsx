@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import {MOBILE_MAX_WIDTH_PX} from "../../assets/theme.config";
+import { MOBILE_MAX_WIDTH_PX } from "../../assets/theme.config";
 
 export interface ISideNavMenuContext {
     menuExtended: boolean;

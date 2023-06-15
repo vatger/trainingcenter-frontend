@@ -48,8 +48,8 @@ export function ActiveCourseTrainingHistoryPartial(props: ActiveCourseTrainingHi
             <RenderIf
                 truthValue={props.trainingData.length == 0}
                 elementTrue={
-                    <Alert type={TYPE_OPTS.DANGER} rounded showIcon>
-                        Du hast in diesem Kurs noch kein abgeschlossenes Training. Beantrage mit dem Knopf oben dein erstes Training!
+                    <Alert type={TYPE_OPTS.WARNING} rounded showIcon>
+                        Du hast in diesem Kurs noch kein abgeschlossenes oder geplantes Training.
                     </Alert>
                 }
                 elementFalse={

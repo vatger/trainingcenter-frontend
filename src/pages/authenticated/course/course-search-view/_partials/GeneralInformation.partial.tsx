@@ -25,7 +25,7 @@ function getAtcRating(rating: number | undefined): string {
 
     const short = getAtcRatingShort(rating);
     const long = getAtcRatingLong(rating);
-    return `${short} (${long})`;
+    return `${long} (${short})`;
 }
 
 export function GeneralInformationPartial(props: { course: (CourseModel & { enrolled?: boolean }) | undefined }) {
@@ -44,13 +44,14 @@ export function GeneralInformationPartial(props: { course: (CourseModel & { enro
                     )
                 }>
                 <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"}>
-                    <Input preIcon={<TbId size={20} />} label={"Name"} disabled value={props.course?.name} />
+                    <Input labelSmall preIcon={<TbId size={20} />} label={"Name"} disabled value={props.course?.name} />
 
-                    <Input preIcon={<TbId size={20} />} label={"UUID"} disabled value={props.course?.uuid} />
+                    <Input labelSmall preIcon={<TbId size={20} />} label={"UUID"} disabled value={props.course?.uuid} />
 
-                    <Input preIcon={<TbClock size={20} />} label={"Ungefähre Dauer"} disabled value={getDuration(props.course?.information?.data)} />
+                    <Input labelSmall preIcon={<TbClock size={20} />} label={"Ungefähre Dauer"} disabled value={getDuration(props.course?.information?.data)} />
 
                     <Input
+                        labelSmall
                         preIcon={<TbCertificate size={20} />}
                         label={"Rating nach Abschluss"}
                         disabled
@@ -58,7 +59,7 @@ export function GeneralInformationPartial(props: { course: (CourseModel & { enro
                     />
                 </div>
 
-                <TextArea disabled label={"Kursbeschreibung"} value={props.course?.description} />
+                <TextArea labelSmall disabled label={"Kursbeschreibung"} value={props.course?.description} />
 
                 <RenderIf
                     truthValue={props.course?.enrolled == null || !props.course.enrolled}

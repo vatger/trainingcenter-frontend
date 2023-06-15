@@ -44,19 +44,25 @@ function getAvailableCourses() {
  * @param course_id
  */
 async function enrol(course_id: number): Promise<void> {
-    return axiosInstance
-        .put("/course/enrol", {
+    return axiosInstance.put("/course/enrol", {
+        course_id: course_id,
+    });
+}
+
+/**
+ * Unenrols the current user from the course
+ * @param course_id
+ */
+async function withdraw(course_id?: number): Promise<void> {
+    return axiosInstance.delete("/course/withdraw", {
+        data: {
             course_id: course_id,
-        })
-        .then(() => {
-            return;
-        })
-        .catch((err: AxiosError) => {
-            throw err;
-        });
+        },
+    });
 }
 
 export default {
     getAvailableCourses,
     enrol,
+    withdraw,
 };

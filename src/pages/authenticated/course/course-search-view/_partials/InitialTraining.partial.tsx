@@ -24,9 +24,9 @@ export function InitialTrainingPartial(props: { course: CourseModel | undefined 
     return (
         <Card header={"Erstes Training"} className={"mt-7"} headerBorder>
             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
-                <Input preIcon={<TbId size={20} />} label={"Name"} disabled value={props.course?.training_type?.name} />
+                <Input labelSmall preIcon={<TbId size={20} />} label={"Name"} disabled value={props.course?.training_type?.name} />
 
-                <Input preIcon={<TbId size={20} />} label={"Typ"} disabled value={getTypeString(props.course?.training_type?.type ?? "online")} />
+                <Input labelSmall preIcon={<TbId size={20} />} label={"Typ"} disabled value={getTypeString(props.course?.training_type?.type ?? "online")} />
             </div>
         </Card>
     );

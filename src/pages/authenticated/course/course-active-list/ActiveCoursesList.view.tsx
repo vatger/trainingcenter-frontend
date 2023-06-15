@@ -16,6 +16,7 @@ import { fuzzySearch } from "../../../../utils/helper/fuzzysearch/FuzzySearchHel
 import { Button } from "../../../../components/ui/Button/Button";
 import { Card } from "../../../../components/ui/Card/Card";
 import { Separator } from "../../../../components/ui/Separator/Separator";
+import { Link } from "react-router-dom";
 
 const filterFunction = (course: CourseModel, searchValue: string) => {
     return fuzzySearch(searchValue, [course.name]).length > 0;
@@ -33,14 +34,8 @@ export function ActiveCoursesListView() {
             <PageHeader title={"Aktive Kurse"} hideBackLink />
 
             <RenderIf
-                truthValue={!loading && searchInput.length == 0 && courses.length == 0}
+                truthValue={loading || courses.length > 0}
                 elementTrue={
-                    <Alert rounded showIcon type={TYPE_OPTS.DANGER}>
-                        Es gibt derzeit keine Kurse in die Du Dich einschreiben kannst. Kontaktiere einen Mentor, falls Du der Meinung bist, dass es sich hier
-                        um einen Fehler handelt.
-                    </Alert>
-                }
-                elementFalse={
                     <RenderIf
                         truthValue={!loading && courses.length > 0}
                         elementTrue={
@@ -86,6 +81,17 @@ export function ActiveCoursesListView() {
                             />
                         }
                     />
+                }
+                elementFalse={
+                    <Alert rounded showIcon type={TYPE_OPTS.DANGER}>
+                        <>
+                            Du bist aktuell in keinem Kurs eingeschrieben. Klicke{" "}
+                            <Link className={"hover:underline"} to={"/course/search"}>
+                                hier
+                            </Link>{" "}
+                            um eine Übersicht der zur Verfügung stehenden Kurse zu bekommen.{" "}
+                        </>
+                    </Alert>
                 }
             />
         </>

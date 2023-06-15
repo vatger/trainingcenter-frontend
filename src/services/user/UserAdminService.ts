@@ -3,6 +3,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { UserModel } from "../../models/UserModel";
 import { APIResponseError } from "../../exceptions/APIResponseError";
+import { CourseModel } from "../../models/CourseModel";
 
 /**
  * Gets the user's data (VATSIM Data) excluding sensitive data like the E-Mail
@@ -112,8 +113,51 @@ function getAllUsersMinimalData() {
     };
 }
 
+/**
+ * Returns all the user's courses that the current user is also a mentor of
+ * Courses that the user is not a mentor of will be filtered out
+ */
+function getUserCoursesMatch(userID?: number) {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [courses, setCourses] = useState<CourseModel[]>([]);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/administration/user/course/match", {
+                params: {
+                    user_id: userID,
+                },
+            })
+            .then((res: AxiosResponse) => {
+                setCourses(res.data as CourseModel[]);
+            })
+            .catch((err: AxiosError) => {
+                // custom stuff
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        courses,
+        loading,
+        loadingError,
+    };
+}
+
+async function getUserNotesByCourseID(courseID: number, userID?: number) {
+    return axiosInstance.get("/administration/user/notes/course", {
+        params: {
+            courseID: courseID,
+            userID: userID,
+        },
+    });
+}
+
 export default {
     getUserData,
     getAllUsers,
     getAllUsersMinimalData,
+    getUserCoursesMatch,
+    getUserNotesByCourseID,
 };

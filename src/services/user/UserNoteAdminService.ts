@@ -28,6 +28,7 @@ function getGeneralUserNotes(user_id: string | number | undefined) {
 
     return {
         userNotes,
+        setUserNotes,
         loading,
         loadingError,
     };

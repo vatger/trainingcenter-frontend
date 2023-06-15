@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { Config } from "./Config";
-import {generateUUID} from "../utils/helper/UUIDHelper";
+import { generateUUID } from "../utils/helper/UUIDHelper";
 
 // If the unique browser token isn't present, create one.
 // This is used for the session creation
@@ -15,6 +15,6 @@ export const AxiosConfiguration: AxiosRequestConfig = {
     headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": "true",
-        "unique-browser-token": window.localStorage.getItem(Config.VATGER_BROWSER_TOKEN_NAME)
+        "unique-browser-token": window.localStorage.getItem(Config.VATGER_BROWSER_TOKEN_NAME),
     },
 };
