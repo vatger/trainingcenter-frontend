@@ -1,5 +1,11 @@
 .side-nav {
-    @apply flex-col flex-auto flex-shrink-0 z-20 transition-all ease-in-out duration-200;
+    @apply flex-col flex-auto flex-shrink-0 z-20 transition-all ease-in-out duration-200
+    fixed
+    top-0
+    left-0
+    box-border;
+
+    height: calc(100dvh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
 }
 
 .side-nav-expand {
