@@ -109,7 +109,7 @@ export function SideNav() {
                 </div>
                 <div className={"side-nav-content mt-4"}>
                     <div style={{ position: "relative", overflow: "hidden", width: "100%", height: "100%" }}>
-                        <div className={"absolute inset-0 overflow-y-auto mr-0 mb-0 pb-10 side-nav-hide-scrollbar"}>
+                        <div className={"absolute inset-0 overflow-y-auto mr-0 mb-0 pb-24 sm:pb-10 side-nav-hide-scrollbar"}>
                             <nav className="menu menu-transparent px-4 pt-5">
                                 <MenuItem icon={<TbDashboard size={20} />} href={"overview"}>
                                     Dashboard
