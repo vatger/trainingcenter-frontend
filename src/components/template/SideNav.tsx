@@ -89,7 +89,7 @@ export function SideNav() {
             <div
                 id={"nav-container"}
                 style={{ width: "290px", minWidth: "290px", marginLeft: menuExtended ? "" : `-${SIDENAV_WIDTH}` }}
-                className={"side-nav side-nav-transparent fixed sm:relative z-[99] dark:bg-gray-800 bg-white overflow-y-hidden"}
+                className={"side-nav flex absolute top-0 left-0 h-[100svh] min-h-[100svh] max-h-[100svh] sm:relative z-[99] dark:bg-gray-800 bg-white overflow-y-hidden"}
             >
                 <div className={"side-nav-header flex justify-center"}>
                     <div className={"logo px-6 pt-5 mx-auto"} style={{ width: "auto", maxWidth: "80%" }}>
