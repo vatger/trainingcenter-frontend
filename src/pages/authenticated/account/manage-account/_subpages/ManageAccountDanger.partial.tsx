@@ -13,19 +13,21 @@ export function ManageAccountDangerPartial() {
             </p>
 
             <ManageAccountElementPartial
+                break
                 title={"Von allen Kursen abmelden"}
                 element={
-                    <Button className={"ml-auto float-right"} icon={<TbLogout size={20} />} variant={"twoTone"} color={COLOR_OPTS.DANGER}>
+                    <Button block className={"ml-auto float-right"} icon={<TbLogout size={20} />} variant={"twoTone"} color={COLOR_OPTS.DANGER}>
                         Abmelden
                     </Button>
                 }
             />
 
             <ManageAccountElementPartial
+                break
                 title={"Konto Löschen"}
                 hideBottomBorder
                 element={
-                    <Button className={"ml-auto float-right"} icon={<TbTrash size={20} />} variant={"twoTone"} color={COLOR_OPTS.DANGER}>
+                    <Button block className={"ml-auto float-right"} icon={<TbTrash size={20} />} variant={"twoTone"} color={COLOR_OPTS.DANGER}>
                         Löschen
                     </Button>
                 }

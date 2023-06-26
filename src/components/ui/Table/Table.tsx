@@ -4,13 +4,17 @@ import DataTable from "react-data-table-component";
 import { TbSortDescending } from "react-icons/all";
 import { Spinner } from "../Spinner/Spinner";
 import { RenderIf } from "../../conditionals/RenderIf";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDebounce } from "../../../utils/hooks/useDebounce";
 import { search } from "./Table.helper";
+import tableTranslation from "../../../assets/lang/table.translation";
+import languageContext from "../../../utils/contexts/LanguageContext";
 
 const TABLE_PAGINATION_PER_PAGE_DEFAULT = 15;
 
 export function Table(props: TableProps) {
+    const { language } = useContext(languageContext);
+
     const [searchInput, setSearchInput] = useState<string>("");
     const debouncedSearch = useDebounce<string>(searchInput, 250);
 
@@ -55,6 +59,7 @@ export function Table(props: TableProps) {
                 <DataTable
                     sortIcon={<TbSortDescending className={"ml-2"} />}
                     data={data}
+                    noDataComponent={<div className={"p-4"}>{tableTranslation.noData[language]}</div>}
                     columns={props.columns}
                     pagination={shouldPaginate}
                     paginationPerPage={props.paginationPerPage ?? TABLE_PAGINATION_PER_PAGE_DEFAULT}

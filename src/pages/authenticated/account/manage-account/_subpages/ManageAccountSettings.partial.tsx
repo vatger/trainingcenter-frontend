@@ -24,7 +24,7 @@ export function ManageAccountSettingsPartial() {
     const [loadingGDPR, setLoadingGDPR] = useState<boolean>(false);
 
     // VATSIM Data synchronisation
-    const [dataSynchronisationDisabled, setDataSynchronisationDisabled] = useState<boolean>(moment().diff(moment(user?.user_data?.updatedAt), "minutes") < 30);
+    const [dataSynchronisationDisabled] = useState<boolean>(moment().diff(moment(user?.user_data?.updatedAt), "minutes") < 30);
     const lastUserDataUpdateDate: Date = user?.user_data?.updatedAt ?? new Date();
 
     function setLanguage(lang: string) {
@@ -72,6 +72,7 @@ export function ManageAccountSettingsPartial() {
                 }
             />
             <ManageAccountElementPartial
+                break
                 title={
                     <>
                         Vatsim Daten Synchronisieren
@@ -88,6 +89,7 @@ export function ManageAccountSettingsPartial() {
                 element={
                     // TODO: change disabled to allowed to update state
                     <Button
+                        block
                         disabled={dataSynchronisationDisabled}
                         onClick={() => navigate("2fa")}
                         icon={dataSynchronisationDisabled ? <TbRefreshOff size={20} /> : <TbRefresh size={20} />}
@@ -100,6 +102,7 @@ export function ManageAccountSettingsPartial() {
             />
             <ManageAccountElementPartial
                 hideBottomBorder
+                break
                 title={
                     <>
                         Personenbezogene Daten Herunterladen
@@ -108,6 +111,7 @@ export function ManageAccountSettingsPartial() {
                 }
                 element={
                     <Button
+                        block
                         onClick={downloadGDPR}
                         loading={loadingGDPR}
                         icon={<TbDownload size={20} />}
