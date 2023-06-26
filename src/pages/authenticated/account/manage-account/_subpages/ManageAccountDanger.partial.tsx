@@ -16,7 +16,7 @@ export function ManageAccountDangerPartial() {
                 break
                 title={"Von allen Kursen abmelden"}
                 element={
-                    <Button block className={"ml-auto float-right"} icon={<TbLogout size={20} />} variant={"twoTone"} color={COLOR_OPTS.DANGER}>
+                    <Button block className={"ml-auto float-right w-full md:w-auto"} icon={<TbLogout size={20} />} variant={"twoTone"} color={COLOR_OPTS.DANGER}>
                         Abmelden
                     </Button>
                 }
@@ -27,7 +27,7 @@ export function ManageAccountDangerPartial() {
                 title={"Konto Löschen"}
                 hideBottomBorder
                 element={
-                    <Button block className={"ml-auto float-right"} icon={<TbTrash size={20} />} variant={"twoTone"} color={COLOR_OPTS.DANGER}>
+                    <Button block className={"ml-auto float-right w-full md:w-auto"} icon={<TbTrash size={20} />} variant={"twoTone"} color={COLOR_OPTS.DANGER}>
                         Löschen
                     </Button>
                 }

@@ -57,10 +57,12 @@ export function ManageAccountSettingsPartial() {
             <ManageAccountElementPartial
                 title={"Language"}
                 element={
-                    <Select defaultValue={language == LanguageEnum.DE ? "de" : "en"} onChange={(language: string) => setLanguage(language)} disabled={false}>
-                        <option value="de">German</option>
-                        <option value="en">English</option>
-                    </Select>
+                    <div className={"w-full lg:w-1/2 float-right"}>
+                        <Select defaultValue={language == LanguageEnum.DE ? "de" : "en"} onChange={(language: string) => setLanguage(language)} disabled={false}>
+                            <option value="de">German</option>
+                            <option value="en">English</option>
+                        </Select>
+                    </div>
                 }
             />
             <ManageAccountElementPartial
@@ -93,7 +95,7 @@ export function ManageAccountSettingsPartial() {
                         disabled={dataSynchronisationDisabled}
                         onClick={() => navigate("2fa")}
                         icon={dataSynchronisationDisabled ? <TbRefreshOff size={20} /> : <TbRefresh size={20} />}
-                        className={"ml-auto float-right"}
+                        className={"ml-auto float-right w-full md:w-auto"}
                         variant={"twoTone"}
                         color={COLOR_OPTS.PRIMARY}>
                         {dataSynchronisationDisabled ? "Nicht Verfügbar" : "Jetzt Synchronisieren"}
@@ -111,11 +113,10 @@ export function ManageAccountSettingsPartial() {
                 }
                 element={
                     <Button
-                        block
                         onClick={downloadGDPR}
                         loading={loadingGDPR}
                         icon={<TbDownload size={20} />}
-                        className={"ml-auto float-right"}
+                        className={"ml-auto float-right w-full md:w-auto"}
                         variant={"twoTone"}
                         color={COLOR_OPTS.PRIMARY}>
                         Herunterladen
