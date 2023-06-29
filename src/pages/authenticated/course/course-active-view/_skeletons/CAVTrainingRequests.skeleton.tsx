@@ -1,7 +1,7 @@
-import { TableSkeleton } from "../../../../components/ui/Skeleton/TableSkeleton";
 import React from "react";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Skeleton } from "../../../../../components/ui/Skeleton/Skeleton";
+import {TableSkeleton} from "../../../../../components/ui/Skeleton/TableSkeleton";
 
 export function CAVTrainingRequestsSkeleton() {
     return (

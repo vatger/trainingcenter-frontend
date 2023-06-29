@@ -4,7 +4,7 @@ import {
     LogTemplateElementSection,
     LogTemplateElementTextarea,
     LogTemplateType,
-} from "../_types/LogTemplateElement.types";
+} from "../_types/LTCElement.types";
 import { ProgressBar } from "../../../../../../components/ui/ProgressBar/ProgressBar";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { TbArrowDown, TbArrowUp, TbTrash } from "react-icons/all";
@@ -14,7 +14,7 @@ import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
 
 const borderClass: string = "border-dashed border-2 border-gray-100 hover:border-gray-300 transition-colors rounded-lg p-3";
 
-export function LogTemplateElementPartial(props: {
+export function LTCTemplateElementPartial(props: {
     element: LogTemplateElement;
     content: LogTemplateElement[];
     setContent: Dispatch<LogTemplateElement[]>;

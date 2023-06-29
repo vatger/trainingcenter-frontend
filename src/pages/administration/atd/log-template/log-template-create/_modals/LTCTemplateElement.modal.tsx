@@ -1,5 +1,5 @@
 import { Dispatch, useState } from "react";
-import { LogTemplateElement, LogTemplateElementRating, LogTemplateType } from "../_types/LogTemplateElement.types";
+import { LogTemplateElement, LogTemplateElementRating, LogTemplateType } from "../_types/LTCElement.types";
 import { Modal } from "../../../../../../components/ui/Modal/Modal";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
@@ -8,7 +8,7 @@ import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
 import { Input } from "../../../../../../components/ui/Input/Input";
 import { Checkbox } from "../../../../../../components/ui/Checkbox/Checkbox";
 
-export function AddLogTemplateElementModal(props: {
+export function LTCTemplateElementModal(props: {
     show: boolean;
     onClose: () => void;
     logTemplateElements: LogTemplateElement[];

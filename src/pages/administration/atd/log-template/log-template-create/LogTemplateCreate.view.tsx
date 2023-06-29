@@ -7,11 +7,11 @@ import { Separator } from "../../../../../components/ui/Separator/Separator";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { RenderIf } from "../../../../../components/conditionals/RenderIf";
-import { LogTemplateElement } from "./_types/LogTemplateElement.types";
+import { LogTemplateElement } from "./_types/LTCElement.types";
 import { MapArray } from "../../../../../components/conditionals/MapArray";
-import { LogTemplateElementPartial } from "./_partials/LogTemplateElement.partial";
-import { LogTemplateElementPreviewPartial } from "./_partials/LogTemplateElementPreview.partial";
-import { AddLogTemplateElementModal } from "./_partials/AddLogTemplateElementModal";
+import { LTCTemplateElementPartial } from "./_partials/LTCTemplateElement.partial";
+import { LTCTemplateElementPreviewPartial } from "./_partials/LTCTemplateElementPreview.partial";
+import { LTCTemplateElementModal } from "./_modals/LTCTemplateElement.modal";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplateAdminService";
 import { NavigateFunction, useNavigate } from "react-router-dom";
@@ -90,9 +90,9 @@ export function LogTemplateCreateView() {
                                     <RenderIf
                                         key={index}
                                         truthValue={showingPreview}
-                                        elementTrue={<LogTemplateElementPreviewPartial element={value} index={index} key={index} />}
+                                        elementTrue={<LTCTemplateElementPreviewPartial element={value} index={index} key={index} />}
                                         elementFalse={
-                                            <LogTemplateElementPartial
+                                            <LTCTemplateElementPartial
                                                 element={value}
                                                 content={content}
                                                 setContent={setContent}
@@ -135,7 +135,7 @@ export function LogTemplateCreateView() {
                 </div>
             </Card>
 
-            <AddLogTemplateElementModal
+            <LTCTemplateElementModal
                 show={addElementModalOpen}
                 onClose={() => setAddElementModalOpen(false)}
                 logTemplateElements={content}
