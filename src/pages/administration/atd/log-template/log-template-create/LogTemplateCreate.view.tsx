@@ -14,12 +14,12 @@ import { LogTemplateElementPreviewPartial } from "./_partials/LogTemplateElement
 import { AddLogTemplateElementModal } from "./_partials/AddLogTemplateElementModal";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplateAdminService";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { TrainingLogTemplateModel } from "../../../../../models/TrainingLogTemplateModel";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 
 export function LogTemplateCreateView() {
-    const navigate = useNavigate();
+    const navigate: NavigateFunction = useNavigate();
     const [content, setContent] = useState<LogTemplateElement[]>([]);
     const [submitting, setSubmitting] = useState<boolean>(false);
     const [showingPreview, setShowingPreview] = useState<boolean>(false);

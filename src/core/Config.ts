@@ -15,5 +15,5 @@ export const Config = {
     APP_HOST: import.meta.env.VITE_APP_HOST,
     API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
     DATE_FORMAT: "DD.MM.YYYY",
-    DATETIME_FORMAT: "DD.MM.YYYY HH:mmz",
+    DATETIME_FORMAT: "DD.MM.YYYY HH:mm",
 };

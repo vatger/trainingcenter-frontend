@@ -2,7 +2,7 @@ import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "../../../../components/ui/Card/Card";
 import { Input } from "../../../../components/ui/Input/Input";
-import { TbCalendar, TbCalendarEvent, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
+import { TbCalendar, TbCalendarEvent, TbClipboard, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
 import React, { useState } from "react";
 import TrainingRequestService from "../../../../services/training-request/TrainingRequestService";
 import { Button } from "../../../../components/ui/Button/Button";
@@ -12,7 +12,7 @@ import moment from "moment";
 import StringHelper from "../../../../utils/helper/StringHelper";
 import { TextArea } from "../../../../components/ui/Textarea/TextArea";
 import { RenderIf } from "../../../../components/conditionals/RenderIf";
-import { DeleteTrainingRequestModalPartial } from "../../course/course-active-view/_partials/DeleteTrainingRequestModal.partial";
+import { CAVDeleteTrainingRequestModal } from "../../course/course-active-view/_modals/CAVDeleteTrainingRequest.modal";
 import { TrainingRequestModel } from "../../../../models/TrainingRequestModel";
 import dayjs from "dayjs";
 import { Config } from "../../../../core/Config";
@@ -68,7 +68,7 @@ export function TrainingOpenRequestViewView() {
                         }
                         preIcon={<TbCalendarEvent size={20} />}
                         disabled
-                        value={moment(trainingRequest?.expires).utc().format("DD.MM.YYYY HH:mm")}
+                        value={trainingRequest?.training_session != null ? "N/A" : moment(trainingRequest?.expires).utc().format("DD.MM.YYYY HH:mm")}
                     />
                 </div>
 
@@ -102,7 +102,11 @@ export function TrainingOpenRequestViewView() {
                         inputClassName={"mt-auto"}
                         preIcon={<TbRadar size={20} />}
                         disabled
-                        value={trainingRequest?.training_station == null ? "N/A" : trainingRequest.training_station.callsign}
+                        value={
+                            trainingRequest?.training_station == null
+                                ? "N/A"
+                                : `${trainingRequest.training_station.callsign} (${trainingRequest.training_station.frequency.toFixed(3)})`
+                        }
                     />
 
                     <Input
@@ -112,12 +116,7 @@ export function TrainingOpenRequestViewView() {
                         inputClassName={"mt-auto"}
                         preIcon={<TbListCheck size={20} />}
                         disabled
-                        value={
-                            StringHelper.capitalize(trainingRequest?.status) +
-                            (trainingRequest?.training_session?.date != null
-                                ? ` (${dayjs.utc(trainingRequest.training_session.date).format(Config.DATETIME_FORMAT)} UTC)`
-                                : "")
-                        }
+                        value={StringHelper.capitalize(trainingRequest?.status)}
                     />
                 </div>
 
@@ -127,37 +126,6 @@ export function TrainingOpenRequestViewView() {
                     labelSmall
                     value={trainingRequest?.comment == null ? "N/A" : trainingRequest.comment}
                     disabled
-                />
-
-                <RenderIf
-                    truthValue={trainingRequest?.training_session != null}
-                    elementTrue={
-                        <>
-                            <Separator />
-
-                            <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 mt-5"}>
-                                <Input
-                                    labelSmall
-                                    label={"Session Datum (UTC)"}
-                                    className={"flex flex-col"}
-                                    inputClassName={"mt-auto"}
-                                    preIcon={<TbCalendar size={20} />}
-                                    disabled
-                                    value={moment(trainingRequest?.training_session?.date).utc().format("DD.MM.YYYY HH:mm")}
-                                />
-
-                                <Input
-                                    labelSmall
-                                    label={"Mentor"}
-                                    className={"flex flex-col"}
-                                    inputClassName={"mt-auto"}
-                                    preIcon={<TbListCheck size={20} />}
-                                    disabled
-                                    value={`${trainingRequest?.training_session?.mentor?.first_name} ${trainingRequest?.training_session?.mentor?.last_name} (${trainingRequest?.training_session?.mentor?.id})`}
-                                />
-                            </div>
-                        </>
-                    }
                 />
 
                 <Separator />
@@ -171,6 +139,20 @@ export function TrainingOpenRequestViewView() {
                         icon={<TbEye size={20} />}>
                         Kurs Ansehen
                     </Button>
+
+                    <RenderIf
+                        truthValue={trainingRequest?.training_session_id != null && trainingRequest.training_session != null}
+                        elementTrue={
+                            <Button
+                                className={"lg:mr-3"}
+                                variant={"twoTone"}
+                                color={COLOR_OPTS.PRIMARY}
+                                onClick={() => navigate("/training/planned/" + trainingRequest?.training_session?.uuid)}
+                                icon={<TbClipboard size={20} />}>
+                                Geplante Session Ansehen
+                            </Button>
+                        }
+                    />
 
                     <RenderIf
                         truthValue={trainingRequest?.status == "requested" && trainingRequest.training_session == null}
@@ -191,7 +173,7 @@ export function TrainingOpenRequestViewView() {
                 </div>
             </Card>
 
-            <DeleteTrainingRequestModalPartial
+            <CAVDeleteTrainingRequestModal
                 open={showDeleteModal}
                 trainingRequest={trainingRequest}
                 onClose={() => setShowDeleteModal(false)}

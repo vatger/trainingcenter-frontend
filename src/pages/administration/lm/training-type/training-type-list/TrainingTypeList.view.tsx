@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { TableColumn } from "react-data-table-component";
 import { TrainingTypeModel } from "../../../../../models/TrainingTypeModel";
-import TrainingTypeListTypes from "../_types/TrainingTypeList.types";
+import TrainingTypeListTypes from "./_types/TTLList.types";
 import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { Table } from "../../../../../components/ui/Table/Table";
 import TrainingTypeService from "../../../../../services/training-type/TrainingTypeAdminService";

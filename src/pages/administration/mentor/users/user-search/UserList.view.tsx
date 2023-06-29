@@ -7,7 +7,7 @@ import { useDebounce } from "../../../../../utils/hooks/useDebounce";
 import { UserModel } from "../../../../../models/UserModel";
 import { Table } from "../../../../../components/ui/Table/Table";
 import { TableColumn } from "react-data-table-component";
-import { getUserSearchTableColumns } from "./_types/UserSearch.types";
+import { getUserSearchTableColumns } from "./_types/US.types";
 import { useNavigate } from "react-router-dom";
 import UserService from "../../../../../services/user/UserAdminService";
 import { useFilter } from "../../../../../utils/hooks/useFilter";

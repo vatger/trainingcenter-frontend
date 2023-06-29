@@ -1,7 +1,17 @@
+import { UserModel } from "../../models/UserModel";
+
 function capitalize(string?: string) {
     if (string == null) return "";
 
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export default { capitalize };
+function getUserFullName(user?: UserModel) {
+    return user?.first_name == null ? "N/A" : `${user?.first_name} ${user?.last_name}`;
+}
+
+function getUserFullNameAndCID(user?: UserModel) {
+    return user?.first_name == null ? "N/A" : `${user?.first_name} ${user?.last_name} (${user.id})`;
+}
+
+export default { capitalize, getUserFullName, getUserFullNameAndCID };

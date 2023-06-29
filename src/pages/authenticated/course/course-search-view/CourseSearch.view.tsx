@@ -1,8 +1,8 @@
 import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
 import { useParams } from "react-router-dom";
 import CourseInformationService from "../../../../services/course/CourseInformationService";
-import { GeneralInformationPartial } from "./_partials/GeneralInformation.partial";
-import { InitialTrainingPartial } from "./_partials/InitialTraining.partial";
+import { CSVGeneralPartial } from "./_partials/CSVGeneral.partial";
+import { CSVInitialTrainingPartial } from "./_partials/CSVInitialTraining.partial";
 
 export function CourseSearchView() {
     const { uuid } = useParams();
@@ -13,9 +13,9 @@ export function CourseSearchView() {
         <>
             <PageHeader title={course?.name ?? "Lade Kursübersicht"} />
 
-            <GeneralInformationPartial course={course} />
+            <CSVGeneralPartial course={course} />
 
-            <InitialTrainingPartial course={course} />
+            <CSVInitialTrainingPartial course={course} />
         </>
     );
 }

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { axiosInstance } from "../../utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 import { NotificationModel } from "../../models/NotificationModel";

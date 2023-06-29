@@ -1,8 +1,8 @@
 import { Tabs } from "../../../../components/ui/Tabs/Tabs";
 import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
-import { ManageAccountProfilePartial } from "./_subpages/ManageAccountProfile.partial";
-import { ManageAccountSettingsPartial } from "./_subpages/ManageAccountSettings.partial";
-import { ManageAccountDangerPartial } from "./_subpages/ManageAccountDanger.partial";
+import { MAProfilePartial } from "./_partials/MAProfile.partial";
+import { MASettingsPartial } from "./_partials/MASettings.partial";
+import { MADangerPartial } from "./_partials/MADanger.partial";
 import React from "react";
 import { Card } from "../../../../components/ui/Card/Card";
 
@@ -19,10 +19,10 @@ export function ManageAccountView() {
 
             <Card>
                 <Tabs tabHeaders={tabHeaders} type={"underline"}>
-                    <ManageAccountProfilePartial />
-                    <ManageAccountSettingsPartial />
+                    <MAProfilePartial />
+                    <MASettingsPartial />
                     <></>
-                    <ManageAccountDangerPartial />
+                    <MADangerPartial />
                 </Tabs>
             </Card>
         </>

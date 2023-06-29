@@ -4,10 +4,10 @@ import TrainingTypeAdminService from "../../../../../services/training-type/Trai
 import { Card } from "../../../../../components/ui/Card/Card";
 import { RenderIf } from "../../../../../components/conditionals/RenderIf";
 import React from "react";
-import { TrainingTypeViewSkeleton } from "../_skeletons/TrainingTypeView.skeleton";
+import { TTSkeleton } from "../_skeletons/TT.skeleton";
 import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
-import { TrainingTypeViewSettingsSubpage } from "./_subpages/TrainingTypeViewSettings.subpage";
-import { TrainingTypeViewTrainingStationsSubpage } from "./_subpages/TrainingTypeViewTrainingStations.subpage";
+import { TTVSettingsSubpage } from "./_subpages/TTVSettings.subpage";
+import { TTVTrainingStationsSubpage } from "./_subpages/TTVTrainingStations.subpage";
 
 const tabHeaders = ["Einstellungen", "Trainingsstationen"];
 
@@ -22,12 +22,12 @@ export function TrainingTypeViewView() {
 
             <RenderIf
                 truthValue={loading}
-                elementTrue={<TrainingTypeViewSkeleton />}
+                elementTrue={<TTSkeleton />}
                 elementFalse={
                     <Card>
                         <Tabs type={"underline"} tabHeaders={tabHeaders}>
-                            <TrainingTypeViewSettingsSubpage loading={loading} trainingType={trainingType} setTrainingType={setTrainingType} />
-                            <TrainingTypeViewTrainingStationsSubpage loading={loading} trainingType={trainingType} setTrainingType={setTrainingType} />
+                            <TTVSettingsSubpage loading={loading} trainingType={trainingType} setTrainingType={setTrainingType} />
+                            <TTVTrainingStationsSubpage loading={loading} trainingType={trainingType} setTrainingType={setTrainingType} />
                         </Tabs>
                     </Card>
                 }

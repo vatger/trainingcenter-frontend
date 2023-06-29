@@ -8,6 +8,78 @@ import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
 import { Input } from "../../../../../../components/ui/Input/Input";
 import { Checkbox } from "../../../../../../components/ui/Checkbox/Checkbox";
 
+export function AddLogTemplateElementModal(props: {
+    show: boolean;
+    onClose: () => void;
+    logTemplateElements: LogTemplateElement[];
+    setLogTemplateElements: Dispatch<LogTemplateElement[]>;
+}) {
+    const [showingSecondPage, setShowingSecondPage] = useState<boolean>(false);
+    const [selectedElement, setSelectedElement] = useState<LogTemplateType>("rating");
+    const [element, setElement] = useState<LogTemplateElement>({} as LogTemplateElement);
+
+    function addSelectedElement(elem: LogTemplateElement | undefined) {
+        if (elem == null) return;
+
+        if (elem.title == null || elem.title.length == 0) return;
+
+        if (elem.type == "rating") {
+            let e = elem as LogTemplateElementRating;
+            if (e.max == null || isNaN(e.max)) return;
+        }
+
+        let templates = [...props.logTemplateElements];
+        templates.push(elem);
+
+        props.setLogTemplateElements(templates);
+        setShowingSecondPage(false);
+        setElement({} as LogTemplateElement);
+        props.onClose();
+    }
+
+    return (
+        <Modal
+            show={props.show}
+            title={"Logvorlagen-Element Hinzufügen"}
+            onClose={props.onClose}
+            footer={
+                <RenderIf
+                    truthValue={showingSecondPage}
+                    elementTrue={
+                        <div className={"flex w-full justify-end"}>
+                            <Button
+                                size={SIZE_OPTS.SM}
+                                onClick={() => {
+                                    setShowingSecondPage(false);
+                                    setElement({} as LogTemplateElement);
+                                }}
+                                className={"mr-3"}>
+                                Zurück
+                            </Button>
+                            <Button size={SIZE_OPTS.SM} onClick={() => addSelectedElement(element)} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
+                                Hinzufügen
+                            </Button>
+                        </div>
+                    }
+                />
+            }>
+            <RenderIf
+                truthValue={!showingSecondPage}
+                elementTrue={renderSectionSelection(setSelectedElement, setShowingSecondPage)}
+                elementFalse={
+                    <>
+                        {selectedElement == "section" && renderCreateSectionElement(setElement)}
+
+                        {selectedElement == "textarea" && renderCreateTextAreaElement(element, setElement)}
+
+                        {selectedElement == "rating" && renderCreateRatingElement(element, setElement)}
+                    </>
+                }
+            />
+        </Modal>
+    );
+}
+
 function renderSectionSelection(setSelectedElement: Dispatch<LogTemplateType>, setShowingSecondPage: Dispatch<boolean>) {
     return (
         <>
@@ -131,77 +203,5 @@ function renderCreateRatingElement(element: LogTemplateElement, setElement: Disp
                 Zusätzlichen Text deaktivieren
             </Checkbox>
         </>
-    );
-}
-
-export function AddLogTemplateElementModal(props: {
-    show: boolean;
-    onClose: () => void;
-    logTemplateElements: LogTemplateElement[];
-    setLogTemplateElements: Dispatch<LogTemplateElement[]>;
-}) {
-    const [showingSecondPage, setShowingSecondPage] = useState<boolean>(false);
-    const [selectedElement, setSelectedElement] = useState<LogTemplateType>("rating");
-    const [element, setElement] = useState<LogTemplateElement>({} as LogTemplateElement);
-
-    function addSelectedElement(elem: LogTemplateElement | undefined) {
-        if (elem == null) return;
-
-        if (elem.title == null || elem.title.length == 0) return;
-
-        if (elem.type == "rating") {
-            let e = elem as LogTemplateElementRating;
-            if (e.max == null || isNaN(e.max)) return;
-        }
-
-        let templates = [...props.logTemplateElements];
-        templates.push(elem);
-
-        props.setLogTemplateElements(templates);
-        setShowingSecondPage(false);
-        setElement({} as LogTemplateElement);
-        props.onClose();
-    }
-
-    return (
-        <Modal
-            show={props.show}
-            title={"Logvorlagen-Element Hinzufügen"}
-            onClose={props.onClose}
-            footer={
-                <RenderIf
-                    truthValue={showingSecondPage}
-                    elementTrue={
-                        <div className={"flex w-full justify-end"}>
-                            <Button
-                                size={SIZE_OPTS.SM}
-                                onClick={() => {
-                                    setShowingSecondPage(false);
-                                    setElement({} as LogTemplateElement);
-                                }}
-                                className={"mr-3"}>
-                                Zurück
-                            </Button>
-                            <Button size={SIZE_OPTS.SM} onClick={() => addSelectedElement(element)} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
-                                Hinzufügen
-                            </Button>
-                        </div>
-                    }
-                />
-            }>
-            <RenderIf
-                truthValue={!showingSecondPage}
-                elementTrue={renderSectionSelection(setSelectedElement, setShowingSecondPage)}
-                elementFalse={
-                    <>
-                        {selectedElement == "section" && renderCreateSectionElement(setElement)}
-
-                        {selectedElement == "textarea" && renderCreateTextAreaElement(element, setElement)}
-
-                        {selectedElement == "rating" && renderCreateRatingElement(element, setElement)}
-                    </>
-                }
-            />
-        </Modal>
     );
 }

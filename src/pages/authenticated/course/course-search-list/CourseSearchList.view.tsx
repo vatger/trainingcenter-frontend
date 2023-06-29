@@ -3,12 +3,12 @@ import { useState } from "react";
 import { useDebounce } from "../../../../utils/hooks/useDebounce";
 import { RenderIf } from "../../../../components/conditionals/RenderIf";
 import { Input } from "../../../../components/ui/Input/Input";
-import { CourseContainerLoader } from "../_partials/CourseContainerLoader";
+import { CCourseSkeleton } from "../_skeletons/CCourse.skeleton";
 import { MapArray } from "../../../../components/conditionals/MapArray";
 import { CourseModel } from "../../../../models/CourseModel";
 import { Alert } from "../../../../components/ui/Alert/Alert";
 import { COLOR_OPTS, TYPE_OPTS } from "../../../../assets/theme.config";
-import { SearchCourseContainerPartial } from "./_partials/SearchCourseContainer.partial";
+import { CSLContainerPartial } from "./_partials/CSLContainer.partial";
 import CourseService from "../../../../services/course/CourseService";
 import { useFilter } from "../../../../utils/hooks/useFilter";
 import { fuzzySearch } from "../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
@@ -78,7 +78,7 @@ export function CourseSearchListView() {
                                 <MapArray
                                     data={filteredCourses}
                                     mapFunction={(course: CourseModel, index) => {
-                                        return <SearchCourseContainerPartial key={index} course={course} />;
+                                        return <CSLContainerPartial key={index} course={course} />;
                                     }}
                                 />
                             </>
@@ -87,7 +87,7 @@ export function CourseSearchListView() {
                             <MapArray
                                 data={Array(3).fill(0)}
                                 mapFunction={(v, i) => {
-                                    return <CourseContainerLoader key={i} />;
+                                    return <CCourseSkeleton key={i} />;
                                 }}
                             />
                         }

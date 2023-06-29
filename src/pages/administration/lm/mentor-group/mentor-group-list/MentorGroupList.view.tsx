@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { TableColumn } from "react-data-table-component";
 import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { Table } from "../../../../../components/ui/Table/Table";
-import MentorGroupListTypes from "./_types/MentorGroupList.types";
+import MentorGroupListTypes from "./_types/MGList.types";
 import { MentorGroupModel } from "../../../../../models/MentorGroupModel";
 import MentorGroupAdministrationService from "../../../../../services/mentor-group/MentorGroupAdminService";
 import { Card } from "../../../../../components/ui/Card/Card";

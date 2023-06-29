@@ -1,6 +1,6 @@
 import { NotificationModel } from "../../models/NotificationModel";
 import { LanguageEnum } from "../contexts/LanguageContext";
-import { TbClipboard, TbTrash } from "react-icons/all";
+import { TbClipboard, TbDoorExit, TbTrash } from "react-icons/all";
 
 export function convertNotificationContent(n: NotificationModel, l: LanguageEnum): string {
     let s = "";
@@ -16,6 +16,9 @@ export function getIconByString(size: number, s?: string, className?: string) {
     switch (s?.toLowerCase()) {
         case "trash":
             return <TbTrash className={className} size={size} />;
+
+        case "door-exit":
+            return <TbDoorExit className={className} size={size} />;
 
         default:
             return <TbClipboard className={className} size={size} />;

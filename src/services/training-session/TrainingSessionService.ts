@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { APIResponseError } from "../../exceptions/APIResponseError";
-import { TrainingTypeModel } from "../../models/TrainingTypeModel";
 import { axiosInstance } from "../../utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 import { TrainingSessionModel } from "../../models/TrainingSessionModel";

@@ -1,6 +1,6 @@
 import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
 import { Input } from "../../../../components/ui/Input/Input";
-import { CourseContainerLoader } from "../_partials/CourseContainerLoader";
+import { CCourseSkeleton } from "../_skeletons/CCourse.skeleton";
 import React, { useState } from "react";
 import { RenderIf } from "../../../../components/conditionals/RenderIf";
 import { TbFilter } from "react-icons/all";
@@ -9,7 +9,7 @@ import { CourseModel } from "../../../../models/CourseModel";
 import { useDebounce } from "../../../../utils/hooks/useDebounce";
 import { Alert } from "../../../../components/ui/Alert/Alert";
 import { COLOR_OPTS, TYPE_OPTS } from "../../../../assets/theme.config";
-import { ActiveCourseContainerPartial } from "./_partials/ActiveCourseContainer.partial";
+import { CALContainerPartial } from "./_partials/CALContainer.partial";
 import UserService from "../../../../services/user/UserService";
 import { useFilter } from "../../../../utils/hooks/useFilter";
 import { fuzzySearch } from "../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
@@ -67,7 +67,7 @@ export function ActiveCoursesListView() {
                                 <MapArray
                                     data={filteredCourses}
                                     mapFunction={(course: CourseModel, index) => {
-                                        return <ActiveCourseContainerPartial key={index} course={course} />;
+                                        return <CALContainerPartial key={index} course={course} />;
                                     }}
                                 />
                             </>
@@ -76,7 +76,7 @@ export function ActiveCoursesListView() {
                             <MapArray
                                 data={Array(3).fill(0)}
                                 mapFunction={(v, i) => {
-                                    return <CourseContainerLoader key={i} />;
+                                    return <CCourseSkeleton key={i} />;
                                 }}
                             />
                         }

@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, Location } from "react-router-dom";
+import { Location, Route, Routes, useLocation } from "react-router-dom";
 import { Overview } from "./authenticated/overview/Overview";
 import { ManageAccountView } from "./authenticated/account/manage-account/ManageAccount.view";
 import { Error403 } from "./errors/403";

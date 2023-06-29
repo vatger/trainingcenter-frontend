@@ -2,11 +2,11 @@ import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { useParams } from "react-router-dom";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
-import { CourseViewSettingsSubpage } from "./_subpages/CourseViewSettings.subpage";
-import { CourseViewUsersSubpage } from "./_subpages/CourseViewUsers.subpage";
+import { CVSettingsSubpage } from "./_partials/CVSettings.subpage";
+import { CVUsersSubpage } from "./_partials/CVUsers.subpage";
 import CourseAdminService from "../../../../../services/course/CourseAdminService";
-import { CourseViewMentorgroupsSubpage } from "./_subpages/CourseViewMentorgroups.subpage";
-import { CourseViewDangerSubpage } from "./_subpages/CourseViewDanger.subpage";
+import { CVMentorgroupsSubpage } from "./_partials/CVMentorgroups.subpage";
+import { CVDangerSubpage } from "./_partials/CVDanger.subpage";
 
 const tabHeaders = ["Einstellungen", "Mentorgruppen", "Aktionen & Bedingungen", "Teilnehmer", "Gefahrenbereich"];
 
@@ -23,16 +23,16 @@ export function CourseViewView() {
 
             <Card>
                 <Tabs type={"underline"} tabHeaders={tabHeaders}>
-                    <CourseViewSettingsSubpage loading={loadingCourse} courseData={course} setCourseData={setCourse} />
-                    <CourseViewMentorgroupsSubpage
+                    <CVSettingsSubpage loading={loadingCourse} courseData={course} setCourseData={setCourse} />
+                    <CVMentorgroupsSubpage
                         loading={loadingMentorGroups}
                         course_id={course?.id ?? -1}
                         mentorGroups={mentorGroups}
                         setMentorGroups={setMentorGroups}
                     />
                     <div></div>
-                    <CourseViewUsersSubpage loading={loadingUsers} users={users} setUsers={setUsers} course={course} />
-                    <CourseViewDangerSubpage uuid={uuid} />
+                    <CVUsersSubpage loading={loadingUsers} users={users} setUsers={setUsers} course={course} />
+                    <CVDangerSubpage uuid={uuid} />
                 </Tabs>
             </Card>
         </>

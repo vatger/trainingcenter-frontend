@@ -1,5 +1,5 @@
 import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
-import React, { MouseEventHandler, useContext } from "react";
+import React, { useContext } from "react";
 import { MENU_ITEM_HEIGHT, MOBILE_MAX_WIDTH_PX } from "../../../assets/theme.config";
 import { MenuItemProps } from "./MenuItem.props";
 import { Link } from "react-router-dom";

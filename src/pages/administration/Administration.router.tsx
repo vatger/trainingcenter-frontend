@@ -1,7 +1,7 @@
-import { Route, Routes, useLocation, Location } from "react-router-dom";
+import { Location, Route, Routes, useLocation } from "react-router-dom";
 import { UserListView } from "./mentor/users/user-search/UserList.view";
 import { UserViewView } from "./mentor/users/user-view/UserView.view";
-import { RequestFastTrackView } from "./mentor/users/user-view/_subpages/RequestFastTrack.subpage";
+import { RequestFastTrackView } from "./mentor/users/user-view/_partials/UVRequestFastTrack.subpage";
 import { CourseListView } from "./lm/course/course-list/CourseList.view";
 import { CourseCreateView } from "./lm/course/course-create/CourseCreate.view";
 import { CourseViewView } from "./lm/course/course-view/CourseView.view";
@@ -18,7 +18,7 @@ import { MentorGroupListView } from "./lm/mentor-group/mentor-group-list/MentorG
 import { SyslogViewView } from "./tech/syslog/syslog-view/SyslogView.view";
 import { TrainingTypeViewView } from "./lm/training-type/training-type-view/TrainingTypeView.view";
 import { MentorGroupViewView } from "./lm/mentor-group/mentor-group-view/MentorGroupView.view";
-import { ViewUserNotesView } from "./mentor/users/user-view/_subpages/ViewUserNotes.subpage";
+import { ViewUserNotesView } from "./mentor/users/user-view/_partials/UVViewUserNotes.subpage";
 import { OpenTrainingRequestList } from "./mentor/request/open-training-request-list/OpenTrainingRequestList";
 import { OpenTrainingRequestView } from "./mentor/request/open-training-request-view/OpenTrainingRequestView";
 

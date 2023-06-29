@@ -6,7 +6,7 @@ import { useContext } from "react";
 import authContext from "../../../../../utils/contexts/AuthContext";
 import { RenderIf } from "../../../../../components/conditionals/RenderIf";
 import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
-import { MentorGroupViewSettingsSubpage } from "./_subpages/MentorGroupViewSettings.subpage";
+import { MGSettingsSubpage } from "./_subpages/MGSettings.subpage";
 
 export function MentorGroupViewView() {
     const { id: mentor_group_id } = useParams();
@@ -23,7 +23,7 @@ export function MentorGroupViewView() {
                 elementFalse={
                     <Card>
                         <Tabs tabHeaders={["Einstellungen", "Mitglieder"]} type={"underline"}>
-                            <MentorGroupViewSettingsSubpage mentorGroup={mentorGroup} loading={loadingMentorGroup} />
+                            <MGSettingsSubpage mentorGroup={mentorGroup} loading={loadingMentorGroup} />
                             <></>
                         </Tabs>
                     </Card>

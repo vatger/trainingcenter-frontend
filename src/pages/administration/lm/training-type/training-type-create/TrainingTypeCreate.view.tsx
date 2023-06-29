@@ -1,5 +1,5 @@
 import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
-import { AddLogTemplateModalPartial } from "../_partials/AddLogTemplateModal.partial";
+import { TTAddLogTemplateModal } from "../_modals/TTAddLogTemplate.modal";
 import { TrainingLogTemplateModel } from "../../../../../models/TrainingLogTemplateModel";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Input } from "../../../../../components/ui/Input/Input";
@@ -52,7 +52,7 @@ export function TrainingTypeCreateView() {
         <>
             <PageHeader title={"Trainingstypen Erstellen"} hideBackLink />
 
-            <AddLogTemplateModalPartial
+            <TTAddLogTemplateModal
                 open={addTemplateModalOpen}
                 onClose={() => setAddTemplateModalOpen(false)}
                 onSelect={(trainingLogTemplate: TrainingLogTemplateModel) => handleLogTemplateChange(trainingLogTemplate)}

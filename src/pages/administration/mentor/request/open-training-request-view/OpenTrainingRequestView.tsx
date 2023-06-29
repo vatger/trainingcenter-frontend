@@ -3,7 +3,7 @@ import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import TrainingRequestAdminService from "../../../../../services/training-request/TrainingRequestAdminService";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Input } from "../../../../../components/ui/Input/Input";
-import { TbCalendarEvent, TbCalendarPlus, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
+import { TbCalendarEvent, TbCalendarPlus, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
 import dayjs from "dayjs";
 import { Config } from "../../../../../core/Config";
 import { Separator } from "../../../../../components/ui/Separator/Separator";
@@ -12,9 +12,9 @@ import { TextArea } from "../../../../../components/ui/Textarea/TextArea";
 import React, { useState } from "react";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../../../../assets/theme.config";
-import { DeleteTrainingRequestModalPartial } from "./_partials/DeleteTrainingRequestModalPartial";
+import { OTRVDeleteTrainingRequestModal } from "./_modals/OTRVDeleteTrainingRequest.modal";
 import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
-import { CreateSessionModalPartial } from "./_partials/CreateSessionModalPartial";
+import { OTRVCreateSessionModal } from "./_modals/OTRVCreateSession.modal";
 
 export function OpenTrainingRequestView() {
     const navigate = useNavigate();
@@ -118,14 +118,14 @@ export function OpenTrainingRequestView() {
                 </div>
             </Card>
 
-            <CreateSessionModalPartial
+            <OTRVCreateSessionModal
                 open={createSessionModalOpen}
                 onClose={() => setCreateSessionModalOpen(false)}
                 trainingRequest={trainingRequest}
                 onCreate={() => {}}
             />
 
-            <DeleteTrainingRequestModalPartial
+            <OTRVDeleteTrainingRequestModal
                 open={deleteModalOpen}
                 onClose={() => setDeleteModalOpen(false)}
                 trainingRequest={trainingRequest}

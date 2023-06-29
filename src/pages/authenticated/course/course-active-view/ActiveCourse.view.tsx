@@ -1,15 +1,15 @@
 import { useParams } from "react-router-dom";
 import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
 import CourseInformationService from "../../../../services/course/CourseInformationService";
-import { CourseInformationSkeleton } from "../_skeletons/CourseInformation.skeleton";
+import { CAVInformationSkeleton } from "./_skeletons/CAVInformation.skeleton";
 import { RenderIf } from "../../../../components/conditionals/RenderIf";
-import { CourseTrainingHistorySkeleton } from "../_skeletons/CourseTrainingHistory.skeleton";
+import { CAVTrainingHistorySkeleton } from "./_skeletons/CAVTrainingHistory.skeleton";
 import React, { useState } from "react";
 import UserTrainingService from "../../../../services/user/UserTrainingService";
-import { ActiveCourseInformationPartial } from "./_partials/ActiveCourseInformation.partial";
-import { ActiveCourseTrainingRequestsPartial } from "./_partials/ActiveCourseTrainingRequests.partial";
-import { ActiveCourseTrainingHistoryPartial } from "./_partials/ActiveCourseTrainingHistory.partial";
-import { TrainingRequestSkeleton } from "../_skeletons/TrainingRequest.skeleton";
+import { CAVInformationPartial } from "./_partials/CAVInformation.partial";
+import { CAVTrainingRequestsPartial } from "./_partials/CAVTrainingRequests.partial";
+import { CAVTrainingHistoryPartial } from "./_partials/CAVTrainingHistory.partial";
+import { CAVTrainingRequestsSkeleton } from "./_skeletons/CAVTrainingRequests.skeleton";
 
 export function ActiveCourseView() {
     const { uuid } = useParams();
@@ -28,14 +28,14 @@ export function ActiveCourseView() {
                 truthValue={loadingCourse || loadingTrainingData || loadingTrainingRequests}
                 elementTrue={
                     <>
-                        <CourseInformationSkeleton />
-                        <TrainingRequestSkeleton />
-                        <CourseTrainingHistorySkeleton />
+                        <CAVInformationSkeleton />
+                        <CAVTrainingRequestsSkeleton />
+                        <CAVTrainingHistorySkeleton />
                     </>
                 }
                 elementFalse={
                     <>
-                        <ActiveCourseInformationPartial
+                        <CAVInformationPartial
                             showRequestTrainingModal={showRequestTrainingModal}
                             setShowRequestTrainingModal={setShowRequestTrainingModal}
                             setTrainingRequests={setTrainingRequests}
@@ -44,9 +44,9 @@ export function ActiveCourseView() {
                             trainingRequests={trainingRequests}
                         />
 
-                        <ActiveCourseTrainingRequestsPartial trainingRequests={trainingRequests} loadingTrainingRequests={loadingTrainingRequests} />
+                        <CAVTrainingRequestsPartial trainingRequests={trainingRequests} loadingTrainingRequests={loadingTrainingRequests} />
 
-                        <ActiveCourseTrainingHistoryPartial trainingData={trainingData} />
+                        <CAVTrainingHistoryPartial trainingData={trainingData} />
                     </>
                 }
             />

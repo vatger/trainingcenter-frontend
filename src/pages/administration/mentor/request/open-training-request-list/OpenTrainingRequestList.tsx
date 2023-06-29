@@ -3,7 +3,7 @@ import TrainingRequestAdminService from "../../../../../services/training-reques
 import { Table } from "../../../../../components/ui/Table/Table";
 import { TableColumn } from "react-data-table-component";
 import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
-import OpenRequestListTypes from "./_types/OpenRequestList.types";
+import OpenRequestListTypes from "./_types/OTRLList.types";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../../../../components/ui/Input/Input";
 import { Button } from "../../../../../components/ui/Button/Button";

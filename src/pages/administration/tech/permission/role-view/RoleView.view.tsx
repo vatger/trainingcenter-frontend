@@ -8,8 +8,8 @@ import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
 import PermissionAdministrationService from "../../../../../services/permissions/PermissionAdminService";
 import RoleAdministrationService from "../../../../../services/permissions/RoleAdminService";
 import { useParams } from "react-router-dom";
-import { RolePermissionTablePartial } from "./_partials/RolePermissionTable.partial";
-import { RoleUserTablePartial } from "./_partials/RoleUserTable.partial";
+import { RVRolePermissionTablePartial } from "./_partials/RVRolePermissionTable.partial";
+import { RVRoleUserTablePartial } from "./_partials/RVRoleUserTable.partial";
 import { FormEvent, useState } from "react";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
@@ -72,13 +72,13 @@ export function RoleViewView() {
                     </Button>
                 }>
                 <Tabs tabHeaders={tabHeader} type={"underline"}>
-                    <RolePermissionTablePartial
+                    <RVRolePermissionTablePartial
                         loading={loadingRoleData || loadingPermissions}
                         permissions={permissions}
                         role={roleData}
                         setRole={setRoleData}
                     />
-                    <RoleUserTablePartial loading={loadingRoleData || loadingPermissions} users={roleData?.users} />
+                    <RVRoleUserTablePartial loading={loadingRoleData || loadingPermissions} users={roleData?.users} />
                 </Tabs>
             </Card>
         </>

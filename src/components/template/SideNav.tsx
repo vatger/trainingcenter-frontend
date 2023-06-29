@@ -10,7 +10,6 @@ import {
     TbCalendarEvent,
     TbCalendarStats,
     TbCertificate,
-    TbCertificate2,
     TbCheckupList,
     TbChevronsRight,
     TbClipboardList,

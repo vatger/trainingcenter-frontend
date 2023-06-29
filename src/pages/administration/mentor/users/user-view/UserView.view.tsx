@@ -2,12 +2,12 @@ import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { useParams } from "react-router-dom";
 import React from "react";
 import { RenderIf } from "../../../../../components/conditionals/RenderIf";
-import { UserGeneralInformationPartial } from "./_partials/UserGeneralInformation.partial";
-import { UserCoursesPartial } from "./_partials/UserCourses.partial";
-import { UserViewSkeleton } from "./_skeletons/UserView.skeleton";
+import { UVUserGeneralInformationPartial } from "./_partials/UVUserGeneralInformation.partial";
+import { UVUserCoursesPartial } from "./_partials/UVUserCourses.partial";
+import { UVUserViewSkeleton } from "./_skeletons/UVUserView.skeleton";
 import UserService from "../../../../../services/user/UserAdminService";
 import { NetworkError } from "../../../../../components/errors/NetworkError";
-import { UserMentorGroupsPartial } from "./_partials/UserMentorGroups.partial";
+import { UVUserMentorGroupsPartial } from "./_partials/UVUserMentorGroups.partial";
 
 export function UserViewView() {
     const { user_id } = useParams();
@@ -23,12 +23,12 @@ export function UserViewView() {
                 elementFalse={
                     <RenderIf
                         truthValue={loading}
-                        elementTrue={<UserViewSkeleton />}
+                        elementTrue={<UVUserViewSkeleton />}
                         elementFalse={
                             <>
-                                <UserGeneralInformationPartial user={user} />
-                                <UserCoursesPartial courses={user?.courses} />
-                                <UserMentorGroupsPartial mentorGroups={user?.mentor_groups ?? []} />
+                                <UVUserGeneralInformationPartial user={user} />
+                                <UVUserCoursesPartial courses={user?.courses} />
+                                <UVUserMentorGroupsPartial mentorGroups={user?.mentor_groups ?? []} />
                             </>
                         }
                     />

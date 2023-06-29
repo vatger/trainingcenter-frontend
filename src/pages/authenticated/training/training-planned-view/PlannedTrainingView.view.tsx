@@ -3,7 +3,7 @@ import TrainingSessionService from "../../../../services/training-session/Traini
 import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "../../../../components/ui/Card/Card";
 import { Input } from "../../../../components/ui/Input/Input";
-import { TbCalendar, TbCalendarEvent, TbChecklist, TbDoorExit, TbId, TbListCheck, TbRadar, TbTrash, TbUsers } from "react-icons/all";
+import { TbCalendarEvent, TbDoorExit, TbId, TbListCheck, TbRadar, TbUsers } from "react-icons/all";
 import React, { useState } from "react";
 import StringHelper from "../../../../utils/helper/StringHelper";
 import dayjs from "dayjs";
@@ -12,9 +12,7 @@ import { Separator } from "../../../../components/ui/Separator/Separator";
 import { Button } from "../../../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../../../assets/theme.config";
 import { RenderIf } from "../../../../components/conditionals/RenderIf";
-import moment from "moment/moment";
-import ToastHelper from "../../../../utils/helper/ToastHelper";
-import { WithdrawFromSessionModalPartial } from "./_partials/WithdrawFromSessionModal.partial";
+import { TPVWithdrawModal } from "./_modals/TPVWithdraw.modal";
 
 export function PlannedTrainingView() {
     const navigate = useNavigate();
@@ -114,7 +112,7 @@ export function PlannedTrainingView() {
                 </Button>
             </Card>
 
-            <WithdrawFromSessionModalPartial
+            <TPVWithdrawModal
                 show={showWithdrawModal}
                 onClose={() => setShowWithdrawModal(false)}
                 setSubmitting={setSubmitting}

@@ -145,7 +145,7 @@ function getUserCoursesMatch(userID?: number) {
     };
 }
 
-async function getUserNotesByCourseID(courseID: number, userID?: number) {
+async function getUserNotesByCourseID(courseID: string, userID?: string) {
     return axiosInstance.get("/administration/user/notes/course", {
         params: {
             courseID: courseID,

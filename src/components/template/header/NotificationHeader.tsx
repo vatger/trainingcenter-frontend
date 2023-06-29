@@ -1,10 +1,10 @@
-import { TbBell, TbClipboardList, TbMailOpened } from "react-icons/all";
+import { TbBell, TbMailOpened } from "react-icons/all";
 import { Dispatch, useContext, useEffect, useRef, useState } from "react";
 import { generateUUID } from "../../../utils/helper/UUIDHelper";
 import { NotificationModel } from "../../../models/NotificationModel";
 import UserNotificationService from "../../../services/user/UserNotificationService";
 import authContext from "../../../utils/contexts/AuthContext";
-import { Axios, AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { MapArray } from "../../conditionals/MapArray";
 import { convertNotificationContent, getIconByString, getIconColorBySeverity } from "../../../utils/helper/NotificationHelper";
 import dayjs from "dayjs";
@@ -12,6 +12,7 @@ import languageContext from "../../../utils/contexts/LanguageContext";
 import { Tooltip } from "../../ui/Tooltip/Tooltip";
 import { RenderIf } from "../../conditionals/RenderIf";
 import ToastHelper from "../../../utils/helper/ToastHelper";
+import { Link } from "react-router-dom";
 
 function loadNotifications(setNotifications: Dispatch<NotificationModel[]>, user_id?: number) {
     if (user_id == null) return;
@@ -122,7 +123,7 @@ export function NotificationHeader() {
                             </span>
                         </div>
                     </li>
-                    <div className="overflow-y-auto side-nav-hide-scrollbar h-52">
+                    <div className="overflow-y-auto side-nav-hide-scrollbar min-h-[13rem] h-[30vh]">
                         <div className={"relative w-full h-full"}>
                             <div className={"absolute inset-0 overflow-y-auto side-nav-hide-scrollbar mr-0 mb-0"}>
                                 <MapArray
@@ -153,11 +154,11 @@ export function NotificationHeader() {
                     </div>
                     <li id="menu-item-16-4uY6FZ7s9M" className="menu-item-header">
                         <div className="flex justify-center border-t border-gray-200 dark:border-gray-600 px-4 py-2">
-                            <a
-                                className="font-semibold cursor-pointer p-2 px-3 text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
-                                href="/app/account/activity-log">
-                                View All Activity
-                            </a>
+                            <Link
+                                to={"/account/manage#notifications"}
+                                className={"font-semibold cursor-pointer p-2 px-3 text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"}>
+                                View Notifications
+                            </Link>
                         </div>
                     </li>
                 </ul>

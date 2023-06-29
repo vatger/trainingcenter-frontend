@@ -7,10 +7,10 @@ import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { Separator } from "../../../../../components/ui/Separator/Separator";
 import { FormEvent, useContext, useState } from "react";
 import FormHelper from "../../../../../utils/helper/FormHelper";
-import { AddUserModalPartial } from "./_partials/AddUserModal.partial";
+import { MGCAddUserModal } from "./_modals/MGCAddUser.modal";
 import { UserModel } from "../../../../../models/UserModel";
 import { TableColumn } from "react-data-table-component";
-import MentorGroupUsersTableTypes from "../_types/MentorGroupUsersTable.types";
+import MentorGroupUsersTableTypes from "../_types/MGUsersTable.types";
 import { Table } from "../../../../../components/ui/Table/Table";
 import authContext from "../../../../../utils/contexts/AuthContext";
 import MentorGroupAdministrationService from "../../../../../services/mentor-group/MentorGroupAdminService";
@@ -137,13 +137,7 @@ export function MentorGroupCreateView() {
                 </form>
             </Card>
 
-            <AddUserModalPartial
-                open={addUserModalOpen}
-                onClose={() => setAddUserModalOpen(false)}
-                onAddUser={addUser}
-                onRemoveUser={removeUser}
-                users={users}
-            />
+            <MGCAddUserModal open={addUserModalOpen} onClose={() => setAddUserModalOpen(false)} onAddUser={addUser} onRemoveUser={removeUser} users={users} />
         </>
     );
 }

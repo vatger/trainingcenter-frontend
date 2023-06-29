@@ -1,7 +1,7 @@
 import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
 import { Card } from "../../../../components/ui/Card/Card";
 import { Table } from "../../../../components/ui/Table/Table";
-import TrainingOpenRequestListTypes from "./_types/TrainingOpenRequestList.types";
+import TrainingOpenRequestListTypes from "./_types/TORLList.types";
 import TrainingRequestService from "../../../../services/training-request/TrainingRequestService";
 import { useNavigate } from "react-router-dom";
 

@@ -12,64 +12,7 @@ import { COLOR_OPTS } from "../../../../../../assets/theme.config";
 import { Dispatch } from "react";
 import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
 
-const borderClass = "border-dashed border-2 border-gray-100 hover:border-gray-300 transition-colors rounded-lg p-3";
-
-function render(type: LogTemplateType, element: LogTemplateElement) {
-    let elem;
-    switch (type) {
-        case "textarea":
-            elem = element as LogTemplateElementTextarea;
-            return (
-                <div>
-                    <h6 className={elem.subtitle == null ? "mb-2" : ""}>{elem.title}</h6>
-                    {elem.subtitle && <p className={"mb-2"}>{elem.subtitle}</p>}
-                    <div className={"input h-full input-wrapper input-disabled resize-none"}>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                        ipsum dolor sit amet.
-                    </div>
-                </div>
-            );
-
-        case "rating":
-            elem = element as LogTemplateElementRating;
-            return (
-                <div className={"flex h-full flex-col xl:flex-row justify-between"}>
-                    <div className={"flex flex-col w-full xl:w-1/2 xl:min-w-[420px]"}>
-                        <div className={"flex justify-between"}>
-                            <h6 className={"mb-2"}>{elem.title}</h6>
-                            <span>1 / {elem.max}</span>
-                        </div>
-                        <div>
-                            <ProgressBar value={(1 / elem.max) * 100} hidePercentage />
-                        </div>
-                        {elem.subtitle != null && (
-                            <div className={"mt-2"}>
-                                <p>{elem.subtitle}</p>
-                            </div>
-                        )}
-                    </div>
-                    <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
-                        <div className={"input h-full input-wrapper input-disabled resize-none "}>
-                            <RenderIf
-                                truthValue={elem.disableText == null || elem.disableText == false}
-                                elementTrue={<>Optionaler Kommentar zu "{elem.title}"</>}
-                                elementFalse={<>Kommentar Deaktiviert</>}
-                            />
-                        </div>
-                    </div>
-                </div>
-            );
-
-        case "section":
-            elem = element as LogTemplateElementSection;
-            return (
-                <div>
-                    <h4 className={"mb-2"}>{elem.title}</h4>
-                </div>
-            );
-    }
-}
+const borderClass: string = "border-dashed border-2 border-gray-100 hover:border-gray-300 transition-colors rounded-lg p-3";
 
 export function LogTemplateElementPartial(props: {
     element: LogTemplateElement;
@@ -129,4 +72,61 @@ export function LogTemplateElementPartial(props: {
             </div>
         </div>
     );
+}
+
+function render(type: LogTemplateType, element: LogTemplateElement) {
+    let elem;
+    switch (type) {
+        case "textarea":
+            elem = element as LogTemplateElementTextarea;
+            return (
+                <div>
+                    <h6 className={elem.subtitle == null ? "mb-2" : ""}>{elem.title}</h6>
+                    {elem.subtitle && <p className={"mb-2"}>{elem.subtitle}</p>}
+                    <div className={"input h-full input-wrapper input-disabled resize-none"}>
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+                        ipsum dolor sit amet.
+                    </div>
+                </div>
+            );
+
+        case "rating":
+            elem = element as LogTemplateElementRating;
+            return (
+                <div className={"flex h-full flex-col xl:flex-row justify-between"}>
+                    <div className={"flex flex-col w-full xl:w-1/2 xl:min-w-[420px]"}>
+                        <div className={"flex justify-between"}>
+                            <h6 className={"mb-2"}>{elem.title}</h6>
+                            <span>1 / {elem.max}</span>
+                        </div>
+                        <div>
+                            <ProgressBar value={(1 / elem.max) * 100} hidePercentage />
+                        </div>
+                        {elem.subtitle != null && (
+                            <div className={"mt-2"}>
+                                <p>{elem.subtitle}</p>
+                            </div>
+                        )}
+                    </div>
+                    <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
+                        <div className={"input h-full input-wrapper input-disabled resize-none "}>
+                            <RenderIf
+                                truthValue={elem.disableText == null || elem.disableText == false}
+                                elementTrue={<>Optionaler Kommentar zu "{elem.title}"</>}
+                                elementFalse={<>Kommentar Deaktiviert</>}
+                            />
+                        </div>
+                    </div>
+                </div>
+            );
+
+        case "section":
+            elem = element as LogTemplateElementSection;
+            return (
+                <div>
+                    <h4 className={"mb-2"}>{elem.title}</h4>
+                </div>
+            );
+    }
 }

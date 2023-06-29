@@ -3,7 +3,7 @@ import { Table } from "../../../../../components/ui/Table/Table";
 import { TableColumn } from "react-data-table-component";
 import { SyslogModel } from "../../../../../models/SyslogModel";
 import { useNavigate } from "react-router-dom";
-import SyslogListTypes from "./_types/SyslogList.types";
+import SyslogListTypes from "./_types/SL.types";
 import SyslogAdminService from "../../../../../services/syslog/SyslogAdminService";
 import { Card } from "../../../../../components/ui/Card/Card";
 
