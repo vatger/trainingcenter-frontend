@@ -57,7 +57,7 @@ export function CCSkillTemplatePartial() {
                 />
             </div>
 
-            <AddSkillTypeModalPartial onClose={() => setSkillTemplateModalOpen(true)} open={skillTemplateModalOpen} onSelect={handleSkillTemplateTypeChange} />
+            <AddSkillTypeModalPartial onClose={() => setSkillTemplateModalOpen(false)} open={skillTemplateModalOpen} onSelect={handleSkillTemplateTypeChange} />
         </>
     );
 }

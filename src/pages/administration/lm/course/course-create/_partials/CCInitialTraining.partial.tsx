@@ -40,7 +40,7 @@ export function CCInitialTrainingPartial() {
                 Trainingstypen zuweisen
             </Button>
 
-            <CTrainingTypeModal onClose={() => setTrainingTypeModalOpen(true)} open={trainingTypeModalOpen} onSelect={handleTrainingTypeChange} />
+            <CTrainingTypeModal onClose={() => setTrainingTypeModalOpen(false)} open={trainingTypeModalOpen} onSelect={handleTrainingTypeChange} />
         </>
     );
 }
