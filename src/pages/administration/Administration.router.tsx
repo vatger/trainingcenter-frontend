@@ -20,7 +20,8 @@ import { TrainingTypeViewView } from "./lm/training-type/training-type-view/Trai
 import { MentorGroupViewView } from "./lm/mentor-group/mentor-group-view/MentorGroupView.view";
 import { ViewUserNotesView } from "./mentor/users/user-view/_partials/UVViewUserNotes.subpage";
 import { OpenTrainingRequestList } from "./mentor/request/open-training-request-list/OpenTrainingRequestList";
-import { OpenTrainingRequestView } from "./mentor/request/open-training-request-view/OpenTrainingRequestView";
+import { OpenTrainingRequestView } from "./mentor/request/open-training-request-view/OpenTrainingRequest.view";
+import { TrainingSessionCreateFromRequestView } from "@/pages/administration/mentor/training-session/training-session-create/TrainingSessionCreateFromRequest.view";
 
 export function AdministrationRouter() {
     const location: Location = useLocation();
@@ -42,6 +43,11 @@ export function AdministrationRouter() {
                     <Route path={""} element={<OpenTrainingRequestList />} />
                     <Route path={":uuid"} element={<OpenTrainingRequestView />} />
                 </Route>
+            </Route>
+
+            <Route path={"training-session"}>
+                <Route path={"create"} element={<></>} />
+                <Route path={"create/:uuid"} element={<TrainingSessionCreateFromRequestView />} />
             </Route>
 
             <Route path={"course"}>

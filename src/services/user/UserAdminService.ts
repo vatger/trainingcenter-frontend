@@ -45,6 +45,18 @@ function getUserData(user_id: number) {
 }
 
 /**
+ * Returns the basic details of the user including CID and Full Name
+ * @param user_id
+ */
+async function getUserBasicDetails(user_id: string) {
+    return axiosInstance.get("/administration/user/data/basic", {
+        params: {
+            user_id: user_id,
+        },
+    });
+}
+
+/**
  * Returns all users in the database including the user's data (VATSIM Data)
  */
 function getAllUsers() {
@@ -156,6 +168,7 @@ async function getUserNotesByCourseID(courseID: string, userID?: string) {
 
 export default {
     getUserData,
+    getUserBasicDetails,
     getAllUsers,
     getAllUsersMinimalData,
     getUserCoursesMatch,

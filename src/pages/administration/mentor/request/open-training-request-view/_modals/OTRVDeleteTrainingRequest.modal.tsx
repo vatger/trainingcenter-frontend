@@ -51,8 +51,7 @@ export function OTRVDeleteTrainingRequestModal(props: {
                 <strong>
                     {props.trainingRequest?.user?.first_name} {props.trainingRequest?.user?.last_name} ({props.trainingRequest?.user_id})
                 </strong>{" "}
-                löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden und der Benutzer muss im Anschluss eine neue Anfrage stellen. Diese wird
-                automatisch am Ende der Warteliste platziert!
+                löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden und der Benutzer muss im Anschluss eine neue Anfrage stellen.
             </p>
         </Modal>
     );

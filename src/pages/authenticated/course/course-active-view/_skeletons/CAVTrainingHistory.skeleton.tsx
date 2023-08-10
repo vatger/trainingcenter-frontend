@@ -9,7 +9,7 @@ const TIMELINE_COUNT = 3;
 export function CAVTrainingHistorySkeleton() {
     return (
         <>
-            <Card header={<Skeleton width={250} height={28} />} headerBorder className={"mt-5"}>
+            <Card header={<Skeleton width={250} height={29} />} headerBorder className={"mt-5"}>
                 <TimeLine>
                     <MapArray
                         data={Array(TIMELINE_COUNT).fill(0)}

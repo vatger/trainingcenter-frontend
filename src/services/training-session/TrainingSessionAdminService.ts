@@ -1,6 +1,8 @@
-import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
-import { TrainingSessionModel } from "../../models/TrainingSessionModel";
+import { TrainingSessionModel } from "@/models/TrainingSessionModel";
+
+function getTrainingRequestInformation() {}
 
 async function createTrainingSession(user_id?: number, trainingRequestUUID?: string, date?: string): Promise<TrainingSessionModel> {
     return axiosInstance
