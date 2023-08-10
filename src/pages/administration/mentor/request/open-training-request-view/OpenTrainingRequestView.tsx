@@ -1,19 +1,19 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import TrainingRequestAdminService from "../../../../../services/training-request/TrainingRequestAdminService";
-import { Card } from "../../../../../components/ui/Card/Card";
-import { Input } from "../../../../../components/ui/Input/Input";
+import { Card } from "@/components/ui/Card/Card";
+import { Input } from "@/components/ui/Input/Input";
 import { TbCalendarEvent, TbCalendarPlus, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
 import dayjs from "dayjs";
-import { Config } from "../../../../../core/Config";
-import { Separator } from "../../../../../components/ui/Separator/Separator";
+import { Config } from "@/core/Config";
+import { Separator } from "@/components/ui/Separator/Separator";
 import StringHelper from "../../../../../utils/helper/StringHelper";
-import { TextArea } from "../../../../../components/ui/Textarea/TextArea";
+import { TextArea } from "@/components/ui/Textarea/TextArea";
 import React, { useState } from "react";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import { OTRVDeleteTrainingRequestModal } from "./_modals/OTRVDeleteTrainingRequest.modal";
-import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 import { OTRVCreateSessionModal } from "./_modals/OTRVCreateSession.modal";
 
 export function OpenTrainingRequestView() {
@@ -22,7 +22,7 @@ export function OpenTrainingRequestView() {
 
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
     const [createSessionModalOpen, setCreateSessionModalOpen] = useState<boolean>(false);
-    const { trainingRequest, loading } = TrainingRequestAdminService.getByUUID(training_request_uuid);
+    const { trainingRequest } = TrainingRequestAdminService.getByUUID(training_request_uuid);
 
     return (
         <>

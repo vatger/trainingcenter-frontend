@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { CourseModel } from "../../models/CourseModel";
-import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { CourseModel } from "@/models/CourseModel";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
-import { TrainingSessionModel } from "../../models/TrainingSessionModel";
-import { APIResponseError } from "../../exceptions/APIResponseError";
+import { TrainingSessionModel } from "@/models/TrainingSessionModel";
+import { APIResponseError } from "@/exceptions/APIResponseError";
 
 /**
  * Returns course information (i.e. the course's data), specified by uuid
@@ -121,8 +121,43 @@ function getCourseTrainingInformationByUUID(course_uuid?: string) {
     };
 }
 
+function getCourseRequirements(course_uuid?: string) {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [courseRequirements, setCourseRequirements] = useState<{ action: string; req_id: number }[]>([]);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/course/info/requirements", {
+                params: {
+                    course_uuid: course_uuid,
+                },
+            })
+            .then((res: AxiosResponse) => {
+                setCourseRequirements(res.data as { action: string; req_id: number }[]);
+            })
+            .catch((err: AxiosError) => {
+                setLoadingError({
+                    error: err,
+                    custom: {
+                        code: "ERR_API_COURSE_REQ_LOAD",
+                        message: "Failed to load course's requirements",
+                    },
+                });
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        courseRequirements,
+        loading,
+        loadingError,
+    };
+}
+
 export default {
     getCourseInformationByUUID,
     getMyCourseInformationByUUID,
     getCourseTrainingInformationByUUID,
+    getCourseRequirements,
 };

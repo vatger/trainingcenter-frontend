@@ -1,12 +1,10 @@
-import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { useEffect, useState } from "react";
-import { CourseModel, CourseSkillTemplateModel } from "../../models/CourseModel";
+import { CourseModel, CourseSkillTemplateModel } from "@/models/CourseModel";
 import { AxiosError, AxiosResponse } from "axios";
-import { UserModel } from "../../models/UserModel";
-import { APIResponseError } from "../../exceptions/APIResponseError";
-import { MentorGroupModel } from "../../models/MentorGroupModel";
-
-//TODO: Rename all service files to <PascalCase name>Service.ts
+import { UserModel } from "@/models/UserModel";
+import { APIResponseError } from "@/exceptions/APIResponseError";
+import { MentorGroupModel } from "@/models/MentorGroupModel";
 
 export async function getEditableCourses() {
     return axiosInstance.get("/administration/course/editable");
@@ -83,21 +81,14 @@ function getUsersByUUID(course_uuid?: string) {
  * @param user_id
  */
 function removeUserByID(course_id?: string | number, user_id?: number): Promise<void> {
-    return axiosInstance
-        .delete("/administration/course/info/user", {
+    return axiosInstance.delete("/administration/course/info/user", {
+        data: {
             data: {
-                data: {
-                    course_id: course_id,
-                    user_id: user_id,
-                },
+                course_id: course_id,
+                user_id: user_id,
             },
-        })
-        .then(() => {
-            return;
-        })
-        .catch((err: AxiosError) => {
-            throw err;
-        });
+        },
+    });
 }
 
 /**
@@ -132,21 +123,14 @@ function getMentorGroupsByUUID(course_uuid?: string) {
  * @param mentor_group_id
  */
 function removeMentorGroupByID(course_id: number, mentor_group_id: number): Promise<void> {
-    return axiosInstance
-        .delete("/administration/course/info/mentor-group", {
+    return axiosInstance.delete("/administration/course/info/mentor-group", {
+        data: {
             data: {
-                data: {
-                    course_id: course_id,
-                    mentor_group_id: mentor_group_id,
-                },
+                course_id: course_id,
+                mentor_group_id: mentor_group_id,
             },
-        })
-        .then(() => {
-            return;
-        })
-        .catch((err: AxiosError) => {
-            throw err;
-        });
+        },
+    });
 }
 
 /**

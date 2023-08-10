@@ -1,15 +1,14 @@
-import { CourseModel } from "../../../../../models/CourseModel";
-import { Card } from "../../../../../components/ui/Card/Card";
-import { Badge } from "../../../../../components/ui/Badge/Badge";
-import { COLOR_OPTS } from "../../../../../assets/theme.config";
-import { Input } from "../../../../../components/ui/Input/Input";
-import React, { useState } from "react";
+import { CourseModel } from "@/models/CourseModel";
+import { Card } from "@/components/ui/Card/Card";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import { Input } from "@/components/ui/Input/Input";
 import { TbCertificate, TbCheckbox, TbClock, TbId } from "react-icons/all";
-import { getAtcRatingLong, getAtcRatingShort } from "../../../../../utils/helper/vatsim/AtcRatingHelper";
-import { TextArea } from "../../../../../components/ui/Textarea/TextArea";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { CSVEnrolModal } from "../_modals/CSVEnrol.modal";
-import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { getAtcRatingLong, getAtcRatingShort } from "@/utils/helper/vatsim/AtcRatingHelper";
+import { TextArea } from "@/components/ui/Textarea/TextArea";
+import { Button } from "@/components/ui/Button/Button";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { useNavigate } from "react-router-dom";
 
 function getDuration(data: any) {
     if (data == null) return "Keine Angabe";
@@ -28,8 +27,8 @@ function getAtcRating(rating: number | undefined): string {
     return `${long} (${short})`;
 }
 
-export function CSVGeneralPartial(props: { course: (CourseModel & { enrolled?: boolean }) | undefined }) {
-    const [showEnrolModal, setShowEnrolModal] = useState<boolean>(false);
+export function CVGeneralPartial(props: { course: (CourseModel & { enrolled?: boolean }) | undefined }) {
+    const navigate = useNavigate();
 
     return (
         <>
@@ -70,14 +69,12 @@ export function CSVGeneralPartial(props: { course: (CourseModel & { enrolled?: b
                             icon={<TbCheckbox size={20} />}
                             variant={"twoTone"}
                             color={COLOR_OPTS.PRIMARY}
-                            onClick={() => setShowEnrolModal(true)}>
+                            onClick={() => navigate("enrol")}>
                             Jetzt Einschreiben
                         </Button>
                     }
                 />
             </Card>
-
-            <CSVEnrolModal course={props.course} show={showEnrolModal} onClose={() => setShowEnrolModal(false)} />
         </>
     );
 }

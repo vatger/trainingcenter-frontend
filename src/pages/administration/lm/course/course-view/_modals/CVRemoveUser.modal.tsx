@@ -1,8 +1,8 @@
-import { Modal } from "../../../../../../components/ui/Modal/Modal";
-import { UserModel } from "../../../../../../models/UserModel";
-import { CourseModel } from "../../../../../../models/CourseModel";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import { Modal } from "@/components/ui/Modal/Modal";
+import { UserModel } from "@/models/UserModel";
+import { CourseModel } from "@/models/CourseModel";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import React, { useState } from "react";
 import CourseAdminService from "../../../../../../services/course/CourseAdminService";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";

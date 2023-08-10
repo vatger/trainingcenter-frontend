@@ -1,21 +1,21 @@
-import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useState } from "react";
-import { useDebounce } from "../../../../utils/hooks/useDebounce";
-import { RenderIf } from "../../../../components/conditionals/RenderIf";
-import { Input } from "../../../../components/ui/Input/Input";
+import { useDebounce } from "@/utils/hooks/useDebounce";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { Input } from "@/components/ui/Input/Input";
 import { CCourseSkeleton } from "../_skeletons/CCourse.skeleton";
-import { MapArray } from "../../../../components/conditionals/MapArray";
-import { CourseModel } from "../../../../models/CourseModel";
-import { Alert } from "../../../../components/ui/Alert/Alert";
-import { COLOR_OPTS, TYPE_OPTS } from "../../../../assets/theme.config";
-import { CSLContainerPartial } from "./_partials/CSLContainer.partial";
+import { MapArray } from "@/components/conditionals/MapArray";
+import { CourseModel } from "@/models/CourseModel";
+import { Alert } from "@/components/ui/Alert/Alert";
+import { COLOR_OPTS, TYPE_OPTS } from "@/assets/theme.config";
+import { CLContainerPartial } from "./_partials/CLContainer.partial";
 import CourseService from "../../../../services/course/CourseService";
-import { useFilter } from "../../../../utils/hooks/useFilter";
-import { fuzzySearch } from "../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import { Button } from "../../../../components/ui/Button/Button";
+import { useFilter } from "@/utils/hooks/useFilter";
+import { fuzzySearch } from "@/utils/helper/fuzzysearch/FuzzySearchHelper";
+import { Button } from "@/components/ui/Button/Button";
 import { TbFilter } from "react-icons/all";
-import { Card } from "../../../../components/ui/Card/Card";
-import { Separator } from "../../../../components/ui/Separator/Separator";
+import { Card } from "@/components/ui/Card/Card";
+import { Separator } from "@/components/ui/Separator/Separator";
 
 type SearchFilter = {
     available_only: boolean;
@@ -25,7 +25,7 @@ const filterCourseFunction = (course: CourseModel, searchValue: string) => {
     return fuzzySearch(searchValue, [course.name]).length > 0;
 };
 
-export function CourseSearchListView() {
+export function CourseListView() {
     const [searchFilter, setSearchFilter] = useState<SearchFilter>({ available_only: false });
 
     const [searchInput, setSearchInput] = useState<string>("");
@@ -78,7 +78,7 @@ export function CourseSearchListView() {
                                 <MapArray
                                     data={filteredCourses}
                                     mapFunction={(course: CourseModel, index) => {
-                                        return <CSLContainerPartial key={index} course={course} />;
+                                        return <CLContainerPartial key={index} course={course} />;
                                     }}
                                 />
                             </>

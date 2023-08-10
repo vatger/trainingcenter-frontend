@@ -1,21 +1,21 @@
-import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
-import { Input } from "../../../../components/ui/Input/Input";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
+import { Input } from "@/components/ui/Input/Input";
 import { CCourseSkeleton } from "../_skeletons/CCourse.skeleton";
 import React, { useState } from "react";
-import { RenderIf } from "../../../../components/conditionals/RenderIf";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TbFilter } from "react-icons/all";
-import { MapArray } from "../../../../components/conditionals/MapArray";
-import { CourseModel } from "../../../../models/CourseModel";
-import { useDebounce } from "../../../../utils/hooks/useDebounce";
-import { Alert } from "../../../../components/ui/Alert/Alert";
-import { COLOR_OPTS, TYPE_OPTS } from "../../../../assets/theme.config";
+import { MapArray } from "@/components/conditionals/MapArray";
+import { CourseModel } from "@/models/CourseModel";
+import { useDebounce } from "@/utils/hooks/useDebounce";
+import { Alert } from "@/components/ui/Alert/Alert";
+import { COLOR_OPTS, TYPE_OPTS } from "@/assets/theme.config";
 import { CALContainerPartial } from "./_partials/CALContainer.partial";
 import UserService from "../../../../services/user/UserService";
-import { useFilter } from "../../../../utils/hooks/useFilter";
-import { fuzzySearch } from "../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import { Button } from "../../../../components/ui/Button/Button";
-import { Card } from "../../../../components/ui/Card/Card";
-import { Separator } from "../../../../components/ui/Separator/Separator";
+import { useFilter } from "@/utils/hooks/useFilter";
+import { fuzzySearch } from "@/utils/helper/fuzzysearch/FuzzySearchHelper";
+import { Button } from "@/components/ui/Button/Button";
+import { Card } from "@/components/ui/Card/Card";
+import { Separator } from "@/components/ui/Separator/Separator";
 import { Link } from "react-router-dom";
 
 const filterFunction = (course: CourseModel, searchValue: string) => {
@@ -86,7 +86,7 @@ export function ActiveCoursesListView() {
                     <Alert rounded showIcon type={TYPE_OPTS.DANGER}>
                         <>
                             Du bist aktuell in keinem Kurs eingeschrieben. Klicke{" "}
-                            <Link className={"hover:underline"} to={"/course/search"}>
+                            <Link className={"hover:underline"} to={"/course"}>
                                 hier
                             </Link>{" "}
                             um eine Übersicht der zur Verfügung stehenden Kurse zu bekommen.{" "}

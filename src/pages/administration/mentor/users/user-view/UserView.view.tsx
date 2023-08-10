@@ -1,12 +1,12 @@
-import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useParams } from "react-router-dom";
 import React from "react";
-import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 import { UVUserGeneralInformationPartial } from "./_partials/UVUserGeneralInformation.partial";
 import { UVUserCoursesPartial } from "./_partials/UVUserCourses.partial";
 import { UVUserViewSkeleton } from "./_skeletons/UVUserView.skeleton";
 import UserService from "../../../../../services/user/UserAdminService";
-import { NetworkError } from "../../../../../components/errors/NetworkError";
+import { NetworkError } from "@/components/errors/NetworkError";
 import { UVUserMentorGroupsPartial } from "./_partials/UVUserMentorGroups.partial";
 
 export function UserViewView() {

@@ -2,7 +2,7 @@ import { Location, Route, Routes, useLocation } from "react-router-dom";
 import { UserListView } from "./mentor/users/user-search/UserList.view";
 import { UserViewView } from "./mentor/users/user-view/UserView.view";
 import { RequestFastTrackView } from "./mentor/users/user-view/_partials/UVRequestFastTrack.subpage";
-import { CourseListView } from "./lm/course/course-list/CourseList.view";
+import { AdminCourseListView } from "./lm/course/course-list/CourseList.view";
 import { CourseCreateView } from "./lm/course/course-create/CourseCreate.view";
 import { CourseViewView } from "./lm/course/course-view/CourseView.view";
 import { TrainingTypeListView } from "./lm/training-type/training-type-list/TrainingTypeList.view";
@@ -45,7 +45,7 @@ export function AdministrationRouter() {
             </Route>
 
             <Route path={"course"}>
-                <Route path={""} element={<CourseListView />} />
+                <Route path={""} element={<AdminCourseListView />} />
                 <Route path={"create"} element={<CourseCreateView />} />
                 <Route path={":uuid"} element={<CourseViewView />} />
             </Route>

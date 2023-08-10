@@ -3,15 +3,16 @@ import { Overview } from "./authenticated/overview/Overview";
 import { ManageAccountView } from "./authenticated/account/manage-account/ManageAccount.view";
 import { Error403 } from "./errors/403";
 import { Error404 } from "./errors/404";
-import { CourseSearchListView } from "./authenticated/course/course-search-list/CourseSearchList.view";
 import { AdministrationRouter } from "./administration/Administration.router";
 import { ActiveCourseView } from "./authenticated/course/course-active-view/ActiveCourse.view";
 import { ActiveCoursesListView } from "./authenticated/course/course-active-list/ActiveCoursesList.view";
-import { CourseSearchView } from "./authenticated/course/course-search-view/CourseSearch.view";
 import { TrainingOpenRequestListView } from "./authenticated/training/training-open-request-list/TrainingOpenRequestList.view";
 import { TrainingOpenRequestViewView } from "./authenticated/training/training-open-request-view/TrainingOpenRequestView.view";
 import { PlannedTrainingListView } from "./authenticated/training/training-planned-list/PlannedTrainingList.view";
 import { PlannedTrainingView } from "./authenticated/training/training-planned-view/PlannedTrainingView.view";
+import { CourseEnrolView } from "@/pages/authenticated/course/course-enrol/CourseEnrol.view";
+import { CourseView } from "@/pages/authenticated/course/course-view/Course.view";
+import { CourseListView } from "@/pages/authenticated/course/course-list/CourseList.view";
 
 export function MainRouter() {
     const location: Location = useLocation();
@@ -25,10 +26,9 @@ export function MainRouter() {
             </Route>
 
             <Route path={"course"}>
-                <Route path={"search"}>
-                    <Route path={""} element={<CourseSearchListView />} />
-                    <Route path={":uuid"} element={<CourseSearchView />} />
-                </Route>
+                <Route path={""} element={<CourseListView />} />
+                <Route path={":uuid"} element={<CourseView />} />
+                <Route path={":uuid/enrol"} element={<CourseEnrolView />} />
 
                 <Route path={"active"}>
                     <Route path={""} element={<ActiveCoursesListView />} />

@@ -31,14 +31,14 @@ import {
     TbX,
 } from "react-icons/all";
 import { CollapsableMenu } from "./sidenav/CollapsableMenu";
-import { sideNavMenuContext } from "../../utils/contexts/SideNavMenuContext";
+import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 import { handleResize } from "./sidenav/SideNav.helper";
 import darkModeContext from "../../utils/contexts/DarkModeContext";
 import { RenderIf } from "../conditionals/RenderIf";
 import authContext from "../../utils/contexts/AuthContext";
 import languageContext from "../../utils/contexts/LanguageContext";
 import courseSidenavTranslation from "../../assets/lang/sidenav/courseSidenav.translation";
-import { SIDENAV_WIDTH } from "../../assets/theme.config";
+import { SIDENAV_WIDTH } from "@/assets/theme.config";
 
 export function SideNav() {
     const { userPermissions } = useContext(authContext);
@@ -113,7 +113,7 @@ export function SideNav() {
                                     <div className="menu-title menu-title-transparent">Ausbildung</div>
 
                                     <CollapsableMenu title={courseSidenavTranslation[language].title} icon={<TbBooks size={20} />}>
-                                        <MenuItem href={"course/search"} icon={<TbSearch size={20} />}>
+                                        <MenuItem href={"course"} icon={<TbSearch size={20} />}>
                                             {courseSidenavTranslation[language].search}
                                         </MenuItem>
                                         <MenuItem href={"course/active"} icon={<TbListDetails size={20} />}>
