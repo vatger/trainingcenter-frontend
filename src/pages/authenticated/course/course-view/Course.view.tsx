@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import CourseInformationService from "../../../../services/course/CourseInformationService";
 import { CVGeneralPartial } from "./_partials/CVGeneral.partial";
 import { CVInitialTrainingPartial } from "./_partials/CVInitialTraining.partial";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { CourseViewSkeleton } from "@/pages/authenticated/course/course-view/_skeletons/CourseView.skeleton";
 
 export function CourseView() {
     const { uuid } = useParams();
@@ -13,9 +15,16 @@ export function CourseView() {
         <>
             <PageHeader title={course?.name ?? "Lade Kursübersicht"} />
 
-            <CVGeneralPartial course={course} />
-
-            <CVInitialTrainingPartial course={course} />
+            <RenderIf
+                truthValue={loading}
+                elementTrue={<CourseViewSkeleton />}
+                elementFalse={
+                    <>
+                        <CVGeneralPartial course={course} />
+                        <CVInitialTrainingPartial course={course} />
+                    </>
+                }
+            />
         </>
     );
 }

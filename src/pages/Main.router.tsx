@@ -34,6 +34,10 @@ export function MainRouter() {
                     <Route path={""} element={<ActiveCoursesListView />} />
                     <Route path={":uuid"} element={<ActiveCourseView />} />
                 </Route>
+
+                <Route path={"completed"}>
+                    <Route path={""} element={<>TODO</>} />
+                </Route>
             </Route>
 
             <Route path={"training"}>

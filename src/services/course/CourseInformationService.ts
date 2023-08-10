@@ -121,27 +121,31 @@ function getCourseTrainingInformationByUUID(course_uuid?: string) {
     };
 }
 
-function getCourseRequirements(course_uuid?: string) {
+function validateCourseRequirements(course_uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [courseRequirements, setCourseRequirements] = useState<{ action: string; req_id: number }[]>([]);
+    const [courseRequirements, setCourseRequirements] = useState<{ action: string; req_id: number; passed: boolean }[]>([]);
+    const [allRequirementsSatisfied, setAllRequirementsSatisfied] = useState<boolean>(false);
 
     useEffect(() => {
         axiosInstance
-            .get("/course/info/requirements", {
+            .get("/course/info/requirements/validate", {
                 params: {
                     course_uuid: course_uuid,
                 },
             })
             .then((res: AxiosResponse) => {
-                setCourseRequirements(res.data as { action: string; req_id: number }[]);
+                const data = res.data as { action: string; req_id: number; passed: boolean }[];
+
+                setCourseRequirements(data);
+                setAllRequirementsSatisfied(data.find(a => !a.passed) == null);
             })
             .catch((err: AxiosError) => {
                 setLoadingError({
                     error: err,
                     custom: {
-                        code: "ERR_API_COURSE_REQ_LOAD",
-                        message: "Failed to load course's requirements",
+                        code: "ERR_API_COURSE_REQ_VALIDATE",
+                        message: "Failed to validate course's requirements",
                     },
                 });
             })
@@ -150,6 +154,7 @@ function getCourseRequirements(course_uuid?: string) {
 
     return {
         courseRequirements,
+        allRequirementsSatisfied,
         loading,
         loadingError,
     };
@@ -159,5 +164,5 @@ export default {
     getCourseInformationByUUID,
     getMyCourseInformationByUUID,
     getCourseTrainingInformationByUUID,
-    getCourseRequirements,
+    validateCourseRequirements,
 };

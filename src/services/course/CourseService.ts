@@ -41,11 +41,11 @@ function getAvailableCourses() {
 
 /**
  * Enrol in a course specified by a course_id
- * @param course_id
+ * @param course_uuid
  */
-async function enrol(course_id: number): Promise<void> {
+async function enrol(course_uuid?: string): Promise<void> {
     return axiosInstance.put("/course/enrol", {
-        course_id: course_id,
+        course_uuid: course_uuid,
     });
 }
 

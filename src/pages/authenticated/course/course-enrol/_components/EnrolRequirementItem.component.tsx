@@ -15,12 +15,12 @@ function getColor(passed?: boolean) {
 export function EnrolRequirementItemComponent({ action, passed }: { action: string; passed?: boolean }) {
     return (
         <div className={"flex mb-3"}>
-            <span className={`avatar avatar-circle w-[29px] h-[29px] w-min-[29px] ${getColor(passed)}`} style={{ lineHeight: "29px", fontSize: "12px" }}>
+            <span className={`avatar avatar-circle w-[24px] h-[24px] w-min-[24px] ${getColor(passed)}`} style={{ lineHeight: "24px", fontSize: "12px" }}>
                 {passed == null && <TbRefresh className={"m-[5px]"} size={19} />}
 
-                <RenderIf truthValue={passed != null && passed} elementTrue={<TbCheck className={"m-[5px]"} size={19} />} />
+                <RenderIf truthValue={passed != null && passed} elementTrue={<TbCheck className={"m-[5px]"} size={14} />} />
 
-                <RenderIf truthValue={passed != null && !passed} elementTrue={<TbX className={"m-[5px]"} size={19} />} />
+                <RenderIf truthValue={passed != null && !passed} elementTrue={<TbX className={"m-[5px]"} size={14} />} />
             </span>
             <p className={"my-auto ml-3"}>{EnrolRequirementStringHelper.getDescription(action)}</p>
         </div>
