@@ -6,7 +6,7 @@ import UserNotificationService from "../../../services/user/UserNotificationServ
 import authContext from "../../../utils/contexts/AuthContext";
 import { AxiosError } from "axios";
 import { MapArray } from "../../conditionals/MapArray";
-import { convertNotificationContent, getIconByString, getIconColorBySeverity } from "../../../utils/helper/NotificationHelper";
+import NotificationHelper, { getIconByString, getIconColorBySeverity } from "../../../utils/helper/NotificationHelper";
 import dayjs from "dayjs";
 import languageContext from "../../../utils/contexts/LanguageContext";
 import { Tooltip } from "../../ui/Tooltip/Tooltip";
@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 function loadNotifications(setNotifications: Dispatch<NotificationModel[]>, user_id?: number) {
     if (user_id == null) return;
 
-    UserNotificationService.getUnreadNotifications(user_id)
+    UserNotificationService.getUnreadNotifications()
         .then((notifications: NotificationModel[]) => {
             setNotifications(notifications);
         })
@@ -141,7 +141,7 @@ export function NotificationHeader() {
                                                 </div>
                                                 <div className="ml-3">
                                                     <div>
-                                                        <span dangerouslySetInnerHTML={{ __html: convertNotificationContent(n, language) }}></span>
+                                                        <span dangerouslySetInnerHTML={{ __html: NotificationHelper.convertNotificationContent(n, language) }}></span>
                                                     </div>
                                                     <span className="text-xs">{dayjs(n.createdAt).fromNow()}</span>
                                                 </div>

@@ -5,7 +5,7 @@ import TrainingRequestAdminService from "@/services/training-request/TrainingReq
 import { Input } from "@/components/ui/Input/Input";
 import { TbCalendarEvent, TbCalendarPlus, TbId, TbUser } from "react-icons/all";
 import dayjs from "dayjs";
-import React, { useEffect, useRef, useState } from "react";
+import React, {FormEvent, FormEventHandler, useEffect, useRef, useState} from "react";
 import { Table } from "@/components/ui/Table/Table";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
@@ -17,6 +17,10 @@ import ToastHelper from "@/utils/helper/ToastHelper";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TrainingSessionCreateSkeleton } from "@/pages/administration/mentor/training-session/training-session-create/_skeletons/TrainingSessionCreate.skeleton";
 import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";
+import {Select} from "@/components/ui/Select/Select";
+import {MapArray} from "@/components/conditionals/MapArray";
+import {TrainingStationModel} from "@/models/TrainingStationModel";
+import FormHelper from "@/utils/helper/FormHelper";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -29,7 +33,6 @@ export function TrainingSessionCreateFromRequestView() {
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     const [participants, setParticipants] = useState<UserModel[]>([]);
-    const [date, setDate] = useState<string>(dayjs().utc().format("YYYY-MM-DD HH:mm"));
 
     const [newParticipantID, setNewParticipantID] = useState<string>("");
     const [loadingUser, setLoadingUser] = useState<boolean>(false);
@@ -61,9 +64,19 @@ export function TrainingSessionCreateFromRequestView() {
             .finally(() => setLoadingUser(false));
     }
 
-    function createSession() {
+    function createSession(event?: FormEvent<HTMLFormElement>) {
+        event?.preventDefault();
+        if (event == null) {
+            ToastHelper.error("Ein unerwarteter Fehler ist aufgetreten. Versuche es bitte erneut.");
+            return;
+        }
+
+        const data = FormHelper.getEntries(event?.target) as {date: string, training_station: string};
+
+        console.log(data);
+
         setSubmitting(true);
-        TrainingSessionAdminService.createTrainingSession(participants, trainingRequest?.course?.uuid, trainingRequest?.training_type_id, date)
+        TrainingSessionAdminService.createTrainingSession(participants, trainingRequest?.course?.uuid, trainingRequest?.training_type_id, data.training_station, data.date)
             .then((res) => {
                 console.log(res);
             })
@@ -82,34 +95,52 @@ export function TrainingSessionCreateFromRequestView() {
                 elementTrue={<TrainingSessionCreateSkeleton />}
                 elementFalse={
                     <>
-                        <Card header={"Training"} headerBorder>
-                            <div className={"grid grid-cols-2 gap-5"}>
-                                <Input label={"Kurs"} labelSmall preIcon={<TbId size={20} />} disabled readOnly value={trainingRequest?.course?.name} />
+                        <form onSubmit={createSession}>
+                            <Card header={"Training"} headerBorder>
+                                <div className={"grid grid-cols-2 gap-5"}>
+                                    <Input label={"Kurs"} labelSmall preIcon={<TbId size={20} />} disabled readOnly value={trainingRequest?.course?.name} />
+                                    <Input
+                                        label={"Trainingstyp"}
+                                        labelSmall
+                                        preIcon={<TbId size={20} />}
+                                        disabled
+                                        readOnly
+                                        value={`${trainingRequest?.training_type?.name} (${trainingRequest?.training_type?.type})`}
+                                    />
+                                </div>
+                                <div className={"grid grid-cols-2 gap-5"}>
                                 <Input
-                                    label={"Trainingstyp"}
+                                    className={"mt-5"}
+                                    label={"Datum (UTC)"}
+                                    type={"datetime-local"}
+                                    name={"date"}
                                     labelSmall
-                                    preIcon={<TbId size={20} />}
-                                    disabled
-                                    readOnly
-                                    value={`${trainingRequest?.training_type?.name} (${trainingRequest?.training_type?.type})`}
+                                    preIcon={<TbCalendarEvent size={20} />}
+                                    value={dayjs().utc().format("YYYY-MM-DD HH:mm")}
                                 />
-                            </div>
-                            <Input
-                                className={"mt-5"}
-                                label={"Datum (UTC)"}
-                                type={"datetime-local"}
-                                labelSmall
-                                preIcon={<TbCalendarEvent size={20} />}
-                                onChange={(e) => setDate(e.target.value)}
-                                value={date}
-                            />
+                                <Select
+                                    className={"mt-5"}
+                                    label={"Trainingsstation"}
+                                    labelSmall
+                                    name={"training_station"}
+                                    defaultValue={trainingRequest?.training_type_id}
+                                    disabled={trainingRequest?.training_type?.training_stations == null || trainingRequest.training_type.training_stations.length == 0}
+                                >
+                                    <option value={"-1"}>N/A</option>
+                                    <MapArray data={trainingRequest?.training_type?.training_stations ?? []} mapFunction={(trainingStation: TrainingStationModel, index) => {
+                                        return (
+                                            <option key={index} value={trainingStation.id}>{trainingStation.callsign}</option>
+                                        )
+                                    }}/>
+                                </Select>
+                                </div>
+                                <Separator />
 
-                            <Separator />
-
-                            <Button variant={"twoTone"} loading={submitting} color={COLOR_OPTS.PRIMARY} icon={<TbCalendarPlus size={20} />} onClick={createSession}>
-                                Session Erstellen
-                            </Button>
-                        </Card>
+                                <Button variant={"twoTone"} loading={submitting} color={COLOR_OPTS.PRIMARY} icon={<TbCalendarPlus size={20} />} type={"submit"}>
+                                    Session Erstellen
+                                </Button>
+                            </Card>
+                        </form>
 
                         <Card header={"Teilnehmer"} headerBorder className={"mt-5"}>
                             <Input

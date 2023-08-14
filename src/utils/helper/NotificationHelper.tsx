@@ -2,7 +2,7 @@ import { NotificationModel } from "../../models/NotificationModel";
 import { LanguageEnum } from "../contexts/LanguageContext";
 import { TbClipboard, TbDoorExit, TbTrash } from "react-icons/all";
 
-export function convertNotificationContent(n: NotificationModel, l: LanguageEnum): string {
+function convertNotificationContent(n: NotificationModel, l: LanguageEnum): string {
     let s = "";
     if (l == LanguageEnum.DE) s = n.content_de;
     else s = n.content_en;
@@ -39,4 +39,8 @@ export function getIconColorBySeverity(s: "default" | "info" | "success" | "dang
         case "danger":
             return "bg-red-500 dark:bg-red-600";
     }
+}
+
+export default {
+    convertNotificationContent
 }

@@ -14,6 +14,7 @@ export enum COLOR_OPTS {
     DANGER = "red",
     WARNING = "orange",
     SUCCESS = "emerald",
+    DEFAULT = "gray"
 }
 
 export enum TYPE_OPTS {

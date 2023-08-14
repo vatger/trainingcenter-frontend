@@ -5,8 +5,12 @@ import { MASettingsPartial } from "./_partials/MASettings.partial";
 import { MADangerPartial } from "./_partials/MADanger.partial";
 import React from "react";
 import { Card } from "../../../../components/ui/Card/Card";
+import {MANotificationsPartial} from "@/pages/authenticated/account/manage-account/_partials/MANotifications.partial";
+import {
+    MASignedInDevicesPartial
+} from "@/pages/authenticated/account/manage-account/_partials/MASignedInDevices.partial";
 
-const tabHeaders = ["Profile", "Settings", "Notifications", "Gefahrenbereich"];
+const tabHeaders = ["Profile", "Settings", "Notifications", "Angemeldete Geräte", "Gefahrenbereich"];
 
 export function ManageAccountView() {
     return (
@@ -21,7 +25,8 @@ export function ManageAccountView() {
                 <Tabs tabHeaders={tabHeaders} type={"underline"}>
                     <MAProfilePartial />
                     <MASettingsPartial />
-                    <></>
+                    <MANotificationsPartial/>
+                    <MASignedInDevicesPartial/>
                     <MADangerPartial />
                 </Tabs>
             </Card>
