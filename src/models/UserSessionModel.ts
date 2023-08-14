@@ -1,4 +1,4 @@
-import {UserModel} from "@/models/UserModel";
+import { UserModel } from "@/models/UserModel";
 
 export type UserSessionModel = {
     id: number;
@@ -12,4 +12,4 @@ export type UserSessionModel = {
     updatedAt?: Date;
 
     user?: UserModel;
-}
+};

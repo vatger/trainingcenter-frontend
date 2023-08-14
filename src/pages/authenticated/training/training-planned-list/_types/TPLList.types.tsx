@@ -29,7 +29,10 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingSessionBelo
         },
         {
             name: "Station",
-            selector: row => row.training_session?.training_station?.callsign ? `${row.training_session?.training_station?.callsign} (${row.training_session?.training_station?.frequency?.toFixed(3)})` : "N/A",
+            selector: row =>
+                row.training_session?.training_station?.callsign
+                    ? `${row.training_session?.training_station?.callsign} (${row.training_session?.training_station?.frequency?.toFixed(3)})`
+                    : "N/A",
             sortable: true,
         },
         {

@@ -6,7 +6,7 @@ import { MapArray } from "../../../../../components/conditionals/MapArray";
 import { TrainingSessionModel } from "../../../../../models/TrainingSessionModel";
 import { TbCalendar, TbCalendarStats, TbCheck, TbClipboardList, TbX } from "react-icons/all";
 import { TrainingLogModel } from "../../../../../models/TrainingSessionBelongsToUser.model";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { Card } from "../../../../../components/ui/Card/Card";
 import React, { ReactElement } from "react";
@@ -43,6 +43,8 @@ function getStatusBadge(t: TrainingSessionModel): ReactElement {
 }
 
 export function CAVTrainingHistoryPartial(props: ActiveCourseTrainingHistoryPartialProps) {
+    const navigate = useNavigate();
+
     return (
         <Card header={"Trainingshistorie"} headerBorder className={"mt-5"}>
             <RenderIf
@@ -89,6 +91,7 @@ export function CAVTrainingHistoryPartial(props: ActiveCourseTrainingHistoryPart
                                             variant={"twoTone"}
                                             className={"mt-4 mr-2"}
                                             icon={<TbCalendarStats size={20} />}
+                                            onClick={() => navigate(`/training/planned/${value.uuid}`)}
                                             color={COLOR_OPTS.PRIMARY}
                                             size={SIZE_OPTS.SM}>
                                             Session Ansehen

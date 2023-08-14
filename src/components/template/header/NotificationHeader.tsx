@@ -141,7 +141,10 @@ export function NotificationHeader() {
                                                 </div>
                                                 <div className="ml-3">
                                                     <div>
-                                                        <span dangerouslySetInnerHTML={{ __html: NotificationHelper.convertNotificationContent(n, language) }}></span>
+                                                        <span
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: NotificationHelper.convertNotificationContent(n, language),
+                                                            }}></span>
                                                     </div>
                                                     <span className="text-xs">{dayjs(n.createdAt).fromNow()}</span>
                                                 </div>

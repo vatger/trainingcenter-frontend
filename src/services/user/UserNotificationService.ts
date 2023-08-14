@@ -1,9 +1,9 @@
 import { axiosInstance } from "../../utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 import { NotificationModel } from "../../models/NotificationModel";
-import {useEffect, useState} from "react";
-import {APIResponseError} from "@/exceptions/APIResponseError";
-import {UserModel} from "@/models/UserModel";
+import { useEffect, useState } from "react";
+import { APIResponseError } from "@/exceptions/APIResponseError";
+import { UserModel } from "@/models/UserModel";
 
 async function getUnreadNotifications(): Promise<NotificationModel[]> {
     return axiosInstance
@@ -51,5 +51,5 @@ function getAllNotifications() {
 
 export default {
     getUnreadNotifications,
-    getAllNotifications
+    getAllNotifications,
 };

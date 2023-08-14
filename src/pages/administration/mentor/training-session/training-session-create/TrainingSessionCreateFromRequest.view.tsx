@@ -5,7 +5,7 @@ import TrainingRequestAdminService from "@/services/training-request/TrainingReq
 import { Input } from "@/components/ui/Input/Input";
 import { TbCalendarEvent, TbCalendarPlus, TbId, TbUser } from "react-icons/all";
 import dayjs from "dayjs";
-import React, {FormEvent, FormEventHandler, useEffect, useRef, useState} from "react";
+import React, { FormEvent, FormEventHandler, useEffect, useRef, useState } from "react";
 import { Table } from "@/components/ui/Table/Table";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
@@ -17,9 +17,9 @@ import ToastHelper from "@/utils/helper/ToastHelper";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TrainingSessionCreateSkeleton } from "@/pages/administration/mentor/training-session/training-session-create/_skeletons/TrainingSessionCreate.skeleton";
 import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";
-import {Select} from "@/components/ui/Select/Select";
-import {MapArray} from "@/components/conditionals/MapArray";
-import {TrainingStationModel} from "@/models/TrainingStationModel";
+import { Select } from "@/components/ui/Select/Select";
+import { MapArray } from "@/components/conditionals/MapArray";
+import { TrainingStationModel } from "@/models/TrainingStationModel";
 import FormHelper from "@/utils/helper/FormHelper";
 
 /**
@@ -71,16 +71,22 @@ export function TrainingSessionCreateFromRequestView() {
             return;
         }
 
-        const data = FormHelper.getEntries(event?.target) as {date: string, training_station: string};
+        const data = FormHelper.getEntries(event?.target) as { date: string; training_station: string };
 
         console.log(data);
 
         setSubmitting(true);
-        TrainingSessionAdminService.createTrainingSession(participants, trainingRequest?.course?.uuid, trainingRequest?.training_type_id, data.training_station, data.date)
-            .then((res) => {
+        TrainingSessionAdminService.createTrainingSession(
+            participants,
+            trainingRequest?.course?.uuid,
+            trainingRequest?.training_type_id,
+            data.training_station,
+            data.date
+        )
+            .then(res => {
                 console.log(res);
             })
-            .catch((err) => {
+            .catch(err => {
                 ToastHelper.error("Fehler beim Erstellen der Session");
             })
             .finally(() => setSubmitting(false));
@@ -109,30 +115,37 @@ export function TrainingSessionCreateFromRequestView() {
                                     />
                                 </div>
                                 <div className={"grid grid-cols-2 gap-5"}>
-                                <Input
-                                    className={"mt-5"}
-                                    label={"Datum (UTC)"}
-                                    type={"datetime-local"}
-                                    name={"date"}
-                                    labelSmall
-                                    preIcon={<TbCalendarEvent size={20} />}
-                                    value={dayjs().utc().format("YYYY-MM-DD HH:mm")}
-                                />
-                                <Select
-                                    className={"mt-5"}
-                                    label={"Trainingsstation"}
-                                    labelSmall
-                                    name={"training_station"}
-                                    defaultValue={trainingRequest?.training_type_id}
-                                    disabled={trainingRequest?.training_type?.training_stations == null || trainingRequest.training_type.training_stations.length == 0}
-                                >
-                                    <option value={"-1"}>N/A</option>
-                                    <MapArray data={trainingRequest?.training_type?.training_stations ?? []} mapFunction={(trainingStation: TrainingStationModel, index) => {
-                                        return (
-                                            <option key={index} value={trainingStation.id}>{trainingStation.callsign}</option>
-                                        )
-                                    }}/>
-                                </Select>
+                                    <Input
+                                        className={"mt-5"}
+                                        label={"Datum (UTC)"}
+                                        type={"datetime-local"}
+                                        name={"date"}
+                                        labelSmall
+                                        preIcon={<TbCalendarEvent size={20} />}
+                                        value={dayjs().utc().format("YYYY-MM-DD HH:mm")}
+                                    />
+                                    <Select
+                                        className={"mt-5"}
+                                        label={"Trainingsstation"}
+                                        labelSmall
+                                        name={"training_station"}
+                                        defaultValue={trainingRequest?.training_type_id}
+                                        disabled={
+                                            trainingRequest?.training_type?.training_stations == null ||
+                                            trainingRequest.training_type.training_stations.length == 0
+                                        }>
+                                        <option value={"-1"}>N/A</option>
+                                        <MapArray
+                                            data={trainingRequest?.training_type?.training_stations ?? []}
+                                            mapFunction={(trainingStation: TrainingStationModel, index) => {
+                                                return (
+                                                    <option key={index} value={trainingStation.id}>
+                                                        {trainingStation.callsign}
+                                                    </option>
+                                                );
+                                            }}
+                                        />
+                                    </Select>
                                 </div>
                                 <Separator />
 
@@ -146,7 +159,9 @@ export function TrainingSessionCreateFromRequestView() {
                             <Input
                                 onChange={e => setNewParticipantID(e.target.value)}
                                 label={"Benutzer Hinzufügen"}
-                                description={"Benutzer, die nicht in diesem Kurs eingeschrieben sind werden nicht berücksichtigt und der Session entsprechend nicht hinzugefügt."}
+                                description={
+                                    "Benutzer, die nicht in diesem Kurs eingeschrieben sind werden nicht berücksichtigt und der Session entsprechend nicht hinzugefügt."
+                                }
                                 labelSmall
                                 preIcon={<TbUser size={20} />}
                                 placeholder={participants[0]?.id.toString() ?? "1373921"}

@@ -54,7 +54,11 @@ export function PlannedTrainingView() {
                         preIcon={<TbRadar size={20} />}
                         label={"Station"}
                         disabled
-                        value={trainingSession?.training_station?.callsign ? `${trainingSession?.training_station?.callsign} (${trainingSession?.training_station?.frequency?.toFixed(3)})` : "N/A"}
+                        value={
+                            trainingSession?.training_station?.callsign
+                                ? `${trainingSession?.training_station?.callsign} (${trainingSession?.training_station?.frequency?.toFixed(3)})`
+                                : "N/A"
+                        }
                     />
                     <Input
                         labelSmall

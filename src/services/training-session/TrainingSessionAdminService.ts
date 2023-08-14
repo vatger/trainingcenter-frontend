@@ -1,9 +1,15 @@
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
-import {UserModel} from "@/models/UserModel";
+import { UserModel } from "@/models/UserModel";
 
-async function createTrainingSession(users: UserModel[], course_uuid?: string, training_type_id?: number, training_station_id?: string, date?: string): Promise<TrainingSessionModel> {
+async function createTrainingSession(
+    users: UserModel[],
+    course_uuid?: string,
+    training_type_id?: number,
+    training_station_id?: string,
+    date?: string
+): Promise<TrainingSessionModel> {
     if (users.length == 0) {
         throw new Error("At least one user must exist");
     }

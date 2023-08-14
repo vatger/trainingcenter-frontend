@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import {APIResponseError} from "@/exceptions/APIResponseError";
-import {axiosInstance} from "@/utils/network/AxiosInstance";
-import {AxiosError, AxiosResponse} from "axios";
-import {UserSessionModel} from "@/models/UserSessionModel";
+import { useEffect, useState } from "react";
+import { APIResponseError } from "@/exceptions/APIResponseError";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
+import { UserSessionModel } from "@/models/UserSessionModel";
 
 function getUserSessions() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -40,12 +40,12 @@ function getUserSessions() {
 async function deleteSession(sessionID: number) {
     return axiosInstance.delete("/session", {
         data: {
-            session_id: sessionID
-        }
+            session_id: sessionID,
+        },
     });
 }
 
 export default {
     getUserSessions,
-    deleteSession
-}
+    deleteSession,
+};

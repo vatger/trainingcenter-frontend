@@ -42,5 +42,5 @@ export function getIconColorBySeverity(s: "default" | "info" | "success" | "dang
 }
 
 export default {
-    convertNotificationContent
-}
+    convertNotificationContent,
+};
