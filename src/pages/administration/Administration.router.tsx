@@ -22,6 +22,9 @@ import { ViewUserNotesView } from "./mentor/users/user-view/_partials/UVViewUser
 import { OpenTrainingRequestList } from "./mentor/request/open-training-request-list/OpenTrainingRequestList";
 import { OpenTrainingRequestView } from "./mentor/request/open-training-request-view/OpenTrainingRequest.view";
 import { TrainingSessionCreateFromRequestView } from "@/pages/administration/mentor/training-session/training-session-create/TrainingSessionCreateFromRequest.view";
+import {
+    MentorTrainingListView
+} from "@/pages/administration/mentor/training-session/trainining-planned-list/MentorTrainingList.view";
 
 export function AdministrationRouter() {
     const location: Location = useLocation();
@@ -42,6 +45,10 @@ export function AdministrationRouter() {
                 <Route path={"open"}>
                     <Route path={""} element={<OpenTrainingRequestList />} />
                     <Route path={":uuid"} element={<OpenTrainingRequestView />} />
+                </Route>
+
+                <Route path={"planned"}>
+                    <Route path={""} element={<MentorTrainingListView/>} />
                 </Route>
             </Route>
 

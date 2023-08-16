@@ -26,5 +26,5 @@ export type TrainingSessionModel = {
     training_station?: TrainingStationModel;
     course?: CourseModel;
 
-    TrainingSessionBelongsToUsers?: TrainingSessionBelongsToUserModel;
+    training_session_belongs_to_users?: TrainingSessionBelongsToUserModel[];
 };

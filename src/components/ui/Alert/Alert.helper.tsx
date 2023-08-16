@@ -1,6 +1,11 @@
 import { AlertProps } from "./Alert.props";
-import { TYPE_OPTS } from "../../../assets/theme.config";
-import { TbAlertTriangle, TbCircleCheck, TbCircleX, TbInfoCircle } from "react-icons/all";
+import { TYPE_OPTS } from "@/assets/theme.config";
+import {
+    TbAlertCircle,
+    TbCircleCheck,
+    TbCircleX,
+    TbInfoCircle
+} from "react-icons/all";
 
 export function getAlertIcon(props: AlertProps) {
     switch (props.type) {
@@ -14,6 +19,6 @@ export function getAlertIcon(props: AlertProps) {
             return <TbCircleCheck size={21} className={"my-auto"} />;
 
         case TYPE_OPTS.WARNING:
-            return <TbAlertTriangle size={21} className={"my-auto"} />;
+            return <TbAlertCircle size={21} className={"my-auto"} />;
     }
 }

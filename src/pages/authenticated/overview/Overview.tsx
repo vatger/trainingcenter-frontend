@@ -80,11 +80,25 @@ export function Overview() {
                 Click
             </Button>
 
-            <Card bordered>
+            <Card className={"mt-5 mb-5"}>
                 <Tabs type={"underline"} tabHeaders={["Hello", "World", "This", "Is", "A"]}>
-                    <Alert rounded type={TYPE_OPTS.INFO} showIcon>
-                        This is an Alert!
-                    </Alert>
+                    <>
+                        <Alert className={"mb-5"} rounded type={TYPE_OPTS.INFO} showIcon>
+                            This is an Alert!
+                        </Alert>
+
+                        <Alert className={"mb-5"} rounded type={TYPE_OPTS.DANGER} showIcon>
+                            This is an Alert!
+                        </Alert>
+
+                        <Alert className={"mb-5"} rounded type={TYPE_OPTS.SUCCESS} showIcon>
+                            This is an Alert!
+                        </Alert>
+
+                        <Alert rounded type={TYPE_OPTS.WARNING} showIcon>
+                            This is an Alert!
+                        </Alert>
+                    </>
                     <p>This</p>
                     <p>Is</p>
                     <p>A</p>

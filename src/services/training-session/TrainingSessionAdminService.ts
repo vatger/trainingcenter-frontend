@@ -2,6 +2,9 @@ import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 import { UserModel } from "@/models/UserModel";
+import {useEffect, useState} from "react";
+import {APIResponseError} from "@/exceptions/APIResponseError";
+import {TrainingRequestModel} from "@/models/TrainingRequestModel";
 
 async function createTrainingSession(
     users: UserModel[],
@@ -31,6 +34,30 @@ async function createTrainingSession(
         });
 }
 
+function getPlanned() {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [trainingSessions, setTrainingSessions] = useState<TrainingSessionModel[]>([]);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/administration/training-request/planned")
+            .then((res: AxiosResponse) => {
+                setTrainingSessions(res.data as TrainingSessionModel[]);
+            })
+            .catch((err: AxiosError) => {})
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        trainingSessions,
+        setTrainingSessions,
+        loading,
+        loadingError
+    }
+}
+
 export default {
     createTrainingSession,
+    getPlanned
 };

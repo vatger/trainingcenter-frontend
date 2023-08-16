@@ -57,6 +57,7 @@ export function TrainingSessionCreateFromRequestView() {
                 const user = res.data as UserModel;
                 p.push(user);
                 setParticipants(p);
+                setNewParticipantID("");
             })
             .catch(() => {
                 ToastHelper.error(`Fehler beim laden des Benutzers ${newParticipantID}`);
@@ -103,7 +104,7 @@ export function TrainingSessionCreateFromRequestView() {
                     <>
                         <form onSubmit={createSession}>
                             <Card header={"Training"} headerBorder>
-                                <div className={"grid grid-cols-2 gap-5"}>
+                                <div className={"grid grid-cols-1 lg:grid-cols-2 gap-5"}>
                                     <Input label={"Kurs"} labelSmall preIcon={<TbId size={20} />} disabled readOnly value={trainingRequest?.course?.name} />
                                     <Input
                                         label={"Trainingstyp"}
@@ -114,9 +115,8 @@ export function TrainingSessionCreateFromRequestView() {
                                         value={`${trainingRequest?.training_type?.name} (${trainingRequest?.training_type?.type})`}
                                     />
                                 </div>
-                                <div className={"grid grid-cols-2 gap-5"}>
+                                <div className={"grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5"}>
                                     <Input
-                                        className={"mt-5"}
                                         label={"Datum (UTC)"}
                                         type={"datetime-local"}
                                         name={"date"}
@@ -125,7 +125,6 @@ export function TrainingSessionCreateFromRequestView() {
                                         value={dayjs().utc().format("YYYY-MM-DD HH:mm")}
                                     />
                                     <Select
-                                        className={"mt-5"}
                                         label={"Trainingsstation"}
                                         labelSmall
                                         name={"training_station"}
@@ -158,11 +157,13 @@ export function TrainingSessionCreateFromRequestView() {
                         <Card header={"Teilnehmer"} headerBorder className={"mt-5"}>
                             <Input
                                 onChange={e => setNewParticipantID(e.target.value)}
+                                value={newParticipantID}
                                 label={"Benutzer Hinzufügen"}
                                 description={
                                     "Benutzer, die nicht in diesem Kurs eingeschrieben sind werden nicht berücksichtigt und der Session entsprechend nicht hinzugefügt."
                                 }
                                 labelSmall
+                                inputError={participants.length == 0}
                                 preIcon={<TbUser size={20} />}
                                 placeholder={participants[0]?.id.toString() ?? "1373921"}
                             />
