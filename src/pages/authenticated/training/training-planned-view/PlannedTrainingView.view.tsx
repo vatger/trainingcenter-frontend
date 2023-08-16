@@ -104,16 +104,23 @@ export function PlannedTrainingView() {
                     />
                 </div>
 
-                <Separator />
+                <RenderIf
+                    truthValue={trainingSession?.user_passed == null && dayjs.utc(trainingSession?.date).isAfter(dayjs())}
+                    elementTrue={
+                        <>
+                            <Separator />
 
-                <Button
-                    variant={"twoTone"}
-                    loading={submitting}
-                    onClick={() => setShowWithdrawModal(true)}
-                    color={COLOR_OPTS.DANGER}
-                    icon={<TbDoorExit size={20} />}>
-                    Abmelden
-                </Button>
+                            <Button
+                                variant={"twoTone"}
+                                loading={submitting}
+                                onClick={() => setShowWithdrawModal(true)}
+                                color={COLOR_OPTS.DANGER}
+                                icon={<TbDoorExit size={20} />}>
+                                Abmelden
+                            </Button>
+                        </>
+                    }
+                />
             </Card>
 
             <TPVWithdrawModal

@@ -1,7 +1,7 @@
 export type TrainingLogTemplateModel = {
     id: number;
     name: string;
-    content: JSON;
+    content: string;
     createdAt?: Date;
     updatedAt?: Date;
 };

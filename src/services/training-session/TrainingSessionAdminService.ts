@@ -2,9 +2,9 @@ import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 import { UserModel } from "@/models/UserModel";
-import {useEffect, useState} from "react";
-import {APIResponseError} from "@/exceptions/APIResponseError";
-import {TrainingRequestModel} from "@/models/TrainingRequestModel";
+import { useEffect, useState } from "react";
+import { APIResponseError } from "@/exceptions/APIResponseError";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 
 async function createTrainingSession(
     users: UserModel[],
@@ -53,11 +53,11 @@ function getPlanned() {
         trainingSessions,
         setTrainingSessions,
         loading,
-        loadingError
-    }
+        loadingError,
+    };
 }
 
 export default {
     createTrainingSession,
-    getPlanned
+    getPlanned,
 };

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CourseModel } from "@/models/CourseModel";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
-import { TrainingSessionModel } from "@/models/TrainingSessionModel";
+import { TrainingSessionModel, UserTrainingSessionModel } from "@/models/TrainingSessionModel";
 import { APIResponseError } from "@/exceptions/APIResponseError";
 
 /**
@@ -90,7 +90,7 @@ function getMyCourseInformationByUUID(uuid?: string) {
 function getCourseTrainingInformationByUUID(course_uuid?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [trainingData, setTrainingData] = useState<TrainingSessionModel[]>([]);
+    const [trainingData, setTrainingData] = useState<UserTrainingSessionModel[]>([]);
 
     useEffect(() => {
         axiosInstance
@@ -100,7 +100,7 @@ function getCourseTrainingInformationByUUID(course_uuid?: string) {
                 },
             })
             .then((res: AxiosResponse) => {
-                setTrainingData(res.data as TrainingSessionModel[]);
+                setTrainingData(res.data as UserTrainingSessionModel[]);
             })
             .catch((err: AxiosError) => {
                 setLoadingError({

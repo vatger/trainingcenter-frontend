@@ -154,7 +154,9 @@ export function SideNav() {
                                                 <MenuItem href={"administration/training-request/open"} icon={<TbInbox size={20} />}>
                                                     Offene Trainingsanfragen
                                                 </MenuItem>
-                                                <MenuItem href={"administration/training-request/planned"} icon={<TbCalendarStats size={20} />}>Geplante Trainings</MenuItem>
+                                                <MenuItem href={"administration/training-request/planned"} icon={<TbCalendarStats size={20} />}>
+                                                    Geplante Trainings
+                                                </MenuItem>
                                             </CollapsableMenu>
 
                                             <CollapsableMenu title={"CPTs"} icon={<TbCertificate size={20} />}>

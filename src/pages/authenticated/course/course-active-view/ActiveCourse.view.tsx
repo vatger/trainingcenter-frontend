@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import CourseInformationService from "../../../../services/course/CourseInformationService";
 import { CAVInformationSkeleton } from "./_skeletons/CAVInformation.skeleton";
-import { RenderIf } from "../../../../components/conditionals/RenderIf";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 import { CAVTrainingHistorySkeleton } from "./_skeletons/CAVTrainingHistory.skeleton";
 import React, { useState } from "react";
 import UserTrainingService from "../../../../services/user/UserTrainingService";
