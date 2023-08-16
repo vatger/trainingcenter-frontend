@@ -19,11 +19,11 @@ type ActiveCourseTrainingHistoryPartialProps = {
 };
 
 function getStatusColor(t: TrainingSessionModel): string {
-    if (t.TrainingSessionBelongsToUsers?.passed == null) {
+    if (t.single_user_through?.passed == null) {
         return "bg-gray-500";
     }
 
-    if (t.TrainingSessionBelongsToUsers?.passed == true) {
+    if (t.single_user_through?.passed == true) {
         return "bg-emerald-500";
     } else {
         return "bg-red-500";
@@ -31,11 +31,11 @@ function getStatusColor(t: TrainingSessionModel): string {
 }
 
 function getStatusBadge(t: TrainingSessionModel): ReactElement {
-    if (t.TrainingSessionBelongsToUsers?.passed == null) {
+    if (t.single_user_through?.passed == null) {
         return <TbCalendar className={"m-[5px]"} size={19} />;
     }
 
-    if (t.TrainingSessionBelongsToUsers?.passed == true) {
+    if (t.single_user_through?.passed == true) {
         return <TbCheck className={"m-[5px]"} size={19} />;
     } else {
         return <TbX className={"m-[5px]"} size={19} />;
@@ -77,10 +77,10 @@ export function CAVTrainingHistoryPartial(props: ActiveCourseTrainingHistoryPart
                                         </div>
 
                                         <RenderIf
-                                            truthValue={value.TrainingSessionBelongsToUsers?.passed != null}
+                                            truthValue={value.single_user_through?.passed != null}
                                             elementTrue={
                                                 <RenderIf
-                                                    truthValue={value.TrainingSessionBelongsToUsers?.passed == true}
+                                                    truthValue={value.single_user_through?.passed == true}
                                                     elementTrue={<p>Bestanden</p>}
                                                     elementFalse={<p>Nicht bestanden</p>}
                                                 />
@@ -102,7 +102,9 @@ export function CAVTrainingHistoryPartial(props: ActiveCourseTrainingHistoryPart
                                                 <Link
                                                     to={`/training/log/${
                                                         value.training_logs?.find(
-                                                            (log: TrainingLogModel) => log.log_public && value.TrainingSessionBelongsToUsers?.log_id == log.id
+                                                            (log: TrainingLogModel) => {
+                                                                return log.log_public && value.single_user_through?.log_id == log.id
+                                                            }
                                                         )?.uuid ?? "-1"
                                                     }`}>
                                                     <Button
