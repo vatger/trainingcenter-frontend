@@ -57,7 +57,16 @@ function getPlanned() {
     };
 }
 
+async function deleteTrainingSession(training_session_id?: number) {
+    return axiosInstance.delete("/administration/training-session/training", {
+        data: {
+            training_session_id: training_session_id
+        }
+    });
+}
+
 export default {
     createTrainingSession,
+    deleteTrainingSession,
     getPlanned,
 };

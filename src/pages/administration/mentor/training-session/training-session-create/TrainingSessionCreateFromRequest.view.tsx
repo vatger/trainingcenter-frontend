@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/Card/Card";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import TrainingRequestAdminService from "@/services/training-request/TrainingRequestAdminService";
 import { Input } from "@/components/ui/Input/Input";
 import { TbCalendarEvent, TbCalendarPlus, TbId, TbUser } from "react-icons/all";
@@ -27,6 +27,7 @@ import FormHelper from "@/utils/helper/FormHelper";
  * @constructor
  */
 export function TrainingSessionCreateFromRequestView() {
+    const navigate = useNavigate();
     const { uuid: courseUUID } = useParams();
     const { trainingRequest, loading } = TrainingRequestAdminService.getByUUID(courseUUID);
 
@@ -84,8 +85,9 @@ export function TrainingSessionCreateFromRequestView() {
             data.training_station,
             data.date
         )
-            .then(res => {
-                console.log(res);
+            .then((session) => {
+                ToastHelper.success("Session wurde erfolgreich erstellt");
+                navigate(`/administration/training-request/planned/${session.uuid}`);
             })
             .catch(err => {
                 ToastHelper.error("Fehler beim Erstellen der Session");

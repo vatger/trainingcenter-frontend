@@ -3,8 +3,12 @@ import { TableColumn } from "react-data-table-component";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
+import {COLOR_OPTS, SIZE_OPTS} from "@/assets/theme.config";
+import {TbEye, TbTrash} from "react-icons/all";
+import {Button} from "@/components/ui/Button/Button";
+import {Dispatch} from "react";
 
-function getColumns(navigate: NavigateFunction): TableColumn<TrainingSessionModel>[] {
+function getColumns(navigate: NavigateFunction, setSelectedTrainingSession: Dispatch<TrainingSessionModel | undefined>, setShowDeleteSessionModal: Dispatch<boolean>): TableColumn<TrainingSessionModel>[] {
     return [
         {
             name: "Datum",
@@ -25,7 +29,30 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingSessionMode
         {
             name: "Aktion",
             cell: row => {
-                return <></>;
+                return (
+                    <div className={"flex"}>
+                        <Button
+                            className={"my-3"}
+                            onClick={() => navigate(`${row.uuid}`)}
+                            size={SIZE_OPTS.SM}
+                            variant={"twoTone"}
+                            color={COLOR_OPTS.PRIMARY}
+                            icon={<TbEye size={20} />}>
+                        </Button>
+
+                        <Button
+                            className={"my-3 ml-3"}
+                            onClick={() => {
+                                setSelectedTrainingSession(row);
+                                setShowDeleteSessionModal(true);
+                            }}
+                            size={SIZE_OPTS.SM}
+                            variant={"twoTone"}
+                            color={COLOR_OPTS.DANGER}
+                            icon={<TbTrash size={20} />}>
+                        </Button>
+                    </div>
+                );
             },
         },
     ];
