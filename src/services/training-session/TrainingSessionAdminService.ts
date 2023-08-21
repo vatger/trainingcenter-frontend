@@ -6,6 +6,14 @@ import { useEffect, useState } from "react";
 import { APIResponseError } from "@/exceptions/APIResponseError";
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 
+/**
+ * Creates a new training session
+ * @param users
+ * @param course_uuid
+ * @param training_type_id
+ * @param training_station_id
+ * @param date
+ */
 async function createTrainingSession(
     users: UserModel[],
     course_uuid?: string,
@@ -34,6 +42,16 @@ async function createTrainingSession(
         });
 }
 
+/**
+ * Updates the session given the UUID
+ */
+async function updateSession(uuid: string | undefined, data: any) {
+    return axiosInstance.patch("/administration/training-session/" + uuid, data);
+}
+
+/**
+ * Returns a list of planned training sessions
+ */
 function getPlanned() {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
@@ -41,7 +59,7 @@ function getPlanned() {
 
     useEffect(() => {
         axiosInstance
-            .get("/administration/training-request/planned")
+            .get("/administration/training-session/planned")
             .then((res: AxiosResponse) => {
                 setTrainingSessions(res.data as TrainingSessionModel[]);
             })
@@ -57,16 +75,49 @@ function getPlanned() {
     };
 }
 
+/**
+ * Returns a session's information by UUID
+ * @param uuid
+ */
+function getByUUID(uuid?: string) {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [trainingSession, setTrainingSession] = useState<TrainingSessionModel | undefined>(undefined);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/administration/training-session/" + uuid)
+            .then((res: AxiosResponse) => {
+                setTrainingSession(res.data as TrainingSessionModel);
+            })
+            .catch((err: AxiosError) => {})
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        trainingSession,
+        setTrainingSession,
+        loading,
+        loadingError,
+    };
+}
+
+/**
+ * Deletes a training session
+ * @param training_session_id
+ */
 async function deleteTrainingSession(training_session_id?: number) {
     return axiosInstance.delete("/administration/training-session/training", {
         data: {
-            training_session_id: training_session_id
-        }
+            training_session_id: training_session_id,
+        },
     });
 }
 
 export default {
     createTrainingSession,
+    updateSession,
     deleteTrainingSession,
+    getByUUID,
     getPlanned,
 };

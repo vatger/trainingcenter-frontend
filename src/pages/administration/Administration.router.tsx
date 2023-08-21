@@ -23,6 +23,7 @@ import { OpenTrainingRequestList } from "./mentor/request/open-training-request-
 import { OpenTrainingRequestView } from "./mentor/request/open-training-request-view/OpenTrainingRequest.view";
 import { TrainingSessionCreateFromRequestView } from "@/pages/administration/mentor/training-session/training-session-create/TrainingSessionCreateFromRequest.view";
 import { MentorTrainingListView } from "@/pages/administration/mentor/training-session/trainining-planned-list/MentorTrainingList.view";
+import { MentorTrainingView } from "@/pages/administration/mentor/training-session/training-planned-view/MentorTrainingView";
 
 export function AdministrationRouter() {
     const location: Location = useLocation();
@@ -47,6 +48,7 @@ export function AdministrationRouter() {
 
                 <Route path={"planned"}>
                     <Route path={""} element={<MentorTrainingListView />} />
+                    <Route path={":uuid"} element={<MentorTrainingView />} />
                 </Route>
             </Route>
 

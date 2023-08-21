@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/Card/Card";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TrainingRequestAdminService from "@/services/training-request/TrainingRequestAdminService";
 import { Input } from "@/components/ui/Input/Input";
 import { TbCalendarEvent, TbCalendarPlus, TbId, TbUser } from "react-icons/all";
@@ -85,7 +85,7 @@ export function TrainingSessionCreateFromRequestView() {
             data.training_station,
             data.date
         )
-            .then((session) => {
+            .then(session => {
                 ToastHelper.success("Session wurde erfolgreich erstellt");
                 navigate(`/administration/training-request/planned/${session.uuid}`);
             })

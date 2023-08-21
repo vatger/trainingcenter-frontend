@@ -3,15 +3,19 @@ import { TableColumn } from "react-data-table-component";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
-import {COLOR_OPTS, SIZE_OPTS} from "@/assets/theme.config";
-import {TbEye, TbTrash} from "react-icons/all";
-import {Button} from "@/components/ui/Button/Button";
-import {Dispatch} from "react";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { TbEye, TbTrash } from "react-icons/all";
+import { Button } from "@/components/ui/Button/Button";
+import { Dispatch } from "react";
 
-function getColumns(navigate: NavigateFunction, setSelectedTrainingSession: Dispatch<TrainingSessionModel | undefined>, setShowDeleteSessionModal: Dispatch<boolean>): TableColumn<TrainingSessionModel>[] {
+function getColumns(
+    navigate: NavigateFunction,
+    setSelectedTrainingSession: Dispatch<TrainingSessionModel | undefined>,
+    setShowDeleteSessionModal: Dispatch<boolean>
+): TableColumn<TrainingSessionModel>[] {
     return [
         {
-            name: "Datum",
+            name: "Datum (UTC)",
             selector: row => dayjs.utc(row.date).format(Config.DATETIME_FORMAT),
         },
         {
@@ -37,8 +41,7 @@ function getColumns(navigate: NavigateFunction, setSelectedTrainingSession: Disp
                             size={SIZE_OPTS.SM}
                             variant={"twoTone"}
                             color={COLOR_OPTS.PRIMARY}
-                            icon={<TbEye size={20} />}>
-                        </Button>
+                            icon={<TbEye size={20} />}></Button>
 
                         <Button
                             className={"my-3 ml-3"}
@@ -49,8 +52,7 @@ function getColumns(navigate: NavigateFunction, setSelectedTrainingSession: Disp
                             size={SIZE_OPTS.SM}
                             variant={"twoTone"}
                             color={COLOR_OPTS.DANGER}
-                            icon={<TbTrash size={20} />}>
-                        </Button>
+                            icon={<TbTrash size={20} />}></Button>
                     </div>
                 );
             },

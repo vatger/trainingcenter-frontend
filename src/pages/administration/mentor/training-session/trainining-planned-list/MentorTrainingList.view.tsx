@@ -4,11 +4,9 @@ import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";
 import MTLListTypes from "@/pages/administration/mentor/training-session/trainining-planned-list/_types/MTLList.types";
 import { useNavigate } from "react-router-dom";
-import {useState} from "react";
-import {
-    MTLDeleteSessionModal
-} from "@/pages/administration/mentor/training-session/trainining-planned-list/_modals/MTLDeleteSession.modal";
-import {TrainingSessionModel} from "@/models/TrainingSessionModel";
+import { useState } from "react";
+import { MTLDeleteSessionModal } from "@/pages/administration/mentor/training-session/trainining-planned-list/_modals/MTLDeleteSession.modal";
+import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 
 export function MentorTrainingListView() {
     const navigate = useNavigate();
@@ -22,7 +20,12 @@ export function MentorTrainingListView() {
             <PageHeader title={"Geplante Trainings"} hideBackLink />
 
             <Card>
-                <Table paginate columns={MTLListTypes.getColumns(navigate, setSelectedTrainingSession, setShowDeleteSessionModal)} data={trainingSessions} loading={loading} />
+                <Table
+                    paginate
+                    columns={MTLListTypes.getColumns(navigate, setSelectedTrainingSession, setShowDeleteSessionModal)}
+                    data={trainingSessions}
+                    loading={loading}
+                />
             </Card>
 
             <MTLDeleteSessionModal
@@ -32,8 +35,8 @@ export function MentorTrainingListView() {
                     setShowDeleteSessionModal(false);
                     setSelectedTrainingSession(undefined);
                 }}
-                onSubmit={(training) => {
-                    const newSessions = trainingSessions.filter((trainingSession) => trainingSession.id != training.id);
+                onSubmit={training => {
+                    const newSessions = trainingSessions.filter(trainingSession => trainingSession.id != training.id);
                     setTrainingSessions(newSessions);
                 }}
             />
