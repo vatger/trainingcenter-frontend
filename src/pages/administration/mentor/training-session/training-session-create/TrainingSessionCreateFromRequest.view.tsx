@@ -75,8 +75,6 @@ export function TrainingSessionCreateFromRequestView() {
 
         const data = FormHelper.getEntries(event?.target) as { date: string; training_station: string };
 
-        console.log(data);
-
         setSubmitting(true);
         TrainingSessionAdminService.createTrainingSession(
             participants,

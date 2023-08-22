@@ -5,6 +5,7 @@ import { UserModel } from "@/models/UserModel";
 import { useEffect, useState } from "react";
 import { APIResponseError } from "@/exceptions/APIResponseError";
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
+import {TrainingLogTemplateModel} from "@/models/TrainingLogTemplateModel";
 
 /**
  * Creates a new training session
@@ -103,6 +104,60 @@ function getByUUID(uuid?: string) {
 }
 
 /**
+ * Gets an array of users that are participants in the specified training session
+ * @param uuid
+ */
+function getParticipants(uuid?: string) {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [participants, setParticipants] = useState<UserModel[]>([]);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/administration/training-session/participants/" + uuid)
+            .then((res: AxiosResponse) => {
+                setParticipants(res.data as UserModel[]);
+            })
+            .catch((err: AxiosError) => {})
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        participants,
+        setParticipants,
+        loading,
+        loadingError,
+    };
+}
+
+/**
+ * Gets the log template associated to the specific session's training type
+ * @param uuid
+ */
+function getLogTemplate(uuid?: string) {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
+    const [logTemplate, setLogTemplate] = useState<TrainingLogTemplateModel | undefined>(undefined);
+
+    useEffect(() => {
+        axiosInstance
+            .get("/administration/training-session/log-template/" + uuid)
+            .then((res: AxiosResponse) => {
+                setLogTemplate(res.data as TrainingLogTemplateModel);
+            })
+            .catch((err: AxiosError) => {})
+            .finally(() => setLoading(false));
+    }, []);
+
+    return {
+        logTemplate,
+        setLogTemplate,
+        loading,
+        loadingError,
+    };
+}
+
+/**
  * Deletes a training session
  * @param training_session_id
  */
@@ -119,5 +174,7 @@ export default {
     updateSession,
     deleteTrainingSession,
     getByUUID,
+    getLogTemplate,
+    getParticipants,
     getPlanned,
 };
