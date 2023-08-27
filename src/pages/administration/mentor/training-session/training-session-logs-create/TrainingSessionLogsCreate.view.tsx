@@ -79,12 +79,13 @@ export function TrainingSessionLogsCreateView() {
                                         data={logTemplateElements ?? []}
                                         mapFunction={(v, i) => {
                                             return (
-                                                // @ts-ignore
                                                 <TSLCLogTemplateElementPartial
                                                     element={v}
                                                     index={i}
                                                     key={i}
+                                                    // @ts-ignore - value is forced to be non-null by renderIf
                                                     stringValues={participantValues[index].stringValues}
+                                                    // @ts-ignore - value is forced to be non-null by renderIf
                                                     progressValues={participantValues[index].progressValues}
                                                 />
                                             );
