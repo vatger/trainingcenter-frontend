@@ -73,7 +73,7 @@ function SubmitTrainingLogs(data: ITrainingSessionServiceProps) {
     }
 
     axiosInstance
-        .post(`/administration/training-session/log/${data.uuid}`, result)
+        .put(`/administration/training-session/log/${data.uuid}`, result)
         .then((res: AxiosResponse) => {
             ToastHelper.success("Erfolg");
         })

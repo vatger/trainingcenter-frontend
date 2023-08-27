@@ -7,7 +7,7 @@ import {
     TbAdjustments,
     TbBooks,
     TbCalendar,
-    TbCalendarEvent,
+    TbCalendarEvent, TbCalendarPlus,
     TbCalendarStats,
     TbCertificate,
     TbCheckupList,
@@ -125,14 +125,14 @@ export function SideNav() {
                                     </CollapsableMenu>
 
                                     <CollapsableMenu title={"Trainings"} icon={<TbCalendarEvent size={20} />}>
-                                        <MenuItem href={"training/completed"} icon={<TbList size={20} />}>
-                                            Meine Trainings
+                                        <MenuItem href={"training/request/open"} icon={<TbClock size={20} />}>
+                                            Offene Trainingsanfragen
                                         </MenuItem>
                                         <MenuItem href={"training/planned"} icon={<TbCalendarStats size={20} />}>
                                             Geplante Trainings
                                         </MenuItem>
-                                        <MenuItem href={"training/request/open"} icon={<TbClock size={20} />}>
-                                            Offene Trainingsanfragen
+                                        <MenuItem href={"training/completed"} icon={<TbList size={20} />}>
+                                            Abgeschlossene Trainings
                                         </MenuItem>
                                     </CollapsableMenu>
                                 </div>
@@ -150,13 +150,16 @@ export function SideNav() {
                                             </CollapsableMenu>
 
                                             <CollapsableMenu title={"Trainings"} icon={<TbCalendar size={20} />}>
-                                                <MenuItem icon={<TbList size={20} />}>Meine Trainings</MenuItem>
                                                 <MenuItem href={"administration/training-request/open"} icon={<TbInbox size={20} />}>
                                                     Offene Trainingsanfragen
+                                                </MenuItem>
+                                                <MenuItem href={"administration/training-session/create"} icon={<TbCalendarPlus size={20} />}>
+                                                    Training Erstellen
                                                 </MenuItem>
                                                 <MenuItem href={"administration/training-request/planned"} icon={<TbCalendarStats size={20} />}>
                                                     Geplante Trainings
                                                 </MenuItem>
+                                                <MenuItem icon={<TbList size={20} />}>Meine Trainings</MenuItem>
                                             </CollapsableMenu>
 
                                             <CollapsableMenu title={"CPTs"} icon={<TbCertificate size={20} />}>

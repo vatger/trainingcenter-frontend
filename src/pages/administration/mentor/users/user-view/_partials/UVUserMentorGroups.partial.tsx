@@ -22,11 +22,7 @@ export function UVUserMentorGroupsPartial(props: UserMentorGroupsPartialProps) {
             header={"Mentorengruppen"}
             className={"mt-7"}
             headerBorder
-            headerExtra={
-                <Button size={SIZE_OPTS.XS} variant={"twoTone"} color={COLOR_OPTS.PRIMARY} icon={<TbPlus size={20} />}>
-                    Zu Mentorengruppe hinzufügen
-                </Button>
-            }>
+        >
             <Table paginate={props.mentorGroups.length > 10} columns={columns} data={props.mentorGroups} />
         </Card>
     );

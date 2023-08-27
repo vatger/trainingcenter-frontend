@@ -10,6 +10,8 @@ import { CAVInformationPartial } from "./_partials/CAVInformation.partial";
 import { CAVTrainingRequestsPartial } from "./_partials/CAVTrainingRequests.partial";
 import { CAVTrainingHistoryPartial } from "./_partials/CAVTrainingHistory.partial";
 import { CAVTrainingRequestsSkeleton } from "./_skeletons/CAVTrainingRequests.skeleton";
+import useApi from "@/utils/hooks/useApi";
+import {TrainingRequestModel} from "@/models/TrainingRequestModel";
 
 export function ActiveCourseView() {
     const { uuid } = useParams();
@@ -17,7 +19,11 @@ export function ActiveCourseView() {
 
     const { course, loading: loadingCourse } = CourseInformationService.getMyCourseInformationByUUID(uuid);
     const { trainingData, loading: loadingTrainingData } = CourseInformationService.getCourseTrainingInformationByUUID(uuid);
-    const { trainingRequests, setTrainingRequests, loading: loadingTrainingRequests } = UserTrainingService.getTrainingRequestsByCourseUUID(uuid);
+
+    const {data: ActiveTrainingRequests, setData: setActiveTrainingRequests, loading: loadingActiveTrainingRequests} = useApi<TrainingRequestModel[]>({
+        url: `/user-info/training-request/${uuid}/active`,
+        method: "get"
+    });
 
     return (
         <>
@@ -25,7 +31,7 @@ export function ActiveCourseView() {
 
             {/* Wait until all elements have loaded and show them all at the same time */}
             <RenderIf
-                truthValue={loadingCourse || loadingTrainingData || loadingTrainingRequests}
+                truthValue={loadingCourse || loadingTrainingData || loadingActiveTrainingRequests}
                 elementTrue={
                     <>
                         <CAVInformationSkeleton />
@@ -38,13 +44,13 @@ export function ActiveCourseView() {
                         <CAVInformationPartial
                             showRequestTrainingModal={showRequestTrainingModal}
                             setShowRequestTrainingModal={setShowRequestTrainingModal}
-                            setTrainingRequests={setTrainingRequests}
+                            setTrainingRequests={setActiveTrainingRequests}
                             course={course}
                             loadingCourse={loadingCourse}
-                            trainingRequests={trainingRequests}
+                            trainingRequests={ActiveTrainingRequests ?? []}
                         />
 
-                        <CAVTrainingRequestsPartial trainingRequests={trainingRequests} loadingTrainingRequests={loadingTrainingRequests} />
+                        <CAVTrainingRequestsPartial trainingRequests={ActiveTrainingRequests ?? []} loadingTrainingRequests={loadingActiveTrainingRequests} />
 
                         <CAVTrainingHistoryPartial trainingData={trainingData} />
                     </>

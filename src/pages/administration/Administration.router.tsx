@@ -25,6 +25,9 @@ import { TrainingSessionCreateFromRequestView } from "@/pages/administration/men
 import { MentorTrainingListView } from "@/pages/administration/mentor/training-session/trainining-planned-list/MentorTrainingList.view";
 import { MentorTrainingView } from "@/pages/administration/mentor/training-session/training-planned-view/MentorTraining.view";
 import { TrainingSessionLogsCreateView } from "@/pages/administration/mentor/training-session/training-session-logs-create/TrainingSessionLogsCreate.view";
+import {
+    TrainingSessionCreateView
+} from "@/pages/administration/mentor/training-session/training-session-create/TrainingSessionCreate.view";
 
 export function AdministrationRouter() {
     const location: Location = useLocation();
@@ -55,7 +58,7 @@ export function AdministrationRouter() {
             </Route>
 
             <Route path={"training-session"}>
-                <Route path={"create"} element={<></>} />
+                <Route path={"create"} element={<TrainingSessionCreateView/>} />
                 <Route path={"create/:uuid"} element={<TrainingSessionCreateFromRequestView />} />
             </Route>
 

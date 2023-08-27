@@ -1,15 +1,13 @@
 import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Input } from "../../../../../components/ui/Input/Input";
-import { TbCirclePlus, TbFilePlus, TbId, TbMap2 } from "react-icons/all";
+import {TbCirclePlus, TbFilePlus, TbId, TbMap2, TbPlus, TbUser} from "react-icons/all";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { Separator } from "../../../../../components/ui/Separator/Separator";
-import { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import FormHelper from "../../../../../utils/helper/FormHelper";
-import { MGCAddUserModal } from "./_modals/MGCAddUser.modal";
 import { UserModel } from "../../../../../models/UserModel";
-import { TableColumn } from "react-data-table-component";
 import MentorGroupUsersTableTypes from "../_types/MGUsersTable.types";
 import { Table } from "../../../../../components/ui/Table/Table";
 import authContext from "../../../../../utils/contexts/AuthContext";
@@ -18,24 +16,25 @@ import { MentorGroupModel } from "../../../../../models/MentorGroupModel";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { useNavigate } from "react-router-dom";
 import { Select } from "../../../../../components/ui/Select/Select";
+import UserAdminService from "@/services/user/UserAdminService";
+import {AxiosResponse} from "axios";
 
-export type UserInMentorGroupT = {
+export interface IUserInMentorGroup  {
     user: UserModel;
     admin: boolean;
     can_manage: boolean;
-};
+}
 
 export function MentorGroupCreateView() {
     const navigate = useNavigate();
     const { user } = useContext(authContext);
 
-    const [addUserModalOpen, setAddUserModalOpen] = useState<boolean>(false);
-    const [users, setUsers] = useState<UserInMentorGroupT[]>([
-        { user: { id: user?.id, first_name: user?.first_name, last_name: user?.last_name } as UserModel, admin: true, can_manage: true },
-    ]);
-    const [submitting, setSubmitting] = useState<boolean>(false);
+    const defaultUser: IUserInMentorGroup = {user: user ?? {} as UserModel, admin: true, can_manage: true};
+    const [newUserID, setNewUserID] = useState<string>("");
+    const [loadingUser, setLoadingUser] = useState<boolean>(false);
+    const [users, setUsers] = useState<IUserInMentorGroup[]>([defaultUser]);
 
-    const mentorGroupUsersColumns: TableColumn<UserInMentorGroupT>[] = MentorGroupUsersTableTypes.getColumns(user?.id ?? -1, users, setUsers);
+    const [submitting, setSubmitting] = useState<boolean>(false);
 
     function handleCreate(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -55,13 +54,24 @@ export function MentorGroupCreateView() {
             .finally(() => setSubmitting(false));
     }
 
-    function addUser(user: UserModel) {
-        const newUser = {
-            user: user,
-            admin: false,
-            can_manage: false,
-        };
-        setUsers([...users, newUser]);
+    function addUser() {
+        setLoadingUser(true);
+        UserAdminService.getUserBasicDetails(newUserID)
+            .then((res: AxiosResponse) => {
+                const newUser = {
+                    user: res.data as UserModel,
+                    admin: false,
+                    can_manage: false,
+                };
+                setUsers([...users, newUser]);
+            })
+            .catch(() => {
+                ToastHelper.error(`Fehler beim Laden des Benutzers mit der ID ${newUserID}`);
+            })
+            .finally(() => {
+                setLoadingUser(false);
+                setNewUserID("");
+            });
     }
 
     function removeUser(user: UserModel) {
@@ -108,28 +118,6 @@ export function MentorGroupCreateView() {
                     </Select>
 
                     <Separator />
-                    <div className={"mb-1 flex justify-between"}>
-                        <h6 className={"text-sm"}>Mitglieder ({users.length})</h6>
-                    </div>
-                    <p className="mb-3 text-xs">
-                        Du bist automatisch als Gruppenadministrator und Kursverwalter in dieser Mentorengruppe. Falls dies nicht erwünscht sein sollte, kann
-                        dies im Nachinein über die Verwaltung der Mentorengruppen angepasst werden. Wenn Du allerdings diese Berechtigungen nicht mehr besitzt,
-                        kannst Du auch keine Änderungen mehr an der Mentorengruppe vornehmen um bspw. Mitglieder hinzuzufügen oder zu entfernen!
-                    </p>
-
-                    <Table columns={mentorGroupUsersColumns} data={users} />
-
-                    <Button
-                        disabled={submitting}
-                        icon={<TbCirclePlus size={20} />}
-                        type={"button"}
-                        variant={"default"}
-                        size={SIZE_OPTS.SM}
-                        onClick={() => setAddUserModalOpen(true)}>
-                        Benutzer Hinzufügen
-                    </Button>
-
-                    <Separator />
 
                     <Button type={"submit"} loading={submitting} icon={<TbFilePlus size={20} />} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
                         Mentorengruppe Erstellen
@@ -137,7 +125,41 @@ export function MentorGroupCreateView() {
                 </form>
             </Card>
 
-            <MGCAddUserModal open={addUserModalOpen} onClose={() => setAddUserModalOpen(false)} onAddUser={addUser} onRemoveUser={removeUser} users={users} />
+            <Card className={"mt-5"} header={"Mitglieder"} headerBorder>
+                <Input
+                    onChange={e => setNewUserID(e.target.value)}
+                    value={newUserID}
+                    label={"Benutzer Hinzufügen"}
+                    description={
+                        "Benutzer, die nicht in diesem Kurs eingeschrieben sind werden nicht berücksichtigt und der Session entsprechend nicht hinzugefügt."
+                    }
+                    labelSmall
+                    inputError={users.length == 0}
+                    preIcon={<TbUser size={20} />}
+                    placeholder={users[0]?.user.id.toString() ?? "1373921"}
+                />
+
+                <Button
+                    size={SIZE_OPTS.SM}
+                    color={COLOR_OPTS.PRIMARY}
+                    loading={loadingUser}
+                    disabled={submitting}
+                    variant={"twoTone"}
+                    className={"mt-3"}
+                    onClick={() => {addUser()}}>
+                    Hinzufügen
+                </Button>
+
+                <Separator/>
+
+                <p className="mb-3 text-xs">
+                    Du bist automatisch als Gruppenadministrator und Kursverwalter in dieser Mentorengruppe. Falls dies nicht erwünscht sein sollte, kann
+                    dies im Nachinein über die Verwaltung der Mentorengruppen angepasst werden. Wenn Du allerdings diese Berechtigungen nicht mehr besitzt,
+                    kannst Du auch keine Änderungen mehr an der Mentorengruppe vornehmen um bspw. Mitglieder hinzuzufügen oder zu entfernen!
+                </p>
+
+                <Table paginate columns={MentorGroupUsersTableTypes.getColumns(user?.id, users, setUsers)} data={users} />
+            </Card>
         </>
     );
 }

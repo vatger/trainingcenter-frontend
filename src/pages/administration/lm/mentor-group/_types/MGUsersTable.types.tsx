@@ -1,5 +1,5 @@
 import { TableColumn } from "react-data-table-component";
-import { UserInMentorGroupT } from "../mentor-group-create/MentorGroupCreate.view";
+import { IUserInMentorGroup } from "../mentor-group-create/MentorGroupCreate.view";
 import { Badge } from "../../../../../components/ui/Badge/Badge";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { Button } from "../../../../../components/ui/Button/Button";
@@ -12,7 +12,7 @@ enum EditType {
     COURSE_MANAGEMENT,
 }
 
-function getColumns(my_user_id: number, users: UserInMentorGroupT[], setUsers: Dispatch<UserInMentorGroupT[]>): TableColumn<UserInMentorGroupT>[] {
+function getColumns(my_user_id: number | undefined, users: IUserInMentorGroup[], setUsers: Dispatch<IUserInMentorGroup[]>): TableColumn<IUserInMentorGroup>[] {
     const [isEditing, setIsEditing] = useState<boolean>(false);
 
     function removeUser(user_id: number) {
@@ -24,7 +24,7 @@ function getColumns(my_user_id: number, users: UserInMentorGroupT[], setUsers: D
 
     function updateUser(val: boolean, type: EditType, user_id: number) {
         let newUsers = [...users];
-        const usr: UserInMentorGroupT | undefined = users.find(u => u.user.id == user_id);
+        const usr: IUserInMentorGroup | undefined = users.find(u => u.user.id == user_id);
 
         if (usr == null) return;
 
@@ -51,7 +51,7 @@ function getColumns(my_user_id: number, users: UserInMentorGroupT[], setUsers: D
         {
             name: "Gruppenadministrator",
             cell: row => {
-                if (isEditing)
+                if (isEditing && row.user.id != my_user_id)
                     return (
                         <Checkbox
                             disabled={row.user.id == my_user_id}
@@ -64,7 +64,7 @@ function getColumns(my_user_id: number, users: UserInMentorGroupT[], setUsers: D
         {
             name: "Kursverwaltung",
             cell: row => {
-                if (isEditing)
+                if (isEditing && row.user.id != my_user_id)
                     return (
                         <Checkbox
                             disabled={row.user.id == my_user_id}
@@ -77,7 +77,7 @@ function getColumns(my_user_id: number, users: UserInMentorGroupT[], setUsers: D
         {
             name: "Aktion",
             cell: row => {
-                if (isEditing) {
+                if (isEditing && row.user.id != my_user_id) {
                     return (
                         <Button
                             variant={"twoTone"}
@@ -95,6 +95,7 @@ function getColumns(my_user_id: number, users: UserInMentorGroupT[], setUsers: D
                                 variant={"twoTone"}
                                 onClick={() => setIsEditing(true)}
                                 className={"mr-2"}
+                                disabled={row.user.id == my_user_id}
                                 size={SIZE_OPTS.SM}
                                 color={COLOR_OPTS.PRIMARY}
                                 icon={<TbEdit size={20} />}
