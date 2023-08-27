@@ -133,39 +133,6 @@ function removeMentorGroupByID(course_id: number, mentor_group_id: number): Prom
     });
 }
 
-/**
- * Gets a list of skill templates
- */
-function getSkillTemplates() {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [skillTemplates, setSkillTemplates] = useState<CourseSkillTemplateModel[]>([]);
-
-    useEffect(() => {
-        axiosInstance
-            .get("/administration/course-skill-template")
-            .then((res: AxiosResponse) => {
-                setSkillTemplates(res.data as CourseSkillTemplateModel[]);
-            })
-            .catch((err: AxiosError) => {
-                setLoadingError({
-                    error: err,
-                    custom: {
-                        code: "ERR_API_LOAD_SKILL_TEMPLATE",
-                        message: "Failed to load skill templates",
-                    },
-                });
-            })
-            .finally(() => setLoading(false));
-    }, []);
-
-    return {
-        skillTemplates,
-        loading,
-        loadingError,
-    };
-}
-
 async function create(data: object): Promise<CourseModel> {
     return axiosInstance
         .put("/administration/course", { data: data })
@@ -191,7 +158,6 @@ async function update(data: object): Promise<CourseModel> {
 export default {
     create,
     update,
-    getSkillTemplates,
     getInformationByUUID,
     getUsersByUUID,
     removeUserByID,

@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 export type TextAreaProps = {
     className?: string;
     label?: string;
@@ -13,6 +15,7 @@ export type TextAreaProps = {
     textAreaClassName?: string;
     required?: boolean;
     inputError?: boolean;
+    onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => any;
 
     rows?: number;
     maxLength?: number;

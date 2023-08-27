@@ -7,10 +7,20 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { MTLDeleteSessionModal } from "@/pages/administration/mentor/training-session/trainining-planned-list/_modals/MTLDeleteSession.modal";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
+import useApi from "@/utils/hooks/useApi";
 
 export function MentorTrainingListView() {
     const navigate = useNavigate();
-    const { trainingSessions, setTrainingSessions, loading } = TrainingSessionAdminService.getPlanned();
+
+    // Get a list of planned training sessions
+    const {
+        data: trainingSessions,
+        setData: setTrainingSessions,
+        loading,
+    } = useApi<TrainingSessionModel[]>({
+        url: "/administration/training-session/planned",
+        method: "get",
+    });
 
     const [selectedTrainingSession, setSelectedTrainingSession] = useState<TrainingSessionModel | undefined>(undefined);
     const [showDeleteSessionModal, setShowDeleteSessionModal] = useState<boolean>(false);
@@ -23,7 +33,7 @@ export function MentorTrainingListView() {
                 <Table
                     paginate
                     columns={MTLListTypes.getColumns(navigate, setSelectedTrainingSession, setShowDeleteSessionModal)}
-                    data={trainingSessions}
+                    data={trainingSessions ?? []}
                     loading={loading}
                 />
             </Card>
@@ -36,8 +46,10 @@ export function MentorTrainingListView() {
                     setSelectedTrainingSession(undefined);
                 }}
                 onSubmit={training => {
-                    const newSessions = trainingSessions.filter(trainingSession => trainingSession.id != training.id);
-                    setTrainingSessions(newSessions);
+                    const newSessions = trainingSessions?.filter(trainingSession => trainingSession.id != training.id);
+                    if (newSessions != null) {
+                        setTrainingSessions(newSessions);
+                    }
                 }}
             />
         </>

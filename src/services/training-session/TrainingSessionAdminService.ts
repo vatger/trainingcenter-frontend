@@ -5,7 +5,7 @@ import { UserModel } from "@/models/UserModel";
 import { useEffect, useState } from "react";
 import { APIResponseError } from "@/exceptions/APIResponseError";
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
-import {TrainingLogTemplateModel} from "@/models/TrainingLogTemplateModel";
+import { TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
 
 /**
  * Creates a new training session
@@ -48,59 +48,6 @@ async function createTrainingSession(
  */
 async function updateSession(uuid: string | undefined, data: any) {
     return axiosInstance.patch("/administration/training-session/" + uuid, data);
-}
-
-/**
- * Returns a list of planned training sessions
- */
-function getPlanned() {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [trainingSessions, setTrainingSessions] = useState<TrainingSessionModel[]>([]);
-
-    useEffect(() => {
-        axiosInstance
-            .get("/administration/training-session/planned")
-            .then((res: AxiosResponse) => {
-                setTrainingSessions(res.data as TrainingSessionModel[]);
-            })
-            .catch((err: AxiosError) => {})
-            .finally(() => setLoading(false));
-    }, []);
-
-    return {
-        trainingSessions,
-        setTrainingSessions,
-        loading,
-        loadingError,
-    };
-}
-
-/**
- * Returns a session's information by UUID
- * @param uuid
- */
-function getByUUID(uuid?: string) {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [trainingSession, setTrainingSession] = useState<TrainingSessionModel | undefined>(undefined);
-
-    useEffect(() => {
-        axiosInstance
-            .get("/administration/training-session/" + uuid)
-            .then((res: AxiosResponse) => {
-                setTrainingSession(res.data as TrainingSessionModel);
-            })
-            .catch((err: AxiosError) => {})
-            .finally(() => setLoading(false));
-    }, []);
-
-    return {
-        trainingSession,
-        setTrainingSession,
-        loading,
-        loadingError,
-    };
 }
 
 /**
@@ -173,8 +120,6 @@ export default {
     createTrainingSession,
     updateSession,
     deleteTrainingSession,
-    getByUUID,
     getLogTemplate,
     getParticipants,
-    getPlanned,
 };

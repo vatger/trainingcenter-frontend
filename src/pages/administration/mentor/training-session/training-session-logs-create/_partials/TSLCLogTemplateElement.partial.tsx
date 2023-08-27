@@ -2,13 +2,44 @@ import { ProgressBar } from "@/components/ui/ProgressBar/ProgressBar";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import {
-    LogTemplateElement, LogTemplateElementRating, LogTemplateElementSection, LogTemplateElementTextarea,
-    LogTemplateType
+    LogTemplateElement,
+    LogTemplateElementRating,
+    LogTemplateElementSection,
+    LogTemplateElementTextarea,
+    LogTemplateType,
 } from "@/pages/administration/atd/log-template/log-template-create/_types/LTCElement.types";
-import {TextArea} from "@/components/ui/Textarea/TextArea";
+import { TextArea } from "@/components/ui/Textarea/TextArea";
+import React, { useState } from "react";
+import { Input } from "@/components/ui/Input/Input";
 
-function render(type: LogTemplateType, element: LogTemplateElement, index: number) {
-    let elem;
+function onStringValueChange(map: Map<string, string>, uuid: string, value: string) {
+    // Does the map replace, or add to the hash key?
+    if (map.has(uuid)) {
+        map.delete(uuid);
+    }
+
+    map.set(uuid, value);
+}
+
+function onProgressValueChange(map: Map<string, number>, uuid: string, value: number) {
+    // Does the map replace, or add to the hash key?
+    if (map.has(uuid)) {
+        map.delete(uuid);
+    }
+
+    map.set(uuid, value);
+}
+
+function render(
+    type: LogTemplateType,
+    element: LogTemplateElement & { uuid: string },
+    index: number,
+    stringValues: Map<string, string>,
+    progressValues: Map<string, number>
+) {
+    const [progressBarValue, setProgressBarValue] = useState<number>(0);
+
+    let elem: any;
     switch (type) {
         case "textarea":
             elem = element as LogTemplateElementTextarea;
@@ -17,7 +48,7 @@ function render(type: LogTemplateType, element: LogTemplateElement, index: numbe
                     <h6 className={elem.subtitle == null ? "mb-2" : ""}>{elem.title}</h6>
                     {elem.subtitle && <p className={"mb-2"}>{elem.subtitle}</p>}
 
-                    <TextArea placeholder={`Bewertung ${elem.title}`}/>
+                    <TextArea onChange={e => onStringValueChange(stringValues, element.uuid, e.target.value)} placeholder={`Bewertung ${elem.title}`} />
                 </div>
             );
 
@@ -28,10 +59,36 @@ function render(type: LogTemplateType, element: LogTemplateElement, index: numbe
                     <div className={"flex flex-col w-full xl:w-1/2 xl:min-w-[420px]"}>
                         <div className={"flex justify-between"}>
                             <h6 className={"mb-2"}>{elem.title}</h6>
-                            <span>1 / {elem.max}</span>
+                            <span>
+                                {progressBarValue} / {elem.max}
+                            </span>
                         </div>
-                        <div>
-                            <ProgressBar value={(1 / elem.max) * 100} hidePercentage />
+                        <div className={"flex flex-col h-full justify-between"}>
+                            <ProgressBar value={(progressBarValue / elem.max) * 100} hidePercentage />
+                            <Input
+                                className={"mt-2"}
+                                type={"number"}
+                                labelSmall
+                                value={progressBarValue.toString()}
+                                onChange={e => {
+                                    let val = Number(e.target.value);
+
+                                    if (val == Number.NaN) {
+                                        val = 0;
+                                    }
+
+                                    if (val > elem.max) {
+                                        val = elem.max;
+                                    }
+
+                                    if (val < 0) {
+                                        val = 0;
+                                    }
+
+                                    setProgressBarValue(val);
+                                    onProgressValueChange(progressValues, element.uuid, val);
+                                }}
+                            />
                         </div>
                         {elem.subtitle != null && (
                             <div className={"mt-2"}>
@@ -43,13 +100,12 @@ function render(type: LogTemplateType, element: LogTemplateElement, index: numbe
                         <RenderIf
                             truthValue={elem.disableText == null || elem.disableText == false}
                             elementTrue={
-                                <TextArea placeholder={`Bewertung ${elem.title}`}/>
+                                <TextArea
+                                    onChange={e => onStringValueChange(stringValues, element.uuid, e.target.value)}
+                                    placeholder={`Bewertung ${elem.title}`}
+                                />
                             }
-                            elementFalse={
-                                <div className={"input h-full input-wrapper input-disabled resize-none "}>
-                                    N/A
-                                </div>
-                            }
+                            elementFalse={<div className={"input h-full input-wrapper input-disabled resize-none "}>N/A</div>}
                         />
                     </div>
                 </div>
@@ -72,10 +128,15 @@ function render(type: LogTemplateType, element: LogTemplateElement, index: numbe
     }
 }
 
-export function TSLCLogTemplateElementPartial(props: { element: LogTemplateElement; index: number }) {
+export function TSLCLogTemplateElementPartial(props: {
+    element: LogTemplateElement & { uuid: string };
+    index: number;
+    stringValues: Map<string, string>;
+    progressValues: Map<string, number>;
+}) {
     return (
         <div className={"flex relative flex-col md:flex-row justify-between " + (props.index == 0 || props.element.type == "section" ? "" : "mt-6")}>
-            <div className={"w-full"}>{render(props.element.type, props.element, props.index)}</div>
+            <div className={"w-full"}>{render(props.element.type, props.element, props.index, props.stringValues, props.progressValues)}</div>
         </div>
     );
 }

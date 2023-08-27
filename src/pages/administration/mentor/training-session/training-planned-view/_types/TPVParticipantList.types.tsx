@@ -6,7 +6,6 @@ import { TbTrash } from "react-icons/all";
 import { Dispatch } from "react";
 
 function getColumns(): TableColumn<UserModel>[] {
-
     return [
         {
             name: "CID",
@@ -17,7 +16,7 @@ function getColumns(): TableColumn<UserModel>[] {
             name: "Name",
             selector: row => row.first_name + " " + row.last_name,
             sortable: true,
-        }
+        },
     ];
 }
 

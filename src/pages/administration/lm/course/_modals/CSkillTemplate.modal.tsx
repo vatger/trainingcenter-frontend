@@ -10,6 +10,7 @@ import CourseService from "../../../../../services/course/CourseAdminService";
 import { CourseSkillTemplateModel } from "../../../../../models/CourseModel";
 import { useFilter } from "../../../../../utils/hooks/useFilter";
 import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
+import useApi from "@/utils/hooks/useApi";
 
 const filterCourseSkillTemplateFunction = (logTemplate: CourseSkillTemplateModel, searchValue: string) => {
     return fuzzySearch(searchValue, [logTemplate.name]).length > 0;
@@ -19,8 +20,17 @@ export function AddSkillTypeModalPartial(props: { open: boolean; onClose: () => 
     const [searchQuery, setSearchQuery] = useState<string>("");
     const debouncedValue = useDebounce<string>(searchQuery, 300);
 
-    const { skillTemplates, loading, loadingError } = CourseService.getSkillTemplates();
-    const filteredSkillTemplates = useFilter<CourseSkillTemplateModel>(skillTemplates, searchQuery, debouncedValue, filterCourseSkillTemplateFunction, true);
+    const { data: skillTemplates, loading } = useApi<CourseSkillTemplateModel[]>({
+        url: "/administration/course-skill-template",
+        method: "get",
+    });
+    const filteredSkillTemplates = useFilter<CourseSkillTemplateModel>(
+        skillTemplates ?? [],
+        searchQuery,
+        debouncedValue,
+        filterCourseSkillTemplateFunction,
+        true
+    );
 
     return (
         <Modal show={props.open} onClose={props.onClose} title={"Skillvorlagen Suchen"}>

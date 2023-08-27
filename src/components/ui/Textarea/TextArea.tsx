@@ -62,6 +62,7 @@ export function TextArea(props: TextAreaProps) {
                 onChange={e => {
                     checkRegex(e.target.value);
                     setInputVal(e.target.value);
+                    props.onChange?.(e);
                 }}
                 maxLength={props.maxLength}
                 rows={props.rows}
