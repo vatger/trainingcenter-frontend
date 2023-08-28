@@ -1,6 +1,6 @@
 import { UserModel } from "./UserModel";
 
-type MentorGroupsBelongsToCourses = {
+export type MentorGroupsBelongsToCourses = {
     id: number;
     mentor_group_id: number;
     course_id: number;
@@ -24,7 +24,7 @@ export type MentorGroupModel = {
     name: string;
     createdAt: Date;
     updatedAt?: Date;
-    fir: "edww" | "edgg" | "edmm";
+    fir?: "edww" | "edgg" | "edmm";
     through?: any;
 
     users?: UserModel[];

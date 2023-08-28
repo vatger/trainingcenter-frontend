@@ -40,6 +40,8 @@ export function Tabs(props: TabsProps) {
                         <div
                             key={index}
                             onClick={() => {
+                                if (props.disabled) return;
+
                                 setActivePage(index);
                                 window.history.replaceState(null, "", `#${(value as string).toLowerCase()}`);
                                 props.onChange?.(index);

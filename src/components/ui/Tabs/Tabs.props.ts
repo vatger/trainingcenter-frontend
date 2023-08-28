@@ -5,4 +5,5 @@ export type TabsProps = {
     children: ReactElement[];
     type: "pills" | "underline";
     onChange?: (index: number) => any;
+    disabled?: boolean;
 };

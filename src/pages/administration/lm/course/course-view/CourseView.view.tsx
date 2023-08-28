@@ -2,39 +2,53 @@ import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { useParams } from "react-router-dom";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
-import { CVSettingsSubpage } from "./_partials/CVSettings.subpage";
-import { CVUsersSubpage } from "./_partials/CVUsers.subpage";
 import CourseAdminService from "../../../../../services/course/CourseAdminService";
-import { CVMentorgroupsSubpage } from "./_partials/CVMentorgroups.subpage";
-import { CVDangerSubpage } from "./_partials/CVDanger.subpage";
+import {CVSettingsSubpage} from "@/pages/administration/lm/course/course-view/_subpages/CVSettings.subpage";
+import {CVMentorgroupsSubpage} from "@/pages/administration/lm/course/course-view/_subpages/CVMentorgroups.subpage";
+import {CVUsersSubpage} from "@/pages/administration/lm/course/course-view/_subpages/CVUsers.subpage";
+import {CVDangerSubpage} from "@/pages/administration/lm/course/course-view/_subpages/CVDanger.subpage";
+import {CViewSettingsSkeleton} from "@/pages/administration/lm/course/_skeletons/CViewSettings.skeleton";
+import React from "react";
+import {RenderIf} from "@/components/conditionals/RenderIf";
 
-const tabHeaders = ["Einstellungen", "Mentorgruppen", "Aktionen & Bedingungen", "Teilnehmer", "Gefahrenbereich"];
+const tabHeaders = ["Einstellungen", "Mentorgruppen", "Trainingstypen", "Aktionen & Bedingungen", "Teilnehmer", "Gefahrenbereich"];
 
 export function CourseViewView() {
     const { uuid } = useParams();
 
     const { course, setCourse, loading: loadingCourse } = CourseAdminService.getInformationByUUID(uuid);
     const { users, setUsers, loading: loadingUsers } = CourseAdminService.getUsersByUUID(uuid);
-    const { mentorGroups, setMentorGroups, loading: loadingMentorGroups } = CourseAdminService.getMentorGroupsByUUID(uuid);
 
     return (
         <>
             <PageHeader title={"Kurs Verwalten"} />
 
-            <Card>
-                <Tabs type={"underline"} tabHeaders={tabHeaders}>
-                    <CVSettingsSubpage loading={loadingCourse} courseData={course} setCourseData={setCourse} />
-                    <CVMentorgroupsSubpage
-                        loading={loadingMentorGroups}
-                        course_id={course?.id ?? -1}
-                        mentorGroups={mentorGroups}
-                        setMentorGroups={setMentorGroups}
-                    />
-                    <div></div>
-                    <CVUsersSubpage loading={loadingUsers} users={users} setUsers={setUsers} course={course} />
-                    <CVDangerSubpage uuid={uuid} />
-                </Tabs>
-            </Card>
+            <RenderIf
+                truthValue={loadingCourse || loadingUsers}
+                elementTrue={
+                    <Card>
+                        <Tabs type={"underline"} disabled tabHeaders={tabHeaders}>
+                            <CViewSettingsSkeleton/>
+                            <></>
+                        </Tabs>
+                    </Card>
+                }
+                elementFalse={
+                    <Card>
+                        <Tabs type={"underline"} tabHeaders={tabHeaders}>
+                            <CVSettingsSubpage courseData={course!} setCourseData={setCourse} />
+                            <CVMentorgroupsSubpage
+                                course_id={course?.id ?? -1}
+                                course_uuid={uuid}
+                            />
+                            <div></div>
+                            <div></div>
+                            <CVUsersSubpage loading={loadingUsers} users={users} setUsers={setUsers} course={course} />
+                            <CVDangerSubpage uuid={uuid} />
+                        </Tabs>
+                    </Card>
+                }
+            />
         </>
     );
 }

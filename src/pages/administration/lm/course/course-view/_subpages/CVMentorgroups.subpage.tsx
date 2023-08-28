@@ -1,0 +1,162 @@
+import {UserModel} from "../../../../../../models/UserModel";
+import {Table} from "../../../../../../components/ui/Table/Table";
+import {useNavigate} from "react-router-dom";
+import {Button} from "../../../../../../components/ui/Button/Button";
+import {COLOR_OPTS, SIZE_OPTS} from "../../../../../../assets/theme.config";
+import {MentorGroupModel, MentorGroupsBelongsToCourses} from "../../../../../../models/MentorGroupModel";
+import CourseMentorGroupsListTypes from "../_types/CVMentorGroupsList.types";
+import {Dispatch, useState} from "react";
+import {
+    CVMentorGroupMembersPartial
+} from "@/pages/administration/lm/course/course-view/_partials/CVMentorGroupMembers.partial";
+import {Separator} from "@/components/ui/Separator/Separator";
+import {Select} from "@/components/ui/Select/Select";
+import {TbPlus} from "react-icons/all";
+import useApi from "@/utils/hooks/useApi";
+import {MapArray} from "@/components/conditionals/MapArray";
+import {RenderIf} from "@/components/conditionals/RenderIf";
+import {
+    CVMentorGroupsSubpageSkeleton
+} from "@/pages/administration/lm/course/course-view/_skeletons/CVMentorGroups.subpage.skeleton";
+import {Checkbox} from "@/components/ui/Checkbox/Checkbox";
+import {axiosInstance} from "@/utils/network/AxiosInstance";
+import ToastHelper from "@/utils/helper/ToastHelper";
+import CourseAdminService from "@/services/course/CourseAdminService";
+
+export type MentorGroupMembersModalT = {
+    show: boolean;
+    users: UserModel[];
+    mentorGroup: MentorGroupModel | undefined;
+};
+
+export function CVMentorgroupsSubpage(props: {
+    course_id: number;
+    course_uuid?: string;
+}) {
+    const navigate = useNavigate();
+
+    const {data: mentorGroups, setData: setMentorGroups, loading} = useApi<MentorGroupModel[]>({
+        url: "/administration/course/info/mentor-group",
+        params: {uuid: props.course_uuid},
+        method: "get"
+    });
+    const {data: newMentorGroups, setData: setNewMentorGroups, loading: loadingMentorGroups} = useApi<MentorGroupModel[]>({
+        url: "/administration/mentor-group",
+        method: "get"
+    });
+    const [selectedMentorGroup, setSelectedMentorGroup] = useState<string | undefined>("");
+    const [selectedMentorGroupEdit, setSelectedMentorGroupEdit] = useState<boolean>(false);
+    const [submitting, setSubmitting] = useState<boolean>(false);
+
+    const [viewMentorGroupMembersModal, setViewMentorGroupMembersModal] = useState<MentorGroupMembersModalT>({
+        show: false,
+        users: [],
+        mentorGroup: undefined,
+    });
+
+
+    function addMentorGroup(id?: string) {
+        const idNum = Number(id);
+        if (id == null || id == "-1" || isNaN(idNum)) {
+            return;
+        }
+
+        setSubmitting(true);
+        let mentorGroup = newMentorGroups?.find((m) => m.id == idNum);
+        if (mentorGroup == null) {
+            setSubmitting(false);
+            return;
+        }
+        mentorGroup.MentorGroupsBelongsToCourses = {} as MentorGroupsBelongsToCourses;
+        mentorGroup.MentorGroupsBelongsToCourses.can_edit_course = selectedMentorGroupEdit;
+
+        axiosInstance.put("/administration/course/info/mentor-group", {
+            mentor_group_id: idNum,
+            course_id: props.course_id,
+            can_edit: mentorGroup.MentorGroupsBelongsToCourses.can_edit_course
+        })
+            .then(() => {
+                if (mentorGroup == null) return;
+                setMentorGroups([...mentorGroups ?? [], mentorGroup]);
+                setNewMentorGroups(newMentorGroups?.filter(m => m.id != idNum) ?? []);
+            })
+            .catch(() => {
+                ToastHelper.error("Fehler beim Hinzufügen der Mentorengruppe");
+            })
+            .finally(() => setSubmitting(false));
+    }
+
+    return (
+        <>
+            <RenderIf
+                truthValue={loadingMentorGroups}
+                elementTrue={<CVMentorGroupsSubpageSkeleton/>}
+                elementFalse={
+                <>
+                    <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
+                        <Select
+                            label={"Mentorengruppe Hinzufügen"}
+                            labelSmall
+                            disabled={submitting}
+                            onChange={(v) => {
+                                if (v == "-1") {
+                                    setSelectedMentorGroup(undefined);
+                                }
+
+                                setSelectedMentorGroup(v);
+                            }}
+                            defaultValue={"-1"}
+                        >
+                            <option value={"-1"}>Mentorengruppe Auswählen</option>
+
+                            <MapArray
+                                data={newMentorGroups?.filter(m => {
+                                    return !mentorGroups?.find(mG => mG.id == m.id)
+                                }) ?? []}
+                                mapFunction={(mentorGroup: MentorGroupModel, index) => {
+                                    return (
+                                        <option key={index} value={mentorGroup.id}>{mentorGroup.name} ({mentorGroup.fir?.toUpperCase()})</option>
+                                    )
+                                }}
+                            />
+                        </Select>
+
+                        <div className={"mt-auto"}>
+                            <Checkbox checked={selectedMentorGroupEdit} onChange={setSelectedMentorGroupEdit}>Kann Kurs bearbeiten?</Checkbox>
+                        </div>
+                    </div>
+
+                    <Button
+                        variant={"twoTone"}
+                        color={COLOR_OPTS.PRIMARY}
+                        className={"mt-3"}
+                        icon={<TbPlus size={20}/>}
+                        loading={submitting}
+                        size={SIZE_OPTS.SM}
+                        onClick={() => addMentorGroup(selectedMentorGroup)}
+                    >
+                        Hinzufügen
+                    </Button>
+                </>
+            }/>
+
+            <Separator/>
+
+            <Table columns={CourseMentorGroupsListTypes.getColumns(
+                props.course_id,
+                mentorGroups ?? [],
+                setMentorGroups,
+                setViewMentorGroupMembersModal,
+                newMentorGroups,
+                setNewMentorGroups
+            )} data={mentorGroups ?? []} paginate loading={loading} />
+
+            <CVMentorGroupMembersPartial
+                users={viewMentorGroupMembersModal.users}
+                mentorGroup={viewMentorGroupMembersModal.mentorGroup}
+                show={viewMentorGroupMembersModal.show}
+                onClose={() => setViewMentorGroupMembersModal({ ...viewMentorGroupMembersModal, show: false })}
+            />
+        </>
+    );
+}

@@ -6,7 +6,6 @@ import { useDebounce } from "../../../../../utils/hooks/useDebounce";
 import { MapArray } from "../../../../../components/conditionals/MapArray";
 import { RenderIf } from "../../../../../components/conditionals/RenderIf";
 import { Separator } from "../../../../../components/ui/Separator/Separator";
-import CourseService from "../../../../../services/course/CourseAdminService";
 import { CourseSkillTemplateModel } from "../../../../../models/CourseModel";
 import { useFilter } from "../../../../../utils/hooks/useFilter";
 import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
@@ -20,10 +19,12 @@ export function AddSkillTypeModalPartial(props: { open: boolean; onClose: () => 
     const [searchQuery, setSearchQuery] = useState<string>("");
     const debouncedValue = useDebounce<string>(searchQuery, 300);
 
+
     const { data: skillTemplates, loading } = useApi<CourseSkillTemplateModel[]>({
         url: "/administration/course-skill-template",
         method: "get",
     });
+
     const filteredSkillTemplates = useFilter<CourseSkillTemplateModel>(
         skillTemplates ?? [],
         searchQuery,
@@ -64,7 +65,10 @@ export function AddSkillTypeModalPartial(props: { open: boolean; onClose: () => 
                         return (
                             <div
                                 key={index}
-                                onClick={() => props.onSelect?.(value)}
+                                onClick={() => {
+                                    props.onSelect?.(value);
+                                    props.onClose?.();
+                                }}
                                 className={
                                     "flex mt-2 justify-between flex-row rounded border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500 transition-all border hover:shadow-sm p-3 cursor-pointer"
                                 }>

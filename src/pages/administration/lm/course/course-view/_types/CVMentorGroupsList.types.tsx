@@ -1,22 +1,23 @@
 import { NavigateFunction } from "react-router-dom";
 import { TableColumn } from "react-data-table-component";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEye, TbTrash, TbUsers } from "react-icons/all";
-import { Badge } from "../../../../../../components/ui/Badge/Badge";
-import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { MentorGroupModel } from "@/models/MentorGroupModel";
 import moment from "moment";
 import { Dispatch, useState } from "react";
 import CourseAdminService from "../../../../../../services/course/CourseAdminService";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
-import { MentorGroupMembersModalT } from "../_partials/CVMentorgroups.subpage";
+import {MentorGroupMembersModalT} from "@/pages/administration/lm/course/course-view/_subpages/CVMentorgroups.subpage";
 
 function getColumns(
-    navigate: NavigateFunction,
     course_id: number,
     mentorGroups: MentorGroupModel[],
     setMentorGroups: Dispatch<MentorGroupModel[]>,
-    setViewMentorGroupMembersModal: Dispatch<MentorGroupMembersModalT>
+    setViewMentorGroupMembersModal: Dispatch<MentorGroupMembersModalT>,
+    mentorGroupDropDown: MentorGroupModel[] | undefined,
+    setMentorGroupDropDown: Dispatch<MentorGroupModel[]>
 ): (TableColumn<MentorGroupModel> & { searchable?: boolean })[] {
     const [removingMentorGroupID, setRemovingMentorGroupID] = useState<number | undefined>(undefined);
 
@@ -25,6 +26,11 @@ function getColumns(
 
         CourseAdminService.removeMentorGroupByID(course_id, id)
             .then(() => {
+                const toBeRemoved = mentorGroups.find((mg) => mg.id == id);
+                if (toBeRemoved != null && !mentorGroupDropDown?.find(mg => mg.id)) {
+                    setMentorGroupDropDown([...mentorGroupDropDown ?? [], toBeRemoved]);
+                }
+
                 const newMentorGroups = mentorGroups.filter((mg: MentorGroupModel) => {
                     return mg.id != id;
                 });
@@ -38,6 +44,10 @@ function getColumns(
     }
 
     return [
+        {
+            name: "ID",
+            selector: row => row.id.toString()
+        },
         {
             name: "Name",
             selector: row => row.name,
@@ -62,15 +72,6 @@ function getColumns(
             cell: row => {
                 return (
                     <div className={"flex"}>
-                        <Button
-                            className={"my-3"}
-                            onClick={() => navigate(`/administration/mentor-group/${row.id}`)}
-                            size={SIZE_OPTS.SM}
-                            disabled={removingMentorGroupID != null}
-                            variant={"twoTone"}
-                            color={COLOR_OPTS.PRIMARY}
-                            icon={<TbEye size={20} />}
-                        />
                         <Button
                             className={"my-3 ml-2"}
                             size={SIZE_OPTS.SM}

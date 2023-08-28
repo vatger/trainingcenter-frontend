@@ -32,7 +32,7 @@ export function useFilter<T>(
         });
 
         setFilteredData(filtered);
-    }, [searchValue, debouncedSearchValue, data]);
+    }, [searchValue, debouncedSearchValue]);
 
     return filteredData;
 }
