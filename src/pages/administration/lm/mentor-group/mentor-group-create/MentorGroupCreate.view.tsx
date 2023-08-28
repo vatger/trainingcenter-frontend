@@ -1,7 +1,7 @@
 import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Input } from "../../../../../components/ui/Input/Input";
-import {TbCirclePlus, TbFilePlus, TbId, TbMap2, TbPlus, TbUser} from "react-icons/all";
+import { TbCirclePlus, TbFilePlus, TbId, TbMap2, TbPlus, TbUser } from "react-icons/all";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { Separator } from "../../../../../components/ui/Separator/Separator";
@@ -17,9 +17,9 @@ import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { useNavigate } from "react-router-dom";
 import { Select } from "../../../../../components/ui/Select/Select";
 import UserAdminService from "@/services/user/UserAdminService";
-import {AxiosResponse} from "axios";
+import { AxiosResponse } from "axios";
 
-export interface IUserInMentorGroup  {
+export interface IUserInMentorGroup {
     user: UserModel;
     admin: boolean;
     can_manage: boolean;
@@ -29,7 +29,7 @@ export function MentorGroupCreateView() {
     const navigate = useNavigate();
     const { user } = useContext(authContext);
 
-    const defaultUser: IUserInMentorGroup = {user: user ?? {} as UserModel, admin: true, can_manage: true};
+    const defaultUser: IUserInMentorGroup = { user: user ?? ({} as UserModel), admin: true, can_manage: true };
     const [newUserID, setNewUserID] = useState<string>("");
     const [loadingUser, setLoadingUser] = useState<boolean>(false);
     const [users, setUsers] = useState<IUserInMentorGroup[]>([defaultUser]);
@@ -146,16 +146,18 @@ export function MentorGroupCreateView() {
                     disabled={submitting}
                     variant={"twoTone"}
                     className={"mt-3"}
-                    onClick={() => {addUser()}}>
+                    onClick={() => {
+                        addUser();
+                    }}>
                     Hinzufügen
                 </Button>
 
-                <Separator/>
+                <Separator />
 
                 <p className="mb-3 text-xs">
-                    Du bist automatisch als Gruppenadministrator und Kursverwalter in dieser Mentorengruppe. Falls dies nicht erwünscht sein sollte, kann
-                    dies im Nachinein über die Verwaltung der Mentorengruppen angepasst werden. Wenn Du allerdings diese Berechtigungen nicht mehr besitzt,
-                    kannst Du auch keine Änderungen mehr an der Mentorengruppe vornehmen um bspw. Mitglieder hinzuzufügen oder zu entfernen!
+                    Du bist automatisch als Gruppenadministrator und Kursverwalter in dieser Mentorengruppe. Falls dies nicht erwünscht sein sollte, kann dies
+                    im Nachinein über die Verwaltung der Mentorengruppen angepasst werden. Wenn Du allerdings diese Berechtigungen nicht mehr besitzt, kannst Du
+                    auch keine Änderungen mehr an der Mentorengruppe vornehmen um bspw. Mitglieder hinzuzufügen oder zu entfernen!
                 </p>
 
                 <Table paginate columns={MentorGroupUsersTableTypes.getColumns(user?.id, users, setUsers)} data={users} />

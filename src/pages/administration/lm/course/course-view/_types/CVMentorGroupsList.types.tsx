@@ -9,7 +9,7 @@ import moment from "moment";
 import { Dispatch, useState } from "react";
 import CourseAdminService from "../../../../../../services/course/CourseAdminService";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
-import {MentorGroupMembersModalT} from "@/pages/administration/lm/course/course-view/_subpages/CVMentorgroups.subpage";
+import { MentorGroupMembersModalT } from "@/pages/administration/lm/course/course-view/_subpages/CVMentorgroups.subpage";
 
 function getColumns(
     course_id: number,
@@ -24,11 +24,11 @@ function getColumns(
     function removeMentorGroup(id: number) {
         setRemovingMentorGroupID(id);
 
-        CourseAdminService.removeMentorGroupByID(course_id, id)
+        CourseAdminService.removeMentorGroupByID({ course_id: course_id, mentor_group_id: id })
             .then(() => {
-                const toBeRemoved = mentorGroups.find((mg) => mg.id == id);
+                const toBeRemoved = mentorGroups.find(mg => mg.id == id);
                 if (toBeRemoved != null && !mentorGroupDropDown?.find(mg => mg.id)) {
-                    setMentorGroupDropDown([...mentorGroupDropDown ?? [], toBeRemoved]);
+                    setMentorGroupDropDown([...(mentorGroupDropDown ?? []), toBeRemoved]);
                 }
 
                 const newMentorGroups = mentorGroups.filter((mg: MentorGroupModel) => {
@@ -46,7 +46,7 @@ function getColumns(
     return [
         {
             name: "ID",
-            selector: row => row.id.toString()
+            selector: row => row.id.toString(),
         },
         {
             name: "Name",

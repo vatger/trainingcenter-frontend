@@ -68,7 +68,7 @@ export function FileUpload(props: FileUploadProps) {
                 className={`upload mt-3 upload-draggable transition-all ${isHover ? "border-indigo-600 bg-indigo-50" : ""} ${
                     props.disabled || props.isUploading || (props.fileLimit ?? 999) == fileList?.length
                         ? "disabled"
-                        : "hover:border-indigo-600 hover:bg-indigo-50"
+                        : "hover:border-indigo-600 hover:bg-indigo-50 dark:hover:border-indigo-600 dark:hover:bg-indigo-900"
                 } ${props.showSuccess ? "border-emerald-500" : ""}`}>
                 <input
                     readOnly={(props.disabled || props.isUploading || (props.fileLimit ?? 999) == fileList?.length) ?? false}

@@ -11,7 +11,7 @@ import { CAVTrainingRequestsPartial } from "./_partials/CAVTrainingRequests.part
 import { CAVTrainingHistoryPartial } from "./_partials/CAVTrainingHistory.partial";
 import { CAVTrainingRequestsSkeleton } from "./_skeletons/CAVTrainingRequests.skeleton";
 import useApi from "@/utils/hooks/useApi";
-import {TrainingRequestModel} from "@/models/TrainingRequestModel";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 
 export function ActiveCourseView() {
     const { uuid } = useParams();
@@ -20,9 +20,13 @@ export function ActiveCourseView() {
     const { course, loading: loadingCourse } = CourseInformationService.getMyCourseInformationByUUID(uuid);
     const { trainingData, loading: loadingTrainingData } = CourseInformationService.getCourseTrainingInformationByUUID(uuid);
 
-    const {data: ActiveTrainingRequests, setData: setActiveTrainingRequests, loading: loadingActiveTrainingRequests} = useApi<TrainingRequestModel[]>({
+    const {
+        data: ActiveTrainingRequests,
+        setData: setActiveTrainingRequests,
+        loading: loadingActiveTrainingRequests,
+    } = useApi<TrainingRequestModel[]>({
         url: `/user-info/training-request/${uuid}/active`,
-        method: "get"
+        method: "get",
     });
 
     return (

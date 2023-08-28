@@ -15,24 +15,40 @@ export function useFilter<T>(
     debouncedSearchValue: string,
     filterFunction: (element: T, searchValue: string) => boolean,
     noEntriesIfSearchEmpty?: boolean
-): T[] {
+): any {
     const [filteredData, setFilteredData] = useState<T[]>(data);
 
     useEffect(() => {
+        // Default, if no search result was entered
         if (searchValue.length == 0) {
-            if (noEntriesIfSearchEmpty) setFilteredData([]);
-            else setFilteredData(data);
+            // If true
+            if (noEntriesIfSearchEmpty) {
+                // Set filtered Data to an empty array
+                setFilteredData([]);
+            } else {
+                // Set to all (unfiltered) data
+                setFilteredData(data);
+            }
 
             return;
         }
-        if (searchValue != debouncedSearchValue) return;
 
+        // If the searchValue is not equal to the debouncedValue, then the user is currently entering text
+        // and the debounced value is still catching up
+        if (searchValue != debouncedSearchValue) {
+            return;
+        }
+
+        // Filter according to the provided predicate
         const filtered: T[] = data.filter((value: T) => {
             return filterFunction(value, debouncedSearchValue);
         });
 
+        // Set the filtered Data
         setFilteredData(filtered);
-    }, [searchValue, debouncedSearchValue]);
+
+        // Filter by data.length, since we can otherwise run into some issues with infinite loops :)
+    }, [searchValue, debouncedSearchValue, data.length]);
 
     return filteredData;
 }

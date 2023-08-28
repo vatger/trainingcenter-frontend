@@ -13,3 +13,7 @@
     @apply bg-emerald-500;
   }
 }
+
+.Toastify__toast {
+    @apply dark:text-white dark:bg-gray-600 #{!important};
+}

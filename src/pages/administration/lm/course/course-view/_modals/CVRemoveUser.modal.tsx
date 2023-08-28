@@ -21,10 +21,10 @@ export function CVRemoveUserModal(props: RemoveUserModalPartialProps) {
     function handleRemove(user?: UserModel) {
         setRemovingUser(true);
 
-        CourseAdminService.removeUserByID(props.course?.id, user?.id)
+        CourseAdminService.removeUserByID({ course_id: props.course?.id, user_id: user?.id })
             .then(() => {
-                props.onClose(user);
                 ToastHelper.success("Benutzer erfolgreich aus Kurs entfernt");
+                props.onClose(user);
             })
             .catch(() => {
                 ToastHelper.error("Es ist ein Fehler beim entfernen des Benutzers aufgetreten");

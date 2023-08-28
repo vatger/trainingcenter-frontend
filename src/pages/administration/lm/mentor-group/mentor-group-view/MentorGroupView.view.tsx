@@ -7,7 +7,7 @@ import authContext from "../../../../../utils/contexts/AuthContext";
 import { RenderIf } from "../../../../../components/conditionals/RenderIf";
 import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
 import { MGSettingsSubpage } from "./_subpages/MGSettings.subpage";
-import {MGDangerSubpage} from "@/pages/administration/lm/mentor-group/mentor-group-view/_subpages/MGDanger.subpage";
+import { MGDangerSubpage } from "@/pages/administration/lm/mentor-group/mentor-group-view/_subpages/MGDanger.subpage";
 
 export function MentorGroupViewView() {
     const { id: mentor_group_id } = useParams();
@@ -26,7 +26,7 @@ export function MentorGroupViewView() {
                         <Tabs tabHeaders={["Einstellungen", "Mitglieder", "Gefahrenbereich"]} type={"underline"}>
                             <MGSettingsSubpage mentorGroup={mentorGroup} loading={loadingMentorGroup} />
                             <></>
-                            <MGDangerSubpage/>
+                            <MGDangerSubpage />
                         </Tabs>
                     </Card>
                 }

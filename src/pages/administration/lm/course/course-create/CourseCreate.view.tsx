@@ -1,21 +1,19 @@
-import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
-import { CourseModel } from "../../../../../models/CourseModel";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { FormEvent, useRef, useState } from "react";
-import { RenderIf } from "../../../../../components/conditionals/RenderIf";
-import { COLOR_OPTS, TYPE_OPTS } from "../../../../../assets/theme.config";
-import { generateUUID } from "../../../../../utils/helper/UUIDHelper";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { COLOR_OPTS, TYPE_OPTS } from "@/assets/theme.config";
+import { generateUUID } from "@/utils/helper/UUIDHelper";
 import CourseAdministrationService from "../../../../../services/course/CourseAdminService";
-import { Separator } from "../../../../../components/ui/Separator/Separator";
-import { Input } from "../../../../../components/ui/Input/Input";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { Input } from "@/components/ui/Input/Input";
 import { TbFilePlus, TbId } from "react-icons/all";
-import { Button } from "../../../../../components/ui/Button/Button";
+import { Button } from "@/components/ui/Button/Button";
 import { useNavigate } from "react-router-dom";
 import UserService from "../../../../../services/user/UserService";
-import { Card } from "../../../../../components/ui/Card/Card";
+import { Card } from "@/components/ui/Card/Card";
 import FormHelper from "../../../../../utils/helper/FormHelper";
-import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import { NetworkError } from "../../../../../components/errors/NetworkError";
-import { Alert } from "../../../../../components/ui/Alert/Alert";
+import { NetworkError } from "@/components/errors/NetworkError";
+import { Alert } from "@/components/ui/Alert/Alert";
 import { CCreateViewSkeleton } from "../_skeletons/CCreateView.skeleton";
 import { CCNameDescriptionPartial } from "./_partials/CCNameDescription.partial";
 import { CCEnrolOptionsPartial } from "./_partials/CCEnrolOptions.partial";
@@ -36,15 +34,7 @@ export function CourseCreateView() {
 
         const data = FormHelper.getEntries(e.target);
 
-        CourseAdministrationService.create(data)
-            .then((res: CourseModel) => {
-                navigate(`/administration/course/${res.uuid}`);
-                ToastHelper.success(`Kurs "${res.name}" erfolgreich erstellt`);
-            })
-            .catch(() => {
-                ToastHelper.error("Fehler beim Erstellen des Kurses");
-            })
-            .finally(() => setIsSubmitting(false));
+        CourseAdministrationService.create(data, navigate, setIsSubmitting);
     }
 
     return (

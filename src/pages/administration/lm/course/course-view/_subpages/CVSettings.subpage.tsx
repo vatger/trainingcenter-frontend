@@ -43,7 +43,6 @@ export function CVSettingsSubpage(props: CourseViewOverviewPartialProps) {
         CourseAdministrationService.update(data)
             .then((res: CourseModel) => {
                 if (props.courseData != null) props.setCourseData(res);
-
                 ToastHelper.success("Kurs aktualisiert");
             })
             .catch(() => {
@@ -202,7 +201,9 @@ export function CVSettingsSubpage(props: CourseViewOverviewPartialProps) {
 
                     <Button
                         type={"button"}
-                        onClick={() => {setTrainingTypeModalOpen(true);}}
+                        onClick={() => {
+                            setTrainingTypeModalOpen(true);
+                        }}
                         icon={<TbCirclePlus size={20} />}
                         className={"mt-5 w-full md:w-auto"}
                         variant={"default"}
@@ -228,7 +229,9 @@ export function CVSettingsSubpage(props: CourseViewOverviewPartialProps) {
                     <div className={"flex lg:flex-row flex-col"}>
                         <Button
                             type={"button"}
-                            onClick={() => {setSkillTemplateModalOpen(true);}}
+                            onClick={() => {
+                                setSkillTemplateModalOpen(true);
+                            }}
                             icon={<TbCirclePlus size={20} />}
                             className={"mt-5 lg:mr-2"}
                             variant={"default"}

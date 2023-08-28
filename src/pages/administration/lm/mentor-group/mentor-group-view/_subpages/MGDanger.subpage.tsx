@@ -25,8 +25,8 @@ export function MGDangerSubpage(props: { uuid?: string }) {
                     <>
                         Mentorengruppe Löschen
                         <span className={"text-danger flex text-xs mt-1.5"}>
-                            Die Mentorengruppe wird gelöscht. Dazu gehört u.A. auch die Zugehörigkeit zu einem Kurs. Falls ein Kurs nur dieser eine Mentorengruppe zugewiesen ist,
-                            wird dieser gelöscht, da sonst niemand mehr in der Lage ist, diesen zu bearbeiten.
+                            Die Mentorengruppe wird gelöscht. Dazu gehört u.A. auch die Zugehörigkeit zu einem Kurs. Falls ein Kurs nur dieser eine
+                            Mentorengruppe zugewiesen ist, wird dieser gelöscht, da sonst niemand mehr in der Lage ist, diesen zu bearbeiten.
                         </span>
                     </>
                 }

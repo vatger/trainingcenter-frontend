@@ -14,7 +14,7 @@ interface IUseApiReturn<T> {
     loading: boolean;
     loadingError: AxiosError | undefined;
     data: T | undefined;
-    setData: React.Dispatch<T>;
+    setData: React.Dispatch<T | undefined>;
 }
 
 /**

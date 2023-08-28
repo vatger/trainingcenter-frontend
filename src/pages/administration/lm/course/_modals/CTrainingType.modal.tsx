@@ -55,8 +55,8 @@ export function CTrainingTypeModal(props: { open: boolean; onClose: () => any; o
                             <div
                                 key={index}
                                 onClick={() => {
-                                    props.onSelect?.(value)}
-                                }
+                                    props.onSelect?.(value);
+                                }}
                                 className={
                                     "flex mt-2 justify-between flex-row rounded border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500 transition-all border hover:shadow-sm p-3 cursor-pointer"
                                 }>

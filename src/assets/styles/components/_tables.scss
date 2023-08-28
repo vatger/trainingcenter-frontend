@@ -23,6 +23,10 @@
 .table-default, .rdt_Table {
     @apply table-auto min-w-full divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800;
 
+    :nth-child(2) {
+        @apply dark:bg-transparent dark:text-white;
+    }
+
     thead, .rdt_TableHead, .rdt_TableHeadRow {
         @apply bg-gray-50 rounded-t border-0 dark:bg-gray-700;
 

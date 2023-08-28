@@ -22,8 +22,8 @@ import { MapArray } from "@/components/conditionals/MapArray";
 import { TrainingStationModel } from "@/models/TrainingStationModel";
 import FormHelper from "@/utils/helper/FormHelper";
 import useApi from "@/utils/hooks/useApi";
-import {CourseModel} from "@/models/CourseModel";
-import {TrainingTypeModel} from "@/models/TrainingTypeModel";
+import { CourseModel } from "@/models/CourseModel";
+import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -32,9 +32,9 @@ import {TrainingTypeModel} from "@/models/TrainingTypeModel";
 export function TrainingSessionCreateView() {
     const navigate = useNavigate();
 
-    const {data: courses, loading: loadingCourses} = useApi<CourseModel[]>({
+    const { data: courses, loading: loadingCourses } = useApi<CourseModel[]>({
         url: "/administration/course/mentorable",
-        method: "get"
+        method: "get",
     });
 
     const [submitting, setSubmitting] = useState<boolean>(false);
@@ -76,13 +76,7 @@ export function TrainingSessionCreateView() {
         const data = FormHelper.getEntries(event?.target) as { date: string; course_uuid: string; training_type_id: number; training_station_id: string };
 
         setSubmitting(true);
-        TrainingSessionAdminService.createTrainingSession(
-            participants,
-            data.course_uuid,
-            data.training_type_id,
-            data.training_station_id,
-            data.date
-        )
+        TrainingSessionAdminService.createTrainingSession(participants, data.course_uuid, data.training_type_id, data.training_station_id, data.date)
             .then(session => {
                 ToastHelper.success("Session wurde erfolgreich erstellt");
                 navigate(`/administration/training-request/planned/${session.uuid}`);
@@ -95,7 +89,7 @@ export function TrainingSessionCreateView() {
 
     return (
         <>
-            <PageHeader title={"Trainingssession Erstellen"} hideBackLink/>
+            <PageHeader title={"Trainingssession Erstellen"} hideBackLink />
 
             <RenderIf
                 truthValue={loadingCourses}
@@ -110,14 +104,13 @@ export function TrainingSessionCreateView() {
                                         labelSmall
                                         name={"course_uuid"}
                                         defaultValue={"-1"}
-                                        onChange={(value) => {
+                                        onChange={value => {
                                             if (value == "-1") {
                                                 setCourseUUID(undefined);
                                                 return;
                                             }
-                                            setCourseUUID(value)
-                                        }}
-                                        >
+                                            setCourseUUID(value);
+                                        }}>
                                         <option value={"-1"}>N/A</option>
                                         <MapArray
                                             data={courses ?? []}
@@ -137,14 +130,13 @@ export function TrainingSessionCreateView() {
                                         disabled={courses?.find(c => c.uuid == courseUUID)?.training_types?.length == 0 || courseUUID == null}
                                         name={"training_type_id"}
                                         defaultValue={"-1"}
-                                        onChange={(value) => {
+                                        onChange={value => {
                                             if (value == "-1") {
                                                 setTrainingTypeID(undefined);
                                                 return;
                                             }
-                                            setTrainingTypeID(Number(value))
-                                        }}
-                                    >
+                                            setTrainingTypeID(Number(value));
+                                        }}>
                                         <option value={"-1"}>N/A</option>
                                         <MapArray
                                             data={courses?.find(c => c.uuid == courseUUID)?.training_types ?? []}
@@ -178,13 +170,20 @@ export function TrainingSessionCreateView() {
                                     <Select
                                         label={"Trainingsstation Auswählen"}
                                         labelSmall
-                                        disabled={courses?.find(c => c.uuid == courseUUID)?.training_types?.find(t => t.id == trainingTypeID)?.training_stations?.length == 0 || trainingTypeID == null || courseUUID == null}
+                                        disabled={
+                                            courses?.find(c => c.uuid == courseUUID)?.training_types?.find(t => t.id == trainingTypeID)?.training_stations
+                                                ?.length == 0 ||
+                                            trainingTypeID == null ||
+                                            courseUUID == null
+                                        }
                                         name={"training_station_id"}
-                                        defaultValue={"-1"}
-                                    >
+                                        defaultValue={"-1"}>
                                         <option value={"-1"}>N/A</option>
                                         <MapArray
-                                            data={courses?.find(c => c.uuid == courseUUID)?.training_types?.find(t => t.id == trainingTypeID)?.training_stations ?? []}
+                                            data={
+                                                courses?.find(c => c.uuid == courseUUID)?.training_types?.find(t => t.id == trainingTypeID)
+                                                    ?.training_stations ?? []
+                                            }
                                             mapFunction={(trainingStation: TrainingStationModel, index) => {
                                                 return (
                                                     <option key={index} value={trainingStation.id}>

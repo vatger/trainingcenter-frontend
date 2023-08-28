@@ -19,7 +19,6 @@ export function AddSkillTypeModalPartial(props: { open: boolean; onClose: () => 
     const [searchQuery, setSearchQuery] = useState<string>("");
     const debouncedValue = useDebounce<string>(searchQuery, 300);
 
-
     const { data: skillTemplates, loading } = useApi<CourseSkillTemplateModel[]>({
         url: "/administration/course-skill-template",
         method: "get",
