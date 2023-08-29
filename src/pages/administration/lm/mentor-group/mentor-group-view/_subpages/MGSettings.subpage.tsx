@@ -5,16 +5,48 @@ import { Separator } from "../../../../../../components/ui/Separator/Separator";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../../../../../assets/theme.config";
 import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
-import { useState } from "react";
+import { Dispatch, FormEvent, useState } from "react";
+import FormHelper from "@/utils/helper/FormHelper";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import ToastHelper from "@/utils/helper/ToastHelper";
 
-export function MGSettingsSubpage(props: { mentorGroup: MentorGroupModel | undefined; loading: boolean }) {
+export function MGSettingsSubpage(props: {
+    mentorGroup: MentorGroupModel | undefined;
+    setMentorGroup: Dispatch<MentorGroupModel | undefined>;
+    loading: boolean;
+}) {
     const [submitting, setSubmitting] = useState<boolean>(false);
 
+    function update(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setSubmitting(true);
+
+        const data = FormHelper.getEntries(e.target);
+
+        if (props.mentorGroup == null) {
+            return;
+        }
+        let newMentorGroup = { ...props.mentorGroup };
+        newMentorGroup.name = data["name"];
+        newMentorGroup.fir = data["fir"];
+
+        axiosInstance
+            .patch("/administration/mentor-group", {
+                mentor_group_id: props.mentorGroup.id,
+                ...data,
+            })
+            .then(() => {
+                props.setMentorGroup(newMentorGroup);
+                ToastHelper.success("Mentorengruppe erfolgreich aktualisiert");
+            })
+            .catch(() => {
+                ToastHelper.error("Fehler beim Aktualisieren der Mentorengruppe");
+            })
+            .finally(() => setSubmitting(false));
+    }
+
     return (
-        <form
-            onSubmit={e => {
-                e.preventDefault();
-            }}>
+        <form onSubmit={update}>
             <Input
                 name={"name"}
                 type={"text"}
@@ -39,7 +71,7 @@ export function MGSettingsSubpage(props: { mentorGroup: MentorGroupModel | undef
                 description={"FIR der Mentorengruppe"}
                 labelSmall
                 defaultValue={props.mentorGroup?.fir?.toLowerCase() ?? ""}>
-                <option value={""}>N/A</option>
+                <option value={"-1"}>N/A</option>
                 <option value={"edww"}>EDWW</option>
                 <option value={"edgg"}>EDGG</option>
                 <option value={"edmm"}>EDMM</option>

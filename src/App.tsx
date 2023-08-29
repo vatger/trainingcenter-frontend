@@ -8,7 +8,7 @@ import { LoginView } from "./pages/login/Login.view";
 import { AuthProvider } from "./utils/contexts/AuthContext";
 import { LoginCallbackView } from "./pages/login/LoginCallbackView";
 import { AxiosInterceptors } from "./utils/network/AxiosInterceptors";
-import { DarkModeProvider } from "./utils/contexts/DarkModeContext";
+import { DarkModeProvider } from "./utils/contexts/ThemeContext";
 import { LanguageProvider } from "./utils/contexts/LanguageContext";
 import { ToastContainer, ToastContainerProps } from "react-toastify";
 

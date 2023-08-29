@@ -1,11 +1,11 @@
 import { TableColumn } from "react-data-table-component";
-import { IUserInMentorGroup } from "../mentor-group-create/MentorGroupCreate.view";
-import { Badge } from "../../../../../components/ui/Badge/Badge";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
-import { Button } from "../../../../../components/ui/Button/Button";
 import { TbCheck, TbEdit, TbTrash } from "react-icons/all";
 import { Dispatch, useState } from "react";
-import { Checkbox } from "../../../../../components/ui/Checkbox/Checkbox";
+import { IUserInMentorGroup } from "@/pages/administration/lm/mentor-group/mentor-group-create/MentorGroupCreate.view";
+import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { Button } from "@/components/ui/Button/Button";
 
 enum EditType {
     ADMIN,
@@ -45,8 +45,12 @@ function getColumns(my_user_id: number | undefined, users: IUserInMentorGroup[],
 
     return [
         {
-            name: "Benutzer",
-            selector: row => row.user.first_name + " " + row.user.last_name,
+            name: "Id",
+            selector: row => row.user.id.toString(),
+        },
+        {
+            name: "Name",
+            selector: row => `${row.user.first_name} ${row.user.last_name}`,
         },
         {
             name: "Gruppenadministrator",

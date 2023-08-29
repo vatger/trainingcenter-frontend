@@ -1,25 +1,23 @@
-import { ManageAccountElement } from "../../../../../components/ui/Account/ManageAccountElement";
-import { Checkbox } from "../../../../../components/ui/Checkbox/Checkbox";
-import { Select } from "../../../../../components/ui/Select/Select";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { ManageAccountElement } from "@/components/ui/Account/ManageAccountElement";
+import { Select } from "@/components/ui/Select/Select";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import darkModeContext from "../../../../../utils/contexts/DarkModeContext";
+import themeContext from "../../../../../utils/contexts/ThemeContext";
 import languageContext, { LanguageEnum } from "../../../../../utils/contexts/LanguageContext";
 import GDPRService from "../../../../../services/user/UserGDPRService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { TbDownload, TbRefresh, TbRefreshOff } from "react-icons/all";
-import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 import authContext from "../../../../../utils/contexts/AuthContext";
 import moment from "moment";
-import axios from "axios";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 export function MASettingsPartial() {
     const navigate = useNavigate();
     const { user } = useContext(authContext);
-    const { darkMode, changeDarkMode } = useContext(darkModeContext);
+    const { themeString, changeDarkMode } = useContext(themeContext);
     const { language, changeLanguage } = useContext(languageContext);
 
     const [submittingSettings, setSubmittingSettings] = useState<boolean>(false);
@@ -45,7 +43,7 @@ export function MASettingsPartial() {
         }
     }
 
-    function updateSettings(value: { dark_mode: boolean; language: string }) {
+    function updateSettings(value: { language: string }) {
         setSubmittingSettings(true);
 
         axiosInstance
@@ -70,6 +68,8 @@ export function MASettingsPartial() {
             .finally(() => setLoadingGDPR(false));
     }
 
+    console.log(themeString);
+
     return (
         <>
             <ManageAccountElement
@@ -80,7 +80,7 @@ export function MASettingsPartial() {
                             defaultValue={language.toString()}
                             onChange={(newLanguage: string) => {
                                 setLanguage(newLanguage);
-                                updateSettings({ dark_mode: darkMode, language: newLanguage });
+                                updateSettings({ language: newLanguage });
                             }}
                             disabled={submittingSettings}>
                             <option value="de">German</option>
@@ -89,21 +89,34 @@ export function MASettingsPartial() {
                     </div>
                 }
             />
-            <ManageAccountElement
-                title={"Dark Mode"}
-                element={
-                    <div className={"float-right"}>
-                        <Checkbox
-                            checked={darkMode}
-                            disabled={submittingSettings}
-                            onChange={v => {
-                                changeDarkMode(v);
-                                updateSettings({ dark_mode: v, language: language });
-                            }}
-                        />
-                    </div>
+
+            <RenderIf
+                truthValue={themeString != null && user != null}
+                elementTrue={
+                    <ManageAccountElement
+                        title={
+                            <>
+                                Dark Mode
+                                <span className={"flex text-xs mt-1.5"}>Diese Einstellung betrifft nur das aktuelle Gerät</span>
+                            </>
+                        }
+                        element={
+                            <div className={"w-full lg:w-1/2  float-right"}>
+                                <Select
+                                    onChange={value => {
+                                        changeDarkMode(value as "auto" | "dark" | "light");
+                                    }}
+                                    defaultValue={themeString}>
+                                    <option value="auto">Automatisch (Betriebssystem)</option>
+                                    <option value="dark">Dunkel</option>
+                                    <option value="light">Hell</option>
+                                </Select>
+                            </div>
+                        }
+                    />
                 }
             />
+
             <ManageAccountElement
                 break
                 title={

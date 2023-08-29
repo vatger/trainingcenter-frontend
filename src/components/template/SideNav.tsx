@@ -34,7 +34,7 @@ import {
 import { CollapsableMenu } from "./sidenav/CollapsableMenu";
 import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 import { handleResize } from "./sidenav/SideNav.helper";
-import darkModeContext from "../../utils/contexts/DarkModeContext";
+import themeContext from "../../utils/contexts/ThemeContext";
 import { RenderIf } from "../conditionals/RenderIf";
 import authContext from "../../utils/contexts/AuthContext";
 import languageContext from "../../utils/contexts/LanguageContext";
@@ -44,7 +44,7 @@ import { SIDENAV_WIDTH } from "@/assets/theme.config";
 export function SideNav() {
     const { userPermissions } = useContext(authContext);
     const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
-    const { darkMode } = useContext(darkModeContext);
+    const { darkMode } = useContext(themeContext);
     const { language } = useContext(languageContext);
 
     function toggleMobileNav() {

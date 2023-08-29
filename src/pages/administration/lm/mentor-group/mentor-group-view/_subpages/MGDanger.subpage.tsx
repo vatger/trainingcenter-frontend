@@ -38,7 +38,7 @@ export function MGDangerSubpage(props: { uuid?: string }) {
                         icon={<TbTrash size={20} />}
                         variant={"twoTone"}
                         color={COLOR_OPTS.DANGER}>
-                        Zurücksetzen
+                        Löschen
                     </Button>
                 }
             />

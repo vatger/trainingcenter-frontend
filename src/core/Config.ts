@@ -17,3 +17,12 @@ export const Config = {
     DATE_FORMAT: "DD.MM.YYYY",
     DATETIME_FORMAT: "DD.MM.YYYY HH:mm",
 };
+
+export const CommonConstants = {
+    CID_MAX_LEN: 8, // It's actually 7, but auth-dev accounts have (for some wierd reason) 8 numbers.
+};
+
+export const CommonRegexp = {
+    CID: RegExp("^[0-9]{6,8}$"),
+    NOT_EMPTY: RegExp("^(?!\\s*$).+"),
+};

@@ -14,6 +14,7 @@ export type UserModel = {
     roles?: RoleModel[];
     through?: any;
     UsersBelongsToCourses?: UserCourseThrough; // Append as required x | x
+    UserBelongToMentorGroups?: UserMentorGroupThrough;
     createdAt: Date;
     updatedAt?: Date;
 };
@@ -21,7 +22,7 @@ export type UserModel = {
 export type UserSettingsModel = {
     user_id: number;
     language: "de" | "en";
-    dark_mode: boolean;
+    dark_mode: "auto" | "dark" | "light";
     email_notification_enabled: boolean;
     additional_emails?: string[];
     createdAt: Date;
@@ -50,6 +51,13 @@ export type UserCourseThrough = {
     next_training_type?: number;
     skill_set?: JSON;
     completed: boolean;
+    createdAt: Date;
+    updatedAt?: Date;
+};
+
+export type UserMentorGroupThrough = {
+    group_admin: boolean;
+    can_manage_course: boolean;
     createdAt: Date;
     updatedAt?: Date;
 };

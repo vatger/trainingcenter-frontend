@@ -8,7 +8,6 @@ import { Separator } from "../../../../../components/ui/Separator/Separator";
 import React, { FormEvent, useContext, useState } from "react";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import { UserModel } from "../../../../../models/UserModel";
-import MentorGroupUsersTableTypes from "../_types/MGUsersTable.types";
 import { Table } from "../../../../../components/ui/Table/Table";
 import authContext from "../../../../../utils/contexts/AuthContext";
 import MentorGroupAdministrationService from "../../../../../services/mentor-group/MentorGroupAdminService";
@@ -18,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { Select } from "../../../../../components/ui/Select/Select";
 import UserAdminService from "@/services/user/UserAdminService";
 import { AxiosResponse } from "axios";
+import MGCUsersTableTypes from "@/pages/administration/lm/mentor-group/mentor-group-create/_types/MGCUsersTable.types";
+import { CommonConstants, CommonRegexp } from "@/core/Config";
 
 export interface IUserInMentorGroup {
     user: UserModel;
@@ -97,7 +98,7 @@ export function MentorGroupCreateView() {
                         placeholder={"Frankfurt Tower Mentoren"}
                         label={"Name"}
                         required
-                        regex={RegExp("^(?!\\s*$).+")}
+                        regex={CommonRegexp.NOT_EMPTY}
                         regexMatchEmpty
                         regexCheckInitial
                         preIcon={<TbId size={20} />}
@@ -128,11 +129,9 @@ export function MentorGroupCreateView() {
             <Card className={"mt-5"} header={"Mitglieder"} headerBorder>
                 <Input
                     onChange={e => setNewUserID(e.target.value)}
-                    value={newUserID}
+                    regex={CommonRegexp.CID}
+                    maxLength={CommonConstants.CID_MAX_LEN}
                     label={"Benutzer Hinzufügen"}
-                    description={
-                        "Benutzer, die nicht in diesem Kurs eingeschrieben sind werden nicht berücksichtigt und der Session entsprechend nicht hinzugefügt."
-                    }
                     labelSmall
                     inputError={users.length == 0}
                     preIcon={<TbUser size={20} />}
@@ -160,7 +159,7 @@ export function MentorGroupCreateView() {
                     auch keine Änderungen mehr an der Mentorengruppe vornehmen um bspw. Mitglieder hinzuzufügen oder zu entfernen!
                 </p>
 
-                <Table paginate columns={MentorGroupUsersTableTypes.getColumns(user?.id, users, setUsers)} data={users} />
+                <Table paginate columns={MGCUsersTableTypes.getColumns(user?.id, users, setUsers)} data={users} />
             </Card>
         </>
     );

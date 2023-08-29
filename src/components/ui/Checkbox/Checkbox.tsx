@@ -27,6 +27,7 @@ export function Checkbox(props: CheckboxProps) {
                 type="checkbox"
                 disabled={props.disabled}
                 readOnly={props.readOnly}
+                name={props.name}
                 checked={checked}
                 onChange={e => handleChange(e)}
             />
