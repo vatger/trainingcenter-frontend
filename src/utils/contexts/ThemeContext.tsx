@@ -46,6 +46,7 @@ export function DarkModeProvider(props: { children: ReactElement | ReactElement[
             const html = document.getElementById("dark-mode-selector");
             if (html == null) return;
             html.setAttribute("data-mode", "dark");
+            document.querySelector("meta[name=theme-color]")?.setAttribute("content", "#202938");
         }
     }, []);
 
