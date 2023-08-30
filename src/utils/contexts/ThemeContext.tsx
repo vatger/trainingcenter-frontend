@@ -61,9 +61,11 @@ export function DarkModeProvider(props: { children: ReactElement | ReactElement[
 
         if (enabled) {
             html.setAttribute("data-mode", "dark");
+            document.querySelector("meta[name=theme-color]")?.setAttribute("content", "#202938");
             return;
         }
 
+        document.querySelector("meta[name=theme-color]")?.setAttribute("content", "#ffffff");
         html.removeAttribute("data-mode");
     }
 

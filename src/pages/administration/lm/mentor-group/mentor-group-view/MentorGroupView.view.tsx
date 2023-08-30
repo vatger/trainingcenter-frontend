@@ -6,41 +6,26 @@ import { useContext } from "react";
 import authContext from "../../../../../utils/contexts/AuthContext";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { Tabs } from "@/components/ui/Tabs/Tabs";
-import { MGSettingsSubpage } from "./_subpages/MGSettings.subpage";
-import { MGDangerSubpage } from "@/pages/administration/lm/mentor-group/mentor-group-view/_subpages/MGDanger.subpage";
-import { MGUsersSubpage } from "@/pages/administration/lm/mentor-group/mentor-group-view/_subpages/MGUsers.subpage";
+import { MGVSettingsSubpage } from "./_subpages/MGVSettings.subpage";
+import { MGVDangerSubpage } from "@/pages/administration/lm/mentor-group/mentor-group-view/_subpages/MGVDanger.subpage";
+import { MGVUsersSubpage } from "@/pages/administration/lm/mentor-group/mentor-group-view/_subpages/MGVUsers.subpage";
 import useApi from "@/utils/hooks/useApi";
 import { MentorGroupModel } from "@/models/MentorGroupModel";
 
 export function MentorGroupViewView() {
     const { id: mentor_group_id } = useParams();
-    const { user } = useContext(authContext);
-    const {
-        data: mentorGroup,
-        setData: setMentorGroup,
-        loading: loadingMentorGroup,
-    } = useApi<MentorGroupModel>({
-        url: `/administration/mentor-group/${mentor_group_id}`,
-        method: "get",
-    });
 
     return (
         <>
             <PageHeader title={"Mentorengruppe Verwalten"} />
 
-            <RenderIf
-                truthValue={loadingMentorGroup}
-                elementTrue={<></>}
-                elementFalse={
-                    <Card>
-                        <Tabs tabHeaders={["Einstellungen", "Mitglieder", "Gefahrenbereich"]} type={"underline"}>
-                            <MGSettingsSubpage mentorGroup={mentorGroup} setMentorGroup={setMentorGroup} loading={loadingMentorGroup} />
-                            <MGUsersSubpage mentorGroupID={mentor_group_id} />
-                            <MGDangerSubpage />
-                        </Tabs>
-                    </Card>
-                }
-            />
+            <Card>
+                <Tabs tabHeaders={["Einstellungen", "Mitglieder", "Gefahrenbereich"]} type={"underline"}>
+                    <MGVSettingsSubpage mentorGroupID={mentor_group_id} />
+                    <MGVUsersSubpage mentorGroupID={mentor_group_id} />
+                    <MGVDangerSubpage />
+                </Tabs>
+            </Card>
         </>
     );
 }

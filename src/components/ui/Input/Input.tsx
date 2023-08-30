@@ -26,7 +26,7 @@ export function Input(props: InputProps) {
         inputFocusClass,
         inputWrapperClass,
         props.inputError || regexMatchFail ? "border-red-400 dark:border-red-500" : "",
-        props.disabled || props.loading ? "input-disabled" : "",
+        props.disabled || props.readOnly || props.loading ? "input-disabled" : "",
         props.preIcon || props.loading ? "input-icon-pre" : "",
         props.label ? "input-label" : ""
     );

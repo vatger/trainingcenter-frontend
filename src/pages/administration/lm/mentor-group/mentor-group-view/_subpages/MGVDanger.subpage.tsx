@@ -4,7 +4,7 @@ import { TbRepeat, TbTrash } from "react-icons/all";
 import { COLOR_OPTS } from "../../../../../../assets/theme.config";
 import { useState } from "react";
 
-export function MGDangerSubpage(props: { uuid?: string }) {
+export function MGVDangerSubpage(props: { uuid?: string }) {
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
     function deleteMentorGroup() {

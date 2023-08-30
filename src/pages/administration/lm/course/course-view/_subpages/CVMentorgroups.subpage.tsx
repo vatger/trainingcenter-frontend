@@ -1,11 +1,10 @@
-import { UserModel } from "../../../../../../models/UserModel";
-import { Table } from "../../../../../../components/ui/Table/Table";
-import { useNavigate } from "react-router-dom";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
-import { MentorGroupModel, MentorGroupsBelongsToCourses } from "../../../../../../models/MentorGroupModel";
+import { UserModel } from "@/models/UserModel";
+import { Table } from "@/components/ui/Table/Table";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { MentorGroupModel, MentorGroupsBelongsToCourses } from "@/models/MentorGroupModel";
 import CourseMentorGroupsListTypes from "../_types/CVMentorGroupsList.types";
-import { Dispatch, useState } from "react";
+import { useState } from "react";
 import { CVMentorGroupMembersPartial } from "@/pages/administration/lm/course/course-view/_partials/CVMentorGroupMembers.partial";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Select } from "@/components/ui/Select/Select";
@@ -13,11 +12,10 @@ import { TbPlus } from "react-icons/all";
 import useApi from "@/utils/hooks/useApi";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { RenderIf } from "@/components/conditionals/RenderIf";
-import { CVMentorGroupsSubpageSkeleton } from "@/pages/administration/lm/course/course-view/_skeletons/CVMentorGroups.subpage.skeleton";
+import { CVMentorGroupsSkeleton } from "@/pages/administration/lm/course/course-view/_skeletons/CVMentorGroups.skeleton";
 import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
-import CourseAdminService from "@/services/course/CourseAdminService";
 
 export type MentorGroupMembersModalT = {
     show: boolean;
@@ -25,16 +23,14 @@ export type MentorGroupMembersModalT = {
     mentorGroup: MentorGroupModel | undefined;
 };
 
-export function CVMentorgroupsSubpage(props: { course_id: number; course_uuid?: string }) {
-    const navigate = useNavigate();
-
+export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | undefined }) {
     const {
         data: mentorGroups,
         setData: setMentorGroups,
         loading,
     } = useApi<MentorGroupModel[]>({
         url: "/administration/course/info/mentor-group",
-        params: { uuid: props.course_uuid },
+        params: { uuid: courseUUID },
         method: "get",
     });
     const {
@@ -73,7 +69,7 @@ export function CVMentorgroupsSubpage(props: { course_id: number; course_uuid?: 
         axiosInstance
             .put("/administration/course/info/mentor-group", {
                 mentor_group_id: idNum,
-                course_id: props.course_id,
+                course_uuid: courseUUID,
                 can_edit: mentorGroup.MentorGroupsBelongsToCourses.can_edit_course,
             })
             .then(() => {
@@ -91,7 +87,7 @@ export function CVMentorgroupsSubpage(props: { course_id: number; course_uuid?: 
         <>
             <RenderIf
                 truthValue={loadingMentorGroups}
-                elementTrue={<CVMentorGroupsSubpageSkeleton />}
+                elementTrue={<CVMentorGroupsSkeleton />}
                 elementFalse={
                     <>
                         <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
@@ -150,7 +146,7 @@ export function CVMentorgroupsSubpage(props: { course_id: number; course_uuid?: 
 
             <Table
                 columns={CourseMentorGroupsListTypes.getColumns(
-                    props.course_id,
+                    courseUUID,
                     mentorGroups ?? [],
                     setMentorGroups,
                     setViewMentorGroupMembersModal,

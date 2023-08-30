@@ -14,8 +14,10 @@ import FormHelper from "@/utils/helper/FormHelper";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosResponse } from "axios";
 import ToastHelper from "@/utils/helper/ToastHelper";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { MGVUsersSkeleton } from "@/pages/administration/lm/mentor-group/mentor-group-view/_skeletons/MGVUsers.skeleton";
 
-export function MGUsersSubpage({ mentorGroupID }: { mentorGroupID: string | undefined }) {
+export function MGVUsersSubpage({ mentorGroupID }: { mentorGroupID: string | undefined }) {
     const {
         data: users,
         setData: setUsers,
@@ -63,31 +65,37 @@ export function MGUsersSubpage({ mentorGroupID }: { mentorGroupID: string | unde
 
     return (
         <>
-            <form onSubmit={addUser}>
-                <Input
-                    onChange={e => {
-                        setNewUserID(e.target.value);
-                    }}
-                    label={"Benutzer Hinzufügen"}
-                    name={"cid"}
-                    labelSmall
-                    maxLength={CommonConstants.CID_MAX_LEN}
-                    regex={CommonRegexp.CID}
-                    preIcon={<TbUser size={20} />}
-                    placeholder={"1373921"}
-                />
+            <RenderIf
+                truthValue={loadingUsers}
+                elementTrue={<MGVUsersSkeleton />}
+                elementFalse={
+                    <form onSubmit={addUser}>
+                        <Input
+                            onChange={e => {
+                                setNewUserID(e.target.value);
+                            }}
+                            label={"Benutzer Hinzufügen"}
+                            name={"cid"}
+                            labelSmall
+                            maxLength={CommonConstants.CID_MAX_LEN}
+                            regex={CommonRegexp.CID}
+                            preIcon={<TbUser size={20} />}
+                            placeholder={"1373921"}
+                        />
 
-                <div className={"flex flex-col mt-3"}>
-                    <Checkbox name={"group_admin"}>Gruppenadministrator</Checkbox>
-                    <Checkbox name={"can_manage_course"} className={"mt-3"}>
-                        Kursverwaltung
-                    </Checkbox>
-                </div>
+                        <div className={"flex flex-col mt-3"}>
+                            <Checkbox name={"group_admin"}>Gruppenadministrator</Checkbox>
+                            <Checkbox name={"can_manage_course"} className={"mt-3"}>
+                                Kursverwaltung
+                            </Checkbox>
+                        </div>
 
-                <Button size={SIZE_OPTS.SM} color={COLOR_OPTS.PRIMARY} loading={addingUser} variant={"twoTone"} className={"mt-5"} type={"submit"}>
-                    Hinzufügen
-                </Button>
-            </form>
+                        <Button size={SIZE_OPTS.SM} color={COLOR_OPTS.PRIMARY} loading={addingUser} variant={"twoTone"} className={"mt-5"} type={"submit"}>
+                            Hinzufügen
+                        </Button>
+                    </form>
+                }
+            />
 
             <Separator />
 

@@ -58,7 +58,11 @@ function getColumns(users: UserModel[] | undefined, setUsers: Dispatch<UserModel
                         variant={"twoTone"}
                         size={SIZE_OPTS.SM}
                         loading={removingUser == row.id}
-                        disabled={removingUser != null || users == null || users?.filter(u => u.UserBelongToMentorGroups?.group_admin)?.length <= 1}
+                        disabled={
+                            removingUser != null ||
+                            users == null ||
+                            (users?.filter(u => u.UserBelongToMentorGroups?.group_admin)?.length <= 1 && row.UserBelongToMentorGroups?.group_admin)
+                        }
                         color={COLOR_OPTS.DANGER}
                         onClick={() => removeUser(row.id)}
                         icon={<TbTrash size={20} />}

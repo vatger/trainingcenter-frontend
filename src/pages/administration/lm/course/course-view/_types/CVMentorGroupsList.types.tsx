@@ -12,7 +12,7 @@ import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import { MentorGroupMembersModalT } from "@/pages/administration/lm/course/course-view/_subpages/CVMentorgroups.subpage";
 
 function getColumns(
-    course_id: number,
+    courseUUID: string | undefined,
     mentorGroups: MentorGroupModel[],
     setMentorGroups: Dispatch<MentorGroupModel[]>,
     setViewMentorGroupMembersModal: Dispatch<MentorGroupMembersModalT>,
@@ -24,7 +24,7 @@ function getColumns(
     function removeMentorGroup(id: number) {
         setRemovingMentorGroupID(id);
 
-        CourseAdminService.removeMentorGroupByID({ course_id: course_id, mentor_group_id: id })
+        CourseAdminService.removeMentorGroupByID({ course_uuid: courseUUID, mentor_group_id: id })
             .then(() => {
                 const toBeRemoved = mentorGroups.find(mg => mg.id == id);
                 if (toBeRemoved != null && !mentorGroupDropDown?.find(mg => mg.id)) {

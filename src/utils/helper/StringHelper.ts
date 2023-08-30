@@ -1,7 +1,12 @@
-import { UserModel } from "../../models/UserModel";
+import { UserModel } from "@/models/UserModel";
 
 function capitalize(string?: string) {
     if (string == null) return "";
+
+    // Force full capitalization of CPT
+    if (string.toLowerCase() == "cpt") {
+        return "CPT";
+    }
 
     return string.charAt(0).toUpperCase() + string.slice(1);
 }

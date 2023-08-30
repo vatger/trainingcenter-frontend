@@ -28,12 +28,15 @@ function useApi<T>(props: IUseApi): IUseApiReturn<T> {
     const [data, setData] = React.useState<T | undefined>(undefined);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         axiosInstance({
             method: props.method,
             params: props.params,
             data: data,
             url: props.url,
             responseType: props.responseType ?? "json",
+            signal: controller.signal,
         })
             .then((res: AxiosResponse) => {
                 setData(res.data as T);
@@ -42,6 +45,10 @@ function useApi<T>(props: IUseApi): IUseApiReturn<T> {
                 setLoadingError(err);
             })
             .finally(() => setLoading(false));
+
+        return () => {
+            controller.abort();
+        };
     }, []);
 
     return {

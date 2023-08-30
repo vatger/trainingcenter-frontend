@@ -1,49 +1,60 @@
 import { Modal } from "@/components/ui/Modal/Modal";
 import { UserModel } from "@/models/UserModel";
-import { CourseModel } from "@/models/CourseModel";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import React, { useState } from "react";
-import CourseAdminService from "../../../../../../services/course/CourseAdminService";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import { TbTrash } from "react-icons/all";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 type RemoveUserModalPartialProps = {
     show: boolean;
     onClose: (user: UserModel | undefined) => any;
     user?: UserModel;
-    course?: CourseModel;
+    courseUUID?: string;
 };
 
-export function CVRemoveUserModal(props: RemoveUserModalPartialProps) {
+export function CVRemoveUserModal({ show, onClose, user, courseUUID }: RemoveUserModalPartialProps) {
     const [removingUser, setRemovingUser] = useState<boolean>(false);
 
     function handleRemove(user?: UserModel) {
         setRemovingUser(true);
 
-        CourseAdminService.removeUserByID({ course_id: props.course?.id, user_id: user?.id })
+        if (user == null) {
+            return;
+        }
+
+        axiosInstance
+            .delete("/administration/course/info/user", {
+                data: {
+                    course_uuid: courseUUID,
+                    user_id: user.id,
+                },
+            })
             .then(() => {
-                ToastHelper.success("Benutzer erfolgreich aus Kurs entfernt");
-                props.onClose(user);
+                ToastHelper.success("Benutzer erfolgreich entfernt");
+                onClose(user);
             })
             .catch(() => {
-                ToastHelper.error("Es ist ein Fehler beim entfernen des Benutzers aufgetreten");
+                ToastHelper.error("Fehler beim entfernen des Benutzers");
             })
-            .finally(() => setRemovingUser(false));
+            .finally(() => {
+                setRemovingUser(false);
+            });
     }
 
     return (
         <Modal
-            show={props.show}
+            show={show}
             title={"Benutzer entfernen"}
-            onClose={() => props.onClose(undefined)}
+            onClose={() => onClose(undefined)}
             footer={
                 <div className={"flex justify-end mt-5"}>
                     <Button
                         icon={<TbTrash size={20} />}
                         loading={removingUser}
                         variant={"twoTone"}
-                        onClick={() => handleRemove(props.user)}
+                        onClick={() => handleRemove(user)}
                         color={COLOR_OPTS.DANGER}>
                         Entfernen
                     </Button>
@@ -52,9 +63,9 @@ export function CVRemoveUserModal(props: RemoveUserModalPartialProps) {
             <p>
                 Bist du sicher, dass Du den Benutzer{" "}
                 <span className={"font-bold"}>
-                    {props?.user?.first_name} {props?.user?.last_name} ({props?.user?.id}){" "}
+                    {user?.first_name} {user?.last_name} ({user?.id}){" "}
                 </span>
-                aus dem Kurs <span className={"font-bold"}>{props.course?.name} </span> entfernen möchtest?
+                aus dem Kurs entfernen möchtest?
             </p>
         </Modal>
     );

@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/Skeleton/Skeleton";
 
-export function CVMentorGroupsSubpageSkeleton() {
+export function CVMentorGroupsSkeleton() {
     return (
         <>
             <Skeleton width={150} height={20} className={"mb-2"} />
