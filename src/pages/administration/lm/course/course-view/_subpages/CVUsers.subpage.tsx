@@ -18,8 +18,7 @@ export function CVUsersSubpage({ courseUUID }: { courseUUID: string | undefined 
         setData: setUsers,
         loading: loadingUsers,
     } = useApi<UserModel[]>({
-        url: "/administration/course/info/user",
-        params: { uuid: courseUUID },
+        url: `/administration/course/user/${courseUUID}`,
         method: "get",
     });
 

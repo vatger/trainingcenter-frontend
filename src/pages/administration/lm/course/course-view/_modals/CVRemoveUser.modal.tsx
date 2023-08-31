@@ -25,9 +25,8 @@ export function CVRemoveUserModal({ show, onClose, user, courseUUID }: RemoveUse
         }
 
         axiosInstance
-            .delete("/administration/course/info/user", {
+            .delete(`/administration/course/user/${courseUUID}`, {
                 data: {
-                    course_uuid: courseUUID,
                     user_id: user.id,
                 },
             })

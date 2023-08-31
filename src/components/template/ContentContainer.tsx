@@ -1,7 +1,7 @@
 import { Footer } from "./footer/Footer";
 import { Header } from "./header/Header";
-import {useContext} from "react";
-import {sideNavMenuContext} from "@/utils/contexts/SideNavMenuContext";
+import { useContext } from "react";
+import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 
 export function ContentContainer(props: any) {
     return (

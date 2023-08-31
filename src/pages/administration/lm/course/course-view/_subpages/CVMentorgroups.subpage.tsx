@@ -29,8 +29,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
         setData: setMentorGroups,
         loading,
     } = useApi<MentorGroupModel[]>({
-        url: "/administration/course/info/mentor-group",
-        params: { uuid: courseUUID },
+        url: `/administration/course/mentor-group/${courseUUID}`,
         method: "get",
     });
     const {
@@ -67,7 +66,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
         mentorGroup.MentorGroupsBelongsToCourses.can_edit_course = selectedMentorGroupEdit;
 
         axiosInstance
-            .put("/administration/course/info/mentor-group", {
+            .put(`/administration/course/mentor-group/${courseUUID}`, {
                 mentor_group_id: idNum,
                 course_uuid: courseUUID,
                 can_edit: mentorGroup.MentorGroupsBelongsToCourses.can_edit_course,

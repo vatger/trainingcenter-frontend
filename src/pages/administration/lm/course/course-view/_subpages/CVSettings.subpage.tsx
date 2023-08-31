@@ -28,8 +28,7 @@ export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefin
         setData: setCourse,
         loading: loadingCourse,
     } = useApi<CourseModel>({
-        url: "/administration/course/info",
-        params: { uuid: courseUUID },
+        url: `/administration/course/${courseUUID}`,
         method: "get",
     });
 

@@ -9,13 +9,13 @@ import { CourseModel } from "@/models/CourseModel";
 import { Alert } from "@/components/ui/Alert/Alert";
 import { COLOR_OPTS, TYPE_OPTS } from "@/assets/theme.config";
 import { CLContainerPartial } from "./_partials/CLContainer.partial";
-import CourseService from "../../../../services/course/CourseService";
 import { useFilter } from "@/utils/hooks/useFilter";
 import { fuzzySearch } from "@/utils/helper/fuzzysearch/FuzzySearchHelper";
 import { Button } from "@/components/ui/Button/Button";
 import { TbFilter } from "react-icons/all";
 import { Card } from "@/components/ui/Card/Card";
 import { Separator } from "@/components/ui/Separator/Separator";
+import useApi from "@/utils/hooks/useApi";
 
 type SearchFilter = {
     available_only: boolean;
@@ -31,15 +31,18 @@ export function CourseListView() {
     const [searchInput, setSearchInput] = useState<string>("");
     const debouncedInput = useDebounce(searchInput, 250);
 
-    const { courses, loading: loadingCourses } = CourseService.getAvailableCourses();
-    const filteredCourses = useFilter<CourseModel>(courses, searchInput, debouncedInput, filterCourseFunction);
+    const { data: courses, loading: loadingCourses } = useApi<CourseModel[]>({
+        url: "/course/available",
+        method: "get",
+    });
+    const filteredCourses = useFilter<CourseModel>(courses ?? [], searchInput, debouncedInput, filterCourseFunction);
 
     return (
         <>
             <PageHeader title={"Kurse Suchen"} hideBackLink />
 
             <RenderIf
-                truthValue={!loadingCourses && searchInput.length == 0 && courses.length == 0}
+                truthValue={!loadingCourses && searchInput.length == 0 && courses?.length == 0}
                 elementTrue={
                     <Alert rounded showIcon className={"my-0"} type={TYPE_OPTS.DANGER}>
                         Es gibt derzeit keine Kurse in die Du Dich einschreiben kannst. Kontaktiere einen Mentor, falls Du der Meinung bist, dass es sich hier
@@ -48,7 +51,7 @@ export function CourseListView() {
                 }
                 elementFalse={
                     <RenderIf
-                        truthValue={!loadingCourses && courses.length > 0}
+                        truthValue={!loadingCourses && courses != null && courses.length > 0}
                         elementTrue={
                             <>
                                 <Card>
@@ -58,7 +61,7 @@ export function CourseListView() {
                                             onChange={e => setSearchInput(e.target.value)}
                                             className={"mb-2 w-full"}
                                             label={"Kurse Filtern"}
-                                            placeholder={courses?.length > 0 ? courses[0].name : "Frankfurt Tower Einweisung"}
+                                            placeholder={courses != null && courses.length > 0 ? courses[0].name : "Frankfurt Tower Einweisung"}
                                         />
 
                                         <Button

@@ -23,11 +23,9 @@ async function createCourse(data: object) {
  * Removes a user
  * @param data
  */
-function removeUserByID(data: { course_id?: string | number; user_id?: number }) {
-    return axiosInstance.delete("/administration/course/info/user", {
-        data: {
-            data: data,
-        },
+function removeUserByID(data: { course_uuid?: string | number; user_id?: number }) {
+    return axiosInstance.delete(`/administration/course/user/${data.course_uuid}`, {
+        data: data,
     });
 }
 
@@ -44,10 +42,8 @@ async function update(data: object): Promise<CourseModel> {
  * @param data
  */
 function removeMentorGroupByID(data: { course_uuid: string | undefined; mentor_group_id: number }): Promise<void> {
-    return axiosInstance.delete("/administration/course/info/mentor-group", {
-        data: {
-            data: data,
-        },
+    return axiosInstance.delete(`/administration/course/mentor-group/${data.course_uuid}`, {
+        data: data,
     });
 }
 

@@ -7,7 +7,7 @@ export function Tooltip(props: { children: ReactElement | ReactElement[]; conten
 
     return (
         <div className={props.className}>
-            <ReactTooltip id={`t-${uuid.current}`} noArrow place={"top"} />
+            <ReactTooltip id={`t-${uuid.current}`} noArrow place={"top"} offset={23} />
             <a data-tooltip-id={`t-${uuid.current}`} data-tooltip-content={props.content}>
                 {props.children}
             </a>
