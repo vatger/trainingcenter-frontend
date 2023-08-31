@@ -13,10 +13,13 @@ import { RenderIf } from "@/components/conditionals/RenderIf";
 import authContext from "../../../../../utils/contexts/AuthContext";
 import moment from "moment";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
+import { UserModel } from "@/models/UserModel";
+import dayjs from "dayjs";
 
 export function MASettingsPartial() {
     const navigate = useNavigate();
-    const { user } = useContext(authContext);
+    const { user, changeUser } = useContext(authContext);
     const { themeString, changeDarkMode } = useContext(themeContext);
     const { language, changeLanguage } = useContext(languageContext);
 
@@ -26,7 +29,8 @@ export function MASettingsPartial() {
     const [loadingGDPR, setLoadingGDPR] = useState<boolean>(false);
 
     // VATSIM Data synchronisation
-    const [dataSynchronisationDisabled] = useState<boolean>(moment().diff(moment(user?.user_data?.updatedAt), "minutes") < 30);
+    const [syncingData, setSyncingData] = useState<boolean>(false);
+    const [dataSynchronisationDisabled] = useState<boolean>(dayjs.utc().diff(dayjs(user?.user_data?.updatedAt), "minutes") < 30);
     const lastUserDataUpdateDate: Date = user?.user_data?.updatedAt ?? new Date();
 
     function setLanguage(lang: string) {
@@ -66,6 +70,30 @@ export function MASettingsPartial() {
                 ToastHelper.error("Fehler beim herunterladen deiner Daten");
             })
             .finally(() => setLoadingGDPR(false));
+    }
+
+    function updateUserData() {
+        setSyncingData(true);
+        axiosInstance
+            .get("/user/update")
+            .then((res: AxiosResponse) => {
+                const user = res.data as UserModel;
+                changeUser(user);
+                ToastHelper.success("Daten erfolgreich synchronisiert");
+            })
+            .catch(() => {
+                axiosInstance
+                    .post("/auth/logout")
+                    .then(res => {
+                        if (res.data.success) {
+                            window.location.replace("/login?refresh");
+                        }
+                    })
+                    .catch(() => {
+                        ToastHelper.error("Fehler beim Aktualisieren deiner Daten");
+                    });
+            })
+            .finally(() => setSyncingData(false));
     }
 
     console.log(themeString);
@@ -126,18 +154,18 @@ export function MASettingsPartial() {
                             truthValue={dataSynchronisationDisabled}
                             elementTrue={
                                 <span className={"text-danger flex text-xs mt-1.5"}>
-                                    Um {moment(lastUserDataUpdateDate).add(30, "minutes").utc().format("HH:mm")} UTC verfügbar
+                                    Um {dayjs.utc(lastUserDataUpdateDate).add(30, "minutes").format("HH:mm")} UTC verfügbar
                                 </span>
                             }
                         />
                     </>
                 }
                 element={
-                    // TODO: change disabled to allowed to update state
                     <Button
                         block
                         disabled={dataSynchronisationDisabled}
-                        onClick={() => navigate("2fa")}
+                        onClick={updateUserData}
+                        loading={syncingData}
                         icon={dataSynchronisationDisabled ? <TbRefreshOff size={20} /> : <TbRefresh size={20} />}
                         className={"ml-auto float-right w-full md:w-auto"}
                         variant={"twoTone"}

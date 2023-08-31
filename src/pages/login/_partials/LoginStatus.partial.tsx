@@ -22,6 +22,17 @@ export function LoginStatusPartial(props: { loadingError: APIResponseError }) {
             />
 
             <RenderIf
+                truthValue={props.loadingError == null && url.searchParams.get("refresh") != null}
+                elementTrue={
+                    <div className={"mb-5"}>
+                        <Alert rounded showIcon type={TYPE_OPTS.WARNING}>
+                            Logge dich bitte erneut ein, um deine VATSIM Daten zu synchronisieren
+                        </Alert>
+                    </div>
+                }
+            />
+
+            <RenderIf
                 truthValue={props.loadingError != null}
                 elementTrue={
                     <div className={"mb-5"}>

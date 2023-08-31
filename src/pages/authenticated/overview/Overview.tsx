@@ -5,7 +5,7 @@ import { Checkbox } from "../../../components/ui/Checkbox/Checkbox";
 import { Tabs } from "../../../components/ui/Tabs/Tabs";
 import { Button } from "../../../components/ui/Button/Button";
 import { Modal } from "../../../components/ui/Modal/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileUpload } from "../../../components/ui/Upload/FileUpload";
 import { axiosInstance } from "../../../utils/network/AxiosInstance";
 import { AxiosProgressEvent } from "axios";
