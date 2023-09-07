@@ -15,21 +15,19 @@ import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import TrainingTypeAdminService from "../../../../../services/training-type/TrainingTypeAdminService";
 import { useNavigate } from "react-router-dom";
 import { TrainingTypeModel, TrainingTypes } from "../../../../../models/TrainingTypeModel";
+import TrainingLogTemplateAdminService from "@/services/log-template/TrainingLogTemplateAdminService";
+import { MapArray } from "@/components/conditionals/MapArray";
+import useApi from "@/utils/hooks/useApi";
 
 export function TrainingTypeCreateView() {
     const navigate = useNavigate();
 
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-    const [addTemplateModalOpen, setAddTemplateModalOpen] = useState<boolean>(false);
-    const [assignedTypes, setAssignedTypes] = useState<{ logTemplate: TrainingLogTemplateModel | null }>({
-        logTemplate: null,
-    });
-    const [selectedType, setSelectedType] = useState<TrainingTypes>("lesson");
 
-    function handleLogTemplateChange(trainingLogTemplate: TrainingLogTemplateModel) {
-        setAssignedTypes({ logTemplate: trainingLogTemplate });
-        setAddTemplateModalOpen(false);
-    }
+    const { data: trainingLogTemplates, loading: loadingTrainingLogTemplates } = useApi<TrainingLogTemplateModel[]>({
+        url: "/administration/training-log/template/min",
+        method: "get",
+    });
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -38,7 +36,7 @@ export function TrainingTypeCreateView() {
         const data = FormHelper.getEntries(e.target);
 
         TrainingTypeAdminService.create(data)
-            .then((res: TrainingTypeModel) => {
+            .then((res: { id: number | string }) => {
                 navigate("/administration/training-type/" + res.id + "?r");
                 ToastHelper.success("Trainingstyp erfolgreich erstellt");
             })
@@ -51,12 +49,6 @@ export function TrainingTypeCreateView() {
     return (
         <>
             <PageHeader title={"Trainingstypen Erstellen"} hideBackLink />
-
-            <TTAddLogTemplateModal
-                open={addTemplateModalOpen}
-                onClose={() => setAddTemplateModalOpen(false)}
-                onSelect={(trainingLogTemplate: TrainingLogTemplateModel) => handleLogTemplateChange(trainingLogTemplate)}
-            />
 
             <Card>
                 <form onSubmit={e => handleSubmit(e)}>
@@ -89,66 +81,43 @@ export function TrainingTypeCreateView() {
                             required
                             defaultValue={"lesson"}
                             name={"type"}
-                            onChange={s => {
-                                setSelectedType(s as TrainingTypes);
-                                if (s == "cpt") setAssignedTypes({ logTemplate: null });
-                            }}
                             preIcon={<TbBook2 size={20} />}>
+                            <option value={"sim"}>Sim Session</option>
                             <option value={"lesson"}>Lesson</option>
                             <option value={"online"}>Online</option>
-                            <option value={"sim"}>Sim Session</option>
                             <option value={"cpt"}>CPT</option>
                         </Select>
                     </div>
 
                     <Separator />
 
-                    <Input
-                        readOnly
+                    <Select
                         labelSmall
-                        type={"text"}
                         label={"Logvorlage"}
-                        disabled={selectedType == "cpt"}
                         description={
                             "Bei jedem Training von diesem Typen werden die Mentoren dazu aufgefordert ein Log mit der unten stehenden Vorlage auszuwählen. " +
                             "Falls dieses Feld leer gelassen wird, bekommen die Mentoren ein einfaches Textfeld, welches ausgefüllt werden kann."
                         }
+                        name={"log_template_id"}
                         preIcon={<TbTemplate size={20} />}
-                        value={assignedTypes.logTemplate == null ? "N/A" : `${assignedTypes.logTemplate.name}`}
-                    />
-                    <input className={"hidden"} name={"log_template_id"} value={assignedTypes.logTemplate?.id ?? -1} readOnly />
-
-                    <div className={"flex lg:flex-row flex-col"}>
-                        <Button
-                            type={"button"}
-                            onClick={() => setAddTemplateModalOpen(true)}
-                            icon={<TbCirclePlus size={20} />}
-                            className={"mt-5 lg:mr-2"}
-                            variant={"default"}
-                            disabled={selectedType == "cpt"}
-                            size={SIZE_OPTS.SM}>
-                            Logvorlage zuweisen
-                        </Button>
-                        <RenderIf
-                            truthValue={assignedTypes.logTemplate != null && selectedType != "cpt"}
-                            elementTrue={
-                                <Button
-                                    type={"button"}
-                                    onClick={() => setAssignedTypes({ logTemplate: null })}
-                                    icon={<TbTrash size={20} />}
-                                    className={"mt-5"}
-                                    variant={"default"}
-                                    size={SIZE_OPTS.SM}>
-                                    Logvorlage entfernen
-                                </Button>
-                            }
+                        defaultValue={"-1"}>
+                        <option value={"-1"}>N/A</option>
+                        <MapArray
+                            data={trainingLogTemplates ?? []}
+                            mapFunction={(trainingLogTemplate: TrainingLogTemplateModel, index: number) => {
+                                return (
+                                    <option key={index} value={trainingLogTemplate.id}>
+                                        {trainingLogTemplate.name}
+                                    </option>
+                                );
+                            }}
                         />
-                    </div>
+                    </Select>
 
                     <Separator />
 
                     <Button type={"submit"} loading={isSubmitting} icon={<TbFilePlus size={20} />} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
-                        {isSubmitting ? <>Trainingtyp wird Erstellt</> : <>Trainingtypen Erstellen</>}
+                        Trainingtypen Erstellen
                     </Button>
                 </form>
             </Card>

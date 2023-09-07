@@ -18,7 +18,6 @@ import { UserModel } from "@/models/UserModel";
 import dayjs from "dayjs";
 
 export function MASettingsPartial() {
-    const navigate = useNavigate();
     const { user, changeUser } = useContext(authContext);
     const { themeString, changeDarkMode } = useContext(themeContext);
     const { language, changeLanguage } = useContext(languageContext);

@@ -14,8 +14,16 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import { TbPlus } from "react-icons/all";
 import TrainingSessionService from "@/services/USE_THIS_LATER/TrainingSessionService";
+import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 
-export type ParticipantStatus = { user_id: number; stringValues: Map<string, string>; progressValues: Map<string, number> };
+export type ParticipantStatus = {
+    user_id: number;
+    stringValues: Map<string, string>;
+    progressValues: Map<string, number>;
+    passed: boolean;
+    visible: boolean;
+    nextTraining: number;
+};
 
 export function TrainingSessionLogsCreateView() {
     const { uuid } = useParams();
@@ -27,6 +35,10 @@ export function TrainingSessionLogsCreateView() {
     });
     const { data: logTemplate, loading: loadingLogTemplate } = useApi<TrainingLogTemplateModel>({
         url: `/administration/training-session/log-template/${uuid}`,
+        method: "get",
+    });
+    const { data: courseTrainingTypes, loading: loadingCourseTrainingTypes } = useApi<TrainingTypeModel[]>({
+        url: `/administration/training-session/training-types/${uuid}`,
         method: "get",
     });
 
@@ -43,6 +55,11 @@ export function TrainingSessionLogsCreateView() {
             });
 
             setLogTemplateElements(logTemplatesWithUUID);
+            return;
+        }
+
+        if (!loadingLogTemplate) {
+            setLogTemplateElements([{ uuid: generateUUID(), type: "textarea", title: "Bewertung" }]);
         }
     }, [loadingLogTemplate]);
 
@@ -57,6 +74,9 @@ export function TrainingSessionLogsCreateView() {
                 user_id: participants[i].id,
                 stringValues: new Map<string, string>(),
                 progressValues: new Map<string, number>(),
+                passed: true,
+                visible: true,
+                nextTraining: -1,
             });
         }
 
@@ -83,10 +103,22 @@ export function TrainingSessionLogsCreateView() {
                                                     element={v}
                                                     index={i}
                                                     key={i}
-                                                    // @ts-ignore - value is forced to be non-null by renderIf
-                                                    stringValues={participantValues[index].stringValues}
-                                                    // @ts-ignore - value is forced to be non-null by renderIf
-                                                    progressValues={participantValues[index].progressValues}
+                                                    availableTrainingTypes={courseTrainingTypes ?? []}
+                                                    stringValues={participantValues![index].stringValues}
+                                                    progressValues={participantValues![index].progressValues}
+                                                    onPassedValueChange={e => {
+                                                        participantValues![index].passed = e;
+                                                    }}
+                                                    onVisibilityValueChange={e => {
+                                                        participantValues![index].visible = e;
+                                                    }}
+                                                    onNextTrainingValueChange={e => {
+                                                        if (isNaN(e) || e == -1) {
+                                                            return;
+                                                        }
+
+                                                        participantValues![index].nextTraining = e;
+                                                    }}
                                                 />
                                             );
                                         }}
@@ -123,10 +155,5 @@ export function TrainingSessionLogsCreateView() {
                 }
             />
         </>
-
-        // TODO:
-        // 1) Add Next Training type in this course, etc...
-        // 2) Add Passed/Failed flag
-        // 3) Add Log public/private (for the trainee to view)
     );
 }

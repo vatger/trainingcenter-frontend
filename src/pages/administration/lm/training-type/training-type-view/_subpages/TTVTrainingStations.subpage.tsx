@@ -1,56 +1,119 @@
-import { TableColumn } from "react-data-table-component";
-import { TrainingStationModel } from "../../../../../../models/TrainingStationModel";
+import { TrainingStationModel } from "@/models/TrainingStationModel";
 import TrainingTypeViewTrainingStationsListTypes from "../_types/TTVTrainingStationsList.types";
-import { Table } from "../../../../../../components/ui/Table/Table";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS } from "../../../../../../assets/theme.config";
+import { Table } from "@/components/ui/Table/Table";
+import useApi from "@/utils/hooks/useApi";
+import { Select } from "@/components/ui/Select/Select";
+import { TrainingTypeModel } from "@/models/TrainingTypeModel";
+import { MapArray } from "@/components/conditionals/MapArray";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbPlus } from "react-icons/all";
-import { TTVAddTrainingStationModal } from "../_modals/TTVAddTrainingStation.modal";
-import { Dispatch, useState } from "react";
-import { TrainingTypeModel } from "../../../../../../models/TrainingTypeModel";
+import { useState } from "react";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import ToastHelper from "@/utils/helper/ToastHelper";
+import TrainingTypeAdminService from "@/services/training-type/TrainingTypeAdminService";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { TTVSkeleton } from "@/pages/administration/lm/training-type/training-type-view/_skeletons/TTV.skeleton";
 
-export function TTVTrainingStationsSubpage(props: {
-    loading: boolean;
-    trainingType: TrainingTypeModel | undefined;
-    setTrainingType: Dispatch<TrainingTypeModel | undefined>;
-}) {
-    const [addStationModalOpen, setAddStationModalOpen] = useState<boolean>(false);
+export function TTVTrainingStationsSubpage(props: { trainingTypeID?: string }) {
+    const [selectedTrainingStation, setSelectedTrainingStation] = useState<string | undefined>(undefined);
+    const [submitting, setSubmitting] = useState<boolean>(false);
 
-    const columns: (TableColumn<TrainingStationModel> & { searchable?: boolean })[] = TrainingTypeViewTrainingStationsListTypes.getColumns();
+    const {
+        data: trainingType,
+        setData: setTrainingType,
+        loading: loadingTrainingType,
+    } = useApi<TrainingTypeModel>({
+        url: `/administration/training-type/${props.trainingTypeID ?? "-1"}`,
+        method: "get",
+    });
 
-    function addTrainingStation(station: TrainingStationModel) {
-        let newStations = [...(props.trainingType?.training_stations ?? [])];
-        newStations.push(station);
-        newStations.sort((a, b) => {
-            return a.id < b.id ? -1 : 1;
-        });
+    const { data: trainingStations, loading: loadingTrainingStations } = useApi<TrainingStationModel[]>({
+        url: "/administration/training-station",
+        method: "get",
+    });
 
-        props.setTrainingType({ ...(props.trainingType ?? ({} as TrainingTypeModel)), training_stations: newStations });
-    }
+    function addTrainingStation() {
+        setSubmitting(true);
 
-    function removeTrainingStation(station: TrainingStationModel) {
-        let newStations = props.trainingType?.training_stations?.filter((t: TrainingStationModel) => {
-            return t.id != station.id;
-        });
+        const trainingStation = trainingStations?.find(ts => ts.id == Number(selectedTrainingStation));
+        if (trainingStation == null || trainingType == null || trainingType.training_stations?.find(t => t.id == trainingStation.id) != null) {
+            setSubmitting(false);
+            return;
+        }
 
-        props.setTrainingType({ ...(props.trainingType ?? ({} as TrainingTypeModel)), training_stations: newStations });
+        let newStations = [...(trainingType.training_stations ?? [])];
+        newStations.push({ ...trainingStation });
+
+        TrainingTypeAdminService.addStationByID(props.trainingTypeID, selectedTrainingStation)
+            .then(() => {
+                ToastHelper.success("Trainingsstation erfolgreich hinzugefügt");
+                setTrainingType({ ...trainingType, training_stations: newStations });
+            })
+            .catch(() => {
+                ToastHelper.error("Fehler beim Hinzufügen der Trainingsstation");
+            })
+            .finally(() => setSubmitting(false));
     }
 
     return (
         <>
-            <TTVAddTrainingStationModal
-                open={addStationModalOpen}
-                onClose={() => setAddStationModalOpen(false)}
-                trainingStations={props.trainingType?.training_stations ?? []}
-                onSelect={addTrainingStation}
-                onRemove={removeTrainingStation}
+            <RenderIf
+                truthValue={loadingTrainingStations || loadingTrainingType}
+                elementTrue={<TTVSkeleton />}
+                elementFalse={
+                    <>
+                        <Select
+                            label={"Trainingsstation Hinzufügen"}
+                            labelSmall
+                            disabled={submitting}
+                            onChange={v => {
+                                if (v == "-1") {
+                                    setSelectedTrainingStation(undefined);
+                                    return;
+                                }
+                                setSelectedTrainingStation(v);
+                            }}
+                            defaultValue={"-1"}>
+                            <option value={"-1"}>Trainingsstation Auswählen</option>
+
+                            <MapArray
+                                data={trainingStations?.filter(ts => !trainingType?.training_stations?.find(t => t.id == ts.id)) ?? []}
+                                mapFunction={(trainingType: TrainingStationModel, index) => {
+                                    return (
+                                        <option key={index} value={trainingType.id}>
+                                            {trainingType.callsign} ({trainingType.frequency.toFixed(3)})
+                                        </option>
+                                    );
+                                }}
+                            />
+                        </Select>
+
+                        <Button
+                            variant={"twoTone"}
+                            color={COLOR_OPTS.PRIMARY}
+                            className={"mt-3"}
+                            icon={<TbPlus size={20} />}
+                            loading={submitting}
+                            size={SIZE_OPTS.SM}
+                            onClick={() => {
+                                addTrainingStation();
+                            }}>
+                            Hinzufügen
+                        </Button>
+                    </>
+                }
             />
 
-            <Table searchable columns={columns} data={props.trainingType?.training_stations ?? []} loading={props.loading} />
+            <Separator />
 
-            <Button variant={"twoTone"} onClick={() => setAddStationModalOpen(true)} color={COLOR_OPTS.PRIMARY} icon={<TbPlus size={20} />}>
-                Station hinzufügen
-            </Button>
+            <Table
+                paginate
+                columns={TrainingTypeViewTrainingStationsListTypes.getColumns(trainingType, setTrainingType)}
+                data={trainingType?.training_stations ?? []}
+                loading={loadingTrainingType}
+            />
         </>
     );
 }

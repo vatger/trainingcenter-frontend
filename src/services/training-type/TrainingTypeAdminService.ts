@@ -4,6 +4,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { APIResponseError } from "../../exceptions/APIResponseError";
 import { useEffect, useState } from "react";
 import { TrainingStationModel } from "../../models/TrainingStationModel";
+import ToastHelper from "@/utils/helper/ToastHelper";
 
 /**
  * Gets all training exceptions currently stored in the database
@@ -78,20 +79,11 @@ function getByID(id?: number | string) {
  * @param training_type_id
  * @param training_station_id
  */
-async function addStationByID(training_type_id: string | number, training_station_id: number): Promise<TrainingStationModel> {
-    return axiosInstance
-        .put("/administration/training-type/station", {
-            data: {
-                training_type_id: training_type_id,
-                training_station_id: training_station_id,
-            },
-        })
-        .then((res: AxiosResponse) => {
-            return res.data as TrainingStationModel;
-        })
-        .catch((err: AxiosError) => {
-            throw err;
-        });
+async function addStationByID(training_type_id?: string, training_station_id?: string | number) {
+    return axiosInstance.put("/administration/training-type/station", {
+        training_type_id: training_type_id,
+        training_station_id: training_station_id,
+    });
 }
 
 /**
@@ -99,39 +91,23 @@ async function addStationByID(training_type_id: string | number, training_statio
  * @param training_type_id
  * @param training_station_id
  */
-async function removeStationByID(training_type_id: string | number, training_station_id: number): Promise<void> {
-    return axiosInstance
-        .delete("/administration/training-type/station", {
-            data: {
-                data: {
-                    training_type_id: training_type_id,
-                    training_station_id: training_station_id,
-                },
-            },
-        })
-        .then(() => {
-            return;
-        })
-        .catch((err: AxiosError) => {
-            throw err;
-        });
+async function removeStationByID(training_type_id: string | number, training_station_id: number) {
+    return axiosInstance.delete("/administration/training-type/station", {
+        data: {
+            training_type_id: training_type_id,
+            training_station_id: training_station_id,
+        },
+    });
 }
 
 /**
  * Creates a new training type based on the data provided
  * @param data
  */
-async function create(data: object): Promise<TrainingTypeModel> {
-    return axiosInstance
-        .put("/administration/training-type", {
-            data: data,
-        })
-        .then((res: AxiosResponse) => {
-            return res.data as TrainingTypeModel;
-        })
-        .catch((err: AxiosError) => {
-            throw err;
-        });
+async function create(data: object) {
+    return axiosInstance.post("/administration/training-type", data).then((res: AxiosResponse) => {
+        return res.data as { id: number | string };
+    });
 }
 
 /**
@@ -139,22 +115,17 @@ async function create(data: object): Promise<TrainingTypeModel> {
  * @param id
  * @param data
  */
-async function update(id: number | string, data: object): Promise<TrainingTypeModel> {
-    return axiosInstance
-        .patch("/administration/training-type/" + id, {
-            data: data,
-        })
-        .then((res: AxiosResponse) => {
-            return res.data as TrainingTypeModel;
-        })
-        .catch((err: AxiosError) => {
-            throw err;
-        });
+async function update(id: number | string, data: object) {
+    return axiosInstance.patch("/administration/training-type/" + id, {
+        data: data,
+    });
 }
 
 export default {
     getAll,
     getByID,
+    addStationByID,
+    removeStationByID,
     create,
     update,
 };

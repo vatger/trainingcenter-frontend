@@ -28,11 +28,14 @@ function SubmitTrainingLogs(data: ITrainingSessionServiceProps) {
 
     data.setSubmitting(true);
 
-    let result: { user_id: number; log_public: boolean; passed: boolean; user_log: LogTemplateElement[] }[] = [];
+    let result: { user_id: number; next_training_id: number; log_public: boolean; passed: boolean; user_log: LogTemplateElement[] }[] = [];
 
     // Loop through all participants
     for (let i = 0; i < data.participants.length; i++) {
         let user_log: LogTemplateElement[] = [];
+        let user_passed = data.participantValues?.[i].passed ?? true;
+        let log_public = data.participantValues?.[i].visible ?? true;
+        let next_training_id = data.participantValues?.[i].nextTraining ?? -1;
 
         // For each element of the log templates...
         for (let j = 0; j < data.logTemplateElements.length; j++) {
@@ -66,9 +69,10 @@ function SubmitTrainingLogs(data: ITrainingSessionServiceProps) {
         }
         result.push({
             user_id: data.participants[i].id,
-            log_public: true,
-            passed: true,
+            log_public: log_public,
+            passed: user_passed,
             user_log: user_log,
+            next_training_id: next_training_id,
         });
     }
 

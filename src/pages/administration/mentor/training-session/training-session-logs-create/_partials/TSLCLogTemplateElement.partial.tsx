@@ -11,18 +11,13 @@ import {
 import { TextArea } from "@/components/ui/Textarea/TextArea";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/Input/Input";
+import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
+import { Select } from "@/components/ui/Select/Select";
+import { TrainingTypeModel } from "@/models/TrainingTypeModel";
+import { MapArray } from "@/components/conditionals/MapArray";
+import StringHelper from "@/utils/helper/StringHelper";
 
-function onStringValueChange(map: Map<string, string>, uuid: string, value: string) {
-    // Does the map replace, or add to the hash key?
-    if (map.has(uuid)) {
-        map.delete(uuid);
-    }
-
-    map.set(uuid, value);
-}
-
-function onProgressValueChange(map: Map<string, number>, uuid: string, value: number) {
-    // Does the map replace, or add to the hash key?
+function onValueChange<T>(map: Map<string, T>, uuid: string, value: T) {
     if (map.has(uuid)) {
         map.delete(uuid);
     }
@@ -31,7 +26,7 @@ function onProgressValueChange(map: Map<string, number>, uuid: string, value: nu
 }
 
 function render(
-    type: LogTemplateType,
+    type: LogTemplateType | undefined,
     element: LogTemplateElement & { uuid: string },
     index: number,
     stringValues: Map<string, string>,
@@ -48,7 +43,7 @@ function render(
                     <h6 className={elem.subtitle == null ? "mb-2" : ""}>{elem.title}</h6>
                     {elem.subtitle && <p className={"mb-2"}>{elem.subtitle}</p>}
 
-                    <TextArea onChange={e => onStringValueChange(stringValues, element.uuid, e.target.value)} placeholder={`Bewertung ${elem.title}`} />
+                    <TextArea onChange={e => onValueChange<string>(stringValues, element.uuid, e.target.value)} placeholder={`Bewertung ${elem.title}`} />
                 </div>
             );
 
@@ -86,7 +81,7 @@ function render(
                                     }
 
                                     setProgressBarValue(val);
-                                    onProgressValueChange(progressValues, element.uuid, val);
+                                    onValueChange<number>(progressValues, element.uuid, val);
                                 }}
                             />
                         </div>
@@ -101,7 +96,7 @@ function render(
                             truthValue={elem.disableText == null || elem.disableText == false}
                             elementTrue={
                                 <TextArea
-                                    onChange={e => onStringValueChange(stringValues, element.uuid, e.target.value)}
+                                    onChange={e => onValueChange<string>(stringValues, element.uuid, e.target.value)}
                                     placeholder={`Bewertung ${elem.title}`}
                                 />
                             }
@@ -125,18 +120,64 @@ function render(
                     }
                 />
             );
+
+        default:
+            return (
+                <div>
+                    <h6 className={"mb-2"}>Bewertung</h6>
+
+                    <TextArea onChange={e => onValueChange<string>(stringValues, element.uuid, e.target.value)} placeholder={`Bewertung`} />
+                </div>
+            );
     }
 }
 
 export function TSLCLogTemplateElementPartial(props: {
     element: LogTemplateElement & { uuid: string };
     index: number;
+    availableTrainingTypes: TrainingTypeModel[];
     stringValues: Map<string, string>;
     progressValues: Map<string, number>;
+    onPassedValueChange: (e: boolean) => any;
+    onVisibilityValueChange: (e: boolean) => any;
+    onNextTrainingValueChange: (e: number) => any;
 }) {
     return (
-        <div className={"flex relative flex-col md:flex-row justify-between " + (props.index == 0 || props.element.type == "section" ? "" : "mt-6")}>
-            <div className={"w-full"}>{render(props.element.type, props.element, props.index, props.stringValues, props.progressValues)}</div>
-        </div>
+        <>
+            <div className={"flex relative flex-col md:flex-row justify-between " + (props.index == 0 || props.element.type == "section" ? "" : "mt-6")}>
+                <div className={"w-full"}>{render(props.element.type, props.element, props.index, props.stringValues, props.progressValues)}</div>
+            </div>
+
+            <div className={"flex flex-col"}>
+                <Checkbox className={"mt-5"} checked onChange={props.onPassedValueChange}>
+                    Bestanden
+                </Checkbox>
+                <Checkbox className={"mt-3"} checked onChange={props.onVisibilityValueChange}>
+                    Log Öffentlich (für den Trainee sichtbar)
+                </Checkbox>
+                <Select
+                    label={"Nächstes Training"}
+                    labelSmall
+                    className={"mt-3"}
+                    defaultValue={"-1"}
+                    onChange={e => {
+                        props.onNextTrainingValueChange(Number(e));
+                    }}>
+                    <option value={"-1"} disabled>
+                        Nächstes Training Auswählen
+                    </option>
+                    <MapArray
+                        data={props.availableTrainingTypes}
+                        mapFunction={(t: TrainingTypeModel, index: number) => {
+                            return (
+                                <option key={index} value={t.id}>
+                                    {t.name} ({StringHelper.capitalize(t.type)})
+                                </option>
+                            );
+                        }}
+                    />
+                </Select>
+            </div>
+        </>
     );
 }
