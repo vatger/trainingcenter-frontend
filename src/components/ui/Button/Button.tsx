@@ -38,7 +38,7 @@ export function Button(props: ButtonProps) {
         }
 
         if (props.icon && !props.children && !props.loading) {
-            return <>{props.icon}</>;
+            return <div className={"px-2"}>{props.icon}</div>;
         }
 
         if (props.icon && props.children && !props.loading) {

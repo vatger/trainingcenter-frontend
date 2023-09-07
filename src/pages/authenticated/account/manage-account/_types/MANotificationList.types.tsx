@@ -89,16 +89,18 @@ function getColumns(notifications: NotificationModel[], setNotifications: Dispat
                             disabled={deletingNotificationID != null}
                             icon={row.read ? <TbEyeOff size={20} /> : <TbEye size={20} />}
                             onClick={() => toggleRead(row.id)}
-                            size={SIZE_OPTS.SM}></Button>
+                            size={SIZE_OPTS.SM}>
+                        </Button>
                         <Button
                             color={COLOR_OPTS.DANGER}
                             className={"ml-2"}
                             loading={deletingNotificationID == row.id}
                             disabled={deletingNotificationID != null}
                             variant={"twoTone"}
-                            icon={<TbTrash size={20} />}
+                            icon={<TbTrash size={20}/>}
                             size={SIZE_OPTS.SM}
-                            onClick={() => deleteNotification(row.id)}></Button>
+                            onClick={() => deleteNotification(row.id)}>
+                        </Button>
                     </div>
                 );
             },
