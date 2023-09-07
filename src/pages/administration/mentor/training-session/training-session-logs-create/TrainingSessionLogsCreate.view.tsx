@@ -1,6 +1,6 @@
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LogTemplateElement } from "@/pages/administration/atd/log-template/log-template-create/_types/LTCElement.types";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { Card } from "@/components/ui/Card/Card";
@@ -15,6 +15,9 @@ import { COLOR_OPTS } from "@/assets/theme.config";
 import { TbPlus } from "react-icons/tb";
 import TrainingSessionService from "@/services/USE_THIS_LATER/TrainingSessionService";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
+import {Checkbox} from "@/components/ui/Checkbox/Checkbox";
+import {Select} from "@/components/ui/Select/Select";
+import StringHelper from "@/utils/helper/StringHelper";
 
 export type ParticipantStatus = {
     user_id: number;
@@ -103,26 +106,48 @@ export function TrainingSessionLogsCreateView() {
                                                     element={v}
                                                     index={i}
                                                     key={i}
-                                                    availableTrainingTypes={courseTrainingTypes ?? []}
                                                     stringValues={participantValues![index].stringValues}
                                                     progressValues={participantValues![index].progressValues}
-                                                    onPassedValueChange={e => {
-                                                        participantValues![index].passed = e;
-                                                    }}
-                                                    onVisibilityValueChange={e => {
-                                                        participantValues![index].visible = e;
-                                                    }}
-                                                    onNextTrainingValueChange={e => {
-                                                        if (isNaN(e) || e == -1) {
-                                                            return;
-                                                        }
-
-                                                        participantValues![index].nextTraining = e;
-                                                    }}
                                                 />
                                             );
                                         }}
                                     />
+
+                                    <div className={"flex flex-col mt-5"}>
+                                        <Checkbox checked onChange={e => participantValues![index].passed = e}>
+                                            Bestanden
+                                        </Checkbox>
+                                        <Checkbox className={"mt-3"} checked onChange={e => participantValues![index].visible = e}>
+                                            Log Öffentlich (für den Trainee sichtbar)
+                                        </Checkbox>
+                                        <Select
+                                            label={"Nächstes Training"}
+                                            labelSmall
+                                            className={"mt-3"}
+                                            defaultValue={"-1"}
+                                            onChange={e => {
+                                                const num = Number(e);
+                                                if (isNaN(num) || num == -1) {
+                                                    return;
+                                                }
+
+                                                participantValues![index].nextTraining = num;
+                                            }}>
+                                            <option value={"-1"} disabled>
+                                                Nächstes Training Auswählen
+                                            </option>
+                                            <MapArray
+                                                data={courseTrainingTypes ?? []}
+                                                mapFunction={(t: TrainingTypeModel, index: number) => {
+                                                    return (
+                                                        <option key={index} value={t.id}>
+                                                            {t.name} ({StringHelper.capitalize(t.type)})
+                                                        </option>
+                                                    );
+                                                }}
+                                            />
+                                        </Select>
+                                    </div>
                                 </Card>
                             );
                         }}

@@ -135,48 +135,13 @@ function render(
 export function TSLCLogTemplateElementPartial(props: {
     element: LogTemplateElement & { uuid: string };
     index: number;
-    availableTrainingTypes: TrainingTypeModel[];
     stringValues: Map<string, string>;
     progressValues: Map<string, number>;
-    onPassedValueChange: (e: boolean) => any;
-    onVisibilityValueChange: (e: boolean) => any;
-    onNextTrainingValueChange: (e: number) => any;
 }) {
     return (
         <>
             <div className={"flex relative flex-col md:flex-row justify-between " + (props.index == 0 || props.element.type == "section" ? "" : "mt-6")}>
                 <div className={"w-full"}>{render(props.element.type, props.element, props.index, props.stringValues, props.progressValues)}</div>
-            </div>
-
-            <div className={"flex flex-col"}>
-                <Checkbox className={"mt-5"} checked onChange={props.onPassedValueChange}>
-                    Bestanden
-                </Checkbox>
-                <Checkbox className={"mt-3"} checked onChange={props.onVisibilityValueChange}>
-                    Log Öffentlich (für den Trainee sichtbar)
-                </Checkbox>
-                <Select
-                    label={"Nächstes Training"}
-                    labelSmall
-                    className={"mt-3"}
-                    defaultValue={"-1"}
-                    onChange={e => {
-                        props.onNextTrainingValueChange(Number(e));
-                    }}>
-                    <option value={"-1"} disabled>
-                        Nächstes Training Auswählen
-                    </option>
-                    <MapArray
-                        data={props.availableTrainingTypes}
-                        mapFunction={(t: TrainingTypeModel, index: number) => {
-                            return (
-                                <option key={index} value={t.id}>
-                                    {t.name} ({StringHelper.capitalize(t.type)})
-                                </option>
-                            );
-                        }}
-                    />
-                </Select>
             </div>
         </>
     );
