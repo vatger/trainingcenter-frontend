@@ -1,6 +1,6 @@
 import { NotificationModel } from "../../models/NotificationModel";
 import { LanguageEnum } from "../contexts/LanguageContext";
-import { TbAlertTriangle, TbClipboard, TbDoorExit, TbTrash } from "react-icons/tb";
+import {TbAlertTriangle, TbCheck, TbCircleCheck, TbClipboard, TbDoorExit, TbTrash} from "react-icons/tb";
 
 function convertNotificationContent(n: NotificationModel, l: LanguageEnum): string {
     let s = "";
@@ -22,6 +22,12 @@ export function getIconByString(size: number, s?: string, className?: string) {
 
         case "alert-triangle":
             return <TbAlertTriangle className={className} size={size} />;
+
+        case "circle-check":
+            return <TbCircleCheck className={className} size={size}/>;
+
+        case "check":
+            return <TbCheck className={className} size={size}/>;
 
         default:
             return <TbClipboard className={className} size={size} />;

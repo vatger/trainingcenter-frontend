@@ -28,7 +28,7 @@ function SubmitTrainingLogs(data: ITrainingSessionServiceProps) {
 
     data.setSubmitting(true);
 
-    let result: { user_id: number; next_training_id: number; log_public: boolean; passed: boolean; user_log: LogTemplateElement[] }[] = [];
+    let result: { user_id: number; next_training_id: number; course_completed: boolean; log_public: boolean; passed: boolean; user_log: LogTemplateElement[] }[] = [];
 
     // Loop through all participants
     for (let i = 0; i < data.participants.length; i++) {
@@ -36,6 +36,7 @@ function SubmitTrainingLogs(data: ITrainingSessionServiceProps) {
         let user_passed = data.participantValues?.[i].passed ?? true;
         let log_public = data.participantValues?.[i].visible ?? true;
         let next_training_id = data.participantValues?.[i].nextTraining ?? -1;
+        let course_completed = data.participantValues?.[i].course_completed ?? false;
 
         // For each element of the log templates...
         for (let j = 0; j < data.logTemplateElements.length; j++) {
@@ -73,6 +74,7 @@ function SubmitTrainingLogs(data: ITrainingSessionServiceProps) {
             passed: user_passed,
             user_log: user_log,
             next_training_id: next_training_id,
+            course_completed: course_completed
         });
     }
 

@@ -8,12 +8,26 @@ import NotificationHelper from "@/utils/helper/NotificationHelper";
 import { LanguageEnum } from "@/utils/contexts/LanguageContext";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
-import { Dispatch } from "react";
+import {Dispatch, useState} from "react";
+import UserNotificationService from "@/services/user/UserNotificationService";
+import ToastHelper from "@/utils/helper/ToastHelper";
 
 function getColumns(notifications: NotificationModel[], setNotifications: Dispatch<NotificationModel[]>): TableColumn<NotificationModel>[] {
+    const [deletingNotificationID, setDeletingNotificationID] = useState<number | undefined>(undefined);
+
     function deleteNotification(notificationID: number) {
-        const newNotifications = notifications.filter(n => n.id != notificationID);
-        setNotifications(newNotifications);
+        setDeletingNotificationID(notificationID);
+
+        UserNotificationService.deleteNotification(notificationID)
+            .then(() => {
+                const newNotifications = notifications.filter(n => n.id != notificationID);
+                setNotifications(newNotifications);
+                ToastHelper.success("Benachrichtigung erfolgreich gelöscht");
+            })
+            .catch(() => {
+                ToastHelper.error("Fehler beim löschen der Benachrichtigung");
+            })
+            .finally(() => setDeletingNotificationID(undefined));
     }
 
     function toggleRead(notificationID: number) {
@@ -25,7 +39,14 @@ function getColumns(notifications: NotificationModel[], setNotifications: Dispat
 
         n.read = !n.read;
 
-        setNotifications(newNotifications);
+        UserNotificationService.toggleRead(notificationID)
+            .then(() => {
+                setNotifications(newNotifications);
+                ToastHelper.success("Benachrichtigung erfolgreich aktualisiert");
+            })
+            .catch(() => {
+                ToastHelper.error("Fehler beim aktualisieren der Benachrichtigung");
+            })
     }
 
     return [
@@ -65,12 +86,15 @@ function getColumns(notifications: NotificationModel[], setNotifications: Dispat
                         <Button
                             color={COLOR_OPTS.PRIMARY}
                             variant={"twoTone"}
+                            disabled={deletingNotificationID != null}
                             icon={row.read ? <TbEyeOff size={20} /> : <TbEye size={20} />}
                             onClick={() => toggleRead(row.id)}
                             size={SIZE_OPTS.SM}></Button>
                         <Button
                             color={COLOR_OPTS.DANGER}
                             className={"ml-2"}
+                            loading={deletingNotificationID == row.id}
+                            disabled={deletingNotificationID != null}
                             variant={"twoTone"}
                             icon={<TbTrash size={20} />}
                             size={SIZE_OPTS.SM}

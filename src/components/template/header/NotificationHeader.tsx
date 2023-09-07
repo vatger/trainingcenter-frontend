@@ -1,18 +1,20 @@
-import { TbBell, TbMailOpened } from "react-icons/tb";
-import { Dispatch, useContext, useEffect, useRef, useState } from "react";
-import { generateUUID } from "../../../utils/helper/UUIDHelper";
-import { NotificationModel } from "../../../models/NotificationModel";
+import {TbBell, TbMailOpened} from "react-icons/tb";
+import {Dispatch, useContext, useEffect, useRef, useState} from "react";
+import {generateUUID} from "../../../utils/helper/UUIDHelper";
+import {NotificationModel} from "../../../models/NotificationModel";
 import UserNotificationService from "../../../services/user/UserNotificationService";
 import authContext from "../../../utils/contexts/AuthContext";
-import { AxiosError } from "axios";
-import { MapArray } from "../../conditionals/MapArray";
-import NotificationHelper, { getIconByString, getIconColorBySeverity } from "../../../utils/helper/NotificationHelper";
+import {AxiosError} from "axios";
+import {MapArray} from "../../conditionals/MapArray";
+import NotificationHelper, {getIconByString, getIconColorBySeverity} from "../../../utils/helper/NotificationHelper";
 import dayjs from "dayjs";
 import languageContext from "../../../utils/contexts/LanguageContext";
-import { Tooltip } from "../../ui/Tooltip/Tooltip";
-import { RenderIf } from "../../conditionals/RenderIf";
+import {Tooltip} from "../../ui/Tooltip/Tooltip";
+import {RenderIf} from "../../conditionals/RenderIf";
 import ToastHelper from "../../../utils/helper/ToastHelper";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {Button} from "@/components/ui/Button/Button";
+import {COLOR_OPTS, SIZE_OPTS} from "@/assets/theme.config";
 
 function loadNotifications(setNotifications: Dispatch<NotificationModel[]>, user_id?: number) {
     if (user_id == null) return;
@@ -31,6 +33,7 @@ export function NotificationHeader() {
     const { user } = useContext(authContext);
     const { language } = useContext(languageContext);
     const [notificationMenuHidden, setNotificationMenuHidden] = useState<boolean>(true);
+    const [markingAllRead, setMarkingAllRead] = useState<boolean>(false);
 
     const [notifications, setNotifications] = useState<NotificationModel[]>([]);
 
@@ -82,14 +85,22 @@ export function NotificationHeader() {
 
         setInterval(() => {
             loadNotifications(setNotifications, user?.id);
-        }, 1000 * 60 * 5);
+        }, 1000 * 60 * 2);
     }, []);
 
     function markAllAsRead() {
         if (notifications.length == 0) return;
 
-        setNotifications([]);
-        ToastHelper.success("Notifications marked as read");
+        setMarkingAllRead(true);
+
+        UserNotificationService.markAllAsRead()
+            .then(() => {
+                setNotifications([]);
+                ToastHelper.success("Notifications marked as read");
+            })
+            .finally(() => {
+                setMarkingAllRead(false);
+            })
     }
 
     return (
@@ -114,11 +125,16 @@ export function NotificationHeader() {
                             <h6>Notifications ({notifications.length})</h6>
                             <span className="tooltip-wrapper">
                                 <Tooltip content={"Mark all as read"}>
-                                    <button
+                                    <Button
+                                        icon={<TbMailOpened size={20}/>}
                                         onClick={() => markAllAsRead()}
-                                        className="button bg-transparent border border-transparent hover:bg-gray-50 dark:hover:bg-gray-600 active:bg-gray-100 dark:active:bg-gray-500 dark:active:border-gray-500 text-gray-600 dark:text-gray-100 radius-circle h-9 w-9 inline-flex items-center justify-center text-lg">
-                                        <TbMailOpened size={20} />
-                                    </button>
+                                        shape={"circle"}
+                                        loading={markingAllRead}
+                                        size={SIZE_OPTS.SM}
+                                        color={COLOR_OPTS.DEFAULT}
+                                        className={"border-none"}
+                                        >
+                                    </Button>
                                 </Tooltip>
                             </span>
                         </div>

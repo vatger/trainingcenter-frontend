@@ -5,9 +5,12 @@ import { useEffect, useState } from "react";
 import { APIResponseError } from "@/exceptions/APIResponseError";
 import { UserModel } from "@/models/UserModel";
 
+/**
+ * Return all unread notifications
+ */
 async function getUnreadNotifications(): Promise<NotificationModel[]> {
     return axiosInstance
-        .get("/notifications/unread")
+        .get("/notification/unread")
         .then((res: AxiosResponse) => {
             return res.data as NotificationModel[];
         })
@@ -16,40 +19,25 @@ async function getUnreadNotifications(): Promise<NotificationModel[]> {
         });
 }
 
-function getAllNotifications() {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [notifications, setNotifications] = useState<NotificationModel[]>([]);
+function markAllAsRead() {
+    return axiosInstance.post("/notification/read/all");
+}
 
-    useEffect(() => {
-        axiosInstance
-            .get("/notifications")
-            .then((res: AxiosResponse) => {
-                setNotifications(res.data as NotificationModel[]);
-            })
-            .catch((err: AxiosError) => {
-                setLoadingError({
-                    error: err,
-                    custom: {
-                        code: "ERR_API_NOTIFICATIONS_ALL",
-                        message: "Failed to load notifications",
-                    },
-                });
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, []);
+function deleteNotification(notificationID: number) {
+    return axiosInstance.delete("/notification", {
+        data: {
+            notification_id: notificationID
+        }
+    });
+}
 
-    return {
-        notifications,
-        setNotifications,
-        loading,
-        loadingError,
-    };
+function toggleRead(notificationID: number) {
+    return axiosInstance.post("/notification/toggle", {notification_id: notificationID});
 }
 
 export default {
     getUnreadNotifications,
-    getAllNotifications,
+    markAllAsRead,
+    deleteNotification,
+    toggleRead,
 };

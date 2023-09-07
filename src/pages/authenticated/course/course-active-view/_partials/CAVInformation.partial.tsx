@@ -77,7 +77,8 @@ export function CAVInformationPartial(props: ActiveCourseInformationPartialProps
                         elementTrue={
                             <Button
                                 className={"mt-3 lg:mt-0"}
-                                loading={props.loadingCourse || props.course?.UsersBelongsToCourses?.next_training_type == null}
+                                loading={props.loadingCourse}
+                                disabled={props.course?.UsersBelongsToCourses?.next_training_type == null}
                                 icon={<TbChevronsRight size={20} />}
                                 size={SIZE_OPTS.SM}
                                 onClick={() => props.setShowRequestTrainingModal(true)}

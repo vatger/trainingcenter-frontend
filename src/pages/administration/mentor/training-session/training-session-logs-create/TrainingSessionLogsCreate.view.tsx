@@ -26,6 +26,7 @@ export type ParticipantStatus = {
     passed: boolean;
     visible: boolean;
     nextTraining: number;
+    course_completed: boolean;
 };
 
 export function TrainingSessionLogsCreateView() {
@@ -48,6 +49,7 @@ export function TrainingSessionLogsCreateView() {
     const [logTemplateElements, setLogTemplateElements] = useState<(LogTemplateElement & { uuid: string })[]>([]);
     const [participantValues, setParticipantValues] = useState<ParticipantStatus[] | undefined>(undefined);
 
+    const [completedIds, setCompletedIds] = useState<number[]>([]);
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     useEffect(() => {
@@ -80,6 +82,7 @@ export function TrainingSessionLogsCreateView() {
                 passed: true,
                 visible: true,
                 nextTraining: -1,
+                course_completed: false
             });
         }
 
@@ -118,11 +121,27 @@ export function TrainingSessionLogsCreateView() {
                                             Bestanden
                                         </Checkbox>
                                         <Checkbox className={"mt-3"} checked onChange={e => participantValues![index].visible = e}>
-                                            Log Öffentlich (für den Trainee sichtbar)
+                                            Log Öffentlich - Für den Trainee sichtbar
+                                        </Checkbox>
+                                        <Checkbox
+                                            className={"mt-3"}
+                                            checked={false}
+                                            onChange={e => {
+                                                participantValues![index].course_completed = e
+
+                                                if (e) {
+                                                    setCompletedIds([...completedIds, index]);
+                                                } else {
+                                                    setCompletedIds(completedIds.filter(c => c != index));
+                                                }
+                                            }}
+                                        >
+                                            Kurs Abgeschlossen - Markiert den Kurs als abgeschlossen und ignoriert die Auswahl des nächsten Trainings
                                         </Checkbox>
                                         <Select
                                             label={"Nächstes Training"}
                                             labelSmall
+                                            disabled={completedIds.includes(index)}
                                             className={"mt-3"}
                                             defaultValue={"-1"}
                                             onChange={e => {
