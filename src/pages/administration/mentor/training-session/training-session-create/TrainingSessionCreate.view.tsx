@@ -24,6 +24,7 @@ import FormHelper from "@/utils/helper/FormHelper";
 import useApi from "@/utils/hooks/useApi";
 import { CourseModel } from "@/models/CourseModel";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
+import {TrainingSessionModel} from "@/models/TrainingSessionModel";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -66,22 +67,18 @@ export function TrainingSessionCreateView() {
             .finally(() => setLoadingUser(false));
     }
 
-    function createSession(event?: FormEvent<HTMLFormElement>) {
-        event?.preventDefault();
-        if (event == null) {
-            ToastHelper.error("Ein unerwarteter Fehler ist aufgetreten. Versuche es bitte erneut.");
-            return;
-        }
+    function createSession(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
 
         const data = FormHelper.getEntries(event?.target) as { date: string; course_uuid: string; training_type_id: number; training_station_id: string };
 
         setSubmitting(true);
         TrainingSessionAdminService.createTrainingSession(participants, data.course_uuid, data.training_type_id, data.training_station_id, data.date)
-            .then(session => {
+            .then((session: TrainingSessionModel) => {
                 ToastHelper.success("Session wurde erfolgreich erstellt");
                 navigate(`/administration/training-request/planned/${session.uuid}`);
             })
-            .catch(err => {
+            .catch(() => {
                 ToastHelper.error("Fehler beim Erstellen der Session");
             })
             .finally(() => setSubmitting(false));

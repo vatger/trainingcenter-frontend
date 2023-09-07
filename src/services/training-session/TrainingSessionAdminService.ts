@@ -23,10 +23,8 @@ async function createTrainingSession(
     date?: string
 ): Promise<TrainingSessionModel> {
     if (users.length == 0) {
-        throw new Error("At least one user must exist");
+        throw new Error();
     }
-
-    console.log(training_station_id);
 
     return axiosInstance
         .put("/administration/training-session/training", {
