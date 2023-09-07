@@ -1,7 +1,7 @@
 import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Input } from "../../../../../components/ui/Input/Input";
-import { TbUser } from "react-icons/all";
+import { TbUser } from "react-icons/tb";
 import { useContext, useState } from "react";
 import { useDebounce } from "../../../../../utils/hooks/useDebounce";
 import { UserModel } from "../../../../../models/UserModel";

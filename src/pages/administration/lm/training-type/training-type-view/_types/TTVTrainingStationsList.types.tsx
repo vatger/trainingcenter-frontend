@@ -1,7 +1,7 @@
 import { TableColumn } from "react-data-table-component";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
 import { Button } from "../../../../../../components/ui/Button/Button";
-import { TbTrash } from "react-icons/all";
+import { TbTrash } from "react-icons/tb";
 import { TrainingStationModel } from "../../../../../../models/TrainingStationModel";
 import { Badge } from "../../../../../../components/ui/Badge/Badge";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";

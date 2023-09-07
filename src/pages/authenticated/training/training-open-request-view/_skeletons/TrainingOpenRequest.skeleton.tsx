@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendar, TbCalendarEvent, TbCalendarTime, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
+import { TbCalendar, TbCalendarEvent, TbCalendarTime, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/tb";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { Separator } from "@/components/ui/Separator/Separator";

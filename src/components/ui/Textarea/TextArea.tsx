@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
-import { TbAlertCircle } from "react-icons/all";
+import { TbAlertCircle } from "react-icons/tb";
 import { getColorClassBasedOnPercentage } from "../../../utils/helper/ColorHelper";
 import { RenderIf } from "../../conditionals/RenderIf";
 import { TextAreaProps } from "./TextArea.props";

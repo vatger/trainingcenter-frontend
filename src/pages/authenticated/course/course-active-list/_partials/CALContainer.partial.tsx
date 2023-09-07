@@ -4,7 +4,7 @@ import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../../../../assets/theme.config";
 import { CourseModel } from "../../../../../models/CourseModel";
 import { Badge } from "../../../../../components/ui/Badge/Badge";
-import { TbEye } from "react-icons/all";
+import { TbEye } from "react-icons/tb";
 
 export function CALContainerPartial(props: { course: CourseModel }) {
     const cardHeader = (

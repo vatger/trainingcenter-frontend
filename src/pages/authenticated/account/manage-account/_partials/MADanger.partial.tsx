@@ -1,7 +1,7 @@
 import { ManageAccountElement } from "../../../../../components/ui/Account/ManageAccountElement";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../../../../assets/theme.config";
-import { TbLogout, TbTrash } from "react-icons/all";
+import { TbLogout, TbTrash } from "react-icons/tb";
 
 export function MADangerPartial() {
     return (

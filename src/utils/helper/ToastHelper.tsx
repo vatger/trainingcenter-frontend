@@ -1,5 +1,5 @@
 import { Id, toast, ToastOptions, UpdateOptions } from "react-toastify";
-import { TbCircleCheck, TbCircleX } from "react-icons/all";
+import { TbCircleCheck, TbCircleX } from "react-icons/tb";
 import { Spinner } from "@/components/ui/Spinner/Spinner";
 
 /**

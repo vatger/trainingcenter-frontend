@@ -2,7 +2,7 @@ import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Input } from "../../../../../components/ui/Input/Input";
 import { Button } from "../../../../../components/ui/Button/Button";
-import { TbCheckbox, TbPlus } from "react-icons/all";
+import { TbCheckbox, TbPlus } from "react-icons/tb";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
 import PermissionAdministrationService from "../../../../../services/permissions/PermissionAdminService";

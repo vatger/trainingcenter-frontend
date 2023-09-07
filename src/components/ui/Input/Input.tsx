@@ -2,7 +2,7 @@ import { InputProps } from "./Input.props";
 import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
 import { Spinner } from "../Spinner/Spinner";
 import { useEffect, useState } from "react";
-import { TbAlertCircle } from "react-icons/all";
+import { TbAlertCircle } from "react-icons/tb";
 
 export function Input(props: InputProps) {
     const [inputVal, setInputVal] = useState<string>(props.value ?? "");

@@ -2,7 +2,7 @@ import { TableColumn } from "react-data-table-component";
 import { UserModel } from "../../../../../../models/UserModel";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
-import { TbCircleMinus } from "react-icons/all";
+import { TbCircleMinus } from "react-icons/tb";
 
 function getColumns(): TableColumn<UserModel>[] {
     return [

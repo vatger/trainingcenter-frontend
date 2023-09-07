@@ -3,7 +3,7 @@ import { UserMentorGroupThrough, UserModel } from "@/models/UserModel";
 import { Table } from "@/components/ui/Table/Table";
 import MGViewUsersTypes from "@/pages/administration/lm/mentor-group/mentor-group-view/_types/MGVUsers.types";
 import { Input } from "@/components/ui/Input/Input";
-import { TbUser } from "react-icons/all";
+import { TbUser } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { Separator } from "@/components/ui/Separator/Separator";

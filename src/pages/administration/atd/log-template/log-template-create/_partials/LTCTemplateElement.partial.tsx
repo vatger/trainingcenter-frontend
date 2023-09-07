@@ -7,7 +7,7 @@ import {
 } from "../_types/LTCElement.types";
 import { ProgressBar } from "../../../../../../components/ui/ProgressBar/ProgressBar";
 import { Button } from "../../../../../../components/ui/Button/Button";
-import { TbArrowDown, TbArrowUp, TbTrash } from "react-icons/all";
+import { TbArrowDown, TbArrowUp, TbTrash } from "react-icons/tb";
 import { COLOR_OPTS } from "../../../../../../assets/theme.config";
 import { Dispatch } from "react";
 import { RenderIf } from "../../../../../../components/conditionals/RenderIf";

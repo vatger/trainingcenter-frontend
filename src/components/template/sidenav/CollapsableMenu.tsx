@@ -1,4 +1,4 @@
-import { FaChevronDown } from "react-icons/all";
+import { FaChevronDown } from "react-icons/fa";
 import React, { useContext, useRef } from "react";
 import { MENU_ITEM_HEIGHT } from "../../../assets/theme.config";
 import { generateUUID } from "../../../utils/helper/UUIDHelper";

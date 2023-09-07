@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import TrainingRequestAdminService from "../../../../../services/training-request/TrainingRequestAdminService";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendarEvent, TbCalendarPlus, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
+import { TbCalendarEvent, TbCalendarPlus, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/tb";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { Separator } from "@/components/ui/Separator/Separator";

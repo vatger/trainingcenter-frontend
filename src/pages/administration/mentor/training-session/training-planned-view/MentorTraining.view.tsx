@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendarEvent, TbClipboardPlus, TbId } from "react-icons/all";
+import { TbCalendarEvent, TbClipboardPlus, TbId } from "react-icons/tb";
 import dayjs from "dayjs";
 import { Select } from "@/components/ui/Select/Select";
 import { MapArray } from "@/components/conditionals/MapArray";

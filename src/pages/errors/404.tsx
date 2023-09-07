@@ -1,4 +1,4 @@
-import { TbArrowLeft, TbZoomQuestion } from "react-icons/all";
+import { TbArrowLeft, TbZoomQuestion } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../assets/theme.config";

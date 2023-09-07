@@ -3,7 +3,7 @@ import { NotificationModel } from "@/models/NotificationModel";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { Button } from "@/components/ui/Button/Button";
-import { TbEye, TbEyeOff, TbTrash } from "react-icons/all";
+import { TbEye, TbEyeOff, TbTrash } from "react-icons/tb";
 import NotificationHelper from "@/utils/helper/NotificationHelper";
 import { LanguageEnum } from "@/utils/contexts/LanguageContext";
 import dayjs from "dayjs";

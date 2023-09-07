@@ -7,7 +7,7 @@ import OpenRequestListTypes from "./_types/OTRLList.types";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../../../../components/ui/Input/Input";
 import { Button } from "../../../../../components/ui/Button/Button";
-import { TbFilter } from "react-icons/all";
+import { TbFilter } from "react-icons/tb";
 import { COLOR_OPTS } from "../../../../../assets/theme.config";
 import { useState } from "react";
 import { useDebounce } from "../../../../../utils/hooks/useDebounce";

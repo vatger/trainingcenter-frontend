@@ -4,7 +4,7 @@ import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { TbEye, TbTrash } from "react-icons/all";
+import { TbEye, TbTrash } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
 import { Dispatch } from "react";
 

@@ -1,4 +1,4 @@
-import { TbCheck, TbX } from "react-icons/all";
+import { TbCheck, TbX } from "react-icons/tb";
 import React from "react";
 import EnrolRequirementStringHelper from "@/pages/authenticated/course/course-enrol/_helper/EnrolRequirementStringHelper";
 import { RenderIf } from "@/components/conditionals/RenderIf";

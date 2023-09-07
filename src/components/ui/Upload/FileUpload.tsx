@@ -1,4 +1,4 @@
-import { TbCheck, TbUpload, TbX } from "react-icons/all";
+import { TbCheck, TbUpload, TbX } from "react-icons/tb";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { MapArray } from "../../conditionals/MapArray";
 import prettyBytes from "pretty-bytes";

@@ -12,7 +12,7 @@ import { CLContainerPartial } from "./_partials/CLContainer.partial";
 import { useFilter } from "@/utils/hooks/useFilter";
 import { fuzzySearch } from "@/utils/helper/fuzzysearch/FuzzySearchHelper";
 import { Button } from "@/components/ui/Button/Button";
-import { TbFilter } from "react-icons/all";
+import { TbFilter } from "react-icons/tb";
 import { Card } from "@/components/ui/Card/Card";
 import { Separator } from "@/components/ui/Separator/Separator";
 import useApi from "@/utils/hooks/useApi";

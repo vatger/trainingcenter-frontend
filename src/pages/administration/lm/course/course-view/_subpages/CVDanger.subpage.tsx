@@ -1,6 +1,6 @@
 import { ManageAccountElement } from "../../../../../../components/ui/Account/ManageAccountElement";
 import { Button } from "../../../../../../components/ui/Button/Button";
-import { TbRepeat, TbTrash } from "react-icons/all";
+import { TbRepeat, TbTrash } from "react-icons/tb";
 import { COLOR_OPTS } from "../../../../../../assets/theme.config";
 import { useState } from "react";
 

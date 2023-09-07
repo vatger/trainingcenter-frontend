@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { TbArrowLeft } from "react-icons/all";
+import { TbArrowLeft } from "react-icons/tb";
 import { PageHeaderProps } from "./PageHeader.props";
 
 export function PageHeader(props: PageHeaderProps) {

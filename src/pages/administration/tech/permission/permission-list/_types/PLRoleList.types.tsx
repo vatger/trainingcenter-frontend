@@ -4,7 +4,7 @@ import { RoleModel } from "../../../../../../models/PermissionModel";
 import moment from "moment/moment";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
-import { TbEye } from "react-icons/all";
+import { TbEye } from "react-icons/tb";
 
 function getTableColumn(navigate: NavigateFunction): (TableColumn<RoleModel> & { searchable?: boolean })[] {
     return [

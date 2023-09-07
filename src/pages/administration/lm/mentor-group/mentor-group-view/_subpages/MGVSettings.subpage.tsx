@@ -1,5 +1,5 @@
 import { Input } from "../../../../../../components/ui/Input/Input";
-import { TbEdit, TbId, TbMap2 } from "react-icons/all";
+import { TbEdit, TbId, TbMap2 } from "react-icons/tb";
 import { Select } from "../../../../../../components/ui/Select/Select";
 import { Separator } from "../../../../../../components/ui/Separator/Separator";
 import { Button } from "../../../../../../components/ui/Button/Button";

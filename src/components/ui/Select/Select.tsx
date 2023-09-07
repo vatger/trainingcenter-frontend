@@ -1,6 +1,6 @@
 import { SelectProps } from "./Select.props";
 import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
-import { TbAlertCircle, TbChevronDown } from "react-icons/all";
+import { TbAlertCircle, TbChevronDown } from "react-icons/tb";
 import { useState } from "react";
 import { Spinner } from "../Spinner/Spinner";
 

@@ -2,7 +2,7 @@ import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "../../../../components/ui/Card/Card";
 import { Input } from "../../../../components/ui/Input/Input";
-import { TbCalendar, TbCalendarEvent, TbCalendarTime, TbClipboard, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/all";
+import { TbCalendar, TbCalendarEvent, TbCalendarTime, TbClipboard, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/tb";
 import React, { useState } from "react";
 import TrainingRequestService from "../../../../services/training-request/TrainingRequestService";
 import { Button } from "../../../../components/ui/Button/Button";

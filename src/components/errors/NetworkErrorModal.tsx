@@ -6,7 +6,7 @@ import { ConversionUtils } from "turbocommons-ts";
 import moment from "moment";
 import { Button } from "../ui/Button/Button";
 import { COLOR_OPTS } from "../../assets/theme.config";
-import { TbCheck, TbCopy } from "react-icons/all";
+import { TbCheck, TbCopy } from "react-icons/tb";
 import { copyText } from "../../utils/helper/clipboard/ClipboardHelper";
 import { Separator } from "../ui/Separator/Separator";
 import { Accordion } from "../ui/Accordion/Accordion";

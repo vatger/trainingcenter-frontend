@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import TrainingRequestAdminService from "@/services/training-request/TrainingRequestAdminService";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendarEvent, TbCalendarPlus, TbId, TbUser } from "react-icons/all";
+import { TbCalendarEvent, TbCalendarPlus, TbId, TbUser } from "react-icons/tb";
 import dayjs from "dayjs";
 import React, { FormEvent, FormEventHandler, useEffect, useRef, useState } from "react";
 import { Table } from "@/components/ui/Table/Table";

@@ -7,7 +7,7 @@ import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
 import React from "react";
 import { Card } from "../../../../../../components/ui/Card/Card";
 import { Button } from "../../../../../../components/ui/Button/Button";
-import { TbPlus } from "react-icons/all";
+import { TbPlus } from "react-icons/tb";
 
 export function UVUserCoursesPartial(props: { courses: CourseModel[] | undefined }) {
     const navigate = useNavigate();

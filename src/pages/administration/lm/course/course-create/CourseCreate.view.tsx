@@ -6,7 +6,7 @@ import { generateUUID } from "@/utils/helper/UUIDHelper";
 import CourseAdministrationService from "../../../../../services/course/CourseAdminService";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Input } from "@/components/ui/Input/Input";
-import { TbActivity, TbFilePlus, TbId, TbLock, TbTemplate } from "react-icons/all";
+import { TbActivity, TbFilePlus, TbId, TbLock, TbTemplate } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
 import { useNavigate } from "react-router-dom";
 import UserService from "../../../../../services/user/UserService";

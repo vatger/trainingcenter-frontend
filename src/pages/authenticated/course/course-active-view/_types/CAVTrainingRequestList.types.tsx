@@ -4,7 +4,7 @@ import { Badge } from "../../../../../components/ui/Badge/Badge";
 import moment from "moment";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
-import { TbEye } from "react-icons/all";
+import { TbEye } from "react-icons/tb";
 import React from "react";
 import { NavigateFunction } from "react-router-dom";
 

@@ -5,7 +5,7 @@ import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import React from "react";
 import moment from "moment";
 import { Button } from "../../../../../components/ui/Button/Button";
-import { TbEye } from "react-icons/all";
+import { TbEye } from "react-icons/tb";
 import { NavigateFunction } from "react-router-dom";
 
 function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {

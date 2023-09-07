@@ -1,4 +1,4 @@
-import { TbX } from "react-icons/all";
+import { TbX } from "react-icons/tb";
 import { RenderIf } from "../../conditionals/RenderIf";
 import React, { useRef } from "react";
 import { Separator } from "../Separator/Separator";

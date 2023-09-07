@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import CourseService from "../../../../../services/course/CourseService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { useNavigate } from "react-router-dom";
-import { TbTrash } from "react-icons/all";
+import { TbTrash } from "react-icons/tb";
 
 type WithdrawFromCoursePartialProps = {
     show: boolean;

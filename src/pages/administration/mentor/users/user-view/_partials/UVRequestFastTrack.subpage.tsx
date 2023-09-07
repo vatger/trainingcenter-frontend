@@ -2,7 +2,7 @@ import { PageHeader } from "../../../../../../components/ui/PageHeader/PageHeade
 import { Card } from "../../../../../../components/ui/Card/Card";
 import { FileUpload } from "../../../../../../components/ui/Upload/FileUpload";
 import { FormEvent, useState } from "react";
-import { TbActivity, TbId, TbListCheck } from "react-icons/all";
+import { TbActivity, TbId, TbListCheck } from "react-icons/tb";
 import { Input } from "../../../../../../components/ui/Input/Input";
 import { Separator } from "../../../../../../components/ui/Separator/Separator";
 import { useParams } from "react-router-dom";

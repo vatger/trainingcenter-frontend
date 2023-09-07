@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import { CourseModel } from "@/models/CourseModel";
 import { Badge } from "@/components/ui/Badge/Badge";
-import { TbClipboardText } from "react-icons/all";
+import { TbClipboardText } from "react-icons/tb";
 
 export function CLContainerPartial(props: { course: CourseModel }) {
     const cardHeader = (

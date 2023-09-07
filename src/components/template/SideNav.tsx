@@ -30,7 +30,7 @@ import {
     TbTemplate,
     TbUsers,
     TbX,
-} from "react-icons/all";
+} from "react-icons/tb";
 import { CollapsableMenu } from "./sidenav/CollapsableMenu";
 import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 import { handleResize } from "./sidenav/SideNav.helper";

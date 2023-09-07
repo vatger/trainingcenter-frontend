@@ -8,7 +8,7 @@ import { useState } from "react";
 import { CVMentorGroupMembersPartial } from "@/pages/administration/lm/course/course-view/_partials/CVMentorGroupMembers.partial";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Select } from "@/components/ui/Select/Select";
-import { TbPlus } from "react-icons/all";
+import { TbPlus } from "react-icons/tb";
 import useApi from "@/utils/hooks/useApi";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { RenderIf } from "@/components/conditionals/RenderIf";

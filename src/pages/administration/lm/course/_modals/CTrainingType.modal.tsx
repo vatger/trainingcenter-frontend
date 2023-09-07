@@ -1,6 +1,6 @@
 import { Modal } from "../../../../../components/ui/Modal/Modal";
 import { Input } from "../../../../../components/ui/Input/Input";
-import { TbSearch } from "react-icons/all";
+import { TbSearch } from "react-icons/tb";
 import { useState } from "react";
 import { TrainingTypeModel } from "../../../../../models/TrainingTypeModel";
 import TrainingTypeService from "../../../../../services/training-type/TrainingTypeAdminService";

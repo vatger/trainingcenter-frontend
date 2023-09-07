@@ -3,7 +3,7 @@ import { TableColumn } from "react-data-table-component";
 import moment from "moment";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
-import { TbEye } from "react-icons/all";
+import { TbEye } from "react-icons/tb";
 import { PermissionModel } from "../../../../../../models/PermissionModel";
 
 export function getPermissionTableColumns(navigate: NavigateFunction): TableColumn<PermissionModel>[] {

@@ -1,4 +1,4 @@
-import { TbMenu2 } from "react-icons/all";
+import { TbMenu2 } from "react-icons/tb";
 import { useContext } from "react";
 import { sideNavMenuContext } from "../../../utils/contexts/SideNavMenuContext";
 import { UserProfileHeader } from "./UserProfileHeader";

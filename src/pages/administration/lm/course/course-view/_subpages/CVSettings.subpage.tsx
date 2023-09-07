@@ -1,6 +1,6 @@
 import { CourseModel, CourseSkillTemplateModel } from "@/models/CourseModel";
 import { Input } from "@/components/ui/Input/Input";
-import { TbActivity, TbCalendarEvent, TbCirclePlus, TbEdit, TbId, TbLock, TbTemplate, TbTrash } from "react-icons/all";
+import { TbActivity, TbCalendarEvent, TbCirclePlus, TbEdit, TbId, TbLock, TbTemplate, TbTrash } from "react-icons/tb";
 import moment from "moment/moment";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";

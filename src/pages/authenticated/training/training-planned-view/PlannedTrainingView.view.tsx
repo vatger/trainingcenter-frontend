@@ -3,7 +3,7 @@ import TrainingSessionService from "../../../../services/training-session/Traini
 import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "../../../../components/ui/Card/Card";
 import { Input } from "../../../../components/ui/Input/Input";
-import { TbCalendarEvent, TbDoorExit, TbId, TbListCheck, TbRadar, TbUsers } from "react-icons/all";
+import { TbCalendarEvent, TbDoorExit, TbId, TbListCheck, TbRadar, TbUsers } from "react-icons/tb";
 import React, { useState } from "react";
 import StringHelper from "../../../../utils/helper/StringHelper";
 import dayjs from "dayjs";

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDebounce } from "../../../../../utils/hooks/useDebounce";
 import { Modal } from "../../../../../components/ui/Modal/Modal";
 import { Input } from "../../../../../components/ui/Input/Input";
-import { TbSearch } from "react-icons/all";
+import { TbSearch } from "react-icons/tb";
 import { RenderIf } from "../../../../../components/conditionals/RenderIf";
 import { Separator } from "../../../../../components/ui/Separator/Separator";
 import { MapArray } from "../../../../../components/conditionals/MapArray";

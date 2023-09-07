@@ -1,5 +1,5 @@
 import { TableColumn } from "react-data-table-component";
-import { TbCheck, TbEdit, TbTrash } from "react-icons/all";
+import { TbCheck, TbEdit, TbTrash } from "react-icons/tb";
 import { Dispatch, useState } from "react";
 import { IUserInMentorGroup } from "@/pages/administration/lm/mentor-group/mentor-group-create/MentorGroupCreate.view";
 import { Checkbox } from "@/components/ui/Checkbox/Checkbox";

@@ -4,7 +4,7 @@ import StringHelper from "../../../../../utils/helper/StringHelper";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../../../../assets/theme.config";
 import { Separator } from "../../../../../components/ui/Separator/Separator";
-import { TbChecklist } from "react-icons/all";
+import { TbChecklist } from "react-icons/tb";
 import TrainingTypeService from "../../../../../services/training-type/TrainingTypeService";
 import { CourseModel } from "../../../../../models/CourseModel";
 import { RenderIf } from "../../../../../components/conditionals/RenderIf";

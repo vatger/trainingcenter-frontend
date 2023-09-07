@@ -6,7 +6,7 @@ import React, { Dispatch } from "react";
 import { TrainingSessionModel } from "../../../../../models/TrainingSessionModel";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../../../../assets/theme.config";
-import { TbDoorExit } from "react-icons/all";
+import { TbDoorExit } from "react-icons/tb";
 import dayjs from "dayjs";
 import { Config } from "../../../../../core/Config";
 

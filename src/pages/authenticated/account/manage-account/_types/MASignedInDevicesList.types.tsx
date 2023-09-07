@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { Dispatch, useState } from "react";
 import { UserSessionModel } from "@/models/UserSessionModel";
-import { TbTrash } from "react-icons/all";
+import { TbTrash } from "react-icons/tb";
 import SessionService from "@/services/login/SessionService";
 import ToastHelper from "@/utils/helper/ToastHelper";
 

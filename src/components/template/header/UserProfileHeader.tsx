@@ -1,4 +1,4 @@
-import { TbActivityHeartbeat, TbLogout, TbSettings, TbUser } from "react-icons/all";
+import { TbActivityHeartbeat, TbLogout, TbSettings, TbUser } from "react-icons/tb";
 import { MenuItem } from "../../ui/MenuItem/MenuItem";
 import { useContext, useEffect, useRef, useState } from "react";
 import { generateUUID } from "../../../utils/helper/UUIDHelper";

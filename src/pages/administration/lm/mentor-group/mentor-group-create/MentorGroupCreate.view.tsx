@@ -1,7 +1,7 @@
 import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Input } from "../../../../../components/ui/Input/Input";
-import { TbCirclePlus, TbFilePlus, TbId, TbMap2, TbPlus, TbUser } from "react-icons/all";
+import { TbCirclePlus, TbFilePlus, TbId, TbMap2, TbPlus, TbUser } from "react-icons/tb";
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { Separator } from "../../../../../components/ui/Separator/Separator";

@@ -1,4 +1,4 @@
-import { TbBell, TbMailOpened } from "react-icons/all";
+import { TbBell, TbMailOpened } from "react-icons/tb";
 import { Dispatch, useContext, useEffect, useRef, useState } from "react";
 import { generateUUID } from "../../../utils/helper/UUIDHelper";
 import { NotificationModel } from "../../../models/NotificationModel";

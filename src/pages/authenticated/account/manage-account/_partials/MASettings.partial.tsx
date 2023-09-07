@@ -8,7 +8,7 @@ import themeContext from "../../../../../utils/contexts/ThemeContext";
 import languageContext, { LanguageEnum } from "../../../../../utils/contexts/LanguageContext";
 import GDPRService from "../../../../../services/user/UserGDPRService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import { TbDownload, TbRefresh, TbRefreshOff } from "react-icons/all";
+import { TbDownload, TbRefresh, TbRefreshOff } from "react-icons/tb";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import authContext from "../../../../../utils/contexts/AuthContext";
 import moment from "moment";

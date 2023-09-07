@@ -1,4 +1,4 @@
-import { AiOutlineFileImage, AiOutlineFileJpg, AiOutlineFilePdf, AiOutlineFileUnknown, AiOutlineFileZip } from "react-icons/all";
+import { AiOutlineFileImage, AiOutlineFileJpg, AiOutlineFilePdf, AiOutlineFileUnknown, AiOutlineFileZip } from "react-icons/ai";
 import React from "react";
 
 function fileImage(fileExt: string) {

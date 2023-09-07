@@ -2,7 +2,7 @@ import { AlertProps } from "./Alert.props";
 import { TwoToneColors } from "../../../assets/styles/ColorMap";
 import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
 import { getAlertIcon } from "./Alert.helper";
-import { TbX } from "react-icons/all";
+import { TbX } from "react-icons/tb";
 import { useState } from "react";
 
 export function Alert(props: AlertProps) {

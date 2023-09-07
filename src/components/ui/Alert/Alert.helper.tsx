@@ -1,6 +1,6 @@
 import { AlertProps } from "./Alert.props";
 import { TYPE_OPTS } from "@/assets/theme.config";
-import { TbAlertCircle, TbCircleCheck, TbCircleX, TbInfoCircle } from "react-icons/all";
+import { TbAlertCircle, TbCircleCheck, TbCircleX, TbInfoCircle } from "react-icons/tb";
 
 export function getAlertIcon(props: AlertProps) {
     switch (props.type) {

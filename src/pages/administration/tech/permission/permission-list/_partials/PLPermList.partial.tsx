@@ -2,7 +2,7 @@ import { Card } from "../../../../../../components/ui/Card/Card";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
 import { Table } from "../../../../../../components/ui/Table/Table";
 import { Button } from "../../../../../../components/ui/Button/Button";
-import { TbPlus } from "react-icons/all";
+import { TbPlus } from "react-icons/tb";
 import { PLAddPermissionModal } from "../_modals/PLAddPermission.modal";
 import PermissionAdministrationService from "../../../../../../services/permissions/PermissionAdminService";
 import { useNavigate } from "react-router-dom";

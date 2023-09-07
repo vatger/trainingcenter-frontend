@@ -12,7 +12,7 @@ import { generateUUID } from "@/utils/helper/UUIDHelper";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
-import { TbPlus } from "react-icons/all";
+import { TbPlus } from "react-icons/tb";
 import TrainingSessionService from "@/services/USE_THIS_LATER/TrainingSessionService";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 

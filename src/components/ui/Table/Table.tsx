@@ -1,7 +1,7 @@
 import { TableProps } from "./Table.props";
 import { Input } from "../Input/Input";
 import DataTable from "react-data-table-component";
-import { TbSortDescending } from "react-icons/all";
+import { TbSortDescending } from "react-icons/tb";
 import { Spinner } from "../Spinner/Spinner";
 import { RenderIf } from "../../conditionals/RenderIf";
 import { useContext, useEffect, useState } from "react";

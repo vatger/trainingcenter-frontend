@@ -3,7 +3,7 @@ import { TTAddLogTemplateModal } from "../_modals/TTAddLogTemplate.modal";
 import { TrainingLogTemplateModel } from "../../../../../models/TrainingLogTemplateModel";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Input } from "../../../../../components/ui/Input/Input";
-import { TbBook2, TbCirclePlus, TbFilePlus, TbId, TbTemplate, TbTrash } from "react-icons/all";
+import { TbBook2, TbCirclePlus, TbFilePlus, TbId, TbTemplate, TbTrash } from "react-icons/tb";
 import { Select } from "../../../../../components/ui/Select/Select";
 import { Separator } from "../../../../../components/ui/Separator/Separator";
 import { Button } from "../../../../../components/ui/Button/Button";

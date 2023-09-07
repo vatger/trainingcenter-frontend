@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/Input/Input";
 import { CCourseSkeleton } from "../_skeletons/CCourse.skeleton";
 import React, { useState } from "react";
 import { RenderIf } from "@/components/conditionals/RenderIf";
-import { TbFilter } from "react-icons/all";
+import { TbFilter } from "react-icons/tb";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { CourseModel } from "@/models/CourseModel";
 import { useDebounce } from "@/utils/hooks/useDebounce";

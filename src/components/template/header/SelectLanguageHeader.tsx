@@ -1,4 +1,4 @@
-import { BiCheck } from "react-icons/all";
+import { BiCheck } from "react-icons/bi";
 import { MenuItem } from "../../ui/MenuItem/MenuItem";
 import { useContext, useEffect, useRef, useState } from "react";
 import { generateUUID } from "../../../utils/helper/UUIDHelper";

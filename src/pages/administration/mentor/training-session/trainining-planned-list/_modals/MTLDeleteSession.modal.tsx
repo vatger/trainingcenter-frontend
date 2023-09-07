@@ -5,7 +5,7 @@ import { Config } from "@/core/Config";
 import { Input } from "@/components/ui/Input/Input";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
-import { TbTrash } from "react-icons/all";
+import { TbTrash } from "react-icons/tb";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { useState } from "react";
 import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";

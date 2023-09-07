@@ -2,7 +2,7 @@ import { TableColumn } from "react-data-table-component";
 import moment from "moment/moment";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
-import { TbEye } from "react-icons/all";
+import { TbEye } from "react-icons/tb";
 import { Link, NavigateFunction } from "react-router-dom";
 import { TrainingRequestModel } from "../../../../../../models/TrainingRequestModel";
 

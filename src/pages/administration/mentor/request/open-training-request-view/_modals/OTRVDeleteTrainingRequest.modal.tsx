@@ -4,7 +4,7 @@ import { COLOR_OPTS } from "../../../../../../assets/theme.config";
 import { TrainingRequestModel } from "../../../../../../models/TrainingRequestModel";
 import { useState } from "react";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
-import { TbTrash } from "react-icons/all";
+import { TbTrash } from "react-icons/tb";
 import TrainingRequestAdminService from "../../../../../../services/training-request/TrainingRequestAdminService";
 
 /**

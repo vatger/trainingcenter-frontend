@@ -2,7 +2,7 @@ import { Modal } from "../../../../../../components/ui/Modal/Modal";
 import { CourseModel } from "../../../../../../models/CourseModel";
 import { UserModel } from "../../../../../../models/UserModel";
 import { Input } from "../../../../../../components/ui/Input/Input";
-import { TbClipboardPlus, TbUser } from "react-icons/all";
+import { TbClipboardPlus, TbUser } from "react-icons/tb";
 import { Separator } from "../../../../../../components/ui/Separator/Separator";
 import { MapArray } from "../../../../../../components/conditionals/MapArray";
 import { Select } from "../../../../../../components/ui/Select/Select";

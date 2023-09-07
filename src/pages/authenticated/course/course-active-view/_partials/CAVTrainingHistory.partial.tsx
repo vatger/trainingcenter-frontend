@@ -4,7 +4,7 @@ import { COLOR_OPTS, SIZE_OPTS, TYPE_OPTS } from "@/assets/theme.config";
 import { TimeLine, TimeLineItem } from "@/components/ui/Timeline/TimeLine";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { TrainingSessionModel, UserTrainingSessionModel } from "@/models/TrainingSessionModel";
-import { TbCalendar, TbCalendarStats, TbCheck, TbClipboardList, TbX } from "react-icons/all";
+import { TbCalendar, TbCalendarStats, TbCheck, TbClipboardList, TbX } from "react-icons/tb";
 import { TrainingLogModel, TrainingSessionBelongsToUserModel } from "@/models/TrainingSessionBelongsToUser.model";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/Button/Button";

@@ -3,7 +3,7 @@ import { TableColumn } from "react-data-table-component";
 import { Badge } from "../../../../../../components/ui/Badge/Badge";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
 import { Button } from "../../../../../../components/ui/Button/Button";
-import { TbEye } from "react-icons/all";
+import { TbEye } from "react-icons/tb";
 import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
 
 function getColumns(navigate: NavigateFunction): (TableColumn<MentorGroupModel> & { searchable?: boolean })[] {

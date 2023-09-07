@@ -1,6 +1,6 @@
 import { UserTrainingSessionModel } from "@/models/TrainingSessionModel";
 import React, { ReactElement } from "react";
-import { TbCalendar, TbCheck, TbX } from "react-icons/all";
+import { TbCalendar, TbCheck, TbX } from "react-icons/tb";
 
 /**
  * Returns the color to be used for the timeline icon.

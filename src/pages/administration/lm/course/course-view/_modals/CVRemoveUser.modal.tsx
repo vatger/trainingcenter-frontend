@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import React, { useState } from "react";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
-import { TbTrash } from "react-icons/all";
+import { TbTrash } from "react-icons/tb";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 type RemoveUserModalPartialProps = {

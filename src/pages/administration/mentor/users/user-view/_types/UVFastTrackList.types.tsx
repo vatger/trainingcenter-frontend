@@ -5,7 +5,7 @@ import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
 import { Badge } from "../../../../../../components/ui/Badge/Badge";
 import moment from "moment";
 import { Button } from "../../../../../../components/ui/Button/Button";
-import { TbEye } from "react-icons/all";
+import { TbEye } from "react-icons/tb";
 
 function getColumns(): TableColumn<FastTrackRequestModel>[] {
     return [

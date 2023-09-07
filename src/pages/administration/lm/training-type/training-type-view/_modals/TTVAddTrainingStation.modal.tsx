@@ -1,6 +1,6 @@
 import { Modal } from "../../../../../../components/ui/Modal/Modal";
 import { Input } from "../../../../../../components/ui/Input/Input";
-import { TbCircleCheck, TbSearch } from "react-icons/all";
+import { TbCircleCheck, TbSearch } from "react-icons/tb";
 import { useState } from "react";
 import { useDebounce } from "../../../../../../utils/hooks/useDebounce";
 import { MapArray } from "../../../../../../components/conditionals/MapArray";

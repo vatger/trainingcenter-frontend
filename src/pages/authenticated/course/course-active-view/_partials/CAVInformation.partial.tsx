@@ -4,7 +4,7 @@ import { Card } from "../../../../../components/ui/Card/Card";
 import { Badge } from "../../../../../components/ui/Badge/Badge";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
 import { Input } from "../../../../../components/ui/Input/Input";
-import { TbCalendar, TbCertificate, TbChevronsRight, TbDoorExit, TbId } from "react-icons/all";
+import { TbCalendar, TbCertificate, TbChevronsRight, TbDoorExit, TbId } from "react-icons/tb";
 import moment from "moment";
 import { getAtcRatingCombined } from "../../../../../utils/helper/vatsim/AtcRatingHelper";
 import { Button } from "../../../../../components/ui/Button/Button";

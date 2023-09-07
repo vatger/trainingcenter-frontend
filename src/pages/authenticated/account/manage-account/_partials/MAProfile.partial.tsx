@@ -1,6 +1,6 @@
 import { Input } from "../../../../../components/ui/Input/Input";
 import { ManageAccountElement } from "../../../../../components/ui/Account/ManageAccountElement";
-import { TbMail, TbMapPin, TbNumbers, TbPlaneDeparture, TbRss, TbUserCircle, TbWorld } from "react-icons/all";
+import { TbMail, TbMapPin, TbNumbers, TbPlaneDeparture, TbRss, TbUserCircle, TbWorld } from "react-icons/tb";
 import { useContext } from "react";
 import authContext from "../../../../../utils/contexts/AuthContext";
 import { getAtcRatingLong, getAtcRatingShort } from "../../../../../utils/helper/vatsim/AtcRatingHelper";

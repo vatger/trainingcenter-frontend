@@ -1,4 +1,4 @@
-import { TbChevronLeft, TbChevronRight, TbDots } from "react-icons/all";
+import { TbChevronLeft, TbChevronRight, TbDots } from "react-icons/tb";
 import { useState } from "react";
 import { PaginationProps } from "./Pagination.props";
 

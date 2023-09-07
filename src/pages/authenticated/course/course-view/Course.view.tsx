@@ -6,7 +6,7 @@ import { CourseViewSkeleton } from "@/pages/authenticated/course/course-view/_sk
 import { Badge } from "@/components/ui/Badge/Badge";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCertificate, TbCheckbox, TbClock, TbId } from "react-icons/all";
+import { TbCertificate, TbCheckbox, TbClock, TbId } from "react-icons/tb";
 import { TextArea } from "@/components/ui/Textarea/TextArea";
 import { Button } from "@/components/ui/Button/Button";
 import { Card } from "@/components/ui/Card/Card";

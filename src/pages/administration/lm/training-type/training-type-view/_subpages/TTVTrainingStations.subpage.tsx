@@ -7,7 +7,7 @@ import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { TbPlus } from "react-icons/all";
+import { TbPlus } from "react-icons/tb";
 import { useState } from "react";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { axiosInstance } from "@/utils/network/AxiosInstance";

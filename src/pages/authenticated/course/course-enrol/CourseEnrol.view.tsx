@@ -9,7 +9,7 @@ import { CourseEnrolSkeleton } from "@/pages/authenticated/course/course-enrol/_
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import { Separator } from "@/components/ui/Separator/Separator";
-import { TbCheckbox, TbDoorEnter, TbX } from "react-icons/all";
+import { TbCheckbox, TbDoorEnter, TbX } from "react-icons/tb";
 import { useState } from "react";
 import CourseService from "@/services/course/CourseService";
 import ToastHelper from "@/utils/helper/ToastHelper";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TbChevronDown } from "react-icons/all";
+import { TbChevronDown } from "react-icons/tb";
 import { RenderIf } from "../../conditionals/RenderIf";
 import { AccordionProps } from "./Accordion.props";
 
