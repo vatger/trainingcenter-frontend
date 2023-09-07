@@ -74,7 +74,9 @@ export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefin
                 elementFalse={
                     <div>
                         <form onSubmit={handleFormSubmission}>
-                            <Input labelSmall name={"course_uuid"} label={"UUID"} preIcon={<TbId size={20} />} readOnly value={course?.uuid} />
+                            <Input labelSmall label={"UUID"} preIcon={<TbId size={20} />} disabled value={course?.uuid} />
+                            <Input className={"hidden"} labelSmall name={"course_uuid"} readOnly value={course?.uuid} />
+
                             <Input
                                 labelSmall
                                 disabled
