@@ -29,8 +29,8 @@ export function MASettingsPartial() {
 
     // VATSIM Data synchronisation
     const [syncingData, setSyncingData] = useState<boolean>(false);
-    const [dataSynchronisationDisabled, setDataSynchronisationDisabled] = useState<boolean>(dayjs.utc().diff(dayjs(user?.user_data?.updatedAt), "minutes") < 30);
-    const lastUserDataUpdateDate: Date = user?.user_data?.updatedAt ?? new Date();
+    const [dataSynchronisationDisabled, setDataSynchronisationDisabled] = useState<boolean>(dayjs.utc().diff(dayjs(user?.updatedAt), "minutes") < 30);
+    const lastUserDataUpdateDate: Date = user?.updatedAt ?? new Date();
 
     function setLanguage(lang: string) {
         const l = lang.toLowerCase();
