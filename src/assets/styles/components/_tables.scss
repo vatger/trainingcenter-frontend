@@ -23,7 +23,7 @@
 .table-default, .rdt_Table {
     @apply table-auto min-w-full divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800;
 
-    :nth-child(2) {
+    div:nth-child(2) {
         @apply dark:bg-transparent dark:text-white;
     }
 

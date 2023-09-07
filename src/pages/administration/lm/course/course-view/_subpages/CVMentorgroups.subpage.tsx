@@ -89,7 +89,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
                 elementTrue={<CVMentorGroupsSkeleton />}
                 elementFalse={
                     <>
-                        <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
+                        <div className={"flex flex-col"}>
                             <Select
                                 label={"Mentorengruppe Hinzufügen"}
                                 labelSmall
@@ -120,7 +120,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
                                 />
                             </Select>
 
-                            <div className={"mt-auto"}>
+                            <div className={"mt-3"}>
                                 <Checkbox checked={selectedMentorGroupEdit} onChange={setSelectedMentorGroupEdit}>
                                     Kann Kurs bearbeiten?
                                 </Checkbox>
@@ -130,7 +130,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
                         <Button
                             variant={"twoTone"}
                             color={COLOR_OPTS.PRIMARY}
-                            className={"mt-3"}
+                            className={"mt-5"}
                             icon={<TbPlus size={20} />}
                             loading={submitting}
                             size={SIZE_OPTS.SM}
