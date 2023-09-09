@@ -28,15 +28,18 @@ function render(type: LogTemplateType, element: LogTemplateElement, index: numbe
 
         case "rating":
             elem = element as LogTemplateElementRating;
+            const randValue = Math.ceil(Math.random() * elem.max);
             return (
                 <div className={"flex h-full flex-col xl:flex-row justify-between"}>
-                    <div className={"flex flex-col w-full xl:w-1/2 xl:min-w-[420px]"}>
+                    <div className={`flex flex-col w-full ${elem.disableText ? "" : "xl:w-1/2"} xl:min-w-[420px]`}>
                         <div className={"flex justify-between"}>
                             <h6 className={"mb-2"}>{elem.title}</h6>
-                            <span>1 / {elem.max}</span>
+                            <span>
+                                {randValue} / {elem.max}
+                            </span>
                         </div>
                         <div>
-                            <ProgressBar value={(1 / elem.max) * 100} hidePercentage />
+                            <ProgressBar value={(randValue / elem.max) * 100} hidePercentage />
                         </div>
                         {elem.subtitle != null && (
                             <div className={"mt-2"}>
@@ -44,15 +47,14 @@ function render(type: LogTemplateType, element: LogTemplateElement, index: numbe
                             </div>
                         )}
                     </div>
-                    <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
-                        <div className={"input h-full input-wrapper input-disabled resize-none "}>
-                            <RenderIf
-                                truthValue={elem.disableText == null || elem.disableText == false}
-                                elementTrue={<>Optionaler Kommentar zu "{elem.title}"</>}
-                                elementFalse={<>N/A</>}
-                            />
-                        </div>
-                    </div>
+                    <RenderIf
+                        truthValue={!elem.disableText}
+                        elementTrue={
+                            <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
+                                <div className={"input h-full input-wrapper input-disabled resize-none "}>Optionaler Kommentar zu "{elem.title}"</div>
+                            </div>
+                        }
+                    />
                 </div>
             );
 

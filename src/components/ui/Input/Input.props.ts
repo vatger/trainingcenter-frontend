@@ -12,6 +12,7 @@ export type InputProps = {
     hideSpinner?: boolean;
     className?: string;
     inputClassName?: string;
+    fieldClassName?: string;
     type?: string;
     value?: string;
     maxLength?: number;

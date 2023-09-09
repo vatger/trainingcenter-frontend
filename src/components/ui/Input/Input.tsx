@@ -28,7 +28,8 @@ export function Input(props: InputProps) {
         props.inputError || regexMatchFail ? "border-red-400 dark:border-red-500" : "",
         props.disabled || props.readOnly || props.loading ? "input-disabled" : "",
         props.preIcon || props.loading ? "input-icon-pre" : "",
-        props.label ? "input-label" : ""
+        props.label ? "input-label" : "",
+        props.fieldClassName ?? ""
     );
 
     const labelClasses = joinClassNames(props.labelSmall ? "text-sm" : "", props.description == null ? "mb-2" : "");

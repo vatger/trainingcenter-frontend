@@ -51,8 +51,13 @@ async function update(id: string, data: object) {
     return axiosInstance.patch(`/administration/training-log/template/${id}`, data);
 }
 
+async function destroy(id: number) {
+    return axiosInstance.delete(`/administration/training-log/template/${id}`);
+}
+
 export default {
     getAll,
     create,
     update,
+    destroy,
 };

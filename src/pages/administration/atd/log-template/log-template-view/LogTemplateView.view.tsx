@@ -1,10 +1,10 @@
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useApi from "@/utils/hooks/useApi";
 import { LogTemplateElement, TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
-import { TbEdit, TbEyeCheck, TbFilePlus, TbId, TbRefresh, TbReload } from "react-icons/tb";
+import { TbCalendar, TbCalendarTime, TbEdit, TbEyeCheck, TbFilePlus, TbId, TbRefresh, TbReload, TbTrash } from "react-icons/tb";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
@@ -18,11 +18,19 @@ import FormHelper from "@/utils/helper/FormHelper";
 import TrainingLogTemplateAdminService from "@/services/log-template/TrainingLogTemplateAdminService";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { LTViewSkeleton } from "@/pages/administration/atd/log-template/_shared/_skeletons/LTView.skeleton";
+import { LTVDeleteModal } from "@/pages/administration/atd/log-template/log-template-view/_modals/LTVDelete.modal";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 export function LogTemplateViewView() {
     const { id } = useParams();
+    const navigate = useNavigate();
 
-    const { data: trainingLogTemplate, loading: loadingTrainingLogTemplate } = useApi<TrainingLogTemplateModel>({
+    const {
+        data: trainingLogTemplate,
+        setData: setTrainingLogTemplate,
+        loading: loadingTrainingLogTemplate,
+    } = useApi<TrainingLogTemplateModel>({
         url: `/administration/training-log/template/${id}`,
         method: "get",
     });
@@ -32,6 +40,7 @@ export function LogTemplateViewView() {
     const [showingPreview, setShowingPreview] = useState<boolean>(false);
 
     const [addElementModalOpen, setAddElementModalOpen] = useState<boolean>(false);
+    const [deleteTemplateModalOpen, setDeleteTemplateModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         if (!loadingTrainingLogTemplate && trainingLogTemplate != null) {
@@ -41,7 +50,7 @@ export function LogTemplateViewView() {
 
     function updateTemplate(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        if (id == null) {
+        if (id == null || trainingLogTemplate == null) {
             return;
         }
 
@@ -53,6 +62,7 @@ export function LogTemplateViewView() {
         TrainingLogTemplateAdminService.update(id, data)
             .then(() => {
                 ToastHelper.success("Logvorlage erfolgreich aktualisiert");
+                setTrainingLogTemplate({ ...trainingLogTemplate!, updatedAt: new Date() });
             })
             .catch(() => {
                 ToastHelper.error("Fehler beim aktualisieren der Logvorlage");
@@ -89,17 +99,39 @@ export function LogTemplateViewView() {
                                     preIcon={<TbId size={20} />}
                                 />
 
+                                <Input
+                                    type={"text"}
+                                    className={"mt-5"}
+                                    labelSmall
+                                    label={"Zuletzt Aktualisiert (UTC)"}
+                                    disabled
+                                    value={dayjs.utc(trainingLogTemplate?.updatedAt ?? trainingLogTemplate?.createdAt).format(Config.DATETIME_FORMAT)}
+                                    preIcon={<TbCalendarTime size={20} />}
+                                />
+
                                 <Separator />
 
-                                <Button
-                                    loading={submitting}
-                                    disabled={content.length == 0}
-                                    type={"submit"}
-                                    icon={<TbRefresh size={20} />}
-                                    variant={"twoTone"}
-                                    color={COLOR_OPTS.PRIMARY}>
-                                    Logvorlage Aktualisieren
-                                </Button>
+                                <div className={"flex flex-col lg:flex-row"}>
+                                    <Button
+                                        loading={submitting}
+                                        disabled={content.length == 0}
+                                        type={"submit"}
+                                        icon={<TbRefresh size={20} />}
+                                        variant={"twoTone"}
+                                        color={COLOR_OPTS.PRIMARY}>
+                                        Logvorlage Aktualisieren
+                                    </Button>
+
+                                    <Button
+                                        disabled={submitting}
+                                        onClick={() => setDeleteTemplateModalOpen(true)}
+                                        icon={<TbTrash size={20} />}
+                                        className={"mt-4 lg:mt-0 lg:ml-4"}
+                                        variant={"twoTone"}
+                                        color={COLOR_OPTS.DANGER}>
+                                        Logvorlage Löschen
+                                    </Button>
+                                </div>
                             </form>
                         </Card>
 
@@ -169,6 +201,13 @@ export function LogTemplateViewView() {
                 onClose={() => setAddElementModalOpen(false)}
                 logTemplateElements={content}
                 setLogTemplateElements={setContent}
+            />
+
+            <LTVDeleteModal
+                show={deleteTemplateModalOpen}
+                onClose={() => setDeleteTemplateModalOpen(false)}
+                logTemplate={trainingLogTemplate}
+                navigate={navigate}
             />
         </>
     );

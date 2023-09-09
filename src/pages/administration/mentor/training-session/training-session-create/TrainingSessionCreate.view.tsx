@@ -106,6 +106,7 @@ export function TrainingSessionCreateView() {
                                                 setCourseUUID(undefined);
                                                 return;
                                             }
+                                            setTrainingTypeID(undefined);
                                             setCourseUUID(value);
                                         }}>
                                         <option value={"-1"}>N/A</option>

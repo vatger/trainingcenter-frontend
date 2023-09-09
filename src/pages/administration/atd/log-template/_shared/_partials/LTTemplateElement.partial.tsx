@@ -12,7 +12,8 @@ import {
     LogTemplateType,
 } from "@/models/TrainingLogTemplateModel";
 
-const borderClass: string = "border-dashed border-2 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-400 transition-colors rounded-lg p-3";
+const borderClass: string =
+    "border-dashed border-2 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-400 transition-colors rounded-lg p-3";
 
 export function LTTemplateElementPartial(props: {
     element: LogTemplateElement;
@@ -95,7 +96,7 @@ function render(type: LogTemplateType, element: LogTemplateElement) {
             elem = element as LogTemplateElementRating;
             return (
                 <div className={"flex h-full flex-col xl:flex-row justify-between"}>
-                    <div className={"flex flex-col w-full xl:w-1/2 xl:min-w-[420px]"}>
+                    <div className={`flex flex-col w-full ${elem.disableText ? "" : "xl:w-1/2"} xl:min-w-[420px]`}>
                         <div className={"flex justify-between"}>
                             <h6 className={"mb-2"}>{elem.title}</h6>
                             <span>1 / {elem.max}</span>
@@ -109,15 +110,14 @@ function render(type: LogTemplateType, element: LogTemplateElement) {
                             </div>
                         )}
                     </div>
-                    <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
-                        <div className={"input h-full input-wrapper input-disabled resize-none "}>
-                            <RenderIf
-                                truthValue={elem.disableText == null || elem.disableText == false}
-                                elementTrue={<>Optionaler Kommentar zu "{elem.title}"</>}
-                                elementFalse={<>Kommentar Deaktiviert</>}
-                            />
-                        </div>
-                    </div>
+                    <RenderIf
+                        truthValue={!elem.disableText}
+                        elementTrue={
+                            <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
+                                <div className={"input h-full input-wrapper input-disabled resize-none "}>Optionaler Kommentar zu "{elem.title}"</div>
+                            </div>
+                        }
+                    />
                 </div>
             );
 

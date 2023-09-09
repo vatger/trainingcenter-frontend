@@ -186,18 +186,18 @@ export function SideNav() {
                                             </CollapsableMenu>
                                             <CollapsableMenu title={"Kurse"} icon={<TbClipboardList size={20} />}>
                                                 <MenuItem href={"administration/course"} icon={<TbListDetails size={20} />}>
-                                                    Kurse Verwalten
+                                                    Verwalten
                                                 </MenuItem>
                                                 <MenuItem href={"administration/course/create"} icon={<TbFilePlus size={20} />}>
-                                                    Kurs Erstellen
+                                                    Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
                                             <CollapsableMenu title={"Trainingstypen"} icon={<TbTemplate size={20} />}>
                                                 <MenuItem href={"administration/training-type"} icon={<TbListDetails size={20} />}>
-                                                    Trainingstypen Verwalten
+                                                    Verwalten
                                                 </MenuItem>
                                                 <MenuItem href={"administration/training-type/create"} icon={<TbFilePlus size={20} />}>
-                                                    Trainingstyp Erstellen
+                                                    Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
                                             <CollapsableMenu title={"Skillvorlagen"} icon={<TbTemplate size={20} />}>
@@ -225,22 +225,29 @@ export function SideNav() {
 
                                             <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20} />}>
                                                 <MenuItem href={"administration/log-template/view"} icon={<TbListDetails size={20} />}>
-                                                    Logvorlagen Verwalten
+                                                    Verwalten
                                                 </MenuItem>
                                                 <MenuItem href={"administration/log-template/create"} icon={<TbFilePlus size={20} />}>
-                                                    Logvorlage Erstellen
+                                                    Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
 
                                             <MenuItem requiredPerm={"atd.fast_track.view"} icon={<TbChevronsRight size={20} />}>
                                                 Fast-Tracks
                                             </MenuItem>
+
                                             <MenuItem requiredPerm={"atd.atsim.view"} icon={<TbSquareCheck size={20} />}>
                                                 ATSIM Anfragen
                                             </MenuItem>
-                                            <MenuItem requiredPerm={"atd.training_stations.view"} icon={<TbRss size={20} />}>
-                                                Trainingsstationen
-                                            </MenuItem>
+
+                                            <CollapsableMenu requiredPerm={"atd.training_stations.view"} title={"Trainingstypen"} icon={<TbRss size={20} />}>
+                                                <MenuItem href={""} icon={<TbListDetails size={20} />}>
+                                                    Verwalten
+                                                </MenuItem>
+                                                <MenuItem href={"administration/training-station/create"} icon={<TbFilePlus size={20} />}>
+                                                    Erstellen
+                                                </MenuItem>
+                                            </CollapsableMenu>
                                         </>
                                     }
                                 />

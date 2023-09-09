@@ -25,4 +25,5 @@ export const CommonConstants = {
 export const CommonRegexp = {
     CID: RegExp("^[0-9]{6,8}$"),
     NOT_EMPTY: RegExp("^(?!\\s*$).+"),
+    CALLSIGN: RegExp("^([A-z]{3,4}_[A-z0-9]{1,3}_[A-z]{3})|([A-z]{3,4}_[A-z]{3})$"),
 };

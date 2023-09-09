@@ -83,10 +83,11 @@ function SubmitTrainingLogs(data: ITrainingSessionServiceProps) {
     axiosInstance
         .put(`/administration/training-session/log/${data.uuid}`, result)
         .then((res: AxiosResponse) => {
-            ToastHelper.success("Erfolg");
+            ToastHelper.success("Logs erfolgreich erstellt");
+            data.navigate("/administration/training-request/planned");
         })
         .catch((err: AxiosError) => {
-            ToastHelper.error("Fehler");
+            ToastHelper.error("Fehler beim erstellen der Logs");
         })
         .finally(() => data.setSubmitting(false));
 }

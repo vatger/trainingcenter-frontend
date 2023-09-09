@@ -140,6 +140,7 @@ export function TrainingSessionLogsCreateView() {
                                         <Select
                                             label={"Nächstes Training"}
                                             labelSmall
+                                            inputError={!completedIds.includes(index) && participantValues![index].nextTraining == -1}
                                             disabled={completedIds.includes(index)}
                                             className={"mt-3"}
                                             defaultValue={"-1"}

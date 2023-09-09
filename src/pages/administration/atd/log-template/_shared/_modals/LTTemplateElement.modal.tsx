@@ -88,7 +88,9 @@ function renderSectionSelection(setSelectedElement: Dispatch<LogTemplateType>, s
                     setSelectedElement("section");
                     setShowingSecondPage(true);
                 }}
-                className={"border border-gray-200 hover:border-gray-300 transition-colors rounded p-3 hover:cursor-pointer"}>
+                className={
+                    "border border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500 transition-colors rounded p-3 hover:cursor-pointer"
+                }>
                 <div className={"flex"}>
                     <h6>Abschnitt</h6>
                     <TbSection size={18} className={"h6 ml-3"} />
@@ -101,7 +103,9 @@ function renderSectionSelection(setSelectedElement: Dispatch<LogTemplateType>, s
                     setSelectedElement("textarea");
                     setShowingSecondPage(true);
                 }}
-                className={"border border-gray-200 hover:border-gray-300 transition-colors rounded p-3 hover:cursor-pointer mt-3"}>
+                className={
+                    "border border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500 transition-colors rounded p-3 hover:cursor-pointer mt-3"
+                }>
                 <div className={"flex"}>
                     <h6>Textfeld</h6>
                     <TbTextDirectionLtr size={18} className={"h6 ml-3"} />
@@ -114,7 +118,9 @@ function renderSectionSelection(setSelectedElement: Dispatch<LogTemplateType>, s
                     setSelectedElement("rating");
                     setShowingSecondPage(true);
                 }}
-                className={"border border-gray-200 hover:border-gray-300 transition-colors rounded p-3 hover:cursor-pointer mt-3"}>
+                className={
+                    "border border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500 transition-colors rounded p-3 hover:cursor-pointer mt-3"
+                }>
                 <div className={"flex"}>
                     <h6>Bewertung</h6>
                     <TbListNumbers size={18} className={"h6 ml-3"} />

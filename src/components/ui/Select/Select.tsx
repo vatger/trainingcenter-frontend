@@ -11,6 +11,7 @@ export function Select(props: SelectProps) {
         "select relative input focus:ring-indigo-500 focus-within:ring-indigo-500 focus-within:border-indigo-500 focus:border-indigo-500 input-wrapper",
         props.disabled ? "input-disabled" : "bg-white",
         props.selectClassName ?? "",
+        props.inputError ? "border-red-400 dark:border-red-500" : "",
         props.preIcon ? "input-icon-pre" : ""
     );
 

@@ -46,7 +46,7 @@ function render(
             elem = element as LogTemplateElementRating;
             return (
                 <div className={"flex h-full flex-col xl:flex-row justify-between"}>
-                    <div className={"flex flex-col w-full xl:w-1/2 xl:min-w-[420px]"}>
+                    <div className={`flex flex-col w-full ${elem.disableText ? "" : "xl:w-1/2"} xl:min-w-[420px]`}>
                         <div className={"flex justify-between"}>
                             <h6 className={"mb-2"}>{elem.title}</h6>
                             <span>
@@ -86,18 +86,17 @@ function render(
                             </div>
                         )}
                     </div>
-                    <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
-                        <RenderIf
-                            truthValue={elem.disableText == null || elem.disableText == false}
-                            elementTrue={
+                    <RenderIf
+                        truthValue={!elem.disableText}
+                        elementTrue={
+                            <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
                                 <TextArea
                                     onChange={e => onValueChange<string>(stringValues, element.uuid, e.target.value)}
                                     placeholder={`Bewertung ${elem.title}`}
                                 />
-                            }
-                            elementFalse={<div className={"input h-full input-wrapper input-disabled resize-none "}>N/A</div>}
-                        />
-                    </div>
+                            </div>
+                        }
+                    />
                 </div>
             );
 
