@@ -24,7 +24,7 @@ import FormHelper from "@/utils/helper/FormHelper";
 import useApi from "@/utils/hooks/useApi";
 import { CourseModel } from "@/models/CourseModel";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
-import {TrainingSessionModel} from "@/models/TrainingSessionModel";
+import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will

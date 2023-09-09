@@ -4,7 +4,7 @@ import {
     LogTemplateElementSection,
     LogTemplateElementTextarea,
     LogTemplateType,
-} from "../_types/LTCElement.types";
+} from "@/models/TrainingLogTemplateModel";
 import { ProgressBar } from "../../../../../../components/ui/ProgressBar/ProgressBar";
 import { Separator } from "../../../../../../components/ui/Separator/Separator";
 import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
@@ -73,7 +73,7 @@ function render(type: LogTemplateType, element: LogTemplateElement, index: numbe
     }
 }
 
-export function LTCTemplateElementPreviewPartial(props: { element: LogTemplateElement; index: number }) {
+export function LTTemplateElementPreviewPartial(props: { element: LogTemplateElement; index: number }) {
     return (
         <div className={"flex relative flex-col md:flex-row justify-between " + (props.index == 0 || props.element.type == "section" ? "" : "mt-6")}>
             <div className={"w-full"}>{render(props.element.type, props.element, props.index)}</div>

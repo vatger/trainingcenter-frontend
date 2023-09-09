@@ -1,22 +1,21 @@
-import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
-import { Card } from "../../../../../components/ui/Card/Card";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
+import { Card } from "@/components/ui/Card/Card";
 import { FormEvent, useState } from "react";
-import { Input } from "../../../../../components/ui/Input/Input";
+import { Input } from "@/components/ui/Input/Input";
 import { TbEdit, TbEyeCheck, TbFilePlus, TbId } from "react-icons/tb";
-import { Separator } from "../../../../../components/ui/Separator/Separator";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
-import { RenderIf } from "../../../../../components/conditionals/RenderIf";
-import { LogTemplateElement } from "./_types/LTCElement.types";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 import { MapArray } from "../../../../../components/conditionals/MapArray";
-import { LTCTemplateElementPartial } from "./_partials/LTCTemplateElement.partial";
-import { LTCTemplateElementPreviewPartial } from "./_partials/LTCTemplateElementPreview.partial";
-import { LTCTemplateElementModal } from "./_modals/LTCTemplateElement.modal";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplateAdminService";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { TrainingLogTemplateModel } from "../../../../../models/TrainingLogTemplateModel";
+import { LogTemplateElement } from "@/models/TrainingLogTemplateModel";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
+import { LTTemplateElementPreviewPartial } from "@/pages/administration/atd/log-template/_shared/_partials/LTTemplateElementPreview.partial";
+import { LTTemplateElementPartial } from "@/pages/administration/atd/log-template/_shared/_partials/LTTemplateElement.partial";
+import { LTTemplateElementModal } from "@/pages/administration/atd/log-template/_shared/_modals/LTTemplateElement.modal";
 
 export function LogTemplateCreateView() {
     const navigate: NavigateFunction = useNavigate();
@@ -33,7 +32,7 @@ export function LogTemplateCreateView() {
         data["content"] = content;
 
         TrainingLogTemplateAdminService.create(data)
-            .then((res: TrainingLogTemplateModel) => {
+            .then((res: { id: number }) => {
                 navigate("/administration/log-template/" + res.id);
                 ToastHelper.success("Logvorlage erfolgreich erstellt");
             })
@@ -90,9 +89,9 @@ export function LogTemplateCreateView() {
                                     <RenderIf
                                         key={index}
                                         truthValue={showingPreview}
-                                        elementTrue={<LTCTemplateElementPreviewPartial element={value} index={index} key={index} />}
+                                        elementTrue={<LTTemplateElementPreviewPartial element={value} index={index} key={index} />}
                                         elementFalse={
-                                            <LTCTemplateElementPartial
+                                            <LTTemplateElementPartial
                                                 element={value}
                                                 content={content}
                                                 setContent={setContent}
@@ -135,7 +134,7 @@ export function LogTemplateCreateView() {
                 </div>
             </Card>
 
-            <LTCTemplateElementModal
+            <LTTemplateElementModal
                 show={addElementModalOpen}
                 onClose={() => setAddElementModalOpen(false)}
                 logTemplateElements={content}

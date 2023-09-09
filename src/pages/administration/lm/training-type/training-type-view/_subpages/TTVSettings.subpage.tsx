@@ -106,7 +106,7 @@ export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) 
                         }
                         name={"log_template_id"}
                         preIcon={<TbTemplate size={20} />}
-                        defaultValue={"-1"}>
+                        defaultValue={trainingType?.log_template_id ?? "-1"}>
                         <option value={"-1"}>N/A</option>
                         <MapArray
                             data={trainingLogTemplates ?? []}

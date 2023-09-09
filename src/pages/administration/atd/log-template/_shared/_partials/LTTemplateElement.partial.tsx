@@ -1,20 +1,20 @@
+import { ProgressBar } from "@/components/ui/ProgressBar/ProgressBar";
+import { Button } from "@/components/ui/Button/Button";
+import { TbArrowDown, TbArrowUp, TbTrash } from "react-icons/tb";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import { Dispatch } from "react";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 import {
     LogTemplateElement,
     LogTemplateElementRating,
     LogTemplateElementSection,
     LogTemplateElementTextarea,
     LogTemplateType,
-} from "../_types/LTCElement.types";
-import { ProgressBar } from "../../../../../../components/ui/ProgressBar/ProgressBar";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { TbArrowDown, TbArrowUp, TbTrash } from "react-icons/tb";
-import { COLOR_OPTS } from "../../../../../../assets/theme.config";
-import { Dispatch } from "react";
-import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
+} from "@/models/TrainingLogTemplateModel";
 
-const borderClass: string = "border-dashed border-2 border-gray-100 hover:border-gray-300 transition-colors rounded-lg p-3";
+const borderClass: string = "border-dashed border-2 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-400 transition-colors rounded-lg p-3";
 
-export function LTCTemplateElementPartial(props: {
+export function LTTemplateElementPartial(props: {
     element: LogTemplateElement;
     content: LogTemplateElement[];
     setContent: Dispatch<LogTemplateElement[]>;

@@ -6,6 +6,8 @@ import { generateUUID } from "../../../utils/helper/UUIDHelper";
 import "./GenericHeaderAnimation.scss";
 import languageContext, { LanguageEnum } from "../../../utils/contexts/LanguageContext";
 import languageTranslation from "../../../assets/lang/language.translation";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import ToastHelper from "@/utils/helper/ToastHelper";
 
 const flag_de = (
     <div className={"w-[20px] h-[20px] avatar-circle"}>
@@ -76,6 +78,19 @@ export function SelectLanguageHeader() {
         });
     }, []);
 
+    const [submitting, setSubmitting] = useState<boolean>(false);
+
+    function updateSettings(value: { language: string }) {
+        setSubmitting(true);
+
+        axiosInstance
+            .patch("/settings", value)
+            .catch(() => {
+                ToastHelper.error("Fehler beim speichern der Einstellungen");
+            })
+            .finally(() => setSubmitting(false));
+    }
+
     return (
         <div>
             <div className="dropdown">
@@ -90,8 +105,10 @@ export function SelectLanguageHeader() {
                 {/* Dropdown */}
                 <ul id={`dropdown-${selectLanguageUUID.current}`} className={"dropdown-menu bottom-end right-[-94px] sm:right-0 min-w-[220px] hidden"}>
                     <MenuItem
+                        disabled={submitting}
                         onClick={() => {
                             changeLanguage(LanguageEnum.DE);
+                            updateSettings({ language: "de" });
                         }}
                         isNoLink
                         icon={flag_de}
@@ -99,8 +116,10 @@ export function SelectLanguageHeader() {
                         {languageTranslation.german[language]}
                     </MenuItem>
                     <MenuItem
+                        disabled={submitting}
                         onClick={() => {
                             changeLanguage(LanguageEnum.EN);
+                            updateSettings({ language: "en" });
                         }}
                         isNoLink
                         icon={flag_en}

@@ -33,8 +33,6 @@ export function UserListView() {
     const { users, loading, loadingError } = UserService.getAllUsers();
     const filteredUsers = useFilter<UserModel>(users, searchQuery, debouncedValue, filterFunction);
 
-    const columns: TableColumn<UserModel>[] = getUserSearchTableColumns(navigate, userPermissions, user);
-
     return (
         <>
             <PageHeader title={"Mitglieder Suchen"} hideBackLink />
@@ -57,7 +55,7 @@ export function UserListView() {
                         </Card>
 
                         <Card className={"mt-5"} header={"Mitglieder"} headerBorder>
-                            <Table paginate columns={columns} data={filteredUsers} loading={loading} />
+                            <Table paginate columns={getUserSearchTableColumns(navigate, userPermissions, user)} data={filteredUsers} loading={loading} />
                         </Card>
                     </>
                 }

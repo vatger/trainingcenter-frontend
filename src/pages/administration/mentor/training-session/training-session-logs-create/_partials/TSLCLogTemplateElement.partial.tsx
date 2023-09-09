@@ -1,21 +1,16 @@
 import { ProgressBar } from "@/components/ui/ProgressBar/ProgressBar";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { RenderIf } from "@/components/conditionals/RenderIf";
+import { TextArea } from "@/components/ui/Textarea/TextArea";
+import React, { useState } from "react";
+import { Input } from "@/components/ui/Input/Input";
 import {
     LogTemplateElement,
     LogTemplateElementRating,
     LogTemplateElementSection,
     LogTemplateElementTextarea,
     LogTemplateType,
-} from "@/pages/administration/atd/log-template/log-template-create/_types/LTCElement.types";
-import { TextArea } from "@/components/ui/Textarea/TextArea";
-import React, { useState } from "react";
-import { Input } from "@/components/ui/Input/Input";
-import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
-import { Select } from "@/components/ui/Select/Select";
-import { TrainingTypeModel } from "@/models/TrainingTypeModel";
-import { MapArray } from "@/components/conditionals/MapArray";
-import StringHelper from "@/utils/helper/StringHelper";
+} from "@/models/TrainingLogTemplateModel";
 
 function onValueChange<T>(map: Map<string, T>, uuid: string, value: T) {
     if (map.has(uuid)) {

@@ -5,7 +5,7 @@ import { TbSortDescending } from "react-icons/tb";
 import { Spinner } from "../Spinner/Spinner";
 import { RenderIf } from "../../conditionals/RenderIf";
 import { useContext, useEffect, useState } from "react";
-import { useDebounce } from "../../../utils/hooks/useDebounce";
+import { useDebounce } from "@/utils/hooks/useDebounce";
 import { search } from "./Table.helper";
 import tableTranslation from "../../../assets/lang/table.translation";
 import languageContext from "../../../utils/contexts/LanguageContext";

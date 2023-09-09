@@ -83,7 +83,13 @@ export function RequestFastTrackView() {
                         <form onSubmit={createFastTrackRequest}>
                             <div className={"grid grid-cols-1 md:grid-cols-2 md:gap-5"}>
                                 <Input type={"text"} labelSmall label={"Mitglied"} name={"user_id"} value={user_id} disabled preIcon={<TbId size={20} />} />
-                                <Select label={"Rating"} className={"flex flex-col"} labelSmall required name={"rating"} preIcon={<TbActivity size={20} />}>
+                                <Select
+                                    label={"Rating"}
+                                    className={"flex flex-col sm:mt-5 md:mt-0"}
+                                    labelSmall
+                                    required
+                                    name={"rating"}
+                                    preIcon={<TbActivity size={20} />}>
                                     <option value={0}>{"S2"}</option>
                                     <option value={1}>{"S3"}</option>
                                 </Select>

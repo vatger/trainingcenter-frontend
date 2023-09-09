@@ -1,5 +1,4 @@
 import { Dispatch, useState } from "react";
-import { LogTemplateElement, LogTemplateElementRating, LogTemplateType } from "../_types/LTCElement.types";
 import { Modal } from "../../../../../../components/ui/Modal/Modal";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
@@ -7,8 +6,9 @@ import { TbListNumbers, TbSection, TbTextDirectionLtr } from "react-icons/tb";
 import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
 import { Input } from "../../../../../../components/ui/Input/Input";
 import { Checkbox } from "../../../../../../components/ui/Checkbox/Checkbox";
+import { LogTemplateElement, LogTemplateElementRating, LogTemplateType } from "@/models/TrainingLogTemplateModel";
 
-export function LTCTemplateElementModal(props: {
+export function LTTemplateElementModal(props: {
     show: boolean;
     onClose: () => void;
     logTemplateElements: LogTemplateElement[];

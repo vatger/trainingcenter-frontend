@@ -26,6 +26,8 @@ import { MentorTrainingListView } from "@/pages/administration/mentor/training-s
 import { MentorTrainingView } from "@/pages/administration/mentor/training-session/training-planned-view/MentorTraining.view";
 import { TrainingSessionLogsCreateView } from "@/pages/administration/mentor/training-session/training-session-logs-create/TrainingSessionLogsCreate.view";
 import { TrainingSessionCreateView } from "@/pages/administration/mentor/training-session/training-session-create/TrainingSessionCreate.view";
+import { LogTemplateListView } from "@/pages/administration/atd/log-template/log-template-list/LogTemplateList.view";
+import { LogTemplateViewView } from "@/pages/administration/atd/log-template/log-template-view/LogTemplateView.view";
 
 export function AdministrationRouter() {
     const location: Location = useLocation();
@@ -79,7 +81,8 @@ export function AdministrationRouter() {
             </Route>
 
             <Route path={"log-template"}>
-                <Route path={""} element={<> </>} />
+                <Route path={"view"} element={<LogTemplateListView />} />
+                <Route path={"view/:id"} element={<LogTemplateViewView />} />
                 <Route path={"create"} element={<LogTemplateCreateView />} />
             </Route>
 

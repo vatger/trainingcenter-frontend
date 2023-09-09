@@ -26,13 +26,13 @@ function markAllAsRead() {
 function deleteNotification(notificationID: number) {
     return axiosInstance.delete("/notification", {
         data: {
-            notification_id: notificationID
-        }
+            notification_id: notificationID,
+        },
     });
 }
 
 function toggleRead(notificationID: number) {
-    return axiosInstance.post("/notification/toggle", {notification_id: notificationID});
+    return axiosInstance.post("/notification/toggle", { notification_id: notificationID });
 }
 
 export default {

@@ -9,5 +9,5 @@ export function Skeleton(props: SkeletonProps) {
         props.className ?? ""
     );
 
-    return <div className={classes} style={{ height: props.height ?? "100%", width: props.width ?? "100%" }} />;
+    return <div className={classes} style={{ height: props.height ?? "100%", width: props.width ?? "100%", ...props.style }} />;
 }

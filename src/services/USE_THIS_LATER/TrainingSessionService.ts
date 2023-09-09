@@ -1,10 +1,5 @@
 import { UserModel } from "@/models/UserModel";
-import {
-    LogTemplateElement,
-    LogTemplateElementRating,
-    LogTemplateElementSection,
-    LogTemplateElementTextarea,
-} from "@/pages/administration/atd/log-template/log-template-create/_types/LTCElement.types";
+import { LogTemplateElement, LogTemplateElementRating, LogTemplateElementSection, LogTemplateElementTextarea } from "@/models/TrainingLogTemplateModel";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import React from "react";
 import { ParticipantStatus } from "@/pages/administration/mentor/training-session/training-session-logs-create/TrainingSessionLogsCreate.view";
@@ -28,7 +23,14 @@ function SubmitTrainingLogs(data: ITrainingSessionServiceProps) {
 
     data.setSubmitting(true);
 
-    let result: { user_id: number; next_training_id: number; course_completed: boolean; log_public: boolean; passed: boolean; user_log: LogTemplateElement[] }[] = [];
+    let result: {
+        user_id: number;
+        next_training_id: number;
+        course_completed: boolean;
+        log_public: boolean;
+        passed: boolean;
+        user_log: LogTemplateElement[];
+    }[] = [];
 
     // Loop through all participants
     for (let i = 0; i < data.participants.length; i++) {
@@ -74,7 +76,7 @@ function SubmitTrainingLogs(data: ITrainingSessionServiceProps) {
             passed: user_passed,
             user_log: user_log,
             next_training_id: next_training_id,
-            course_completed: course_completed
+            course_completed: course_completed,
         });
     }
 

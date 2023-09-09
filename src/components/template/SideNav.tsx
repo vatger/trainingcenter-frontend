@@ -224,7 +224,9 @@ export function SideNav() {
                                             </CollapsableMenu>
 
                                             <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20} />}>
-                                                <MenuItem icon={<TbListDetails size={20} />}>Logvorlagen Verwalten</MenuItem>
+                                                <MenuItem href={"administration/log-template/view"} icon={<TbListDetails size={20} />}>
+                                                    Logvorlagen Verwalten
+                                                </MenuItem>
                                                 <MenuItem href={"administration/log-template/create"} icon={<TbFilePlus size={20} />}>
                                                     Logvorlage Erstellen
                                                 </MenuItem>

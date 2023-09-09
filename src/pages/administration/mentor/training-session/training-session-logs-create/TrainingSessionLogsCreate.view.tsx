@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { LogTemplateElement } from "@/pages/administration/atd/log-template/log-template-create/_types/LTCElement.types";
+import { LogTemplateElement } from "@/models/TrainingLogTemplateModel";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { Card } from "@/components/ui/Card/Card";
 import { UserModel } from "@/models/UserModel";
@@ -15,8 +15,8 @@ import { COLOR_OPTS } from "@/assets/theme.config";
 import { TbPlus } from "react-icons/tb";
 import TrainingSessionService from "@/services/USE_THIS_LATER/TrainingSessionService";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
-import {Checkbox} from "@/components/ui/Checkbox/Checkbox";
-import {Select} from "@/components/ui/Select/Select";
+import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
+import { Select } from "@/components/ui/Select/Select";
 import StringHelper from "@/utils/helper/StringHelper";
 
 export type ParticipantStatus = {
@@ -82,7 +82,7 @@ export function TrainingSessionLogsCreateView() {
                 passed: true,
                 visible: true,
                 nextTraining: -1,
-                course_completed: false
+                course_completed: false,
             });
         }
 
@@ -117,25 +117,24 @@ export function TrainingSessionLogsCreateView() {
                                     />
 
                                     <div className={"flex flex-col mt-5"}>
-                                        <Checkbox checked onChange={e => participantValues![index].passed = e}>
+                                        <Checkbox checked onChange={e => (participantValues![index].passed = e)}>
                                             Bestanden
                                         </Checkbox>
-                                        <Checkbox className={"mt-3"} checked onChange={e => participantValues![index].visible = e}>
+                                        <Checkbox className={"mt-3"} checked onChange={e => (participantValues![index].visible = e)}>
                                             Log Öffentlich - Für den Trainee sichtbar
                                         </Checkbox>
                                         <Checkbox
                                             className={"mt-3"}
                                             checked={false}
                                             onChange={e => {
-                                                participantValues![index].course_completed = e
+                                                participantValues![index].course_completed = e;
 
                                                 if (e) {
                                                     setCompletedIds([...completedIds, index]);
                                                 } else {
                                                     setCompletedIds(completedIds.filter(c => c != index));
                                                 }
-                                            }}
-                                        >
+                                            }}>
                                             Kurs Abgeschlossen - Markiert den Kurs als abgeschlossen und ignoriert die Auswahl des nächsten Trainings
                                         </Checkbox>
                                         <Select

@@ -3,12 +3,16 @@ import UserNotificationService from "@/services/user/UserNotificationService";
 import { Table } from "@/components/ui/Table/Table";
 import MANotificationListTypes from "@/pages/authenticated/account/manage-account/_types/MANotificationList.types";
 import useApi from "@/utils/hooks/useApi";
-import {NotificationModel} from "@/models/NotificationModel";
+import { NotificationModel } from "@/models/NotificationModel";
 
 export function MANotificationsPartial() {
-    const {data: notifications, setData: setNotifications, loading} = useApi<NotificationModel[]>({
+    const {
+        data: notifications,
+        setData: setNotifications,
+        loading,
+    } = useApi<NotificationModel[]>({
         url: "/notification",
-        method: "get"
+        method: "get",
     });
 
     return (

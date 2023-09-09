@@ -102,10 +102,11 @@ export function MASettingsPartial() {
         <>
             <ManageAccountElement
                 title={"Language"}
+                break
                 element={
                     <div className={"w-full lg:w-1/2 float-right"}>
                         <Select
-                            defaultValue={language.toString()}
+                            defaultValue={language}
                             onChange={(newLanguage: string) => {
                                 setLanguage(newLanguage);
                                 updateSettings({ language: newLanguage });
@@ -118,30 +119,26 @@ export function MASettingsPartial() {
                 }
             />
 
-            <RenderIf
-                truthValue={themeString != null && user != null}
-                elementTrue={
-                    <ManageAccountElement
-                        title={
-                            <>
-                                Dark Mode
-                                <span className={"flex text-xs mt-1.5"}>Diese Einstellung betrifft nur das aktuelle Gerät</span>
-                            </>
-                        }
-                        element={
-                            <div className={"w-full lg:w-1/2  float-right"}>
-                                <Select
-                                    onChange={value => {
-                                        changeDarkMode(value as "auto" | "dark" | "light");
-                                    }}
-                                    defaultValue={themeString}>
-                                    <option value="auto">Automatisch (Betriebssystem)</option>
-                                    <option value="dark">Dunkel</option>
-                                    <option value="light">Hell</option>
-                                </Select>
-                            </div>
-                        }
-                    />
+            <ManageAccountElement
+                break
+                title={
+                    <>
+                        Dark Mode
+                        <span className={"flex text-xs mt-1.5"}>Diese Einstellung betrifft nur das aktuelle Gerät</span>
+                    </>
+                }
+                element={
+                    <div className={"w-full lg:w-1/2  float-right"}>
+                        <Select
+                            onChange={value => {
+                                changeDarkMode(value as "auto" | "dark" | "light");
+                            }}
+                            defaultValue={themeString}>
+                            <option value="auto">Automatisch (Betriebssystem)</option>
+                            <option value="dark">Dunkel</option>
+                            <option value="light">Hell</option>
+                        </Select>
+                    </div>
                 }
             />
 
