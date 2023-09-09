@@ -85,7 +85,7 @@ export function RequestFastTrackView() {
                                 <Input type={"text"} labelSmall label={"Mitglied"} name={"user_id"} value={user_id} disabled preIcon={<TbId size={20} />} />
                                 <Select
                                     label={"Rating"}
-                                    className={"flex flex-col sm:mt-5 md:mt-0"}
+                                    className={"flex flex-col mt-5 md:mt-0"}
                                     labelSmall
                                     required
                                     name={"rating"}
