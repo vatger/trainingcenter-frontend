@@ -240,7 +240,7 @@ export function SideNav() {
                                                 ATSIM Anfragen
                                             </MenuItem>
 
-                                            <CollapsableMenu requiredPerm={"atd.training_stations.view"} title={"Trainingstypen"} icon={<TbRss size={20} />}>
+                                            <CollapsableMenu requiredPerm={"atd.training_stations.view"} title={"Trainingsstationen"} icon={<TbRss size={20} />}>
                                                 <MenuItem href={"administration/training-station"} icon={<TbListDetails size={20} />}>
                                                     Verwalten
                                                 </MenuItem>
