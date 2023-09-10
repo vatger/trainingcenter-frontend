@@ -22,10 +22,10 @@ function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationMod
             name: "Deaktiviert",
             cell: row => {
                 if (row.deactivated) {
-                    return <Badge color={COLOR_OPTS.SUCCESS}>Ja</Badge>;
+                    return <Badge color={COLOR_OPTS.DANGER}>Ja</Badge>;
                 }
 
-                return <Badge color={COLOR_OPTS.DANGER}>Nein</Badge>;
+                return <Badge color={COLOR_OPTS.SUCCESS}>Nein</Badge>;
             },
         },
         {

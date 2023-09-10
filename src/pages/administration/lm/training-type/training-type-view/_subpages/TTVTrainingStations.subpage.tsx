@@ -83,7 +83,7 @@ export function TTVTrainingStationsSubpage(props: { trainingTypeID?: string }) {
                                 mapFunction={(trainingType: TrainingStationModel, index) => {
                                     return (
                                         <option key={index} value={trainingType.id}>
-                                            {trainingType.callsign} ({trainingType.frequency.toFixed(3)})
+                                            {trainingType.callsign.toUpperCase()} ({trainingType.frequency.toFixed(3)})
                                         </option>
                                     );
                                 }}

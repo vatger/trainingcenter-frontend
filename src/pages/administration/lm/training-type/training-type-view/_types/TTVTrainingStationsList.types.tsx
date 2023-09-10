@@ -44,7 +44,7 @@ function getColumns(
     return [
         {
             name: "Station",
-            selector: row => row.callsign,
+            selector: row => row.callsign.toUpperCase(),
             sortable: true,
             searchable: true,
         },

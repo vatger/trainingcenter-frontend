@@ -14,6 +14,7 @@ import { PlannedTrainingView } from "@/pages/authenticated/training/training-pla
 import { AdministrationRouter } from "@/routers/Administration.router";
 import { Error403 } from "@/pages/errors/403";
 import { Error404 } from "@/pages/errors/404";
+import { TrainingLogViewView } from "@/pages/authenticated/training/training-log-view/TrainingLogView.view";
 
 export function MainRouter() {
     const location = useLocation();
@@ -50,6 +51,10 @@ export function MainRouter() {
                 <Route path={"planned"}>
                     <Route path={""} element={<PlannedTrainingListView />} />
                     <Route path={":uuid"} element={<PlannedTrainingView />} />
+                </Route>
+
+                <Route path={"log"}>
+                    <Route path={":uuid"} element={<TrainingLogViewView />} />
                 </Route>
             </Route>
 

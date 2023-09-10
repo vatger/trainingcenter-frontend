@@ -16,6 +16,8 @@ import FormHelper from "@/utils/helper/FormHelper";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { TSVDeleteModal } from "@/pages/administration/atd/training-station/training-station-view/_modals/TSVDelete.modal";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { TSVSkeleton } from "@/pages/administration/atd/training-station/training-station-view/_skeletons/TSV.skeleton";
 
 export function TrainingStationViewView() {
     const { id } = useParams();
@@ -56,76 +58,82 @@ export function TrainingStationViewView() {
         <>
             <PageHeader title={"Trainingsstation Verwalten"} />
 
-            <Card header={"Informationen"} headerBorder>
-                <form onSubmit={updateCourse}>
-                    <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
-                        <Input
-                            labelSmall
-                            name={"callsign"}
-                            label={"Callsign"}
-                            className={"flex flex-col"}
-                            preIcon={<TbId size={20} />}
-                            value={trainingStation?.callsign.toUpperCase()}
-                        />
+            <RenderIf
+                truthValue={loadingTrainingStation}
+                elementTrue={<TSVSkeleton />}
+                elementFalse={
+                    <Card>
+                        <form onSubmit={updateCourse}>
+                            <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
+                                <Input
+                                    labelSmall
+                                    name={"callsign"}
+                                    label={"Callsign"}
+                                    className={"flex flex-col"}
+                                    preIcon={<TbId size={20} />}
+                                    value={trainingStation?.callsign.toUpperCase()}
+                                />
 
-                        <Input
-                            labelSmall
-                            name={"frequency"}
-                            maxLength={7}
-                            label={"Frequenz"}
-                            className={"flex flex-col"}
-                            preIcon={<TbRss size={20} />}
-                            value={trainingStation?.frequency.toFixed(3)}
-                        />
+                                <Input
+                                    labelSmall
+                                    name={"frequency"}
+                                    maxLength={7}
+                                    label={"Frequenz"}
+                                    className={"flex flex-col"}
+                                    preIcon={<TbRss size={20} />}
+                                    value={trainingStation?.frequency.toFixed(3)}
+                                />
 
-                        <Select
-                            labelSmall
-                            name={"deactivated"}
-                            label={"Deaktiviert"}
-                            className={"flex flex-col"}
-                            preIcon={<TbActivity size={20} />}
-                            defaultValue={trainingStation?.deactivated ? "1" : "0"}>
-                            <option value="0">Nein</option>
-                            <option value="1">Ja</option>
-                        </Select>
+                                <Select
+                                    labelSmall
+                                    name={"deactivated"}
+                                    label={"Deaktiviert"}
+                                    className={"flex flex-col"}
+                                    preIcon={<TbActivity size={20} />}
+                                    defaultValue={trainingStation?.deactivated ? "1" : "0"}>
+                                    <option value="0">Nein</option>
+                                    <option value="1">Ja</option>
+                                </Select>
 
-                        <Input
-                            labelSmall
-                            label={"Zuletzt Aktualisiert (UTC)"}
-                            className={"flex flex-col"}
-                            disabled
-                            preIcon={<TbCalendarTime size={20} />}
-                            value={dayjs.utc(trainingStation?.updatedAt).format(Config.DATETIME_FORMAT)}
-                        />
-                    </div>
+                                <Input
+                                    labelSmall
+                                    label={"Zuletzt Aktualisiert (UTC)"}
+                                    className={"flex flex-col"}
+                                    disabled
+                                    preIcon={<TbCalendarTime size={20} />}
+                                    value={dayjs.utc(trainingStation?.updatedAt).format(Config.DATETIME_FORMAT)}
+                                />
+                            </div>
 
-                    <Separator />
+                            <Separator />
 
-                    <div className={"flex flex-col lg:flex-row"}>
-                        <Button
-                            icon={<TbRefresh size={20} />}
-                            onClick={() => {}}
-                            variant={"twoTone"}
-                            loading={submitting}
-                            type={"submit"}
-                            color={COLOR_OPTS.PRIMARY}>
-                            Aktualisieren
-                        </Button>
+                            <div className={"flex flex-col lg:flex-row"}>
+                                <Button
+                                    icon={<TbRefresh size={20} />}
+                                    onClick={() => {}}
+                                    variant={"twoTone"}
+                                    loading={submitting}
+                                    type={"submit"}
+                                    color={COLOR_OPTS.PRIMARY}>
+                                    Aktualisieren
+                                </Button>
 
-                        <Button
-                            className={"mt-3 lg:mt-0 lg:ml-3"}
-                            icon={<TbTrash size={20} />}
-                            onClick={() => {
-                                setShowDeleteModal(true);
-                            }}
-                            disabled={submitting}
-                            variant={"twoTone"}
-                            color={COLOR_OPTS.DANGER}>
-                            Löschen
-                        </Button>
-                    </div>
-                </form>
-            </Card>
+                                <Button
+                                    className={"mt-3 lg:mt-0 lg:ml-3"}
+                                    icon={<TbTrash size={20} />}
+                                    onClick={() => {
+                                        setShowDeleteModal(true);
+                                    }}
+                                    disabled={submitting}
+                                    variant={"twoTone"}
+                                    color={COLOR_OPTS.DANGER}>
+                                    Löschen
+                                </Button>
+                            </div>
+                        </form>
+                    </Card>
+                }
+            />
 
             <TSVDeleteModal
                 show={showDeleteModal}

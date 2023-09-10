@@ -22,7 +22,7 @@ export function TrainingStationListView() {
         <>
             <PageHeader title={"Trainingsstationen Verwalten"} hideBackLink />
 
-            <Card header={"Stationen"} headerBorder>
+            <Card>
                 <Table paginate searchable columns={TSLListTypes.getColumns(navigate)} data={trainingStations ?? []} loading={loadingTrainingStations} />
             </Card>
         </>
