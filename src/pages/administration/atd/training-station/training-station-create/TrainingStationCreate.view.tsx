@@ -9,10 +9,16 @@ import { Separator } from "@/components/ui/Separator/Separator";
 import { CommonRegexp } from "@/core/Config";
 import { Table } from "@/components/ui/Table/Table";
 import TSCListTypes from "@/pages/administration/atd/training-station/training-station-create/_types/TSCList.types";
-import { COLOR_OPTS } from "@/assets/theme.config";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import ToastHelper from "@/utils/helper/ToastHelper";
+import { useNavigate } from "react-router-dom";
 
 export function TrainingStationCreateView() {
-    const [stations, setStations] = useState<{ callsign: string; frequency?: number }[]>([]);
+    const navigate = useNavigate();
+    const [submitting, setSubmitting] = useState<boolean>(false);
+    const [stations, setStations] = useState<{ callsign: string; deactivated: boolean }[]>([]);
 
     function addStation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -21,14 +27,27 @@ export function TrainingStationCreateView() {
 
         // Validate Callsign
         const callsign = data["callsign"];
-        const frequency = data["frequency"];
+        const active = data["active"];
         if (callsign == null || stations.find(s => s.callsign == callsign) != null) {
             return;
         }
 
-        // Match Regex to check if this is even a callsign
+        setStations([...stations, { callsign: callsign, deactivated: active == "on" }]);
+    }
 
-        setStations([...stations, { callsign: callsign, frequency: frequency == null || frequency.length == 0 ? undefined : Number(frequency) }]);
+    function createStations() {
+        setSubmitting(true);
+
+        axiosInstance
+            .post("/administration/training-station", stations)
+            .then(() => {
+                ToastHelper.success("Stationen erfolgreich erstellt");
+                navigate("/administration/training-station");
+            })
+            .catch(() => {
+                ToastHelper.error("Fehler beim erstellen der Stationen");
+            })
+            .finally(() => setSubmitting(false));
     }
 
     return (
@@ -50,29 +69,37 @@ export function TrainingStationCreateView() {
                         preIcon={<TbCalendarEvent size={20} />}
                         placeholder={"EDDF_S_TWR"}
                     />
-
-                    <Input
-                        labelSmall
-                        name={"frequency"}
-                        fieldClassName={"uppercase"}
-                        maxLength={7}
+                    <Checkbox className={"mt-5"} name={"active"}>
+                        Station Deaktiviert
+                    </Checkbox>{" "}
+                    <br />
+                    <Button
+                        variant={"twoTone"}
+                        disabled={submitting}
+                        size={SIZE_OPTS.SM}
                         className={"mt-5"}
-                        label={"Frequenz (Optional)"}
-                        description={
-                            "Gebe hier die Frequenz ein, die dieser Station zugewiesen werden soll. Lässt du das Feld leer, befragen wir die auf der Homepage hinterlegten Daten und nutzen die dort hinterlegte Frequenz."
-                        }
-                        preIcon={<TbCalendarEvent size={20} />}
-                        placeholder={"119.900"}
-                    />
-
-                    <Button variant={"twoTone"} className={"mt-5"} color={COLOR_OPTS.PRIMARY} icon={<TbPlus size={20} />} type={"submit"}>
+                        color={COLOR_OPTS.PRIMARY}
+                        icon={<TbPlus size={20} />}
+                        type={"submit"}>
                         Station Hinzufügen
                     </Button>
                 </form>
 
                 <Separator />
 
-                <Table paginate columns={TSCListTypes.getColumns(stations, setStations)} data={stations as any[]} />
+                <Table columns={TSCListTypes.getColumns(stations, setStations)} data={stations as any[]} />
+
+                <Separator />
+
+                <Button
+                    variant={"twoTone"}
+                    color={COLOR_OPTS.PRIMARY}
+                    onClick={() => createStations()}
+                    icon={<TbPlus size={20} />}
+                    disabled={stations.length == 0}
+                    loading={submitting}>
+                    Stationen Erstellen
+                </Button>
             </Card>
         </>
     );

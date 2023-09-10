@@ -241,7 +241,7 @@ export function SideNav() {
                                             </MenuItem>
 
                                             <CollapsableMenu requiredPerm={"atd.training_stations.view"} title={"Trainingstypen"} icon={<TbRss size={20} />}>
-                                                <MenuItem href={""} icon={<TbListDetails size={20} />}>
+                                                <MenuItem href={"administration/training-station"} icon={<TbListDetails size={20} />}>
                                                     Verwalten
                                                 </MenuItem>
                                                 <MenuItem href={"administration/training-station/create"} icon={<TbFilePlus size={20} />}>

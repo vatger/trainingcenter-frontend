@@ -1,13 +1,14 @@
 import { TableColumn } from "react-data-table-component";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { TbEye, TbTrash } from "react-icons/tb";
+import { TbTrash } from "react-icons/tb";
 import { Dispatch } from "react";
+import { Badge } from "@/components/ui/Badge/Badge";
 
 function getColumns(
-    stations: { callsign: string; frequency?: number }[],
-    setStations: Dispatch<{ callsign: string; frequency?: number }[]>
-): TableColumn<{ callsign: string; frequency?: number }>[] {
+    stations: { callsign: string; deactivated: boolean }[],
+    setStations: Dispatch<{ callsign: string; deactivated: boolean }[]>
+): TableColumn<{ callsign: string; deactivated: boolean }>[] {
     function removeStation(callsign: string) {
         const newStations = stations.filter(s => s.callsign != callsign);
         setStations(newStations);
@@ -19,8 +20,14 @@ function getColumns(
             selector: row => row.callsign.toUpperCase(),
         },
         {
-            name: "Frequenz",
-            selector: row => row.frequency?.toFixed(3) ?? "Wird Ermittelt",
+            name: "Deaktiviert",
+            cell: row => {
+                if (row.deactivated) {
+                    return <Badge color={COLOR_OPTS.DANGER}>Ja</Badge>;
+                }
+
+                return <Badge color={COLOR_OPTS.SUCCESS}>Nein</Badge>;
+            },
         },
         {
             name: "Aktion",
