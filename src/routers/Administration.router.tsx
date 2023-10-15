@@ -12,6 +12,7 @@ import { SysLogRouter } from "@/routers/administration/SysLog.router";
 import { PermissionRouter } from "@/routers/administration/Permission.router";
 import { LogTemplateRouter } from "@/routers/administration/LogTemplate.router";
 import { TrainingStationRouter } from "@/routers/administration/TrainingStation.router";
+import {ActionRequirementRouter} from "@/routers/administration/ActionRequirement.router";
 
 export function AdministrationRouter() {
     const location = useLocation();
@@ -26,6 +27,7 @@ export function AdministrationRouter() {
             <Route path={"training-type/*"} element={<TrainingTypeRouter />} />
             <Route path={"log-template/*"} element={<LogTemplateRouter />} />
             <Route path={"training-station/*"} element={<TrainingStationRouter />} />
+            <Route path={"action-requirement/*"} element={<ActionRequirementRouter/>} />
 
             <Route path={"syslog/*"} element={<SysLogRouter />} />
             <Route path={"permission/*"} element={<PermissionRouter />} />

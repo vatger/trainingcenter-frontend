@@ -1,28 +1,28 @@
-import { PageHeader } from "../../../../../../components/ui/PageHeader/PageHeader";
-import { Card } from "../../../../../../components/ui/Card/Card";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
+import { Card } from "@/components/ui/Card/Card";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEdit, TbPlus, TbTrash } from "react-icons/tb";
 import React, { useContext, useRef, useState } from "react";
 import { UVUserNoteSkeleton } from "../_skeletons/UVUserNote.skeleton";
-import { Separator } from "../../../../../../components/ui/Separator/Separator";
-import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
-import { MapArray } from "../../../../../../components/conditionals/MapArray";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { MapArray } from "@/components/conditionals/MapArray";
 import UserNoteAdminService from "../../../../../../services/user/UserNoteAdminService";
 import { useParams } from "react-router-dom";
-import { UserNoteModel } from "../../../../../../models/UserNoteModel";
+import { UserNoteModel } from "@/models/UserNoteModel";
 import authContext from "../../../../../../utils/contexts/AuthContext";
-import { UserModel } from "../../../../../../models/UserModel";
-import { Select } from "../../../../../../components/ui/Select/Select";
+import { UserModel } from "@/models/UserModel";
+import { Select } from "@/components/ui/Select/Select";
 import UserAdminService from "../../../../../../services/user/UserAdminService";
-import { CourseModel } from "../../../../../../models/CourseModel";
+import { CourseModel } from "@/models/CourseModel";
 import { AxiosError, AxiosResponse } from "axios";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import dayjs from "dayjs";
-import { Config } from "../../../../../../core/Config";
-import { UVCreateUserNotePartial } from "./UVCreateUserNote.partial";
+import { Config } from "@/core/Config";
+import { UVCreateNoteModal } from "../_modals/UVCreateNote.modal";
 
-export function ViewUserNotesView() {
+export function UVNotesSubpage() {
     const { user_id } = useParams();
     const { user } = useContext(authContext);
 
@@ -34,6 +34,7 @@ export function ViewUserNotesView() {
     const [courseNotes, setCourseNotes] = useState<UserNoteModel[]>([]);
     const [loadingCourseNotes, setLoadingCourseNotes] = useState<boolean>(false);
     const courseNoteCache = useRef<Map<string, UserNoteModel[]>>(new Map<string, UserNoteModel[]>());
+
     function handleCourseChange(value: string) {
         if (value == "-1") {
             setCourseNotes([]);
@@ -115,7 +116,7 @@ export function ViewUserNotesView() {
                 />
             </Card>
 
-            <UVCreateUserNotePartial
+            <UVCreateNoteModal
                 show={showCreateNoteModal}
                 onCreate={(userNote: UserNoteModel) => {
                     // Check if course is present
@@ -192,7 +193,7 @@ function renderUserNotes(userNotes: UserNoteModel[], user?: UserModel) {
                                         <div className={"flex flex-col"}>
                                             <h6>
                                                 {value.author?.first_name + " " + value.author?.last_name} &#x2022;{" "}
-                                                {dayjs.utc(value.createdAt).format(Config.DATETIME_FORMAT)}
+                                                {dayjs.utc(value.createdAt).format(Config.DATETIME_FORMAT) + " UTC"}
                                             </h6>
                                             <pre className={"text-gray-400 dark:text-gray-400"}>{value.uuid}</pre>
                                         </div>

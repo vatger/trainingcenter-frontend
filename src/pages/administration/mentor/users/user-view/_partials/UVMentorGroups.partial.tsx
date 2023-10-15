@@ -1,9 +1,6 @@
-import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
-import { Card } from "../../../../../../components/ui/Card/Card";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
-import { Table } from "../../../../../../components/ui/Table/Table";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { TbPlus } from "react-icons/tb";
+import { MentorGroupModel } from "@/models/MentorGroupModel";
+import { Card } from "@/components/ui/Card/Card";
+import { Table } from "@/components/ui/Table/Table";
 import React from "react";
 import { TableColumn } from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +10,7 @@ type UserMentorGroupsPartialProps = {
     mentorGroups: MentorGroupModel[];
 };
 
-export function UVUserMentorGroupsPartial(props: UserMentorGroupsPartialProps) {
+export function UVMentorGroupsPartial(props: UserMentorGroupsPartialProps) {
     const navigate = useNavigate();
     const columns: TableColumn<MentorGroupModel>[] = MentorGroupListTypes.getColumns(navigate);
 

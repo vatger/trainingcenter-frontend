@@ -1,14 +1,14 @@
-import { axiosInstance } from "../../utils/network/AxiosInstance";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { UserModel } from "../../models/UserModel";
-import { APIResponseError } from "../../exceptions/APIResponseError";
-import { CourseModel } from "../../models/CourseModel";
+import { UserModel } from "@/models/UserModel";
+import { APIResponseError } from "@/exceptions/APIResponseError";
+import { CourseModel } from "@/models/CourseModel";
 
 /**
  * Gets the user's data (VATSIM Data) excluding sensitive data like the E-Mail
  */
-function getUserData(user_id: number) {
+function getUserData(user_id?: string) {
     const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
     const [user, setUser] = useState<UserModel | null>(null);
