@@ -1,7 +1,7 @@
 import { MentorGroupModel } from "./MentorGroupModel";
 import { CourseModel } from "./CourseModel";
 import { RoleModel } from "./PermissionModel";
-import {EndorsementGroupModel} from "@/models/EndorsementGroupModel";
+import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
 
 export type UserModel = {
     id: number;

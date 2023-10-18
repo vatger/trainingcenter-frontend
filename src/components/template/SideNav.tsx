@@ -175,9 +175,16 @@ export function SideNav() {
                                     elementTrue={
                                         <>
                                             <div className="menu-title menu-title-transparent">LM</div>
-                                            <MenuItem icon={<TbCertificate size={20} />}>Freigabegruppen</MenuItem>
+                                            <CollapsableMenu title={"Freigabegruppen"} icon={<TbCertificate size={20} />}>
+                                                <MenuItem href={"administration/endorsement-group"} icon={<TbListDetails size={20} />}>
+                                                    Verwalten
+                                                </MenuItem>
+                                                <MenuItem href={"administration/endorsement-group/create"} icon={<TbFilePlus size={20} />}>
+                                                    Erstellen
+                                                </MenuItem>
+                                            </CollapsableMenu>
                                             <CollapsableMenu title={"Mentorgruppen"} icon={<TbUsers size={20} />}>
-                                                <MenuItem href={"administration/mentor-group"} icon={<TbListCheck size={20} />}>
+                                                <MenuItem href={"administration/mentor-group"} icon={<TbListDetails size={20} />}>
                                                     Verwalten
                                                 </MenuItem>
                                                 <MenuItem href={"administration/mentor-group/create"} icon={<TbFilePlus size={20} />}>
@@ -201,11 +208,13 @@ export function SideNav() {
                                                 </MenuItem>
                                             </CollapsableMenu>
                                             <CollapsableMenu title={"Skillvorlagen"} icon={<TbTemplate size={20} />}>
-                                                <MenuItem icon={<TbListDetails size={20} />}>Skillvorlagen Verwalten</MenuItem>
-                                                <MenuItem icon={<TbFilePlus size={20} />}>Skillvorlage Erstellen</MenuItem>
+                                                <MenuItem icon={<TbListDetails size={20} />}>Verwalten</MenuItem>
+                                                <MenuItem icon={<TbFilePlus size={20} />}>Erstellen</MenuItem>
                                             </CollapsableMenu>
                                             <CollapsableMenu title={"Aktionen | Bedingungen"} icon={<TbAdjustments size={20} />}>
-                                                <MenuItem icon={<TbListCheck size={20} />} href={"administration/action-requirement"}>Verwalten</MenuItem>
+                                                <MenuItem icon={<TbListDetails size={20} />} href={"administration/action-requirement"}>
+                                                    Verwalten
+                                                </MenuItem>
                                                 <MenuItem icon={<TbFilePlus size={20} />}>Erstellen</MenuItem>
                                             </CollapsableMenu>
                                         </>
@@ -240,7 +249,10 @@ export function SideNav() {
                                                 ATSIM Anfragen
                                             </MenuItem>
 
-                                            <CollapsableMenu requiredPerm={"atd.training_stations.view"} title={"Trainingsstationen"} icon={<TbRss size={20} />}>
+                                            <CollapsableMenu
+                                                requiredPerm={"atd.training_stations.view"}
+                                                title={"Trainingsstationen"}
+                                                icon={<TbRss size={20} />}>
                                                 <MenuItem href={"administration/training-station"} icon={<TbListDetails size={20} />}>
                                                     Verwalten
                                                 </MenuItem>

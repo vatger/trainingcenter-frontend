@@ -9,10 +9,8 @@ import { Input } from "@/components/ui/Input/Input";
 import { TbActivity, TbFilePlus, TbId, TbLock, TbTemplate } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
 import { useNavigate } from "react-router-dom";
-import UserService from "../../../../../services/user/UserService";
 import { Card } from "@/components/ui/Card/Card";
 import FormHelper from "../../../../../utils/helper/FormHelper";
-import { NetworkError } from "@/components/errors/NetworkError";
 import { Alert } from "@/components/ui/Alert/Alert";
 import { CCreateViewSkeleton } from "../_skeletons/CCreateView.skeleton";
 import { TextArea } from "@/components/ui/Textarea/TextArea";
@@ -20,11 +18,10 @@ import { CommonRegexp } from "@/core/Config";
 import { Select } from "@/components/ui/Select/Select";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
-import { CourseModel, CourseSkillTemplateModel } from "@/models/CourseModel";
+import { CourseSkillTemplateModel } from "@/models/CourseModel";
 import { MapArray } from "@/components/conditionals/MapArray";
 import StringHelper from "@/utils/helper/StringHelper";
 import { MentorGroupModel } from "@/models/MentorGroupModel";
-import { AxiosResponse } from "axios";
 import ToastHelper from "@/utils/helper/ToastHelper";
 
 export function CourseCreateView() {

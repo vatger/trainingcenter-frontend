@@ -6,6 +6,7 @@ export type SelectProps = {
     name?: string;
     selectClassName?: string;
     label?: string;
+    value?: any;
     required?: boolean;
     description?: string;
     labelSmall?: boolean;

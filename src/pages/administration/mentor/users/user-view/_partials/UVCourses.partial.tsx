@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button/Button";
 import { TbPlus } from "react-icons/tb";
 import UVTypes from "@/pages/administration/mentor/users/user-view/_types/UV.types";
 
-export function UVCoursesPartial({courses}: {courses: CourseModel[] | undefined}) {
+export function UVCoursesPartial({ courses }: { courses: CourseModel[] | undefined }) {
     const navigate = useNavigate();
 
     return (

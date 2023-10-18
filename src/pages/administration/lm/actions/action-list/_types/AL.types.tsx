@@ -1,14 +1,14 @@
-import {NavigateFunction} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {ActionRequirementModel} from "@/models/CourseModel";
-import {Badge} from "@/components/ui/Badge/Badge";
-import {COLOR_OPTS, SIZE_OPTS} from "@/assets/theme.config";
+import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { ActionRequirementModel } from "@/models/CourseModel";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import dayjs from "dayjs";
-import {Config} from "@/core/Config";
-import {Button} from "@/components/ui/Button/Button";
-import {TbEye} from "react-icons/tb";
+import { Config } from "@/core/Config";
+import { Button } from "@/components/ui/Button/Button";
+import { TbEye } from "react-icons/tb";
 
-function getActionRequirementTableColumns(navigate: NavigateFunction): (TableColumn<ActionRequirementModel> & {searchable?: boolean})[] {
+function getActionRequirementTableColumns(navigate: NavigateFunction): (TableColumn<ActionRequirementModel> & { searchable?: boolean })[] {
     return [
         {
             name: "Name",
@@ -29,13 +29,13 @@ function getActionRequirementTableColumns(navigate: NavigateFunction): (TableCol
                     case "action":
                         return <Badge color={COLOR_OPTS.PRIMARY}>Aktion</Badge>;
                     case "requirement":
-                        return <Badge color={COLOR_OPTS.WARNING}>Bedingung</Badge>
+                        return <Badge color={COLOR_OPTS.WARNING}>Bedingung</Badge>;
                 }
-            }
+            },
         },
         {
             name: "Erstellt Am",
-            selector: row => dayjs.utc(row.createdAt).format(Config.DATE_FORMAT)
+            selector: row => dayjs.utc(row.createdAt).format(Config.DATE_FORMAT),
         },
         {
             name: "Aktion",
@@ -54,8 +54,8 @@ function getActionRequirementTableColumns(navigate: NavigateFunction): (TableCol
                     </div>
                 );
             },
-        }
-    ]
+        },
+    ];
 }
 
-export default {getActionRequirementTableColumns}
+export default { getActionRequirementTableColumns };

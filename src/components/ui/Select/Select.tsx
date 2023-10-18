@@ -1,5 +1,5 @@
 import { SelectProps } from "./Select.props";
-import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
+import { joinClassNames } from "@/utils/helper/ClassNameHelper";
 import { TbAlertCircle, TbChevronDown } from "react-icons/tb";
 import { useState } from "react";
 import { Spinner } from "../Spinner/Spinner";
@@ -28,6 +28,7 @@ export function Select(props: SelectProps) {
 
             <div className={"relative " + (props.selectClassName ?? "")}>
                 <select
+                    value={props.value?.toString() ?? undefined}
                     name={props.name}
                     defaultValue={props.defaultValue}
                     onBlur={() => setFocus(false)}

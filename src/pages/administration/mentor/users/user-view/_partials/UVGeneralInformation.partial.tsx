@@ -10,7 +10,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { getPilotRatingLong, getPilotRatingShort } from "@/utils/helper/vatsim/PilotRatingHelper";
 
-export function UVGeneralInformationPartial({user}: {user?: UserModel}) {
+export function UVGeneralInformationPartial({ user }: { user?: UserModel }) {
     const navigate = useNavigate();
     let userData = user as UserModel;
 

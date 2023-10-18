@@ -8,18 +8,22 @@ import { UVUserViewSkeleton } from "./_skeletons/UVUserView.skeleton";
 import { NetworkError } from "@/components/errors/NetworkError";
 import { UVMentorGroupsPartial } from "./_partials/UVMentorGroups.partial";
 import useApi from "@/utils/hooks/useApi";
-import {UserModel} from "@/models/UserModel";
-import {UVEndorsementsPartial} from "@/pages/administration/mentor/users/user-view/_partials/UVEndorsements.partial";
+import { UserModel } from "@/models/UserModel";
+import { UVEndorsementsPartial } from "@/pages/administration/mentor/users/user-view/_partials/UVEndorsements.partial";
 
 export function UserViewView() {
     const { user_id } = useParams();
 
-    const {loading: loadingUser, data: userData, loadingError} = useApi<UserModel>({
+    const {
+        loading: loadingUser,
+        data: userData,
+        loadingError,
+    } = useApi<UserModel>({
         url: "/administration/user/data",
         method: "GET",
         params: {
-            user_id: user_id
-        }
+            user_id: user_id,
+        },
     });
 
     return (
@@ -37,12 +41,10 @@ export function UserViewView() {
                             <>
                                 <UVGeneralInformationPartial user={userData} />
                                 <UVCoursesPartial courses={userData?.courses} />
-                                <UVEndorsementsPartial user={userData}/>
+                                <UVEndorsementsPartial user={userData} />
                                 <RenderIf
                                     truthValue={(userData?.mentor_groups?.length ?? 0) > 0}
-                                    elementTrue={
-                                        <UVMentorGroupsPartial mentorGroups={userData?.mentor_groups ?? []} />
-                                    }
+                                    elementTrue={<UVMentorGroupsPartial mentorGroups={userData?.mentor_groups ?? []} />}
                                 />
                             </>
                         }

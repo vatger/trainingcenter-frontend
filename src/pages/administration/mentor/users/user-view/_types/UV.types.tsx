@@ -1,38 +1,38 @@
-import {NavigateFunction} from "react-router-dom";
-import {TableColumn} from "react-data-table-component";
-import {EndorsementGroupModel} from "@/models/EndorsementGroupModel";
+import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
 import dayjs from "dayjs";
-import {Config} from "@/core/Config";
-import {Badge} from "@/components/ui/Badge/Badge";
-import {COLOR_OPTS} from "@/assets/theme.config";
-import {CourseModel} from "@/models/CourseModel";
+import { Config } from "@/core/Config";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import { CourseModel } from "@/models/CourseModel";
 import moment from "moment";
 
-function getEndorsementTableColumns(navigate: NavigateFunction): (TableColumn<EndorsementGroupModel> & {searchable?: boolean})[] {
+function getEndorsementTableColumns(navigate: NavigateFunction): (TableColumn<EndorsementGroupModel> & { searchable?: boolean })[] {
     return [
         {
             name: "Name",
-            selector: row => row.name
+            selector: row => row.name,
         },
         {
             name: "Solo",
             cell: row => {
                 if (row.EndorsementGroupsBelongsToUsers?.solo) {
-                    return <Badge color={COLOR_OPTS.DANGER}>Ja</Badge>
+                    return <Badge color={COLOR_OPTS.DANGER}>{dayjs.utc(row.EndorsementGroupsBelongsToUsers.solo_expires).format(Config.DATE_FORMAT)}</Badge>;
                 }
 
-                return <Badge color={COLOR_OPTS.PRIMARY}>Nein</Badge>
-            }
+                return <Badge color={COLOR_OPTS.PRIMARY}>Nein</Badge>;
+            },
         },
         {
             name: "Freigabe Am",
-            selector: row => dayjs.utc(row.EndorsementGroupsBelongsToUsers?.createdAt).format(Config.DATE_FORMAT)
+            selector: row => dayjs.utc(row.EndorsementGroupsBelongsToUsers?.createdAt).format(Config.DATE_FORMAT),
         },
         {
             name: "Aktion",
-            selector: () => "TODO"
-        }
-    ]
+            selector: () => "TODO",
+        },
+    ];
 }
 
 function getCoursesTableColumns(navigate: NavigateFunction): TableColumn<CourseModel>[] {
@@ -64,5 +64,5 @@ function getCoursesTableColumns(navigate: NavigateFunction): TableColumn<CourseM
 
 export default {
     getEndorsementTableColumns,
-    getCoursesTableColumns
-}
+    getCoursesTableColumns,
+};

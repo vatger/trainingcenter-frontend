@@ -10,7 +10,6 @@ import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbPlus } from "react-icons/tb";
 import { useState } from "react";
 import { Separator } from "@/components/ui/Separator/Separator";
-import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import TrainingTypeAdminService from "@/services/training-type/TrainingTypeAdminService";
 import { RenderIf } from "@/components/conditionals/RenderIf";
@@ -50,6 +49,7 @@ export function TTVTrainingStationsSubpage(props: { trainingTypeID?: string }) {
             .then(() => {
                 ToastHelper.success("Trainingsstation erfolgreich hinzugefügt");
                 setTrainingType({ ...trainingType, training_stations: newStations });
+                setSelectedTrainingStation(undefined);
             })
             .catch(() => {
                 ToastHelper.error("Fehler beim Hinzufügen der Trainingsstation");
@@ -67,6 +67,7 @@ export function TTVTrainingStationsSubpage(props: { trainingTypeID?: string }) {
                         <Select
                             label={"Trainingsstation Hinzufügen"}
                             labelSmall
+                            value={selectedTrainingStation ?? "-1"}
                             disabled={submitting}
                             onChange={v => {
                                 if (v == "-1") {
@@ -74,8 +75,7 @@ export function TTVTrainingStationsSubpage(props: { trainingTypeID?: string }) {
                                     return;
                                 }
                                 setSelectedTrainingStation(v);
-                            }}
-                            defaultValue={"-1"}>
+                            }}>
                             <option value={"-1"}>Trainingsstation Auswählen</option>
 
                             <MapArray
@@ -93,6 +93,7 @@ export function TTVTrainingStationsSubpage(props: { trainingTypeID?: string }) {
                         <Button
                             variant={"twoTone"}
                             color={COLOR_OPTS.PRIMARY}
+                            disabled={selectedTrainingStation == null || selectedTrainingStation == "-1"}
                             className={"mt-3"}
                             icon={<TbPlus size={20} />}
                             loading={submitting}

@@ -1,9 +1,9 @@
-import {Route, Routes, useLocation} from "react-router-dom";
-import {CourseCreateView} from "@/pages/administration/lm/course/course-create/CourseCreate.view";
-import {Error403} from "@/pages/errors/403";
-import {Error404} from "@/pages/errors/404";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { CourseCreateView } from "@/pages/administration/lm/course/course-create/CourseCreate.view";
+import { Error403 } from "@/pages/errors/403";
+import { Error404 } from "@/pages/errors/404";
 import React from "react";
-import {ActionListView} from "@/pages/administration/lm/actions/action-list/ActionList.view";
+import { ActionListView } from "@/pages/administration/lm/actions/action-list/ActionList.view";
 
 export function ActionRequirementRouter() {
     const location = useLocation();
