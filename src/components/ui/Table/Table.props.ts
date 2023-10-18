@@ -16,4 +16,6 @@ export type TableProps = {
 
     loading?: boolean;
     paginationPerPage?: number;
+
+    defaultSortField?: string | number;
 };

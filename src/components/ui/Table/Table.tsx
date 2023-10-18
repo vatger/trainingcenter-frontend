@@ -57,6 +57,7 @@ export function Table(props: TableProps) {
                 />
 
                 <DataTable
+                    defaultSortFieldId={props.defaultSortField}
                     sortIcon={<TbSortDescending className={"ml-2"} />}
                     data={data}
                     noDataComponent={<div className={"p-4"}>{tableTranslation.noData[language]}</div>}

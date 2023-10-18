@@ -1,9 +1,9 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { OpenTrainingRequestList } from "@/pages/administration/mentor/request/open-training-request-list/OpenTrainingRequestList";
-import { OpenTrainingRequestView } from "@/pages/administration/mentor/request/open-training-request-view/OpenTrainingRequest.view";
-import { MentorTrainingListView } from "@/pages/administration/mentor/training-session/trainining-planned-list/MentorTrainingList.view";
-import { MentorTrainingView } from "@/pages/administration/mentor/training-session/training-planned-view/MentorTraining.view";
-import { TrainingSessionLogsCreateView } from "@/pages/administration/mentor/training-session/training-session-logs-create/TrainingSessionLogsCreate.view";
+import { OpenTrainingRequestList } from "@/pages/administration/mentor/request/open-request-list/OpenTrainingRequestList";
+import { OpenTrainingRequestView } from "@/pages/administration/mentor/request/open-request-view/OpenTrainingRequest.view";
+import { MentorTrainingListView } from "@/pages/administration/mentor/training-session/planned-list/MentorTrainingList.view";
+import { MentorTrainingView } from "@/pages/administration/mentor/training-session/planned-view/MentorTraining.view";
+import { TrainingSessionLogsCreateView } from "@/pages/administration/mentor/training-session/session-log-create/TrainingSessionLogsCreate.view";
 import React from "react";
 import { Error403 } from "@/pages/errors/403";
 import { Error404 } from "@/pages/errors/404";

@@ -4,6 +4,7 @@ import { Error404 } from "@/pages/errors/404";
 import React from "react";
 import { EndorsementGroupCreateView } from "@/pages/administration/lm/endorsement-group/create/EndorsementGroupCreate.view";
 import { EndorsementGroupListView } from "@/pages/administration/lm/endorsement-group/list/EndorsementGroupList.view";
+import { EndorsementGroupViewView } from "@/pages/administration/lm/endorsement-group/view/EndorsementGroupView.view";
 
 export function EndorsementGroupRouter() {
     const location = useLocation();
@@ -12,6 +13,8 @@ export function EndorsementGroupRouter() {
         <Routes>
             <Route path={""} element={<EndorsementGroupListView />} />
             <Route path={"create"} element={<EndorsementGroupCreateView />} />
+
+            <Route path={":id"} element={<EndorsementGroupViewView />} />
 
             <Route path={"403"} element={<Error403 />} />
             <Route path={"*"} element={<Error404 path={location.pathname} />} />

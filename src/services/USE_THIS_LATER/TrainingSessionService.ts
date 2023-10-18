@@ -2,7 +2,7 @@ import { UserModel } from "@/models/UserModel";
 import { LogTemplateElement, LogTemplateElementRating, LogTemplateElementSection, LogTemplateElementTextarea } from "@/models/TrainingLogTemplateModel";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import React from "react";
-import { ParticipantStatus } from "@/pages/administration/mentor/training-session/training-session-logs-create/TrainingSessionLogsCreate.view";
+import { ParticipantStatus } from "@/pages/administration/mentor/training-session/session-log-create/TrainingSessionLogsCreate.view";
 import { NavigateFunction } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
 import ToastHelper from "@/utils/helper/ToastHelper";

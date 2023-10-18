@@ -1,22 +1,21 @@
-import { TableColumn } from "react-data-table-component";
-import { TrainingStationModel } from "@/models/TrainingStationModel";
-import { Badge } from "@/components/ui/Badge/Badge";
-import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { Button } from "@/components/ui/Button/Button";
-import { TbEye } from "react-icons/tb";
 import { NavigateFunction } from "react-router-dom";
+import { TableColumn } from "react-data-table-component";
+import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { TbEye } from "react-icons/tb";
 
-function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationModel> & { searchable?: boolean })[] {
+function getColumns(navigate: NavigateFunction): (TableColumn<EndorsementGroupModel> & { searchable?: boolean })[] {
     return [
         {
-            name: "Callsign",
-            selector: row => row.callsign.toUpperCase(),
-            searchable: true,
+            name: "Name",
+            selector: row => row.name,
         },
         {
-            name: "Frequenz",
-            selector: row => row.frequency?.toFixed(3) ?? "Wird Ermittelt",
-            searchable: true,
+            name: "Erstellt Am",
+            selector: row => dayjs.utc(row.createdAt).format(Config.DATE_FORMAT),
         },
         {
             name: "Aktion",
@@ -24,10 +23,10 @@ function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationMod
                 return (
                     <div className={"flex"}>
                         <Button
-                            className={"my-3 ml-2"}
+                            className={"my-3"}
                             onClick={() => navigate(`${row.id}`)}
-                            variant={"twoTone"}
                             size={SIZE_OPTS.SM}
+                            variant={"twoTone"}
                             color={COLOR_OPTS.PRIMARY}
                             icon={<TbEye size={20} />}>
                             Ansehen
@@ -39,4 +38,6 @@ function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationMod
     ];
 }
 
-export default { getColumns };
+export default {
+    getColumns,
+};

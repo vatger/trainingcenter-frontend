@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { TrainingSessionCreateView } from "@/pages/administration/mentor/training-session/training-session-create/TrainingSessionCreate.view";
-import { TrainingSessionCreateFromRequestView } from "@/pages/administration/mentor/training-session/training-session-create/TrainingSessionCreateFromRequest.view";
+import { TrainingSessionCreateView } from "@/pages/administration/mentor/training-session/session-create/TrainingSessionCreate.view";
+import { TrainingSessionCreateFromRequestView } from "@/pages/administration/mentor/training-session/session-create/TrainingSessionCreateFromRequest.view";
 import React from "react";
 import { Error403 } from "@/pages/errors/403";
 import { Error404 } from "@/pages/errors/404";

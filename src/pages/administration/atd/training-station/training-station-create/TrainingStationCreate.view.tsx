@@ -10,7 +10,6 @@ import { CommonRegexp } from "@/core/Config";
 import { Table } from "@/components/ui/Table/Table";
 import TSCListTypes from "@/pages/administration/atd/training-station/training-station-create/_types/TSCList.types";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 export function TrainingStationCreateView() {
     const navigate = useNavigate();
     const [submitting, setSubmitting] = useState<boolean>(false);
-    const [stations, setStations] = useState<{ callsign: string; deactivated: boolean }[]>([]);
+    const [stations, setStations] = useState<{ callsign: string }[]>([]);
 
     function addStation(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -32,7 +31,7 @@ export function TrainingStationCreateView() {
             return;
         }
 
-        setStations([...stations, { callsign: callsign, deactivated: active == "on" }]);
+        setStations([...stations, { callsign: callsign }]);
     }
 
     function createStations() {
@@ -69,10 +68,7 @@ export function TrainingStationCreateView() {
                         preIcon={<TbCalendarEvent size={20} />}
                         placeholder={"EDDF_S_TWR"}
                     />
-                    <Checkbox className={"mt-5"} name={"active"}>
-                        Station Deaktiviert
-                    </Checkbox>{" "}
-                    <br />
+
                     <Button
                         variant={"twoTone"}
                         disabled={submitting}

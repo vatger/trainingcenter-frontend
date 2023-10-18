@@ -13,7 +13,7 @@ import { MapArray } from "@/components/conditionals/MapArray";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { Button } from "@/components/ui/Button/Button";
 import { Table } from "@/components/ui/Table/Table";
-import EGCListTypes from "@/pages/administration/lm/endorsement-group/create/_types/EGCList.types";
+import EGCListTypes from "@/pages/administration/lm/endorsement-group/create/_types/EGCStationList.types";
 import FormHelper from "@/utils/helper/FormHelper";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";

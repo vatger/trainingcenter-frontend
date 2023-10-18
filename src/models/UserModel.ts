@@ -1,7 +1,7 @@
 import { MentorGroupModel } from "./MentorGroupModel";
 import { CourseModel } from "./CourseModel";
 import { RoleModel } from "./PermissionModel";
-import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
+import { EndorsementGroupModel, EndorsementGroupsBelongsToUsers } from "@/models/EndorsementGroupModel";
 
 export type UserModel = {
     id: number;
@@ -17,6 +17,7 @@ export type UserModel = {
     through?: any;
     UsersBelongsToCourses?: UserCourseThrough; // Append as required x | x
     UserBelongToMentorGroups?: UserMentorGroupThrough;
+    EndorsementGroupsBelongsToUsers?: EndorsementGroupsBelongsToUsers;
     createdAt: Date;
     updatedAt?: Date;
 };

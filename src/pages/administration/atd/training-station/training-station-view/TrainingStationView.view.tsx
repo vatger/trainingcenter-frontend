@@ -38,7 +38,6 @@ export function TrainingStationViewView() {
         setSubmitting(true);
 
         const data = FormHelper.getEntries(e.target);
-        data["deactivated"] = data["deactivated"] == "1";
 
         axiosInstance
             .patch(`/administration/training-station/${id}`, data)
@@ -63,6 +62,17 @@ export function TrainingStationViewView() {
                 elementTrue={<TSVSkeleton />}
                 elementFalse={
                     <Card>
+                        <Input
+                            labelSmall
+                            label={"Zuletzt Aktualisiert (UTC)"}
+                            className={"flex flex-col"}
+                            disabled
+                            preIcon={<TbCalendarTime size={20} />}
+                            value={dayjs.utc(trainingStation?.updatedAt).format(Config.DATETIME_FORMAT)}
+                        />
+
+                        <Separator />
+
                         <form onSubmit={updateCourse}>
                             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                                 <Input
@@ -82,26 +92,6 @@ export function TrainingStationViewView() {
                                     className={"flex flex-col"}
                                     preIcon={<TbRss size={20} />}
                                     value={trainingStation?.frequency.toFixed(3)}
-                                />
-
-                                <Select
-                                    labelSmall
-                                    name={"deactivated"}
-                                    label={"Deaktiviert"}
-                                    className={"flex flex-col"}
-                                    preIcon={<TbActivity size={20} />}
-                                    defaultValue={trainingStation?.deactivated ? "1" : "0"}>
-                                    <option value="0">Nein</option>
-                                    <option value="1">Ja</option>
-                                </Select>
-
-                                <Input
-                                    labelSmall
-                                    label={"Zuletzt Aktualisiert (UTC)"}
-                                    className={"flex flex-col"}
-                                    disabled
-                                    preIcon={<TbCalendarTime size={20} />}
-                                    value={dayjs.utc(trainingStation?.updatedAt).format(Config.DATETIME_FORMAT)}
                                 />
                             </div>
 

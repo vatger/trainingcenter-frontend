@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { AdminCourseListView } from "@/pages/administration/lm/course/course-list/CourseList.view";
-import { CourseCreateView } from "@/pages/administration/lm/course/course-create/CourseCreate.view";
-import { CourseViewView } from "@/pages/administration/lm/course/course-view/CourseView.view";
+import { AdminCourseListView } from "@/pages/administration/lm/course/list/CourseList.view";
+import { CourseCreateView } from "@/pages/administration/lm/course/create/CourseCreate.view";
+import { CourseViewView } from "@/pages/administration/lm/course/view/CourseView.view";
 import React from "react";
 import { Error403 } from "@/pages/errors/403";
 import { Error404 } from "@/pages/errors/404";

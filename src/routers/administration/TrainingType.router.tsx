@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { TrainingTypeListView } from "@/pages/administration/lm/training-type/training-type-list/TrainingTypeList.view";
-import { TrainingTypeCreateView } from "@/pages/administration/lm/training-type/training-type-create/TrainingTypeCreate.view";
-import { TrainingTypeViewView } from "@/pages/administration/lm/training-type/training-type-view/TrainingTypeView.view";
+import { TrainingTypeListView } from "@/pages/administration/lm/training-type/list/TrainingTypeList.view";
+import { TrainingTypeCreateView } from "@/pages/administration/lm/training-type/create/TrainingTypeCreate.view";
+import { TrainingTypeViewView } from "@/pages/administration/lm/training-type/view/TrainingTypeView.view";
 import React from "react";
 import { Error403 } from "@/pages/errors/403";
 import { Error404 } from "@/pages/errors/404";
