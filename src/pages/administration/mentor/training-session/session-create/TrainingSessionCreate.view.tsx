@@ -194,7 +194,14 @@ export function TrainingSessionCreateView() {
                                 </div>
                                 <Separator />
 
-                                <Button variant={"twoTone"} loading={submitting} color={COLOR_OPTS.PRIMARY} icon={<TbCalendarPlus size={20} />} type={"submit"}>
+                                <Button
+                                    variant={"twoTone"}
+                                    disabled={courseUUID == null || trainingTypeID == null}
+                                    loading={submitting}
+                                    color={COLOR_OPTS.PRIMARY}
+                                    icon={<TbCalendarPlus size={20} />}
+                                    type={"submit"}
+                                >
                                     Session Erstellen
                                 </Button>
                             </Card>
