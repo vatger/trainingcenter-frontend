@@ -17,6 +17,7 @@ export function UserViewView() {
     const {
         loading: loadingUser,
         data: userData,
+        setData: setUserData,
         loadingError,
     } = useApi<UserModel>({
         url: "/administration/user/data",
@@ -41,7 +42,7 @@ export function UserViewView() {
                             <>
                                 <UVGeneralInformationPartial user={userData} />
                                 <UVCoursesPartial courses={userData?.courses} />
-                                <UVEndorsementsPartial user={userData} />
+                                <UVEndorsementsPartial user={userData} setUser={setUserData} />
                                 <RenderIf
                                     truthValue={(userData?.mentor_groups?.length ?? 0) > 0}
                                     elementTrue={<UVMentorGroupsPartial mentorGroups={userData?.mentor_groups ?? []} />}

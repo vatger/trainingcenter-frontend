@@ -1,8 +1,7 @@
-import { NavigateFunction } from "react-router-dom";
 import { TableColumn } from "react-data-table-component";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { TbEye, TbTrash, TbUsers } from "react-icons/tb";
+import { TbTrash, TbUsers } from "react-icons/tb";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { MentorGroupModel } from "@/models/MentorGroupModel";
 import moment from "moment";
@@ -44,10 +43,6 @@ function getColumns(
     }
 
     return [
-        {
-            name: "ID",
-            selector: row => row.id.toString(),
-        },
         {
             name: "Name",
             selector: row => row.name,

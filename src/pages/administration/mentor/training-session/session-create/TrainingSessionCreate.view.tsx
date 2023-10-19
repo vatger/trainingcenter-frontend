@@ -1,11 +1,10 @@
 import { Card } from "@/components/ui/Card/Card";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
-import { useNavigate, useParams } from "react-router-dom";
-import TrainingRequestAdminService from "@/services/training-request/TrainingRequestAdminService";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendarEvent, TbCalendarPlus, TbId, TbUser } from "react-icons/tb";
+import { TbCalendarEvent, TbCalendarPlus, TbUser } from "react-icons/tb";
 import dayjs from "dayjs";
-import React, { FormEvent, FormEventHandler, useEffect, useRef, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Table } from "@/components/ui/Table/Table";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
@@ -70,7 +69,12 @@ export function TrainingSessionCreateView() {
     function createSession(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const data = FormHelper.getEntries(event?.target) as { date: string; course_uuid: string; training_type_id: number; training_station_id: string };
+        const data = FormHelper.getEntries(event?.target) as {
+            date: string;
+            course_uuid: string;
+            training_type_id: number;
+            training_station_id: string;
+        };
 
         setSubmitting(true);
         TrainingSessionAdminService.createTrainingSession(participants, data.course_uuid, data.training_type_id, data.training_station_id, data.date)
@@ -200,8 +204,7 @@ export function TrainingSessionCreateView() {
                                     loading={submitting}
                                     color={COLOR_OPTS.PRIMARY}
                                     icon={<TbCalendarPlus size={20} />}
-                                    type={"submit"}
-                                >
+                                    type={"submit"}>
                                     Session Erstellen
                                 </Button>
                             </Card>

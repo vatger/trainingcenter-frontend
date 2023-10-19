@@ -1,8 +1,12 @@
+import { TrainingStationModel } from "@/models/TrainingStationModel";
+
 export interface EndorsementGroupModel {
     id: number;
     name: string;
     createdAt: Date;
     updatedAt?: Date;
+
+    stations?: TrainingStationModel[];
 
     EndorsementGroupsBelongsToUsers?: EndorsementGroupsBelongsToUsers;
 }

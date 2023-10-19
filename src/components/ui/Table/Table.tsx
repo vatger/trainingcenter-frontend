@@ -68,7 +68,7 @@ export function Table(props: TableProps) {
                     className={"table-default tab-hide-scrollbar"}
                     progressPending={loading}
                     progressComponent={<Spinner className={"mt-7"} size={35} />}
-                    persistTableHead
+                    persistTableHead={props.persistTableHead ?? true}
                 />
             </div>
         </>

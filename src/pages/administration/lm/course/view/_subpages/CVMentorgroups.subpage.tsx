@@ -66,7 +66,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
         mentorGroup.MentorGroupsBelongsToCourses.can_edit_course = selectedMentorGroupEdit;
 
         axiosInstance
-            .put(`/administration/course/mentor-group/${courseUUID}`, {
+            .post(`/administration/course/mentor-group/${courseUUID}`, {
                 mentor_group_id: idNum,
                 course_uuid: courseUUID,
                 can_edit: mentorGroup.MentorGroupsBelongsToCourses.can_edit_course,
@@ -75,6 +75,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
                 if (mentorGroup == null) return;
                 setMentorGroups([...(mentorGroups ?? []), mentorGroup]);
                 setNewMentorGroups(newMentorGroups?.filter(m => m.id != idNum) ?? []);
+                setSelectedMentorGroup(undefined);
             })
             .catch(() => {
                 ToastHelper.error("Fehler beim Hinzufügen der Mentorengruppe");
@@ -101,7 +102,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
 
                                     setSelectedMentorGroup(v);
                                 }}
-                                defaultValue={"-1"}>
+                                value={selectedMentorGroup ?? "-1"}>
                                 <option value={"-1"}>Mentorengruppe Auswählen</option>
 
                                 <MapArray
