@@ -207,7 +207,7 @@ export function SideNav() {
                                                     Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
-                                            <CollapsableMenu title={"Skillvorlagen"} icon={<TbTemplate size={20} />}>
+                                            <CollapsableMenu title={"Skillvorlagen (TBD)"} disabled icon={<TbTemplate size={20} />}>
                                                 <MenuItem icon={<TbListDetails size={20} />}>Verwalten</MenuItem>
                                                 <MenuItem icon={<TbFilePlus size={20} />}>Erstellen</MenuItem>
                                             </CollapsableMenu>
@@ -226,7 +226,7 @@ export function SideNav() {
                                     elementTrue={
                                         <>
                                             <div className="menu-title menu-title-transparent">ATD</div>
-                                            <CollapsableMenu requiredPerms={"atd.examiner.view"} title={"Prüfer"} icon={<TbUsers size={20} />}>
+                                            <CollapsableMenu requiredPerm={"atd.examiner.view"} title={"Prüfer"} icon={<TbUsers size={20} />}>
                                                 <MenuItem icon={<TbClipboardList size={20} />}>CPTs</MenuItem>
                                                 <MenuItem icon={<TbCalendar size={20} />}>Offene CPTs</MenuItem>
                                                 <MenuItem icon={<TbList size={20} />}>Meine CPTs</MenuItem>

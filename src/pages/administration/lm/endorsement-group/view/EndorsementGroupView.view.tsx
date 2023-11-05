@@ -4,6 +4,7 @@ import { Tabs } from "@/components/ui/Tabs/Tabs";
 import { EGVSettingsSubpage } from "@/pages/administration/lm/endorsement-group/view/_subpages/EGVSettings.subpage";
 import { EGVStationsSubpage } from "@/pages/administration/lm/endorsement-group/view/_subpages/EGVStations.subpage";
 import { EGVUsersSubpage } from "@/pages/administration/lm/endorsement-group/view/_subpages/EGVUsers.subpage";
+import { EGVDangerSubpage } from "@/pages/administration/lm/endorsement-group/view/_subpages/EGVDanger.subpage";
 
 export function EndorsementGroupViewView() {
     return (
@@ -15,7 +16,7 @@ export function EndorsementGroupViewView() {
                     <EGVSettingsSubpage />
                     <EGVStationsSubpage />
                     <EGVUsersSubpage />
-                    <></>
+                    <EGVDangerSubpage />
                 </Tabs>
             </Card>
         </>

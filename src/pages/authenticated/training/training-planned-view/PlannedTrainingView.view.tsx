@@ -56,7 +56,7 @@ export function PlannedTrainingView() {
                         disabled
                         value={
                             trainingSession?.training_station?.callsign
-                                ? `${trainingSession?.training_station?.callsign} (${trainingSession?.training_station?.frequency?.toFixed(3)})`
+                                ? `${trainingSession?.training_station?.callsign.toUpperCase()} (${trainingSession?.training_station?.frequency?.toFixed(3)})`
                                 : "N/A"
                         }
                     />
@@ -89,13 +89,21 @@ export function PlannedTrainingView() {
                                     labelSmall
                                     preIcon={<TbId size={20} />}
                                     label={"CPT Prüfer"}
+                                    inputError={trainingSession?.cpt_examiner == null}
+                                    hideInputErrorText
                                     disabled
-                                    value={`${trainingSession?.cpt_examiner?.first_name} ${trainingSession?.cpt_examiner?.last_name} (${trainingSession?.cpt_examiner?.id})`}
+                                    value={
+                                        trainingSession?.cpt_examiner == null
+                                            ? `N/A`
+                                            : `${trainingSession?.cpt_examiner?.first_name} ${trainingSession?.cpt_examiner?.last_name} (${trainingSession?.cpt_examiner?.id})`
+                                    }
                                 />
                                 <Input
                                     labelSmall
                                     preIcon={<TbId size={20} />}
                                     label={"ATSIM Test Bestanden"}
+                                    inputError={!trainingSession?.cpt_atsim_passed}
+                                    hideInputErrorText
                                     disabled
                                     value={trainingSession?.cpt_atsim_passed ? "Ja" : "Nein"}
                                 />

@@ -10,7 +10,8 @@ import { Dispatch } from "react";
 function getColumns(
     navigate: NavigateFunction,
     setShowRemoveUserModal: Dispatch<boolean>,
-    setSelectedUser: Dispatch<UserModel>
+    setSelectedUser: Dispatch<UserModel>,
+    course_id?: string
 ): (TableColumn<UserModel> & { searchable?: boolean })[] {
     return [
         {
@@ -45,7 +46,16 @@ function getColumns(
             cell: row => {
                 return (
                     <div className={"flex"}>
-                        <Button className={"my-3"} size={SIZE_OPTS.SM} variant={"twoTone"} color={COLOR_OPTS.PRIMARY} icon={<TbEye size={20} />}></Button>
+                        <Button
+                            className={"my-3"}
+                            size={SIZE_OPTS.SM}
+                            variant={"twoTone"}
+                            color={COLOR_OPTS.PRIMARY}
+                            icon={<TbEye size={20} />}
+                            onClick={() => {
+                                navigate(`/administration/user-course-progress/${course_id}/${row.id}`);
+                            }}
+                        />
                         <Button
                             className={"my-3 ml-2"}
                             variant={"twoTone"}

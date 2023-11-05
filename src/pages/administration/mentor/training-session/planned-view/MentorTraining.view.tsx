@@ -102,7 +102,7 @@ export function MentorTrainingView() {
                                             mapFunction={(trainingStation: TrainingStationModel, index) => {
                                                 return (
                                                     <option key={index} value={trainingStation.id}>
-                                                        {trainingStation.callsign} ({trainingStation.frequency.toFixed(3)})
+                                                        {trainingStation.callsign.toUpperCase()} ({trainingStation.frequency.toFixed(3)})
                                                     </option>
                                                 );
                                             }}
@@ -117,15 +117,20 @@ export function MentorTrainingView() {
                                         Aktualisieren
                                     </Button>
 
-                                    <Button
-                                        color={COLOR_OPTS.PRIMARY}
-                                        variant={"twoTone"}
-                                        icon={<TbClipboardPlus size={20} />}
-                                        type={"button"}
-                                        disabled={updating}
-                                        onClick={() => navigate("logs-create")}>
-                                        Logs Erstellen
-                                    </Button>
+                                    <RenderIf
+                                        truthValue={trainingSession?.training_type?.type != "cpt"}
+                                        elementTrue={
+                                            <Button
+                                                color={COLOR_OPTS.PRIMARY}
+                                                variant={"twoTone"}
+                                                icon={<TbClipboardPlus size={20} />}
+                                                type={"button"}
+                                                disabled={updating}
+                                                onClick={() => navigate("logs-create")}>
+                                                Logs Erstellen
+                                            </Button>
+                                        }
+                                    />
                                 </div>
                             </form>
                         </Card>

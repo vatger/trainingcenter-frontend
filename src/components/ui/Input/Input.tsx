@@ -80,7 +80,7 @@ export function Input(props: InputProps) {
                 )}
             </div>
 
-            {(props.inputError || regexMatchFail) && (
+            {(props.inputError || regexMatchFail) && !props.hideInputErrorText && (
                 <span className={"text-danger flex mt-1.5"}>
                     <TbAlertCircle className={"my-auto mr-1"} size={16} />
                     {props.customInputErrorText ?? "Gebe bitte einen gültigen Wert ein"}

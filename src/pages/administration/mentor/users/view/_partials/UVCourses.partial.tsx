@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button/Button";
 import { TbPlus } from "react-icons/tb";
 import UVTypes from "@/pages/administration/mentor/users/view/_types/UV.types";
 
-export function UVCoursesPartial({ courses }: { courses: CourseModel[] | undefined }) {
+export function UVCoursesPartial({ courses, user_id }: { courses: CourseModel[] | undefined; user_id: string }) {
     const navigate = useNavigate();
 
     return (
@@ -21,7 +21,7 @@ export function UVCoursesPartial({ courses }: { courses: CourseModel[] | undefin
                     In Kurs Einschreiben
                 </Button>
             }>
-            <Table columns={UVTypes.getCoursesTableColumns(navigate)} data={courses ?? []} />
+            <Table columns={UVTypes.getCoursesTableColumns(navigate, user_id)} data={courses ?? []} />
         </Card>
     );
 }

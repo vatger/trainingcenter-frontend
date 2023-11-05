@@ -1,12 +1,20 @@
 import { FaChevronDown } from "react-icons/fa";
-import React, { useContext, useRef } from "react";
+import React, { ReactElement, useContext, useRef } from "react";
 import { MENU_ITEM_HEIGHT } from "../../../assets/theme.config";
 import { generateUUID } from "../../../utils/helper/UUIDHelper";
 import { sideNavMenuContext } from "../../../utils/contexts/SideNavMenuContext";
 import authContext from "../../../utils/contexts/AuthContext";
 import { RenderIf } from "../../conditionals/RenderIf";
 
-export function CollapsableMenu(props: any) {
+type CollapsableMenuProps = {
+    title: string;
+    icon: any;
+    children: any;
+    disabled?: boolean;
+    requiredPerm?: string;
+};
+
+export function CollapsableMenu(props: CollapsableMenuProps) {
     const uuid = useRef(generateUUID());
 
     function handleDropdownClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -37,8 +45,12 @@ export function CollapsableMenu(props: any) {
                         <div
                             data-id={uuid.current}
                             data-dropdown-extended={"false"}
-                            onClick={e => handleDropdownClick(e)}
-                            className="menu-collapse-item menu-collapse-item-transparent"
+                            onClick={e => {
+                                if (!props.disabled) {
+                                    handleDropdownClick(e);
+                                }
+                            }}
+                            className={`menu-collapse-item menu-collapse-item-transparent ${props.disabled ? "bg-gray-100" : ""}`}
                             id={`dropdown-${uuid.current}`}>
                             <span className="flex items-center">
                                 <span className="text-2xl mr-2">{props.icon}</span>

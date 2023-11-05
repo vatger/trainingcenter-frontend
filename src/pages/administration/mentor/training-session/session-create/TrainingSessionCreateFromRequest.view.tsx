@@ -139,7 +139,7 @@ export function TrainingSessionCreateFromRequestView() {
                                             mapFunction={(trainingStation: TrainingStationModel, index) => {
                                                 return (
                                                     <option key={index} value={trainingStation.id}>
-                                                        {trainingStation.callsign}
+                                                        {trainingStation.callsign.toUpperCase()}
                                                     </option>
                                                 );
                                             }}

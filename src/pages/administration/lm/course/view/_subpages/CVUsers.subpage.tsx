@@ -40,7 +40,7 @@ export function CVUsersSubpage({ courseUUID }: { courseUUID: string | undefined 
             <CVRemoveUserModal show={showRemoveUserModal} onClose={handleUserRemoval} user={selectedUser} courseUUID={courseUUID} />
 
             <Table
-                columns={CourseUsersListTypes.getColumns(navigate, setShowRemoveUserModal, setSelectedUser)}
+                columns={CourseUsersListTypes.getColumns(navigate, setShowRemoveUserModal, setSelectedUser, courseUUID)}
                 data={users ?? []}
                 paginate
                 searchable

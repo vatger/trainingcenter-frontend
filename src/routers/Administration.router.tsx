@@ -14,6 +14,7 @@ import { LogTemplateRouter } from "@/routers/administration/LogTemplate.router";
 import { TrainingStationRouter } from "@/routers/administration/TrainingStation.router";
 import { ActionRequirementRouter } from "@/routers/administration/ActionRequirement.router";
 import { EndorsementGroupRouter } from "@/routers/administration/EndorsementGroup.router";
+import { UserCourseProgressRouter } from "@/routers/administration/UserCourseProgress.router";
 
 export function AdministrationRouter() {
     const location = useLocation();
@@ -22,6 +23,7 @@ export function AdministrationRouter() {
         <Routes>
             <Route path={"users/*"} element={<UsersRouter />} />
             <Route path={"course/*"} element={<CourseRouter />} />
+            <Route path={"user-course-progress/*"} element={<UserCourseProgressRouter />} />
             <Route path={"training-request/*"} element={<TrainingRequestRouter />} />
             <Route path={"training-session/*"} element={<TrainingSessionRouter />} />
             <Route path={"mentor-group/*"} element={<MentorGroupRouter />} />

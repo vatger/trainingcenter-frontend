@@ -23,6 +23,7 @@ export function TrainingTypeCreateView() {
     const navigate = useNavigate();
 
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [selectedType, setSelectedType] = useState<string>("");
 
     const { data: trainingLogTemplates, loading: loadingTrainingLogTemplates } = useApi<TrainingLogTemplateModel[]>({
         url: "/administration/training-log/template/min",
@@ -48,7 +49,7 @@ export function TrainingTypeCreateView() {
 
     return (
         <>
-            <PageHeader title={"Trainingstypen Erstellen"} hideBackLink />
+            <PageHeader title={"Trainingstyp Erstellen"} hideBackLink />
 
             <Card>
                 <form onSubmit={e => handleSubmit(e)}>
@@ -75,6 +76,9 @@ export function TrainingTypeCreateView() {
                                 "Bestimmt den Typen des Trainings. Wähle bitte hier das korrekte aus der untenstehenden Liste, da dies Auswirkungen auf andere Elemente der Seite hat."
                             }
                             label={"Typ"}
+                            onChange={e => {
+                                setSelectedType(e);
+                            }}
                             className={"mt-5 flex flex-col"}
                             selectClassName={"mt-auto"}
                             labelSmall
@@ -94,6 +98,7 @@ export function TrainingTypeCreateView() {
                     <Select
                         labelSmall
                         label={"Logvorlage"}
+                        disabled={selectedType == "cpt"}
                         description={
                             "Bei jedem Training von diesem Typen werden die Mentoren dazu aufgefordert ein Log mit der unten stehenden Vorlage auszuwählen. " +
                             "Falls dieses Feld leer gelassen wird, bekommen die Mentoren ein einfaches Textfeld, welches ausgefüllt werden kann."

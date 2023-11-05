@@ -41,7 +41,7 @@ export function UserViewView() {
                         elementFalse={
                             <>
                                 <UVGeneralInformationPartial user={userData} />
-                                <UVCoursesPartial courses={userData?.courses} />
+                                <UVCoursesPartial courses={userData?.courses} user_id={user_id!} />
                                 <UVEndorsementsPartial user={userData} setUser={setUserData} />
                                 <RenderIf
                                     truthValue={(userData?.mentor_groups?.length ?? 0) > 0}

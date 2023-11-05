@@ -5,6 +5,7 @@ export type InputProps = {
     id?: string;
     name?: string;
     inputError?: boolean;
+    hideInputErrorText?: boolean;
     customInputErrorText?: string;
     required?: boolean;
     description?: string;

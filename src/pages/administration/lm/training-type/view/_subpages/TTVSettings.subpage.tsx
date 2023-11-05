@@ -99,6 +99,7 @@ export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) 
 
                     <Select
                         labelSmall
+                        disabled={trainingType?.type == "cpt"}
                         label={"Logvorlage"}
                         description={
                             "Bei jedem Training von diesem Typen werden die Mentoren dazu aufgefordert ein Log mit der unten stehenden Vorlage auszuwählen. " +
