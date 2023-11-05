@@ -151,6 +151,7 @@ export function TrainingSessionLogsCreateView() {
                                                 }
 
                                                 participantValues![index].nextTraining = num;
+                                                setParticipantValues([...participantValues!]);
                                             }}>
                                             <option value={"-1"} disabled>
                                                 Nächstes Training Auswählen

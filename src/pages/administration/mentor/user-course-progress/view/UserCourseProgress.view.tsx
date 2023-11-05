@@ -4,8 +4,8 @@ import { Card } from "@/components/ui/Card/Card";
 import useApi from "@/utils/hooks/useApi";
 import { UserModel } from "@/models/UserModel";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendar, TbCheck, TbList, TbX } from "react-icons/tb";
-import React from "react";
+import {TbCalendar, TbCheck, TbId, TbList, TbX} from "react-icons/tb";
+import React, {useState} from "react";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { Select } from "@/components/ui/Select/Select";
@@ -16,9 +16,15 @@ import { Button } from "@/components/ui/Button/Button";
 import { FaSave } from "react-icons/fa";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import { BiSave } from "react-icons/bi";
+import {CourseModel} from "@/models/CourseModel";
+import {Table} from "@/components/ui/Table/Table";
+import UCPRequestsTypes from "@/pages/administration/mentor/user-course-progress/view/_types/UCPRequests.types";
+import UCPHistoryTypes from "@/pages/administration/mentor/user-course-progress/view/_types/UCPHistory.types";
 
 export function UserCourseProgressView() {
     const { user_id, course_uuid } = useParams();
+
+    const [completed, setCompleted] = useState<boolean>(false);
 
     const { data: user, loading: loadingUser } = useApi<UserModel>({
         url: "/administration/user-course-progress",
@@ -34,35 +40,47 @@ export function UserCourseProgressView() {
             <PageHeader title={"Kurs Fortschritt"} breadcrumbs={user_id} />
 
             <RenderIf
-                truthValue={loadingUser}
+                truthValue={loadingUser || user == null}
                 elementTrue={<></>}
                 elementFalse={
                     <>
                         <Card header={"Allgemeine Informationen"} headerBorder>
                             <div className={"grid grid-cols-1 md:grid-cols-2 md:gap-5"}>
                                 <Input
+                                    label={"Benutzer"}
+                                    labelSmall
+                                    preIcon={<TbId size={20}/>}
+                                    disabled
+                                    value={`${user?.first_name} ${user?.last_name}`}
+                                />
+
+                                <Input
                                     label={"Einschreibedatum (UTC)"}
                                     labelSmall
                                     preIcon={<TbCalendar size={20} />}
                                     disabled
-                                    value={dayjs.utc(user?.courses?.[0].UsersBelongsToCourses?.createdAt).format(Config.DATETIME_FORMAT)}
+                                    value={dayjs.utc(user?.courses![0].UsersBelongsToCourses?.createdAt).format(Config.DATETIME_FORMAT)}
                                 />
 
-                                <Input
+                                <Select
                                     label={"Abgeschlossen"}
                                     labelSmall
-                                    preIcon={user!.courses![0].UsersBelongsToCourses!.completed ? <TbCheck size={20} /> : <TbX size={20} />}
-                                    disabled
-                                    value={user!.courses![0].UsersBelongsToCourses!.completed ? "Ja" : "Nein"}
-                                />
+                                    preIcon={<TbCheck size={20} />}
+                                    onChange={(e) => setCompleted(e == "1")}
+                                    defaultValue={user?.courses![0].UsersBelongsToCourses?.completed ? "1" : "0"}>
+                                    <option value="0">Nein</option>
+                                    <option value="1">Ja</option>
+                                </Select>
 
                                 <Select
                                     label={"Nächstes Training"}
                                     labelSmall
+                                    disabled={user?.courses![0].UsersBelongsToCourses?.completed || completed}
                                     preIcon={<TbList size={20} />}
-                                    defaultValue={user!.courses![0].UsersBelongsToCourses?.next_training_type}>
+                                    defaultValue={user?.courses![0].UsersBelongsToCourses?.next_training_type}
+                                    >
                                     <MapArray
-                                        data={user!.courses![0].training_types ?? []}
+                                        data={user?.courses![0].training_types ?? []}
                                         mapFunction={(trainingType: TrainingTypeModel, index) => {
                                             return (
                                                 <option key={index} value={trainingType.id}>
@@ -79,19 +97,12 @@ export function UserCourseProgressView() {
                             </Button>
                         </Card>
 
-                        <Card className={"mt-5"} header={"Trainingsanfragen"}>
-                            <ul>
-                                <li>Evtl. Liste der aktuellen Trainingsanfragen (vielleicht auch nur grobe Infos)</li>
-                            </ul>
+                        <Card className={"mt-5"} headerBorder header={"Trainingsanfragen"}>
+                            <Table columns={UCPRequestsTypes.getColumns()} data={user?.training_requests ?? []}/>
                         </Card>
 
                         <Card className={"mt-5"} header={"Trainingshistorie"}>
-                            <ul>
-                                <li>
-                                    Liste der Trainingshistorie. Button mit link auf log, damit es schnell gefunden werden kann. (Anderes Design als für den
-                                    Benutzer, einfach eine langweilige Liste)
-                                </li>
-                            </ul>
+                            <Table paginate columns={UCPHistoryTypes.getColumns(user?.training_logs ?? [])} data={user?.training_sessions ?? []}/>
                         </Card>
                     </>
                 }

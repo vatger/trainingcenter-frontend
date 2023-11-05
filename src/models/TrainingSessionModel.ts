@@ -27,6 +27,7 @@ export interface TrainingSessionModel {
     user_passed?: boolean;
 
     through?: any;
+
     training_session_belongs_to_users?: TrainingSessionBelongsToUserModel[];
 }
 

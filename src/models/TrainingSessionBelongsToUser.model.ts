@@ -22,6 +22,8 @@ export type TrainingLogModel = {
     author_id: number;
     createdAt?: Date;
     updatedAt?: Date;
+
+    TrainingSessionBelongsToUsers?: TrainingSessionBelongsToUserModel;
 };
 
 export type CourseTrainingSessionModel = {

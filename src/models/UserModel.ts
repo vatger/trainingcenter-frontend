@@ -2,6 +2,9 @@ import { MentorGroupModel } from "./MentorGroupModel";
 import { CourseModel } from "./CourseModel";
 import { RoleModel } from "./PermissionModel";
 import { EndorsementGroupModel, EndorsementGroupsBelongsToUsers } from "@/models/EndorsementGroupModel";
+import {TrainingRequestModel} from "@/models/TrainingRequestModel";
+import {TrainingSessionModel} from "@/models/TrainingSessionModel";
+import {TrainingLogModel} from "@/models/TrainingSessionBelongsToUser.model";
 
 export type UserModel = {
     id: number;
@@ -13,13 +16,17 @@ export type UserModel = {
     mentor_groups?: MentorGroupModel[];
     endorsement_groups?: EndorsementGroupModel[];
     courses?: CourseModel[];
+    training_requests?: TrainingRequestModel[];
+    training_sessions?: TrainingSessionModel[];
+    training_logs?: TrainingLogModel[];
     roles?: RoleModel[];
     through?: any;
+    createdAt: Date;
+    updatedAt?: Date;
+
     UsersBelongsToCourses?: UserCourseThrough; // Append as required x | x
     UserBelongToMentorGroups?: UserMentorGroupThrough;
     EndorsementGroupsBelongsToUsers?: EndorsementGroupsBelongsToUsers;
-    createdAt: Date;
-    updatedAt?: Date;
 };
 
 export type UserSettingsModel = {
