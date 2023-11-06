@@ -15,6 +15,11 @@
 		"prettier:check": "npx prettier --check **/*.{ts,js}",
 		"prettier:write": "npx prettier --write ."
 	},
+	"overrides": {
+		"react-data-table-component": {
+			"styled-components": "5.3.11"
+		}
+	},
 	"dependencies": {
 		"@tinymce/tinymce-react": "^4.2.0",
 		"@types/fuzzy-search": "^2.1.2",
