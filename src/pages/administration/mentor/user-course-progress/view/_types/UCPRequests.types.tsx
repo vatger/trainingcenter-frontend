@@ -17,6 +17,16 @@ function getColumns(): TableColumn<TrainingRequestModel>[] {
             selector: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT)
         },
         {
+            name: "Mentor",
+            selector: row => {
+                if (row.training_session?.mentor == null) {
+                    return "N/A";
+                }
+
+                return `${row.training_session?.mentor.first_name} ${row.training_session.mentor.last_name} (${row.training_session.mentor_id})`
+            }
+        },
+        {
             name: "Status",
             cell: row => {
                 switch (row.status) {
