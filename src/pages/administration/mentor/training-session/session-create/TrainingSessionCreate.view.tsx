@@ -1,30 +1,33 @@
-import { Card } from "@/components/ui/Card/Card";
-import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
-import { useNavigate } from "react-router-dom";
-import { Input } from "@/components/ui/Input/Input";
-import { TbCalendarEvent, TbCalendarPlus, TbUser } from "react-icons/tb";
+import {Card} from "@/components/ui/Card/Card";
+import {PageHeader} from "@/components/ui/PageHeader/PageHeader";
+import {useNavigate} from "react-router-dom";
+import {Input} from "@/components/ui/Input/Input";
+import {TbCalendarEvent, TbCalendarPlus, TbUser} from "react-icons/tb";
 import dayjs from "dayjs";
-import React, { FormEvent, useState } from "react";
-import { Table } from "@/components/ui/Table/Table";
-import { Separator } from "@/components/ui/Separator/Separator";
-import { Button } from "@/components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { UserModel } from "@/models/UserModel";
-import TSCParticipantListTypes from "@/pages/administration/mentor/training-session/session-create/_types/TSCParticipantList.types";
+import React, {FormEvent, useState} from "react";
+import {Table} from "@/components/ui/Table/Table";
+import {Separator} from "@/components/ui/Separator/Separator";
+import {Button} from "@/components/ui/Button/Button";
+import {COLOR_OPTS, SIZE_OPTS} from "@/assets/theme.config";
+import {UserModel} from "@/models/UserModel";
+import TSCParticipantListTypes
+    from "@/pages/administration/mentor/training-session/session-create/_types/TSCParticipantList.types";
 import UserAdminService from "@/services/user/UserAdminService";
 import ToastHelper from "@/utils/helper/ToastHelper";
-import { RenderIf } from "@/components/conditionals/RenderIf";
-import { TrainingSessionCreateSkeleton } from "@/pages/administration/mentor/training-session/session-create/_skeletons/TrainingSessionCreate.skeleton";
+import {RenderIf} from "@/components/conditionals/RenderIf";
+import {
+    TrainingSessionCreateSkeleton
+} from "@/pages/administration/mentor/training-session/session-create/_skeletons/TrainingSessionCreate.skeleton";
 import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";
-import { Select } from "@/components/ui/Select/Select";
-import { MapArray } from "@/components/conditionals/MapArray";
-import { TrainingStationModel } from "@/models/TrainingStationModel";
+import {Select} from "@/components/ui/Select/Select";
+import {MapArray} from "@/components/conditionals/MapArray";
+import {TrainingStationModel} from "@/models/TrainingStationModel";
 import FormHelper from "@/utils/helper/FormHelper";
 import useApi from "@/utils/hooks/useApi";
-import { CourseModel } from "@/models/CourseModel";
-import { TrainingTypeModel } from "@/models/TrainingTypeModel";
-import { TrainingSessionModel } from "@/models/TrainingSessionModel";
-import {CommonRegexp, Config} from "@/core/Config";
+import {CourseModel} from "@/models/CourseModel";
+import {TrainingTypeModel} from "@/models/TrainingTypeModel";
+import {TrainingSessionModel} from "@/models/TrainingSessionModel";
+import {Badge} from "@/components/ui/Badge/Badge";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -211,7 +214,7 @@ export function TrainingSessionCreateView() {
                             </Card>
                         </form>
 
-                        <Card header={"Teilnehmer"} headerBorder className={"mt-5"}>
+                        <Card header={"Teilnehmer"} headerBorder className={"mt-5"} headerExtra={participants.length == 0 ? <Badge color={COLOR_OPTS.DANGER}>Mindestens ein Teilnehmer erforderlich</Badge> : undefined}>
                             <Input
                                 onChange={e => setNewParticipantID(e.target.value)}
                                 value={newParticipantID}
@@ -220,9 +223,6 @@ export function TrainingSessionCreateView() {
                                     "Benutzer, die nicht in diesem Kurs eingeschrieben sind werden nicht berücksichtigt und der Session entsprechend nicht hinzugefügt."
                                 }
                                 labelSmall
-                                regexMatchEmpty
-                                regexCheckInitial
-                                regex={CommonRegexp.CID}
                                 preIcon={<TbUser size={20} />}
                                 placeholder={participants[0]?.id.toString() ?? "1373921"}
                             />
