@@ -33,6 +33,8 @@ export function UserCourseProgressView() {
             course_uuid: course_uuid,
             user_id: user_id,
         },
+
+        onLoad: (user) => {setCompleted(user?.courses![0].UsersBelongsToCourses?.completed == true)}
     });
 
     return (
@@ -75,7 +77,7 @@ export function UserCourseProgressView() {
                                 <Select
                                     label={"Nächstes Training"}
                                     labelSmall
-                                    disabled={user?.courses![0].UsersBelongsToCourses?.completed || completed}
+                                    disabled={user?.courses![0].UsersBelongsToCourses?.completed && completed}
                                     preIcon={<TbList size={20} />}
                                     defaultValue={user?.courses![0].UsersBelongsToCourses?.next_training_type}
                                     >

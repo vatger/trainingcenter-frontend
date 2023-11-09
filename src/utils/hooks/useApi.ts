@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios, { AxiosError, AxiosResponse, Method, ResponseType } from "axios";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 
-interface IUseApi {
+interface IUseApi<T> {
     url: string;
     method: Method;
     params?: any;
     data?: any;
     responseType?: ResponseType;
+
+    onLoad?: (value: T) => any;
 }
 
 interface IUseApiReturn<T> {
@@ -22,7 +24,7 @@ interface IUseApiReturn<T> {
  * Note: This can only be used inside a React component due to the use of useEffect
  * @param props
  */
-function useApi<T>(props: IUseApi): IUseApiReturn<T> {
+function useApi<T>(props: IUseApi<T>): IUseApiReturn<T> {
     const [loading, setLoading] = React.useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<AxiosError | undefined>(undefined);
     const [data, setData] = React.useState<T | undefined>(undefined);
@@ -39,7 +41,12 @@ function useApi<T>(props: IUseApi): IUseApiReturn<T> {
             signal: controller.signal,
         })
             .then((res: AxiosResponse) => {
-                setData(res.data as T);
+                const response: T = res.data as T;
+
+                setData(response);
+                if (props.onLoad) {
+                    props.onLoad(response);
+                }
             })
             .catch((err: AxiosError) => {
                 setLoadingError(err);
