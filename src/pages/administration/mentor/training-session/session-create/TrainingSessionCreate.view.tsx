@@ -24,6 +24,7 @@ import useApi from "@/utils/hooks/useApi";
 import { CourseModel } from "@/models/CourseModel";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
+import {CommonRegexp, Config} from "@/core/Config";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -219,7 +220,9 @@ export function TrainingSessionCreateView() {
                                     "Benutzer, die nicht in diesem Kurs eingeschrieben sind werden nicht berücksichtigt und der Session entsprechend nicht hinzugefügt."
                                 }
                                 labelSmall
-                                inputError={participants.length == 0}
+                                regexMatchEmpty
+                                regexCheckInitial
+                                regex={CommonRegexp.CID}
                                 preIcon={<TbUser size={20} />}
                                 placeholder={participants[0]?.id.toString() ?? "1373921"}
                             />

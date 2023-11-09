@@ -21,6 +21,7 @@ import { Select } from "@/components/ui/Select/Select";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { TrainingStationModel } from "@/models/TrainingStationModel";
 import FormHelper from "@/utils/helper/FormHelper";
+import {CommonRegexp} from "@/core/Config";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -163,7 +164,9 @@ export function TrainingSessionCreateFromRequestView() {
                                     "Benutzer, die nicht in diesem Kurs eingeschrieben sind werden nicht berücksichtigt und der Session entsprechend nicht hinzugefügt."
                                 }
                                 labelSmall
-                                inputError={participants.length == 0}
+                                regexMatchEmpty
+                                regexCheckInitial
+                                regex={CommonRegexp.CID}
                                 preIcon={<TbUser size={20} />}
                                 placeholder={participants[0]?.id.toString() ?? "1373921"}
                             />
