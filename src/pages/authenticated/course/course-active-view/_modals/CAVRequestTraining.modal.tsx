@@ -81,7 +81,7 @@ export function CAVRequestTrainingModal(props: RequestTrainingModalPartialProps)
                                         mapFunction={(station: TrainingStationModel, index: number) => {
                                             return (
                                                 <option key={index} value={station.id}>
-                                                    {station.callsign + " | " + station.frequency.toFixed(3)}
+                                                    {station.callsign.toUpperCase() + " | " + station.frequency.toFixed(3)}
                                                 </option>
                                             );
                                         }}

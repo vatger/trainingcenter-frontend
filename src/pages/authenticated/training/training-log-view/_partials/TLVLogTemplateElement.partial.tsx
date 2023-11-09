@@ -37,16 +37,20 @@ function render(type: LogTemplateType | undefined, element: LogTemplateElement, 
                                 {elem.value} / {elem.max}
                             </span>
                         </div>
-                        <div className={"flex flex-col h-full justify-between"}>
+                        <div className={"flex flex-col h-full"}>
                             <ProgressBar value={(elem.value / elem.max) * 100} hidePercentage />
+                            {elem.subtitle != null && (
+                                <div className={"mt-2"}>
+                                    <p>{elem.subtitle}</p>
+                                </div>
+                            )}
                         </div>
-                        {elem.subtitle != null && (
-                            <div className={"mt-2"}>
-                                <p>{elem.subtitle}</p>
-                            </div>
-                        )}
                     </div>
-                    <RenderIf truthValue={!elem.disableText} elementTrue={<div className={"input input-textarea input-disabled"}>{elem.text_content}</div>} />
+                    <RenderIf truthValue={!elem.disableText} elementTrue={
+                        <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
+                            <div className={"input input-textarea input-disabled"}>{elem.text_content}</div>
+                        </div>
+                    } />
                 </div>
             );
 

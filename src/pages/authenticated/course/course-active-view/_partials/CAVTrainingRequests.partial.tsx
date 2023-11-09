@@ -12,7 +12,6 @@ type ActiveCourseTrainingRequestsPartialProps = {
 
 export function CAVTrainingRequestsPartial(props: ActiveCourseTrainingRequestsPartialProps) {
     const navigate = useNavigate();
-    const trainingRequestTableColumns = ActiveCourseTrainingRequestListTypes.getColumns(navigate);
 
     return (
         <>
@@ -23,7 +22,7 @@ export function CAVTrainingRequestsPartial(props: ActiveCourseTrainingRequestsPa
                 </p>
                 <Table
                     paginate={false}
-                    columns={trainingRequestTableColumns}
+                    columns={ActiveCourseTrainingRequestListTypes.getColumns(navigate)}
                     data={props.trainingRequests.sort((a, b) => {
                         return a.status > b.status ? -1 : 1;
                     })}

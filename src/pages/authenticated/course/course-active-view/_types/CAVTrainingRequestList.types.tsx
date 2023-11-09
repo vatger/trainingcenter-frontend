@@ -42,7 +42,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
         },
         {
             name: "Station",
-            selector: row => row.training_station?.callsign ?? "N/A",
+            selector: row => row.training_station?.callsign?.toUpperCase() ?? "N/A",
             sortable: true,
         },
         {

@@ -36,9 +36,7 @@ function render(
             return (
                 <div>
                     <h6 className={elem.subtitle == null ? "mb-2" : ""}>{elem.title}</h6>
-                    {elem.subtitle && <p className={"mb-2"}>{elem.subtitle}</p>}
-
-                    <TextArea onChange={e => onValueChange<string>(stringValues, element.uuid, e.target.value)} placeholder={`Bewertung ${elem.title}`} />
+                    <TextArea onChange={e => onValueChange<string>(stringValues, element.uuid, e.target.value)} placeholder={elem.subtitle ? elem.subtitle : `Bewertung ${elem.title}`} />
                 </div>
             );
 
@@ -53,7 +51,7 @@ function render(
                                 {progressBarValue} / {elem.max}
                             </span>
                         </div>
-                        <div className={"flex flex-col h-full justify-between"}>
+                        <div className={"flex flex-col h-full"}>
                             <ProgressBar value={(progressBarValue / elem.max) * 100} hidePercentage />
                             <Input
                                 className={"mt-2"}
@@ -80,11 +78,6 @@ function render(
                                 }}
                             />
                         </div>
-                        {elem.subtitle != null && (
-                            <div className={"mt-2"}>
-                                <p>{elem.subtitle}</p>
-                            </div>
-                        )}
                     </div>
                     <RenderIf
                         truthValue={!elem.disableText}
@@ -92,7 +85,7 @@ function render(
                             <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
                                 <TextArea
                                     onChange={e => onValueChange<string>(stringValues, element.uuid, e.target.value)}
-                                    placeholder={`Bewertung ${elem.title}`}
+                                    placeholder={elem.subtitle ? elem.subtitle : `Bewertung ${elem.title}`}
                                 />
                             </div>
                         }

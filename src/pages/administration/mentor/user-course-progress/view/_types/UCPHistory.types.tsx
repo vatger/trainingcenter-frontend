@@ -23,7 +23,7 @@ export function getColumns(training_logs: TrainingLogModel[]): TableColumn<UserT
         },
         {
             name: "Datum (UTC)",
-            selector: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT)
+            selector: row => dayjs.utc(row.date).format(Config.DATETIME_FORMAT)
         },
         {
             name: "Resultat",
