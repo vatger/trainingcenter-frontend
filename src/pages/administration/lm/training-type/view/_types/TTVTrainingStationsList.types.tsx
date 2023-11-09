@@ -53,16 +53,6 @@ function getColumns(
             selector: row => row.frequency.toFixed(3).toString(),
         },
         {
-            name: "Deaktiviert",
-            cell: row => {
-                if (row.deactivated) {
-                    return <Badge color={COLOR_OPTS.DANGER}>Ja</Badge>;
-                }
-
-                return <Badge color={COLOR_OPTS.SUCCESS}>Nein</Badge>;
-            },
-        },
-        {
             name: "Aktion",
             cell: row => {
                 return (
