@@ -60,15 +60,8 @@ function getEndorsementTableColumns(navigate: NavigateFunction): (TableColumn<En
         {
             name: "Solo",
             cell: row => {
-                if (row.EndorsementGroupsBelongsToUsers?.solo) {
-                    return (
-                        <Badge color={COLOR_OPTS.DANGER}>
-                            <>
-                                {dayjs.utc(row.EndorsementGroupsBelongsToUsers.solo_expires).format(Config.DATE_FORMAT)} |{" "}
-                                {row.EndorsementGroupsBelongsToUsers.solo_extension_count} Verl.
-                            </>
-                        </Badge>
-                    );
+                if (row.EndorsementGroupsBelongsToUsers?.solo_id != null) {
+                    return <Badge color={COLOR_OPTS.DANGER}>Ja</Badge>;
                 }
 
                 return <Badge color={COLOR_OPTS.PRIMARY}>Nein</Badge>;

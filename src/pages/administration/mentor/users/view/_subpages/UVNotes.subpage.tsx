@@ -140,7 +140,7 @@ export function UVNotesSubpage() {
                 }}
                 onClose={() => setShowCreateModal(false)}
                 courses={courses}
-                user={user}
+                user_id={user_id}
             />
         </>
     );

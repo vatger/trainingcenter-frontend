@@ -10,13 +10,13 @@ import { TrainingStationModel } from "@/models/TrainingStationModel";
 import { UserModel } from "@/models/UserModel";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
-import { RenderIf } from "@/components/conditionals/RenderIf";
-import { Input } from "@/components/ui/Input/Input";
-import dayjs from "dayjs";
 import { Button } from "@/components/ui/Button/Button";
 import { TbPlus } from "react-icons/tb";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import FormHelper from "@/utils/helper/FormHelper";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import ToastHelper from "@/utils/helper/ToastHelper";
+import { AxiosResponse } from "axios";
 
 const StationTableColumns: TableColumn<TrainingStationModel>[] = [
     {
@@ -32,12 +32,14 @@ const StationTableColumns: TableColumn<TrainingStationModel>[] = [
 ];
 
 export function UVAddEndorsementModal({
+    user,
     setUser,
     endorsementGroups,
     userEndorsementGroups,
     show,
     onClose,
 }: {
+    user?: UserModel;
     setUser: Dispatch<UserModel>;
     endorsementGroups: EndorsementGroupModel[];
     userEndorsementGroups?: EndorsementGroupModel[];
@@ -45,18 +47,29 @@ export function UVAddEndorsementModal({
     onClose: () => any;
 }) {
     const [selectedEndorsementGroup, setSelectedEndorsementGroup] = useState<EndorsementGroupModel | undefined>(undefined);
-    const [soloSelected, setSoloSelected] = useState<boolean>(false);
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     function addEndorsement(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        if (selectedEndorsementGroup == null) return;
-        //setSubmitting(true);
+        if (selectedEndorsementGroup == null || user == null) return;
+        setSubmitting(true);
 
         const data = FormHelper.getEntries(e.target);
-        data["solo"] = data["solo"] == "on";
+        data["user_id"] = user?.id;
 
-        console.log(data);
+        axiosInstance
+            .post("/administration/endorsement", data)
+            .then((res: AxiosResponse) => {
+                ToastHelper.success("Freigabe erfolgreich erstellt");
+                const endorsements = res.data as EndorsementGroupModel[];
+                setUser({ ...user, endorsement_groups: endorsements });
+
+                onClose();
+            })
+            .catch(() => {
+                ToastHelper.error("Fehler beim erstellen der Freigabe");
+            })
+            .finally(() => setSubmitting(false));
     }
 
     return (
@@ -65,7 +78,6 @@ export function UVAddEndorsementModal({
                 show={show}
                 onClose={() => {
                     setSelectedEndorsementGroup(undefined);
-                    setSoloSelected(false);
                     onClose();
                 }}
                 title={"Freigabegruppe Hinzufügen"}
@@ -115,26 +127,6 @@ export function UVAddEndorsementModal({
                         <Table persistTableHead={false} columns={StationTableColumns} defaultSortField={1} data={selectedEndorsementGroup?.stations ?? []} />
                     </div>
                 </Accordion>
-
-                <Separator />
-
-                <Checkbox checked={false} name={"solo"} onChange={e => setSoloSelected(e)}>
-                    Solo?
-                </Checkbox>
-
-                <RenderIf
-                    truthValue={soloSelected}
-                    elementTrue={
-                        <Input
-                            label={"Solo Ende (TODO - VATEUD)"}
-                            name={"solo_end_date"}
-                            className={"mt-3"}
-                            type={"datetime-local"}
-                            value={dayjs().utc().add(1, "month").format("YYYY-MM-DD HH:mm")} // TODO - VATEUD
-                            labelSmall
-                        />
-                    }
-                />
             </Modal>
         </form>
     );

@@ -21,6 +21,7 @@ import { Table } from "@/components/ui/Table/Table";
 import TPVParticipantListTypes from "@/pages/administration/mentor/training-session/planned-view/_types/TPVParticipantList.types";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 export function MentorTrainingView() {
     const navigate = useNavigate();
@@ -28,6 +29,11 @@ export function MentorTrainingView() {
 
     const { data: trainingSession, loading } = useApi<TrainingSessionModel>({
         url: `/administration/training-session/${uuid ?? "-1"}`,
+        method: "get",
+    });
+
+    const { data: mentors, loading: loadingMentors } = useApi<UserModel[]>({
+        url: `/administration/training-session/${uuid}/mentors`,
         method: "get",
     });
 
@@ -46,7 +52,8 @@ export function MentorTrainingView() {
 
         const data = FormHelper.getEntries(e.target);
 
-        TrainingSessionAdminService.updateSession(uuid, data)
+        axiosInstance
+            .patch(`/administration/training-session/${uuid}`, data)
             .then(res => {
                 ToastHelper.success("Session-Informationen erfolgreich aktualisiert");
             })
@@ -61,7 +68,7 @@ export function MentorTrainingView() {
             <PageHeader title={"Geplantes Training"} />
 
             <RenderIf
-                truthValue={loading}
+                truthValue={loading || loadingMentors}
                 elementTrue={<></>}
                 elementFalse={
                     <>
@@ -87,10 +94,11 @@ export function MentorTrainingView() {
                                         preIcon={<TbCalendarEvent size={20} />}
                                         value={dayjs.utc(trainingSession?.date).format("YYYY-MM-DD HH:mm")}
                                     />
+
                                     <Select
                                         label={"Trainingsstation"}
                                         labelSmall
-                                        name={"training_station"}
+                                        name={"training_station_id"}
                                         defaultValue={trainingSession?.training_station?.id}
                                         disabled={
                                             trainingSession?.training_type?.training_stations == null ||
@@ -103,6 +111,26 @@ export function MentorTrainingView() {
                                                 return (
                                                     <option key={index} value={trainingStation.id}>
                                                         {trainingStation.callsign.toUpperCase()} ({trainingStation.frequency.toFixed(3)})
+                                                    </option>
+                                                );
+                                            }}
+                                        />
+                                    </Select>
+
+                                    <Select
+                                        label={"Mentor"}
+                                        labelSmall
+                                        description={
+                                            "Falls du nicht zur Session erscheinen kannst, kannst Du hier das Training an einen anderen Mentoren übertragen."
+                                        }
+                                        name={"mentor_id"}
+                                        defaultValue={trainingSession?.mentor_id}>
+                                        <MapArray
+                                            data={mentors ?? []}
+                                            mapFunction={(mentor: UserModel, index) => {
+                                                return (
+                                                    <option key={index} value={mentor.id}>
+                                                        {mentor.first_name} {mentor.last_name} ({mentor.id})
                                                     </option>
                                                 );
                                             }}

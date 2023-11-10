@@ -21,8 +21,8 @@ import { Select } from "@/components/ui/Select/Select";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { TrainingStationModel } from "@/models/TrainingStationModel";
 import FormHelper from "@/utils/helper/FormHelper";
-import {CommonRegexp} from "@/core/Config";
-import {Badge} from "@/components/ui/Badge/Badge";
+import { CommonRegexp } from "@/core/Config";
+import { Badge } from "@/components/ui/Badge/Badge";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -156,7 +156,13 @@ export function TrainingSessionCreateFromRequestView() {
                             </Card>
                         </form>
 
-                        <Card header={"Teilnehmer"} headerBorder className={"mt-5"} headerExtra={participants.length == 0 ? <Badge color={COLOR_OPTS.DANGER}>Mindestens ein Teilnehmer erforderlich</Badge> : undefined}>
+                        <Card
+                            header={"Teilnehmer"}
+                            headerBorder
+                            className={"mt-5"}
+                            headerExtra={
+                                participants.length == 0 ? <Badge color={COLOR_OPTS.DANGER}>Mindestens ein Teilnehmer erforderlich</Badge> : undefined
+                            }>
                             <Input
                                 onChange={e => setNewParticipantID(e.target.value)}
                                 value={newParticipantID}

@@ -16,7 +16,6 @@ export type CourseModel = {
 
     training_type?: TrainingTypeModel; // Initial Training Type
     training_types?: TrainingTypeModel[]; // All Training Types associated to this course
-    skill_template?: CourseSkillTemplateModel;
     action_requirements?: ActionRequirementModel;
     information?: CourseInformationModel;
 
@@ -50,14 +49,6 @@ export type CourseInformationModel = {
     id: number;
     course_id: number;
     data: any;
-    createdAt?: Date;
-    updatedAt?: Date;
-};
-
-export type CourseSkillTemplateModel = {
-    id: number;
-    name: string;
-    content: JSON;
     createdAt?: Date;
     updatedAt?: Date;
 };

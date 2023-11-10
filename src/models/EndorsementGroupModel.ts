@@ -1,4 +1,5 @@
 import { TrainingStationModel } from "@/models/TrainingStationModel";
+import { UserSoloModel } from "@/models/UserModel";
 
 export interface EndorsementGroupModel {
     id: number;
@@ -15,10 +16,9 @@ export interface EndorsementGroupsBelongsToUsers {
     id: number;
     endorsement_group_id: number;
     user_id: number;
-    solo: boolean;
-    solo_rating?: "s1" | "s2" | "s3" | "c1" | "c3";
-    solo_expires?: Date;
-    solo_extension_count?: number;
+    solo_id?: number;
     createdAt: Date;
     updatedAt?: Date;
+
+    solo?: UserSoloModel;
 }

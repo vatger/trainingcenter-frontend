@@ -70,12 +70,12 @@ export function CAVTrainingHistoryPartial({ trainingData }: { trainingData: User
                                             Session Ansehen
                                         </Button>
                                         <RenderIf
-                                            truthValue={value.training_logs?.find((log: TrainingLogModel) => log.log_public) != null}
+                                            truthValue={value.training_session_belongs_to_users?.log_id != null}
                                             elementTrue={
                                                 <Link
                                                     to={`/training/log/${
                                                         value.training_logs?.find((log: TrainingLogModel) => {
-                                                            return log.log_public && value.training_session_belongs_to_users?.log_id == log.id;
+                                                            return value.training_session_belongs_to_users?.log_id == log.id;
                                                         })?.uuid ?? "-1"
                                                     }`}>
                                                     <Button

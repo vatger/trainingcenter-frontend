@@ -42,13 +42,6 @@ async function createTrainingSession(
 }
 
 /**
- * Updates the session given the UUID
- */
-async function updateSession(uuid: string | undefined, data: any) {
-    return axiosInstance.patch("/administration/training-session/" + uuid, data);
-}
-
-/**
  * Gets an array of users that are participants in the specified training session
  * @param uuid
  */
@@ -116,7 +109,6 @@ async function deleteTrainingSession(training_session_id?: number) {
 
 export default {
     createTrainingSession,
-    updateSession,
     deleteTrainingSession,
     getLogTemplate,
     getParticipants,

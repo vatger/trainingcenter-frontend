@@ -10,6 +10,7 @@ import { UVMentorGroupsPartial } from "./_partials/UVMentorGroups.partial";
 import useApi from "@/utils/hooks/useApi";
 import { UserModel } from "@/models/UserModel";
 import { UVEndorsementsPartial } from "@/pages/administration/mentor/users/view/_partials/UVEndorsements.partial";
+import { UVSoloPartial } from "@/pages/administration/mentor/users/view/_partials/UVSolo.partial";
 
 export function UserViewView() {
     const { user_id } = useParams();
@@ -41,6 +42,7 @@ export function UserViewView() {
                         elementFalse={
                             <>
                                 <UVGeneralInformationPartial user={userData} />
+                                <UVSoloPartial user={userData} setUser={setUserData} />
                                 <UVCoursesPartial courses={userData?.courses} user_id={user_id!} />
                                 <UVEndorsementsPartial user={userData} setUser={setUserData} />
                                 <RenderIf

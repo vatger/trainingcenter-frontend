@@ -18,7 +18,6 @@ import { CommonRegexp } from "@/core/Config";
 import { Select } from "@/components/ui/Select/Select";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
-import { CourseSkillTemplateModel } from "@/models/CourseModel";
 import { MapArray } from "@/components/conditionals/MapArray";
 import StringHelper from "@/utils/helper/StringHelper";
 import { MentorGroupModel } from "@/models/MentorGroupModel";
@@ -37,11 +36,6 @@ export function CourseCreateView() {
 
     const { data: trainingTypes, loading: loadingTrainingTypes } = useApi<TrainingTypeModel[]>({
         url: "/administration/training-type",
-        method: "get",
-    });
-
-    const { data: skillTemplates, loading: loadingSkillTemplates } = useApi<CourseSkillTemplateModel[]>({
-        url: "/administration/skill-template",
         method: "get",
     });
 
@@ -69,7 +63,7 @@ export function CourseCreateView() {
             <PageHeader title={"Kurs Erstellen"} hideBackLink />
 
             <RenderIf
-                truthValue={loadingMentorGroups || loadingTrainingTypes || loadingSkillTemplates}
+                truthValue={loadingMentorGroups || loadingTrainingTypes}
                 elementTrue={<CCreateViewSkeleton />}
                 elementFalse={
                     <RenderIf
@@ -187,37 +181,17 @@ export function CourseCreateView() {
                                         name={"training_type_id"}
                                         description={"Dies ist das erste Training, welches jedem Mitglied des Kurses zugewiesen wird."}
                                         required
-                                        preIcon={<TbTemplate size={20} />}>
+                                        preIcon={<TbTemplate size={20} />}
+                                        defaultValue={"-1"}>
+                                        <option value={"-1"} disabled>
+                                            Initiales Training Auswählen
+                                        </option>
                                         <MapArray
                                             data={trainingTypes ?? []}
                                             mapFunction={(trainingType: TrainingTypeModel, index: number) => {
                                                 return (
                                                     <option key={index} value={trainingType.id.toString()}>
                                                         {trainingType.name} ({StringHelper.capitalize(trainingType.type)})
-                                                    </option>
-                                                );
-                                            }}
-                                        />
-                                    </Select>
-
-                                    <Select
-                                        label={"Skillvorlage"}
-                                        labelSmall
-                                        className={"mt-5"}
-                                        name={"skill_template_id"}
-                                        description={
-                                            "Jeder Benutzer des Kurses bekommt eine persönliche Skillvorlage die im Laufe der Ausbildung von Mentoren ausgefüllt und überprüft werden kann."
-                                        }
-                                        required
-                                        preIcon={<TbTemplate size={20} />}
-                                        defaultValue={"NaN"}>
-                                        <option value={"NaN"}>Keine Skillvorlage</option>
-                                        <MapArray
-                                            data={skillTemplates ?? []}
-                                            mapFunction={(skillTemplate: CourseSkillTemplateModel, index: number) => {
-                                                return (
-                                                    <option key={index} value={skillTemplate.id.toString()}>
-                                                        {skillTemplate.name}
                                                     </option>
                                                 );
                                             }}

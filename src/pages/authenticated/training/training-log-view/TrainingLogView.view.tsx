@@ -8,11 +8,11 @@ import { LogTemplateElement } from "@/models/TrainingLogTemplateModel";
 import { TLVLogTemplateElementPartial } from "@/pages/authenticated/training/training-log-view/_partials/TLVLogTemplateElement.partial";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TLVViewSkeleton } from "@/pages/authenticated/training/training-log-view/_skeletons/TLVView.skeleton";
-import {Input} from "@/components/ui/Input/Input";
-import {CommonRegexp, Config} from "@/core/Config";
-import {TbCalendar, TbId, TbUser} from "react-icons/tb";
+import { Input } from "@/components/ui/Input/Input";
+import { CommonRegexp, Config } from "@/core/Config";
+import { TbCalendar, TbId, TbUser } from "react-icons/tb";
 import React from "react";
-import {Separator} from "@/components/ui/Separator/Separator";
+import { Separator } from "@/components/ui/Separator/Separator";
 import dayjs from "dayjs";
 
 export function TrainingLogViewView() {
@@ -51,7 +51,7 @@ export function TrainingLogViewView() {
                             />
                         </div>
 
-                        <Separator/>
+                        <Separator />
 
                         <MapArray
                             data={(trainingLog?.content ?? []) as LogTemplateElement[]}

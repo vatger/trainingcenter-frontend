@@ -41,6 +41,7 @@ export function UVEndorsementsPartial({ user, setUser }: { user?: UserModel; set
             </Card>
 
             <UVAddEndorsementModal
+                user={user}
                 setUser={setUser}
                 endorsementGroups={endorsementGroups ?? []}
                 userEndorsementGroups={user?.endorsement_groups}

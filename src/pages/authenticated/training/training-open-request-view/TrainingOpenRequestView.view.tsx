@@ -114,7 +114,9 @@ export function TrainingOpenRequestViewView() {
                                     value={
                                         trainingRequest?.training_station == null
                                             ? "N/A"
-                                            : `${trainingRequest.training_station.callsign.toUpperCase()} (${trainingRequest.training_station.frequency.toFixed(3)})`
+                                            : `${trainingRequest.training_station.callsign.toUpperCase()} (${trainingRequest.training_station.frequency.toFixed(
+                                                  3
+                                              )})`
                                     }
                                 />
 

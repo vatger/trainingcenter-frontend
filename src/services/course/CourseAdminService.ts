@@ -1,13 +1,6 @@
 import { axiosInstance } from "@/utils/network/AxiosInstance";
-import React, { useEffect, useState } from "react";
-import { CourseModel, CourseSkillTemplateModel } from "@/models/CourseModel";
-import { AxiosError, AxiosResponse } from "axios";
-import { UserModel } from "@/models/UserModel";
-import { APIResponseError } from "@/exceptions/APIResponseError";
-import { MentorGroupModel } from "@/models/MentorGroupModel";
-import { NavigateFunction } from "react-router-dom";
-import ToastHelper from "@/utils/helper/ToastHelper";
-import useApi from "@/utils/hooks/useApi";
+import { CourseModel } from "@/models/CourseModel";
+import { AxiosResponse } from "axios";
 
 export async function getEditableCourses() {
     return axiosInstance.get("/administration/course/editable");

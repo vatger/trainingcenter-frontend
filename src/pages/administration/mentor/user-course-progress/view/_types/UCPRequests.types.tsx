@@ -1,20 +1,20 @@
-import {TableColumn} from "react-data-table-component";
-import {TrainingRequestModel} from "@/models/TrainingRequestModel";
+import { TableColumn } from "react-data-table-component";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 import dayjs from "dayjs";
-import {Config} from "@/core/Config";
-import {Badge} from "@/components/ui/Badge/Badge";
-import {COLOR_OPTS} from "@/assets/theme.config";
+import { Config } from "@/core/Config";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import React from "react";
 
 function getColumns(): TableColumn<TrainingRequestModel>[] {
     return [
         {
             name: "Name",
-            selector: row => row.training_type?.name ?? "N/A"
+            selector: row => row.training_type?.name ?? "N/A",
         },
         {
             name: "Erstellt Am (UTC)",
-            selector: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT)
+            selector: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT),
         },
         {
             name: "Mentor",
@@ -23,8 +23,8 @@ function getColumns(): TableColumn<TrainingRequestModel>[] {
                     return "N/A";
                 }
 
-                return `${row.training_session?.mentor.first_name} ${row.training_session.mentor.last_name} (${row.training_session.mentor_id})`
-            }
+                return `${row.training_session?.mentor.first_name} ${row.training_session.mentor.last_name} (${row.training_session.mentor_id})`;
+            },
         },
         {
             name: "Status",
@@ -45,11 +45,11 @@ function getColumns(): TableColumn<TrainingRequestModel>[] {
                     default:
                         return "N/A";
                 }
-            }
-        }
-    ]
+            },
+        },
+    ];
 }
 
 export default {
-    getColumns
-}
+    getColumns,
+};

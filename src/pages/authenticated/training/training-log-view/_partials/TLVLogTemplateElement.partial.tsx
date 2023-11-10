@@ -46,11 +46,14 @@ function render(type: LogTemplateType | undefined, element: LogTemplateElement, 
                             )}
                         </div>
                     </div>
-                    <RenderIf truthValue={!elem.disableText} elementTrue={
-                        <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
-                            <div className={"input input-textarea input-disabled"}>{elem.text_content}</div>
-                        </div>
-                    } />
+                    <RenderIf
+                        truthValue={!elem.disableText}
+                        elementTrue={
+                            <div className={"w-full mt-6 xl:mt-0 xl:ml-6"}>
+                                <div className={"input input-textarea input-disabled"}>{elem.text_content}</div>
+                            </div>
+                        }
+                    />
                 </div>
             );
 

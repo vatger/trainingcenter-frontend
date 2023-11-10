@@ -1,7 +1,6 @@
-import { CourseModel, CourseSkillTemplateModel } from "@/models/CourseModel";
+import { CourseModel } from "@/models/CourseModel";
 import { Input } from "@/components/ui/Input/Input";
 import { TbActivity, TbCalendarEvent, TbCirclePlus, TbEdit, TbId, TbLock, TbTemplate, TbTrash } from "react-icons/tb";
-import moment from "moment/moment";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { Select } from "@/components/ui/Select/Select";
@@ -34,11 +33,6 @@ export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefin
 
     const { data: trainingTypes, loading: loadingTrainingTypes } = useApi<TrainingTypeModel[]>({
         url: "/administration/training-type",
-        method: "get",
-    });
-
-    const { data: skillTemplates, loading: loadingSkillTemplates } = useApi<CourseSkillTemplateModel[]>({
-        url: "/administration/skill-template",
         method: "get",
     });
 
@@ -196,30 +190,6 @@ export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefin
                                         return (
                                             <option key={index} value={trainingType.id.toString()}>
                                                 {trainingType.name} ({StringHelper.capitalize(trainingType.type)})
-                                            </option>
-                                        );
-                                    }}
-                                />
-                            </Select>
-
-                            <Select
-                                label={"Skillvorlage"}
-                                labelSmall
-                                className={"mt-5"}
-                                name={"skill_template_id"}
-                                description={
-                                    "Jeder Benutzer des Kurses bekommt eine persönliche Skillvorlage die im Laufe der Ausbildung von Mentoren ausgefüllt und überprüft werden kann."
-                                }
-                                required
-                                preIcon={<TbTemplate size={20} />}
-                                defaultValue={course?.skill_template_id?.toString() ?? "NaN"}>
-                                <option key={"NaN"}>Keine Skillvorlage</option>
-                                <MapArray
-                                    data={skillTemplates ?? []}
-                                    mapFunction={(skillTemplate: CourseSkillTemplateModel, index: number) => {
-                                        return (
-                                            <option key={index} value={skillTemplate.id.toString()}>
-                                                {skillTemplate.name}
                                             </option>
                                         );
                                     }}

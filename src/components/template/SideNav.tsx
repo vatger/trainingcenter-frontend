@@ -207,10 +207,6 @@ export function SideNav() {
                                                     Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
-                                            <CollapsableMenu title={"Skillvorlagen (TBD)"} disabled icon={<TbTemplate size={20} />}>
-                                                <MenuItem icon={<TbListDetails size={20} />}>Verwalten</MenuItem>
-                                                <MenuItem icon={<TbFilePlus size={20} />}>Erstellen</MenuItem>
-                                            </CollapsableMenu>
                                             <CollapsableMenu title={"Aktionen | Bedingungen"} icon={<TbAdjustments size={20} />}>
                                                 <MenuItem icon={<TbListDetails size={20} />} href={"administration/action-requirement"}>
                                                     Verwalten

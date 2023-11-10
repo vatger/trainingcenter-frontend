@@ -22,7 +22,7 @@ type CreateUserNotePartialProps = {
     onClose: () => any;
     onCreate: (userNote: UserNoteModel) => any;
     courses: CourseModel[];
-    user?: UserModel;
+    user_id?: string;
 };
 
 export function UVCreateNoteModal(props: CreateUserNotePartialProps) {
@@ -48,10 +48,7 @@ export function UVCreateNoteModal(props: CreateUserNotePartialProps) {
     return (
         <Modal show={props.show} onClose={props.onClose} title={"Notiz erstellen"}>
             <form onSubmit={createNote}>
-                <input className={"hidden"} name={"user_id"} value={props.user?.id} />
-                <Input preIcon={<TbUser size={20} />} label={"Benutzer"} labelSmall disabled value={StringHelper.getUserFullNameAndCID(props.user)} readOnly />
-
-                <Separator />
+                <input className={"hidden"} name={"user_id"} value={props.user_id} />
 
                 <Select
                     labelSmall

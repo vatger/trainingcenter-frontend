@@ -58,11 +58,14 @@ export function Input(props: InputProps) {
                     id={props.id}
                     type={props.type ?? "text"}
                     value={inputVal}
+                    min={props.min}
+                    max={props.max}
                     data-form-type={props.dataFormType ?? "other"}
                     name={props.name}
                     required={props.required ?? false}
                     readOnly={props.readOnly ?? false}
                     maxLength={props.maxLength}
+                    onClick={() => props.onClick?.()}
                     onChange={e => {
                         checkRegex(e.target.value);
                         setInputVal(e.target.value);

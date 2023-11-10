@@ -36,7 +36,10 @@ function render(
             return (
                 <div>
                     <h6 className={elem.subtitle == null ? "mb-2" : ""}>{elem.title}</h6>
-                    <TextArea onChange={e => onValueChange<string>(stringValues, element.uuid, e.target.value)} placeholder={elem.subtitle ? elem.subtitle : `Bewertung ${elem.title}`} />
+                    <TextArea
+                        onChange={e => onValueChange<string>(stringValues, element.uuid, e.target.value)}
+                        placeholder={elem.subtitle ? elem.subtitle : `Bewertung ${elem.title}`}
+                    />
                 </div>
             );
 

@@ -23,8 +23,12 @@ export type InputProps = {
     readOnly?: boolean;
     loading?: boolean;
 
+    min?: string | number;
+    max?: string | number;
+
     dataFormType?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
+    onClick?: () => any;
 
     preIcon?: ReactElement;
     regex?: RegExp;

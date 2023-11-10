@@ -12,38 +12,38 @@ import { getPilotRatingLong, getPilotRatingShort } from "@/utils/helper/vatsim/P
 
 export function UVGeneralInformationPartial({ user }: { user?: UserModel }) {
     const navigate = useNavigate();
-    let userData = user as UserModel;
 
     return (
         <Card
             header={"Allgemeine Informationen"}
             headerBorder
-            headerExtra={userData?.user_data?.subdivision_code?.toLowerCase() !== "ger" ? <Badge color={COLOR_OPTS.PRIMARY}>Gast</Badge> : <></>}>
+            headerExtra={user?.user_data?.subdivision_code?.toLowerCase() !== "ger" ? <Badge color={COLOR_OPTS.PRIMARY}>Gast</Badge> : <></>}>
             <div className={"grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"}>
-                <Input label={"Name"} disabled value={`${userData?.first_name} ${userData?.last_name} (${userData.id})`} />
+                <Input label={"Name"} labelSmall disabled value={`${user?.first_name} ${user?.last_name} (${user?.id})`} />
 
                 <Input
                     label={"ATC Rating"}
+                    labelSmall
                     disabled
-                    value={`${getAtcRatingShort(userData?.user_data?.rating_atc ?? -1)} (${getAtcRatingLong(userData?.user_data?.rating_atc ?? -1)})`}
+                    value={`${getAtcRatingShort(user?.user_data?.rating_atc ?? -1)} (${getAtcRatingLong(user?.user_data?.rating_atc ?? -1)})`}
                 />
 
                 <Input
                     label={"Piloten Rating"}
+                    labelSmall
                     disabled
-                    value={`${getPilotRatingShort(userData?.user_data?.rating_pilot ?? -1)} (${getPilotRatingLong(userData?.user_data?.rating_pilot ?? -1)})`}
+                    value={`${getPilotRatingShort(user?.user_data?.rating_pilot ?? -1)} (${getPilotRatingLong(user?.user_data?.rating_pilot ?? -1)})`}
                 />
 
-                <Input label={"Region"} disabled value={`${userData?.user_data?.region_name} (${userData?.user_data?.region_code})`} />
+                <Input label={"Region"} labelSmall disabled value={`${user?.user_data?.region_name} (${user?.user_data?.region_code})`} />
 
-                <Input label={"Division"} disabled value={`${userData?.user_data?.division_name} (${userData?.user_data?.division_code})`} />
+                <Input label={"Division"} labelSmall disabled value={`${user?.user_data?.division_name} (${user?.user_data?.division_code})`} />
 
                 <Input
                     label={"Subdivision"}
+                    labelSmall
                     disabled
-                    value={
-                        userData?.user_data?.subdivision_code ? `${userData?.user_data?.subdivision_name} (${userData?.user_data?.subdivision_code})` : "N/A"
-                    }
+                    value={user?.user_data?.subdivision_code ? `${user?.user_data?.subdivision_name} (${user?.user_data?.subdivision_code})` : "N/A"}
                 />
             </div>
 

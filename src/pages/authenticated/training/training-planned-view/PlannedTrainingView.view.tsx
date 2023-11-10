@@ -113,7 +113,7 @@ export function PlannedTrainingView() {
                 </div>
 
                 <RenderIf
-                    truthValue={trainingSession?.user_passed == null && dayjs.utc(trainingSession?.date).isAfter(dayjs())}
+                    truthValue={trainingSession?.user_passed == null && dayjs.utc(trainingSession?.date).isAfter(dayjs.utc())}
                     elementTrue={
                         <>
                             <Separator />
