@@ -31,8 +31,7 @@ function getColumns(onRemove: OnRemoveFunction): (TableColumn<UserModel> & { sea
                     return (
                         <Badge color={COLOR_OPTS.DANGER}>
                             <>
-                                {dayjs.utc(row.EndorsementGroupsBelongsToUsers.solo_expires).format(Config.DATE_FORMAT)} |{" "}
-                                {row.EndorsementGroupsBelongsToUsers.solo_extension_count} Verl.
+                                {dayjs.utc(row?.user_solo?.current_solo_end).format(Config.DATE_FORMAT)} | {row?.user_solo?.extension_count} Verl.
                             </>
                         </Badge>
                     );
