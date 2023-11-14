@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button/Button";
 import { TbEye } from "react-icons/tb";
 import { NavigateFunction } from "react-router-dom";
 import dayjs from "dayjs";
-import {Config} from "@/core/Config";
+import { Config } from "@/core/Config";
 
 function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationModel> & { searchable?: boolean })[] {
     return [
@@ -24,7 +24,7 @@ function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationMod
         },
         {
             name: "Zuletzt Aktualisiert (UTC)",
-            selector: row => dayjs.utc(row.updatedAt).format(Config.DATETIME_FORMAT)
+            selector: row => dayjs.utc(row.updatedAt).format(Config.DATETIME_FORMAT),
         },
     ];
 }

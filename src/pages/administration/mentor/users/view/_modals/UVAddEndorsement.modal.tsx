@@ -122,7 +122,10 @@ export function UVAddEndorsementModal({
                     />
                 </Select>
 
-                <Accordion className={"mt-3"} title={`Stationen (${selectedEndorsementGroup?.stations?.length ?? 0})`}>
+                <Accordion
+                    disabled={selectedEndorsementGroup == null || selectedEndorsementGroup?.stations?.length == 0}
+                    className={"mt-3"}
+                    title={`Stationen (${selectedEndorsementGroup?.stations?.length ?? 0})`}>
                     <div className={"p-3"}>
                         <Table persistTableHead={false} columns={StationTableColumns} defaultSortField={1} data={selectedEndorsementGroup?.stations ?? []} />
                     </div>

@@ -1,7 +1,7 @@
 import { UserModel } from "@/models/UserModel";
 import { Card } from "@/components/ui/Card/Card";
 import { RenderIf } from "@/components/conditionals/RenderIf";
-import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { COLOR_OPTS, SIZE_OPTS, TYPE_OPTS } from "@/assets/theme.config";
 import { TbAdjustmentsCog, TbAlertTriangle, TbPlaylistAdd } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
 import React, { Dispatch, useState } from "react";
@@ -12,6 +12,8 @@ import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { UVUseKontingentSoloModal } from "@/pages/administration/mentor/users/view/_modals/UVUseKontingentSolo.modal";
 import { UVExtendSoloModal } from "@/pages/administration/mentor/users/view/_modals/UVExtendSolo.modal";
+import { Alert } from "@/components/ui/Alert/Alert";
+import { Separator } from "@/components/ui/Separator/Separator";
 
 export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Dispatch<UserModel> }) {
     const [showAddSoloModal, setShowAddSoloModal] = useState<boolean>(false);
@@ -84,7 +86,7 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
                                 />
                                 <Input
                                     label={"Kontingent"}
-                                    description={"Verbleibende Tage die für Solo genutzt werden können"}
+                                    description={"Verbleibende Tage die ohne Verlängerung genutzt werden können"}
                                     labelSmall
                                     disabled
                                     value={`${kontingent} Tage`}
@@ -107,6 +109,8 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
                                 />
                             </div>
 
+                            <Separator />
+
                             <RenderIf
                                 truthValue={dayjs.utc(user?.user_solo?.current_solo_end).isBefore(dayjs.utc())}
                                 elementTrue={
@@ -117,14 +121,40 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
                                     // 2. The user has NO contingent left and therefore MUST extend their solo
 
                                     // Both cases are quite similar but not the same - perhaps we want to use separate modals for clarity!
-                                    <>TODO: SOLO VERLÄNGERN ODER "FORTFÜHREN"</>
+                                    <>
+                                        <Alert showIcon closeable type={TYPE_OPTS.INFO} rounded>
+                                            <>
+                                                <RenderIf
+                                                    truthValue={kontingent != 0}
+                                                    elementTrue={<>Das Kontingent beträgt 0 Tage. Die Solo muss daher verlängert werden. </>}
+                                                />
+                                                <RenderIf
+                                                    truthValue={kontingent == 0}
+                                                    elementTrue={
+                                                        <>
+                                                            Das Kontingent der aktuellen Solo ist noch nicht vollkommen ausgeschöpft. Dieser können also,{" "}
+                                                            <strong>ohne eine Verlängerung</strong>, {kontingent} Tage hinzugefügt werden.
+                                                        </>
+                                                    }
+                                                />
+                                            </>
+                                        </Alert>
+
+                                        <Button
+                                            icon={<TbPlaylistAdd size={20} />}
+                                            variant={"twoTone"}
+                                            className={"mt-5"}
+                                            size={SIZE_OPTS.SM}
+                                            color={COLOR_OPTS.PRIMARY}>
+                                            Solo Erneut Vergeben
+                                        </Button>
+                                    </>
                                 }
                                 elementFalse={
                                     <>
                                         <Button
                                             icon={<TbAdjustmentsCog size={20} />}
                                             size={SIZE_OPTS.SM}
-                                            className={"mt-5"}
                                             disabled={kontingent == 0}
                                             onClick={() => {
                                                 setShowUseKontingentSoloModal(true);
@@ -137,7 +167,7 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
                                         <Button
                                             icon={<TbPlaylistAdd size={20} />}
                                             size={SIZE_OPTS.SM}
-                                            className={"mt-5 ml-3"}
+                                            className={"ml-3"}
                                             onClick={() => {
                                                 setShowExtendSoloModal(true);
                                             }}

@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/Card/Card";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { getPilotRatingLong, getPilotRatingShort } from "@/utils/helper/vatsim/PilotRatingHelper";
+import { Separator } from "@/components/ui/Separator/Separator";
 
 export function UVGeneralInformationPartial({ user }: { user?: UserModel }) {
     const navigate = useNavigate();
@@ -47,7 +48,9 @@ export function UVGeneralInformationPartial({ user }: { user?: UserModel }) {
                 />
             </div>
 
-            <div className={"flex flex-col lg:flex-row mt-7"}>
+            <Separator />
+
+            <div className={"flex flex-col lg:flex-row"}>
                 <Button
                     icon={<TbChevronsRight size={20} />}
                     size={SIZE_OPTS.SM}

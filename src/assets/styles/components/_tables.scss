@@ -64,6 +64,10 @@
             @apply divide-none;
         }
     }
+
+    &:first-child {
+        @apply dark:bg-gray-700 dark:text-white #{!important};
+    }
 }
 
 .table-flex {
