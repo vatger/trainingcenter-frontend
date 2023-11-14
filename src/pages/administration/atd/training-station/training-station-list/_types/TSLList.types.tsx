@@ -5,6 +5,8 @@ import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { Button } from "@/components/ui/Button/Button";
 import { TbEye } from "react-icons/tb";
 import { NavigateFunction } from "react-router-dom";
+import dayjs from "dayjs";
+import {Config} from "@/core/Config";
 
 function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationModel> & { searchable?: boolean })[] {
     return [
@@ -12,29 +14,17 @@ function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationMod
             name: "Callsign",
             selector: row => row.callsign.toUpperCase(),
             searchable: true,
+            sortable: true,
         },
         {
             name: "Frequenz",
             selector: row => row.frequency?.toFixed(3) ?? "Wird Ermittelt",
             searchable: true,
+            sortable: true,
         },
         {
-            name: "Aktion",
-            cell: row => {
-                return (
-                    <div className={"flex"}>
-                        <Button
-                            className={"my-3 ml-2"}
-                            onClick={() => navigate(`${row.id}`)}
-                            variant={"twoTone"}
-                            size={SIZE_OPTS.SM}
-                            color={COLOR_OPTS.PRIMARY}
-                            icon={<TbEye size={20} />}>
-                            Ansehen
-                        </Button>
-                    </div>
-                );
-            },
+            name: "Zuletzt Aktualisiert (UTC)",
+            selector: row => dayjs.utc(row.updatedAt).format(Config.DATETIME_FORMAT)
         },
     ];
 }

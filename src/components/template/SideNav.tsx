@@ -252,9 +252,6 @@ export function SideNav() {
                                                 <MenuItem href={"administration/training-station"} icon={<TbListDetails size={20} />}>
                                                     Verwalten
                                                 </MenuItem>
-                                                <MenuItem href={"administration/training-station/create"} icon={<TbFilePlus size={20} />}>
-                                                    Erstellen
-                                                </MenuItem>
                                             </CollapsableMenu>
                                         </>
                                     }
