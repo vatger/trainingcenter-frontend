@@ -5,6 +5,9 @@ import { Tabs } from "@/components/ui/Tabs/Tabs";
 import { MGVSettingsSubpage } from "./_subpages/MGVSettings.subpage";
 import { MGVDangerSubpage } from "@/pages/administration/lm/mentor-group/mentor-group-view/_subpages/MGVDanger.subpage";
 import { MGVUsersSubpage } from "@/pages/administration/lm/mentor-group/mentor-group-view/_subpages/MGVUsers.subpage";
+import {
+    MGVEndorsementGroupsSubpage
+} from "@/pages/administration/lm/mentor-group/mentor-group-view/_subpages/MGVEndorsementGroups.subpage";
 
 export function MentorGroupViewView() {
     const { id: mentor_group_id } = useParams();
@@ -17,10 +20,7 @@ export function MentorGroupViewView() {
                 <Tabs tabHeaders={["Einstellungen", "Mitglieder", "Freigabegruppen", "Gefahrenbereich"]} type={"underline"}>
                     <MGVSettingsSubpage mentorGroupID={mentor_group_id} />
                     <MGVUsersSubpage mentorGroupID={mentor_group_id} />
-                    <>
-                        Link Mentorgroups to Endorsement groups. This way, only allow the solo selection on endorsement groups that the user is able to mentor
-                        (i.e. is part of the mentor group)
-                    </>
+                    <MGVEndorsementGroupsSubpage mentorGroupID={mentor_group_id}/>
                     <MGVDangerSubpage />
                 </Tabs>
             </Card>

@@ -1,4 +1,3 @@
-import { TrainingTypeModel } from "./TrainingTypeModel";
 import { TrainingSessionModel } from "./TrainingSessionModel";
 import { UserModel } from "@/models/UserModel";
 
@@ -27,32 +26,4 @@ export type TrainingLogModel = {
     author?: UserModel;
 
     TrainingSessionBelongsToUsers?: TrainingSessionBelongsToUserModel;
-};
-
-export type CourseTrainingSessionModel = {
-    session: {
-        id: number;
-        uuid: string;
-        mentor_id?: number;
-        cpt_examiner_id?: number;
-        date?: Date;
-        training_type_id: number;
-        course_id: number;
-        createdAt?: Date;
-        updatedAt?: Date;
-
-        through: {
-            log_id: number;
-            passed: boolean;
-        };
-
-        course: {
-            uuid: string;
-            id: number;
-        };
-
-        training_type: TrainingTypeModel;
-    };
-
-    training_log: TrainingLogModel;
 };
