@@ -1,4 +1,4 @@
-import { UserModel } from "@/models/UserModel";
+import { UserModel, UserSoloModel } from "@/models/UserModel";
 import { Card } from "@/components/ui/Card/Card";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { COLOR_OPTS, SIZE_OPTS, TYPE_OPTS } from "@/assets/theme.config";
@@ -11,18 +11,62 @@ import { Input } from "@/components/ui/Input/Input";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { UVUseKontingentSoloModal } from "@/pages/administration/mentor/users/view/_modals/UVUseKontingentSolo.modal";
-import { UVExtendSoloModal } from "@/pages/administration/mentor/users/view/_modals/UVExtendSolo.modal";
+import { UVExtendSoloErrorModal } from "@/pages/administration/mentor/users/view/_modals/UVExtendSoloError.modal";
 import { Alert } from "@/components/ui/Alert/Alert";
 import { Separator } from "@/components/ui/Separator/Separator";
+import ToastHelper from "@/utils/helper/ToastHelper";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { AxiosError, AxiosResponse } from "axios";
+
+export type SoloExtensionError = {
+    cpt_planned: boolean;
+    training_last_20_days: boolean;
+};
 
 export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Dispatch<UserModel> }) {
     const [showAddSoloModal, setShowAddSoloModal] = useState<boolean>(false);
-    const [showExtendSoloModal, setShowExtendSoloModal] = useState<boolean>(false);
     const [showUseKontingentSoloModal, setShowUseKontingentSoloModal] = useState<boolean>(false);
 
-    const daysTillSoloEnd = Math.max(0, dayjs.utc(user?.user_solo?.current_solo_end).startOf("day").diff(dayjs.utc().startOf("day"), "day"));
+    const [soloExtensionError, setSoloExtensionError] = useState<SoloExtensionError | undefined>(undefined);
+    const [showExtendSoloErrorModal, setShowExtendSoloErrorModal] = useState<boolean>(false);
+    const [submittingExtension, setSubmittingExtension] = useState<boolean>(false);
+
+    const daysTillSoloEnd = Math.min(
+        dayjs.utc(user?.user_solo?.current_solo_end).startOf("day").diff(dayjs.utc(user?.user_solo?.current_solo_start).startOf("day"), "days"),
+        Math.max(0, dayjs.utc(user?.user_solo?.current_solo_end).startOf("day").diff(dayjs.utc().startOf("day"), "day"))
+    );
 
     const kontingent = 30 * ((user?.user_solo?.extension_count ?? 0) + 1) - (user?.user_solo?.solo_used ?? 0);
+
+    function extendSolo() {
+        if (user == null) {
+            return;
+        }
+
+        // Send extension request to backend, if all good, then add 30 days to kontingent
+        // If something failed, then show visual feedback as Modal
+        setSoloExtensionError(undefined);
+        setSubmittingExtension(true);
+
+        axiosInstance
+            .post("/administration/solo/extend", { trainee_id: user?.id })
+            .then(() => {
+                // Add 1 to the solo extension count :)
+                const u = { ...user! };
+                if (u.user_solo != null) {
+                    u.user_solo.extension_count += 1;
+                    setUser(u);
+                }
+                ToastHelper.success("Solo erfolgreich verlängert. Kontingent um 30 Tage erhöht.");
+            })
+            .catch((err: AxiosError) => {
+                const error = err.response?.data as SoloExtensionError;
+                ToastHelper.error("Fehler beim Verlängern der Solo");
+                setSoloExtensionError(error);
+                setShowExtendSoloErrorModal(true);
+            })
+            .then(() => setSubmittingExtension(false));
+    }
 
     return (
         <>
@@ -86,7 +130,7 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
                                 />
                                 <Input
                                     label={"Kontingent"}
-                                    description={"Verbleibende Tage die ohne Verlängerung genutzt werden können"}
+                                    description={"Noch nicht verwendete Tage der Solophase"}
                                     labelSmall
                                     disabled
                                     value={`${kontingent} Tage`}
@@ -112,70 +156,29 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
                             <Separator />
 
                             <RenderIf
-                                truthValue={dayjs.utc(user?.user_solo?.current_solo_end).isBefore(dayjs.utc())}
+                                truthValue={kontingent > 0}
                                 elementTrue={
-                                    // We need to check one of two cases:
-                                    // 1. Either the user still has a kontingent to their name
-                                    // in which case we can simply 'reinstate' the solo (but must select the endorsement group again)
-
-                                    // 2. The user has NO contingent left and therefore MUST extend their solo
-
-                                    // Both cases are quite similar but not the same - perhaps we want to use separate modals for clarity!
-                                    <>
-                                        <Alert showIcon closeable type={TYPE_OPTS.INFO} rounded>
-                                            <>
-                                                <RenderIf
-                                                    truthValue={kontingent != 0}
-                                                    elementTrue={<>Das Kontingent beträgt 0 Tage. Die Solo muss daher verlängert werden. </>}
-                                                />
-                                                <RenderIf
-                                                    truthValue={kontingent == 0}
-                                                    elementTrue={
-                                                        <>
-                                                            Das Kontingent der aktuellen Solo ist noch nicht vollkommen ausgeschöpft. Dieser können also,{" "}
-                                                            <strong>ohne eine Verlängerung</strong>, {kontingent} Tage hinzugefügt werden.
-                                                        </>
-                                                    }
-                                                />
-                                            </>
-                                        </Alert>
-
-                                        <Button
-                                            icon={<TbPlaylistAdd size={20} />}
-                                            variant={"twoTone"}
-                                            className={"mt-5"}
-                                            size={SIZE_OPTS.SM}
-                                            color={COLOR_OPTS.PRIMARY}>
-                                            Solo Erneut Vergeben
-                                        </Button>
-                                    </>
+                                    <Button
+                                        icon={<TbAdjustmentsCog size={20} />}
+                                        size={SIZE_OPTS.SM}
+                                        onClick={() => {
+                                            setShowUseKontingentSoloModal(true);
+                                        }}
+                                        variant={"twoTone"}
+                                        color={COLOR_OPTS.PRIMARY}>
+                                        Kontingent Nutzen
+                                    </Button>
                                 }
                                 elementFalse={
-                                    <>
-                                        <Button
-                                            icon={<TbAdjustmentsCog size={20} />}
-                                            size={SIZE_OPTS.SM}
-                                            disabled={kontingent == 0}
-                                            onClick={() => {
-                                                setShowUseKontingentSoloModal(true);
-                                            }}
-                                            variant={"twoTone"}
-                                            color={COLOR_OPTS.PRIMARY}>
-                                            Kontingent Nutzen
-                                        </Button>
-
-                                        <Button
-                                            icon={<TbPlaylistAdd size={20} />}
-                                            size={SIZE_OPTS.SM}
-                                            className={"ml-3"}
-                                            onClick={() => {
-                                                setShowExtendSoloModal(true);
-                                            }}
-                                            variant={"twoTone"}
-                                            color={COLOR_OPTS.PRIMARY}>
-                                            Solo Verlängern
-                                        </Button>
-                                    </>
+                                    <Button
+                                        icon={<TbPlaylistAdd size={20} />}
+                                        size={SIZE_OPTS.SM}
+                                        onClick={extendSolo}
+                                        loading={submittingExtension}
+                                        variant={"twoTone"}
+                                        color={COLOR_OPTS.PRIMARY}>
+                                        Solo Verlängern
+                                    </Button>
                                 }
                             />
                         </>
@@ -199,11 +202,12 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
                 user={user}
                 setUser={setUser}
             />
-            <UVExtendSoloModal
-                show={showExtendSoloModal}
+            <UVExtendSoloErrorModal
+                show={showExtendSoloErrorModal}
                 onClose={() => {
-                    setShowExtendSoloModal(false);
+                    setShowExtendSoloErrorModal(false);
                 }}
+                soloExtensionError={soloExtensionError}
                 user={user}
                 setUser={setUser}
             />

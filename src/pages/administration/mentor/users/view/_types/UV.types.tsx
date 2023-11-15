@@ -9,6 +9,7 @@ import { CourseModel } from "@/models/CourseModel";
 import moment from "moment";
 import { Button } from "@/components/ui/Button/Button";
 import { TbEye } from "react-icons/tb";
+import { UserSoloModel } from "@/models/UserModel";
 
 function getCoursesTableColumns(navigate: NavigateFunction, user_id: string): TableColumn<CourseModel>[] {
     return [
@@ -51,7 +52,7 @@ function getCoursesTableColumns(navigate: NavigateFunction, user_id: string): Ta
     ];
 }
 
-function getEndorsementTableColumns(navigate: NavigateFunction): (TableColumn<EndorsementGroupModel> & { searchable?: boolean })[] {
+function getEndorsementTableColumns(navigate: NavigateFunction, userSolo?: UserSoloModel): (TableColumn<EndorsementGroupModel> & { searchable?: boolean })[] {
     return [
         {
             name: "Name",
@@ -61,7 +62,19 @@ function getEndorsementTableColumns(navigate: NavigateFunction): (TableColumn<En
             name: "Solo",
             cell: row => {
                 if (row.EndorsementGroupsBelongsToUsers?.solo_id != null) {
-                    return <Badge color={COLOR_OPTS.DANGER}>Ja</Badge>;
+                    if (dayjs.utc(userSolo?.current_solo_start).isAfter(dayjs.utc())) {
+                        return (
+                            <Badge color={COLOR_OPTS.DANGER}>
+                                <>Ab {dayjs.utc(userSolo?.current_solo_start).format(Config.DATE_FORMAT)}</>
+                            </Badge>
+                        );
+                    }
+
+                    return (
+                        <Badge color={COLOR_OPTS.DANGER}>
+                            <>Bis {dayjs.utc(userSolo?.current_solo_end).format(Config.DATE_FORMAT)}</>
+                        </Badge>
+                    );
                 }
 
                 return <Badge color={COLOR_OPTS.PRIMARY}>Nein</Badge>;

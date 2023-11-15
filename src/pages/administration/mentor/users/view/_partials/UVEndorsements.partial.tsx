@@ -37,7 +37,7 @@ export function UVEndorsementsPartial({ user, setUser }: { user?: UserModel; set
                         Freigabe Hinzufügen
                     </Button>
                 }>
-                <Table columns={UVTypes.getEndorsementTableColumns(navigate)} data={user?.endorsement_groups ?? []} />
+                <Table columns={UVTypes.getEndorsementTableColumns(navigate, user?.user_solo)} data={user?.endorsement_groups ?? []} />
             </Card>
 
             <UVAddEndorsementModal

@@ -44,7 +44,15 @@ export function UVUseKontingentSoloModal({
             .then(() => {
                 const newSolo = { ...user.user_solo } as UserSoloModel;
                 newSolo.solo_used += Number(data["solo_duration"]);
-                newSolo.current_solo_end = dayjs.utc(newSolo.current_solo_start).add(newSolo.solo_used, "days").toDate();
+
+                if (data["solo_start"] != null) {
+                    // This means that the solo has passed (i.e. is no longer valid)
+                    newSolo.current_solo_start = dayjs.utc(data["solo_start"]).toDate();
+                    newSolo.current_solo_end = dayjs.utc(newSolo.current_solo_start).add(data["solo_duration"], "day").toDate();
+                } else {
+                    newSolo.current_solo_end = dayjs.utc(newSolo.current_solo_start).add(newSolo.solo_used, "days").toDate();
+                }
+
                 setUser({ ...user, user_solo: newSolo });
                 ToastHelper.success("Solo erfolgreich erstellt");
                 onClose();
@@ -91,16 +99,21 @@ export function UVUseKontingentSoloModal({
                     <RenderIf truthValue={kontingent >= 30} elementTrue={<option value="30">30 Tage</option>} />
                 </Select>
 
-                <Input
-                    label={"Solo Start"}
-                    description={"Start der Solophase"}
-                    className={"mt-5"}
-                    name={"solo_start"}
-                    labelSmall
-                    type={"date"}
-                    min={dayjs.utc().format("YYYY-MM-DD")}
-                    required
-                    value={dayjs.utc().format("YYYY-MM-DD")}
+                <RenderIf
+                    truthValue={dayjs.utc(user?.user_solo?.current_solo_end).isBefore(dayjs.utc())}
+                    elementTrue={
+                        <Input
+                            label={"Solo Start"}
+                            description={"Start der Solophase"}
+                            className={"mt-5"}
+                            name={"solo_start"}
+                            labelSmall
+                            type={"date"}
+                            min={dayjs.utc().format("YYYY-MM-DD")}
+                            required
+                            value={dayjs.utc().format("YYYY-MM-DD")}
+                        />
+                    }
                 />
             </Modal>
         </form>
