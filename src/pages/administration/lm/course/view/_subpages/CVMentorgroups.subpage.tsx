@@ -103,7 +103,9 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
                                     setSelectedMentorGroup(v);
                                 }}
                                 value={selectedMentorGroup ?? "-1"}>
-                                <option value={"-1"} disabled>Mentorengruppe Auswählen</option>
+                                <option value={"-1"} disabled>
+                                    Mentorengruppe Auswählen
+                                </option>
 
                                 <MapArray
                                     data={

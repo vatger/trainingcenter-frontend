@@ -8,7 +8,7 @@ import React, { FormEvent, useState } from "react";
 import { Table } from "@/components/ui/Table/Table";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { COLOR_OPTS, SIZE_OPTS, TYPE_OPTS } from "@/assets/theme.config";
 import { UserModel } from "@/models/UserModel";
 import TSCParticipantListTypes from "@/pages/administration/mentor/training-session/session-create/_types/TSCParticipantList.types";
 import UserAdminService from "@/services/user/UserAdminService";
@@ -25,6 +25,8 @@ import { CourseModel } from "@/models/CourseModel";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 import { Badge } from "@/components/ui/Badge/Badge";
+import { Alert } from "@/components/ui/Alert/Alert";
+import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -70,15 +72,18 @@ export function TrainingSessionCreateView() {
     function createSession(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const data = FormHelper.getEntries(event?.target) as {
-            date: string;
-            course_uuid: string;
-            training_type_id: number;
-            training_station_id: string;
-        };
+        const data = FormHelper.getEntries(event?.target);
+        data["cpt_beisitzer"] = data["cpt_beisitzer"] === "on";
 
         setSubmitting(true);
-        TrainingSessionAdminService.createTrainingSession(participants, data.course_uuid, data.training_type_id, data.training_station_id, data.date)
+        TrainingSessionAdminService.createTrainingSession(
+            participants,
+            data.cpt_beisitzer,
+            data.course_uuid,
+            data.training_type_id,
+            data.training_station_id,
+            data.date
+        )
             .then((session: TrainingSessionModel) => {
                 ToastHelper.success("Session wurde erfolgreich erstellt");
                 navigate(`/administration/training-request/planned/${session.uuid}`);
@@ -198,6 +203,29 @@ export function TrainingSessionCreateView() {
                                     </Select>
                                 </div>
                                 <Separator />
+
+                                <RenderIf
+                                    truthValue={courses?.find(c => c.uuid == courseUUID)?.training_types?.find(t => t.id == trainingTypeID)?.type == "cpt"}
+                                    elementTrue={
+                                        <>
+                                            <Alert className={"mb-5"} rounded showIcon type={TYPE_OPTS.WARNING}>
+                                                <>
+                                                    Der gewählte Trainingstyp ist ein CPT. Entscheide bitte, ob du dich als Beisitzer eintragen möchtest, oder
+                                                    nicht. Du hast nach dem Erstellen der Session <strong>nicht die Möglichkeit zurückzutreten</strong>, ohne
+                                                    die Session zu löschen! Du kannst jedoch jederzeit deinen Posten als Beisitzer an einen anderen Mentoren
+                                                    übertragen. Wähle diese Option also nur, wenn du dir sicher bist, dass du an dem gewählten Datum auch
+                                                    kannst.
+                                                </>
+                                            </Alert>
+
+                                            <div>
+                                                <Checkbox className={"mb-5"} name={"cpt_beisitzer"} checked>
+                                                    Als Beisitzer eintragen
+                                                </Checkbox>
+                                            </div>
+                                        </>
+                                    }
+                                />
 
                                 <Button
                                     variant={"twoTone"}

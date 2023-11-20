@@ -10,6 +10,7 @@ import { TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
 /**
  * Creates a new training session
  * @param users
+ * @param cpt_beisitzer
  * @param course_uuid
  * @param training_type_id
  * @param training_station_id
@@ -17,6 +18,7 @@ import { TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
  */
 async function createTrainingSession(
     users: UserModel[],
+    cpt_beisitzer?: boolean,
     course_uuid?: string,
     training_type_id?: number,
     training_station_id?: string,
@@ -27,14 +29,13 @@ async function createTrainingSession(
     }
 
     return axiosInstance
-        .put("/administration/training-session/training", {
-            data: {
-                user_ids: users.map(u => u.id),
-                training_station_id: training_station_id == "-1" ? null : Number(training_station_id),
-                course_uuid: course_uuid,
-                training_type_id: training_type_id,
-                date: date,
-            },
+        .post("/administration/training-session/training", {
+            user_ids: users.map(u => u.id),
+            training_station_id: training_station_id == "-1" ? null : Number(training_station_id),
+            course_uuid: course_uuid,
+            training_type_id: training_type_id,
+            date: date,
+            cpt_beisitzer: cpt_beisitzer,
         })
         .then((res: AxiosResponse) => {
             return res.data as TrainingSessionModel;

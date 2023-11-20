@@ -224,7 +224,9 @@ export function SideNav() {
                                             <div className="menu-title menu-title-transparent">ATD</div>
                                             <CollapsableMenu requiredPerm={"atd.examiner.view"} title={"Prüfer"} icon={<TbUsers size={20} />}>
                                                 <MenuItem icon={<TbClipboardList size={20} />}>CPTs</MenuItem>
-                                                <MenuItem icon={<TbCalendar size={20} />}>Offene CPTs</MenuItem>
+                                                <MenuItem href={"/administration/atd-examiner/cpt/available"} icon={<TbCalendar size={20} />}>
+                                                    Offene CPTs
+                                                </MenuItem>
                                                 <MenuItem icon={<TbList size={20} />}>Meine CPTs</MenuItem>
                                             </CollapsableMenu>
 

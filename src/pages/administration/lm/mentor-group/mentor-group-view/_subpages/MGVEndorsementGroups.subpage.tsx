@@ -1,29 +1,32 @@
 import useApi from "@/utils/hooks/useApi";
-import {EndorsementGroupModel} from "@/models/EndorsementGroupModel";
-import {useState} from "react";
-import {RenderIf} from "@/components/conditionals/RenderIf";
-import {Select} from "@/components/ui/Select/Select";
-import {MapArray} from "@/components/conditionals/MapArray";
-import {MentorGroupModel} from "@/models/MentorGroupModel";
-import {Button} from "@/components/ui/Button/Button";
-import {COLOR_OPTS, SIZE_OPTS} from "@/assets/theme.config";
-import {TbPlus} from "react-icons/tb";
-import {Separator} from "@/components/ui/Separator/Separator";
-import {Table} from "@/components/ui/Table/Table";
-import {axiosInstance} from "@/utils/network/AxiosInstance";
+import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
+import { useState } from "react";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { Select } from "@/components/ui/Select/Select";
+import { MapArray } from "@/components/conditionals/MapArray";
+import { MentorGroupModel } from "@/models/MentorGroupModel";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { TbPlus } from "react-icons/tb";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { Table } from "@/components/ui/Table/Table";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
-import MGVEndorsementGroupsTypes
-    from "@/pages/administration/lm/mentor-group/mentor-group-view/_types/MGVEndorsementGroups.types";
+import MGVEndorsementGroupsTypes from "@/pages/administration/lm/mentor-group/mentor-group-view/_types/MGVEndorsementGroups.types";
 
-export function MGVEndorsementGroupsSubpage({mentorGroupID}: {mentorGroupID?: string}) {
-    const {data: mentorGroupEndorsementGroups, loading: loadingMentorGroupEndorsementGroups, setData: setMentorGroupEndorsementGroups} = useApi<EndorsementGroupModel[]>({
+export function MGVEndorsementGroupsSubpage({ mentorGroupID }: { mentorGroupID?: string }) {
+    const {
+        data: mentorGroupEndorsementGroups,
+        loading: loadingMentorGroupEndorsementGroups,
+        setData: setMentorGroupEndorsementGroups,
+    } = useApi<EndorsementGroupModel[]>({
         url: `/administration/mentor-group/${mentorGroupID}/endorsement-group`,
-        method: "get"
+        method: "get",
     });
 
-    const {data: endorsementGroups, loading: loadingEndorsementGroups} = useApi<EndorsementGroupModel[]>({
+    const { data: endorsementGroups, loading: loadingEndorsementGroups } = useApi<EndorsementGroupModel[]>({
         url: "/administration/endorsement-group",
-        method: "get"
+        method: "get",
     });
 
     const [selectedEndorsementGroup, setSelectedEndorsementGroup] = useState<string | undefined>("");
@@ -38,10 +41,11 @@ export function MGVEndorsementGroupsSubpage({mentorGroupID}: {mentorGroupID?: st
             return;
         }
 
-        axiosInstance.post(`/administration/mentor-group/endorsement-group`, {
-            mentor_group_id: mentorGroupID,
-            endorsement_group_id: selectedEndorsementGroup
-        })
+        axiosInstance
+            .post(`/administration/mentor-group/endorsement-group`, {
+                mentor_group_id: mentorGroupID,
+                endorsement_group_id: selectedEndorsementGroup,
+            })
             .then(() => {
                 setMentorGroupEndorsementGroups([...mentorGroupEndorsementGroups!, endorsementGroup]);
                 ToastHelper.success("Freigabegruppe erfolgreich hinzugefügt");
@@ -114,5 +118,5 @@ export function MGVEndorsementGroupsSubpage({mentorGroupID}: {mentorGroupID?: st
                 loading={loadingMentorGroupEndorsementGroups}
             />
         </>
-    )
+    );
 }

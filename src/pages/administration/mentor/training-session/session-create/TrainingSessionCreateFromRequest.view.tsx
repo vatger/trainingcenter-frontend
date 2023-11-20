@@ -80,6 +80,7 @@ export function TrainingSessionCreateFromRequestView() {
         setSubmitting(true);
         TrainingSessionAdminService.createTrainingSession(
             participants,
+            false,
             trainingRequest?.course?.uuid,
             trainingRequest?.training_type_id,
             data.training_station,

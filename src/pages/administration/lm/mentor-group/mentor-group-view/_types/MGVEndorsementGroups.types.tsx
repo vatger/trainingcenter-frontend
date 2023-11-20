@@ -9,14 +9,11 @@ import { Dispatch, useState } from "react";
 import CourseAdminService from "../../../../../../services/course/CourseAdminService";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import { MentorGroupMembersModalT } from "@/pages/administration/lm/course/view/_subpages/CVMentorgroups.subpage";
-import {EndorsementGroupModel} from "@/models/EndorsementGroupModel";
+import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
 import dayjs from "dayjs";
-import {Config} from "@/core/Config";
+import { Config } from "@/core/Config";
 
-function getColumns(
-    mentor_group_id: string | undefined,
-): (TableColumn<EndorsementGroupModel> & { searchable?: boolean })[] {
-
+function getColumns(mentor_group_id: string | undefined): (TableColumn<EndorsementGroupModel> & { searchable?: boolean })[] {
     return [
         {
             name: "Name",
@@ -38,8 +35,7 @@ function getColumns(
                         disabled={false}
                         variant={"twoTone"}
                         color={COLOR_OPTS.DANGER}
-                        icon={<TbTrash size={20} />}
-                    >
+                        icon={<TbTrash size={20} />}>
                         Löschen (TODO!)
                     </Button>
                 );

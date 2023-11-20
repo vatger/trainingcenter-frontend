@@ -124,7 +124,8 @@ export function MentorTrainingView() {
                                             "Falls du nicht zur Session erscheinen kannst, kannst Du hier das Training an einen anderen Mentoren übertragen."
                                         }
                                         name={"mentor_id"}
-                                        defaultValue={trainingSession?.mentor_id}>
+                                        defaultValue={trainingSession?.mentor_id ?? "-1"}>
+                                        <option value={"-1"}>N/A</option>
                                         <MapArray
                                             data={mentors ?? []}
                                             mapFunction={(mentor: UserModel, index) => {
@@ -136,6 +137,25 @@ export function MentorTrainingView() {
                                             }}
                                         />
                                     </Select>
+
+                                    <RenderIf
+                                        truthValue={trainingSession?.training_type?.type == "cpt"}
+                                        elementTrue={
+                                            <Input
+                                                label={"Prüfer"}
+                                                labelSmall
+                                                description={"Prüfer des CPTs"}
+                                                disabled
+                                                inputError={trainingSession?.cpt_examiner_id == null}
+                                                hideInputErrorText
+                                                value={
+                                                    trainingSession?.cpt_examiner == null
+                                                        ? "N/A"
+                                                        : `${trainingSession.cpt_examiner.first_name} ${trainingSession.cpt_examiner.last_name} (${trainingSession.cpt_examiner.id})`
+                                                }
+                                            />
+                                        }
+                                    />
                                 </div>
 
                                 <Separator />

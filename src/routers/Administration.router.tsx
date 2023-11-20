@@ -15,6 +15,7 @@ import { TrainingStationRouter } from "@/routers/administration/TrainingStation.
 import { ActionRequirementRouter } from "@/routers/administration/ActionRequirement.router";
 import { EndorsementGroupRouter } from "@/routers/administration/EndorsementGroup.router";
 import { UserCourseProgressRouter } from "@/routers/administration/UserCourseProgress.router";
+import { ATDExaminerRouter } from "@/routers/administration/ATDExaminer.router";
 
 export function AdministrationRouter() {
     const location = useLocation();
@@ -32,6 +33,7 @@ export function AdministrationRouter() {
             <Route path={"training-station/*"} element={<TrainingStationRouter />} />
             <Route path={"action-requirement/*"} element={<ActionRequirementRouter />} />
             <Route path={"endorsement-group/*"} element={<EndorsementGroupRouter />} />
+            <Route path={"atd-examiner/*"} element={<ATDExaminerRouter />} />
 
             <Route path={"syslog/*"} element={<SysLogRouter />} />
             <Route path={"permission/*"} element={<PermissionRouter />} />
