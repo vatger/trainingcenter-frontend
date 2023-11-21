@@ -1,14 +1,16 @@
-import { NavigateFunction } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { TableColumn } from "react-data-table-component";
-import { TrainingSessionBelongsToUserModel } from "../../../../../models/TrainingSessionBelongsToUser.model";
-import { UserModel } from "../../../../../models/UserModel";
+import { TrainingSessionBelongsToUserModel } from "@/models/TrainingSessionBelongsToUser.model";
+import { UserModel } from "@/models/UserModel";
 import dayjs from "dayjs";
-import { Config } from "../../../../../core/Config";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { Config } from "@/core/Config";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEye } from "react-icons/tb";
 
-function getColumns(navigate: NavigateFunction): TableColumn<TrainingSessionBelongsToUserModel>[] {
+function getColumns(): TableColumn<TrainingSessionBelongsToUserModel>[] {
+    const navigate = useNavigate();
+
     return [
         {
             name: "Mentor",

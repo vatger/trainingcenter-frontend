@@ -65,7 +65,7 @@ export function MentorTrainingView() {
 
     return (
         <>
-            <PageHeader title={"Geplantes Training"} />
+            <PageHeader title={trainingSession?.training_type?.type == "cpt" ? "Geplantes CPT" : "Geplantes Training"} />
 
             <RenderIf
                 truthValue={loading || loadingMentors}
@@ -90,6 +90,7 @@ export function MentorTrainingView() {
                                         label={"Datum (UTC)"}
                                         type={"datetime-local"}
                                         name={"date"}
+                                        disabled={trainingSession?.training_type?.type == "cpt"}
                                         labelSmall
                                         preIcon={<TbCalendarEvent size={20} />}
                                         value={dayjs.utc(trainingSession?.date).format("YYYY-MM-DD HH:mm")}
@@ -102,7 +103,8 @@ export function MentorTrainingView() {
                                         defaultValue={trainingSession?.training_station?.id}
                                         disabled={
                                             trainingSession?.training_type?.training_stations == null ||
-                                            trainingSession.training_type.training_stations.length == 0
+                                            trainingSession.training_type.training_stations.length == 0 ||
+                                            trainingSession.training_type.type == "cpt"
                                         }>
                                         <option value={"-1"}>N/A</option>
                                         <MapArray
@@ -124,6 +126,7 @@ export function MentorTrainingView() {
                                             "Falls du nicht zur Session erscheinen kannst, kannst Du hier das Training an einen anderen Mentoren übertragen."
                                         }
                                         name={"mentor_id"}
+                                        disabled={trainingSession?.training_type?.type == "cpt"}
                                         defaultValue={trainingSession?.mentor_id ?? "-1"}>
                                         <MapArray
                                             data={mentors ?? []}

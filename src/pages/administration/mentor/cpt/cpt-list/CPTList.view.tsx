@@ -25,6 +25,11 @@ export function CPTListView() {
             <PageHeader title={"CPT Übersicht"} hideBackLink />
 
             <Card headerBorder header={"Liste der geplanten CPTs"}>
+                <Alert type={TYPE_OPTS.INFO} showIcon closeable rounded className={"mb-5"}>
+                    Beachte bitte, dass sich hier nur Beisitzer für CPTs anmelden können. Wenn du dich als Prüfer für eines der CPTs anmelden willst, dann gehe
+                    bitte in den entsprechenden Bereich im ATD.
+                </Alert>
+
                 <Table
                     columns={CPTLTypes.getColumns(user, CPTList, setCPTList)}
                     paginate
@@ -33,11 +38,6 @@ export function CPTListView() {
                     data={CPTList ?? []}
                     loading={loadingCPTList}
                 />
-
-                <Alert type={TYPE_OPTS.INFO} showIcon closeable rounded className={"mt-5"}>
-                    Beachte bitte, dass sich hier nur Beisitzer für CPTs anmelden können. Wenn du dich als Prüfer für eines der CPTs anmelden willst, dann gehe
-                    bitte in den entsprechenden Bereich im ATD.
-                </Alert>
             </Card>
         </>
     );

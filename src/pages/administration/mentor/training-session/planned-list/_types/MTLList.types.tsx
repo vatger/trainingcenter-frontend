@@ -49,6 +49,7 @@ function getColumns(
                                 setSelectedTrainingSession(row);
                                 setShowDeleteSessionModal(true);
                             }}
+                            disabled={row.training_type?.type == "cpt"}
                             size={SIZE_OPTS.SM}
                             variant={"twoTone"}
                             color={COLOR_OPTS.DANGER}
