@@ -5,9 +5,10 @@ import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { Button } from "@/components/ui/Button/Button";
-import { TbEar, TbEye, TbTrash } from "react-icons/tb";
+import { TbEye } from "react-icons/tb";
 import { TrainingLogModel } from "@/models/TrainingSessionBelongsToUser.model";
 import { useNavigate } from "react-router-dom";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 
 export function getColumns(training_logs: TrainingLogModel[]): TableColumn<UserTrainingSessionModel>[] {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ export function getColumns(training_logs: TrainingLogModel[]): TableColumn<UserT
         },
         {
             name: "Mentor",
-            selector: row => `${row.mentor?.first_name} ${row.mentor?.last_name} (${row.mentor_id})`,
+            selector: row => (row.mentor_id ? `${row.mentor?.first_name} ${row.mentor?.last_name} (${row.mentor_id})` : "N/A"),
         },
         {
             name: "Datum (UTC)",
@@ -28,6 +29,10 @@ export function getColumns(training_logs: TrainingLogModel[]): TableColumn<UserT
         {
             name: "Resultat",
             cell: row => {
+                if (row.training_session_belongs_to_users?.passed == null && row.training_session_belongs_to_users?.log_id == null) {
+                    return <Badge color={COLOR_OPTS.DEFAULT}>Geplant</Badge>;
+                }
+
                 if (row.training_session_belongs_to_users?.passed) {
                     return <Badge color={COLOR_OPTS.SUCCESS}>Bestanden</Badge>;
                 } else {
@@ -43,6 +48,7 @@ export function getColumns(training_logs: TrainingLogModel[]): TableColumn<UserT
                         <Button
                             className={"my-3 ml-2"}
                             variant={"twoTone"}
+                            disabled={row.training_session_belongs_to_users?.log_id == null}
                             onClick={() => {
                                 const logUUID = training_logs.find(l => l.TrainingSessionBelongsToUsers?.training_session_id == row.id);
                                 navigate(`/training/log/${logUUID?.uuid}`);

@@ -2,7 +2,7 @@ import { Modal } from "../../../../../components/ui/Modal/Modal";
 import { Input } from "../../../../../components/ui/Input/Input";
 import StringHelper from "../../../../../utils/helper/StringHelper";
 import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { COLOR_OPTS, TYPE_OPTS } from "../../../../../assets/theme.config";
 import { Separator } from "../../../../../components/ui/Separator/Separator";
 import { TbChecklist } from "react-icons/tb";
 import TrainingTypeService from "../../../../../services/training-type/TrainingTypeService";
@@ -18,6 +18,7 @@ import { TrainingStationModel } from "../../../../../models/TrainingStationModel
 import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
 import { TextArea } from "../../../../../components/ui/Textarea/TextArea";
 import FormHelper from "../../../../../utils/helper/FormHelper";
+import { Alert } from "@/components/ui/Alert/Alert";
 
 type RequestTrainingModalPartialProps = {
     show: boolean;
@@ -63,40 +64,58 @@ export function CAVRequestTrainingModal(props: RequestTrainingModalPartialProps)
 
                         <Input disabled className={"mt-5"} label={"Typ"} readOnly labelSmall value={StringHelper.capitalize(nextTraining?.type) ?? ""} />
 
-                        <TextArea
-                            className={"mt-5"}
-                            label={"Kommentar"}
-                            maxLength={150}
-                            description={"Optionaler Kommentar, bspw. zu deiner generellen Verfügbarkeit"}
-                            labelSmall
-                            name={"comment"}
-                        />
-
                         <RenderIf
-                            truthValue={nextTraining?.training_stations != null && nextTraining.training_stations.length >= 1}
+                            truthValue={nextTraining?.type == "cpt"}
                             elementTrue={
-                                <Select name={"training_station_id"} className={"mt-5"} label={"Station Auswählen"} labelSmall>
-                                    <MapArray
-                                        data={nextTraining?.training_stations ?? []}
-                                        mapFunction={(station: TrainingStationModel, index: number) => {
-                                            return (
-                                                <option key={index} value={station.id}>
-                                                    {station.callsign.toUpperCase() + " | " + station.frequency.toFixed(3)}
-                                                </option>
-                                            );
-                                        }}
+                                <Alert className={"mt-5"} rounded showIcon type={TYPE_OPTS.DANGER}>
+                                    Das aktuell zugewiesene Training ist ein CPT. Dieses kannst du nicht beantragen. Sollte das CPT noch nicht geplant worden
+                                    sein (siehe unten in der Trainingshistorie), spreche bitte mit einem Mentoren.
+                                </Alert>
+                            }
+                            elementFalse={
+                                <>
+                                    <TextArea
+                                        className={"mt-5"}
+                                        label={"Kommentar"}
+                                        maxLength={150}
+                                        description={"Optionaler Kommentar, bspw. zu deiner generellen Verfügbarkeit"}
+                                        labelSmall
+                                        name={"comment"}
                                     />
-                                </Select>
+
+                                    <RenderIf
+                                        truthValue={nextTraining?.training_stations != null && nextTraining.training_stations.length >= 1}
+                                        elementTrue={
+                                            <Select name={"training_station_id"} className={"mt-5"} label={"Station Auswählen"} labelSmall>
+                                                <MapArray
+                                                    data={nextTraining?.training_stations ?? []}
+                                                    mapFunction={(station: TrainingStationModel, index: number) => {
+                                                        return (
+                                                            <option key={index} value={station.id}>
+                                                                {station.callsign.toUpperCase() + " | " + station.frequency.toFixed(3)}
+                                                            </option>
+                                                        );
+                                                    }}
+                                                />
+                                            </Select>
+                                        }
+                                    />
+
+                                    <Separator />
+
+                                    <div className={"flex justify-end"}>
+                                        <Button
+                                            loading={submitting}
+                                            type={"submit"}
+                                            variant={"twoTone"}
+                                            icon={<TbChecklist size={20} />}
+                                            color={COLOR_OPTS.PRIMARY}>
+                                            Beantragen
+                                        </Button>
+                                    </div>
+                                </>
                             }
                         />
-
-                        <Separator />
-
-                        <div className={"flex justify-end"}>
-                            <Button loading={submitting} type={"submit"} variant={"twoTone"} icon={<TbChecklist size={20} />} color={COLOR_OPTS.PRIMARY}>
-                                Beantragen
-                            </Button>
-                        </div>
                     </form>
                 }
             />

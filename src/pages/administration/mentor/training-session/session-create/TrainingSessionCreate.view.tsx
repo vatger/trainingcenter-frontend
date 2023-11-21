@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/Card/Card";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendarEvent, TbCalendarPlus, TbUser } from "react-icons/tb";
+import { TbArrowRight, TbCalendarEvent, TbCalendarPlus, TbUser } from "react-icons/tb";
 import dayjs from "dayjs";
 import React, { FormEvent, useState } from "react";
 import { Table } from "@/components/ui/Table/Table";
@@ -73,17 +73,9 @@ export function TrainingSessionCreateView() {
         event.preventDefault();
 
         const data = FormHelper.getEntries(event?.target);
-        data["cpt_beisitzer"] = data["cpt_beisitzer"] === "on";
 
         setSubmitting(true);
-        TrainingSessionAdminService.createTrainingSession(
-            participants,
-            data.cpt_beisitzer,
-            data.course_uuid,
-            data.training_type_id,
-            data.training_station_id,
-            data.date
-        )
+        TrainingSessionAdminService.createTrainingSession(participants, data.course_uuid, data.training_type_id, data.training_station_id, data.date)
             .then((session: TrainingSessionModel) => {
                 ToastHelper.success("Session wurde erfolgreich erstellt");
                 navigate(`/administration/training-request/planned/${session.uuid}`);
@@ -208,34 +200,30 @@ export function TrainingSessionCreateView() {
                                     truthValue={courses?.find(c => c.uuid == courseUUID)?.training_types?.find(t => t.id == trainingTypeID)?.type == "cpt"}
                                     elementTrue={
                                         <>
-                                            <Alert className={"mb-5"} rounded showIcon type={TYPE_OPTS.WARNING}>
+                                            <Alert className={"mb-5"} rounded showIcon type={TYPE_OPTS.DANGER}>
                                                 <>
-                                                    Der gewählte Trainingstyp ist ein CPT. Entscheide bitte, ob du dich als Beisitzer eintragen möchtest, oder
-                                                    nicht. Du hast nach dem Erstellen der Session <strong>nicht die Möglichkeit zurückzutreten</strong>, ohne
-                                                    die Session zu löschen! Du kannst jedoch jederzeit deinen Posten als Beisitzer an einen anderen Mentoren
-                                                    übertragen. Wähle diese Option also nur, wenn du dir sicher bist, dass du an dem gewählten Datum auch
-                                                    kannst.
+                                                    Du hast als Trainingstyp ein CPT ausgewählt. Dieses kannst du hier <strong>nicht</strong> erstellen. Wähle
+                                                    links unter Mentoren, CPTs den entsprechenden Reiter aus um ein CPT Termin anzulegen.
                                                 </>
                                             </Alert>
-
-                                            <div>
-                                                <Checkbox className={"mb-5"} name={"cpt_beisitzer"} checked>
-                                                    Als Beisitzer eintragen
-                                                </Checkbox>
-                                            </div>
                                         </>
                                     }
+                                    elementFalse={
+                                        <Button
+                                            variant={"twoTone"}
+                                            disabled={
+                                                courseUUID == null ||
+                                                trainingTypeID == null ||
+                                                courses?.find(c => c.uuid == courseUUID)?.training_types?.find(t => t.id == trainingTypeID)?.type == "cpt"
+                                            }
+                                            loading={submitting}
+                                            color={COLOR_OPTS.PRIMARY}
+                                            icon={<TbCalendarPlus size={20} />}
+                                            type={"submit"}>
+                                            Session Erstellen
+                                        </Button>
+                                    }
                                 />
-
-                                <Button
-                                    variant={"twoTone"}
-                                    disabled={courseUUID == null || trainingTypeID == null}
-                                    loading={submitting}
-                                    color={COLOR_OPTS.PRIMARY}
-                                    icon={<TbCalendarPlus size={20} />}
-                                    type={"submit"}>
-                                    Session Erstellen
-                                </Button>
                             </Card>
                         </form>
 

@@ -18,7 +18,6 @@ import { TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
  */
 async function createTrainingSession(
     users: UserModel[],
-    cpt_beisitzer?: boolean,
     course_uuid?: string,
     training_type_id?: number,
     training_station_id?: string,
@@ -35,7 +34,6 @@ async function createTrainingSession(
             course_uuid: course_uuid,
             training_type_id: training_type_id,
             date: date,
-            cpt_beisitzer: cpt_beisitzer,
         })
         .then((res: AxiosResponse) => {
             return res.data as TrainingSessionModel;

@@ -15,6 +15,7 @@ import { useFilter } from "../../../../../utils/hooks/useFilter";
 import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
 import { Card } from "../../../../../components/ui/Card/Card";
 import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
+import { Badge } from "@/components/ui/Badge/Badge";
 
 type SearchFilter = {
     modal_open: boolean;
@@ -74,7 +75,17 @@ export function OpenTrainingRequestList() {
             </Card>
 
             <Card className={"mt-5"}>
-                <Tabs tabHeaders={["Trainings", "Lessons"]} type={"underline"}>
+                <Tabs
+                    tabHeaders={["Trainings", "Lessons"]}
+                    tabHeaderAddition={[
+                        <Badge color={COLOR_OPTS.PRIMARY} className={"ml-2"}>
+                            {filteredTrainingRequests.filter((f: TrainingRequestModel) => f.training_type?.type != "lesson").length}
+                        </Badge>,
+                        <Badge color={COLOR_OPTS.PRIMARY} className={"ml-2"}>
+                            {filteredTrainingRequests.filter((f: TrainingRequestModel) => f.training_type?.type == "lesson").length}
+                        </Badge>,
+                    ]}
+                    type={"underline"}>
                     <Table
                         paginate
                         paginationPerPage={15}

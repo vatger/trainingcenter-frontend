@@ -1,7 +1,8 @@
 import { ReactElement } from "react";
 
 export type TabsProps = {
-    tabHeaders: ReactElement[] | string[];
+    tabHeaders: string[];
+    tabHeaderAddition?: ReactElement[];
     children: ReactElement[];
     type: "pills" | "underline";
     onChange?: (index: number) => any;

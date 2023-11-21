@@ -125,7 +125,6 @@ export function MentorTrainingView() {
                                         }
                                         name={"mentor_id"}
                                         defaultValue={trainingSession?.mentor_id ?? "-1"}>
-                                        <option value={"-1"}>N/A</option>
                                         <MapArray
                                             data={mentors ?? []}
                                             mapFunction={(mentor: UserModel, index) => {

@@ -49,7 +49,9 @@ export function Tabs(props: TabsProps) {
                             className={"w-full select-none sm:w-auto " + headerClasses.inactive + (index === activePage ? " " + headerClasses.active : "")}
                             role="tab"
                             aria-selected={index === 0 ? "true" : "false"}>
-                            <>{value}</>
+                            <>
+                                {value} {props?.tabHeaderAddition?.[index] ?? null}
+                            </>
                         </div>
                     );
                 })}

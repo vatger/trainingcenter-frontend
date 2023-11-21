@@ -164,7 +164,12 @@ export function SideNav() {
                                             </CollapsableMenu>
 
                                             <CollapsableMenu title={"CPTs"} icon={<TbCertificate size={20} />}>
-                                                <MenuItem icon={<TbCalendarEvent size={20} />}>CPT Übersicht</MenuItem>
+                                                <MenuItem href={"/administration/cpt/create"} icon={<TbInbox size={20} />}>
+                                                    CPT Anfragen
+                                                </MenuItem>
+                                                <MenuItem href={"/administration/cpt/open"} icon={<TbCalendarEvent size={20} />}>
+                                                    CPT Übersicht
+                                                </MenuItem>
                                             </CollapsableMenu>
                                         </>
                                     }

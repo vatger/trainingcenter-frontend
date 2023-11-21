@@ -16,6 +16,7 @@ import { ActionRequirementRouter } from "@/routers/administration/ActionRequirem
 import { EndorsementGroupRouter } from "@/routers/administration/EndorsementGroup.router";
 import { UserCourseProgressRouter } from "@/routers/administration/UserCourseProgress.router";
 import { ATDExaminerRouter } from "@/routers/administration/ATDExaminer.router";
+import { MentorCPTRouter } from "@/routers/administration/MentorCPT.router";
 
 export function AdministrationRouter() {
     const location = useLocation();
@@ -26,6 +27,7 @@ export function AdministrationRouter() {
             <Route path={"course/*"} element={<CourseRouter />} />
             <Route path={"user-course-progress/*"} element={<UserCourseProgressRouter />} />
             <Route path={"training-request/*"} element={<TrainingRequestRouter />} />
+            <Route path={"cpt/*"} element={<MentorCPTRouter />} />
             <Route path={"training-session/*"} element={<TrainingSessionRouter />} />
             <Route path={"mentor-group/*"} element={<MentorGroupRouter />} />
             <Route path={"training-type/*"} element={<TrainingTypeRouter />} />
