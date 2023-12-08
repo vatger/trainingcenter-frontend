@@ -17,6 +17,8 @@ import { Separator } from "@/components/ui/Separator/Separator";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
+import useApi from "@/utils/hooks/useApi";
+import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
 
 export type SoloExtensionError = {
     cpt_planned: boolean;
@@ -24,6 +26,11 @@ export type SoloExtensionError = {
 };
 
 export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Dispatch<UserModel> }) {
+    const { loading: loadingEndorsementGroups, data: mentorableEndorsementGroups } = useApi<EndorsementGroupModel[]>({
+        url: "/administration/endorsement-group/mentorable",
+        method: "get",
+    });
+
     const [showAddSoloModal, setShowAddSoloModal] = useState<boolean>(false);
     const [showUseKontingentSoloModal, setShowUseKontingentSoloModal] = useState<boolean>(false);
 
@@ -188,6 +195,7 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
 
             <UVAddSoloModal
                 show={showAddSoloModal}
+                endorsementGroups={mentorableEndorsementGroups}
                 onClose={() => {
                     setShowAddSoloModal(false);
                 }}
@@ -196,6 +204,7 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
             />
             <UVUseKontingentSoloModal
                 show={showUseKontingentSoloModal}
+                endorsementGroups={mentorableEndorsementGroups}
                 onClose={() => {
                     setShowUseKontingentSoloModal(false);
                 }}

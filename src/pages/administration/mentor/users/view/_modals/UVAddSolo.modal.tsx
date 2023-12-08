@@ -17,13 +17,20 @@ import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
 import useApi from "@/utils/hooks/useApi";
 import { MapArray } from "@/components/conditionals/MapArray";
 
-export function UVAddSoloModal({ show, onClose, user, setUser }: { show: boolean; onClose: () => any; user?: UserModel; setUser: Dispatch<UserModel> }) {
+export function UVAddSoloModal({
+    show,
+    onClose,
+    user,
+    setUser,
+    endorsementGroups,
+}: {
+    show: boolean;
+    onClose: () => any;
+    user?: UserModel;
+    setUser: Dispatch<UserModel>;
+    endorsementGroups: EndorsementGroupModel[] | undefined;
+}) {
     const [submitting, setSubmitting] = useState<boolean>(false);
-
-    const { loading: loadingEndorsementGroups, data: endorsementGroups } = useApi<EndorsementGroupModel[]>({
-        url: "/administration/endorsement-group/with-stations",
-        method: "get",
-    });
 
     function addSolo(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
