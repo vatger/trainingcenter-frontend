@@ -27,11 +27,19 @@ function getColumns(onRemove: OnRemoveFunction): (TableColumn<UserModel> & { sea
         {
             name: "Solo",
             cell: row => {
-                if (row.EndorsementGroupsBelongsToUsers?.solo) {
+                if (row.EndorsementGroupsBelongsToUsers?.solo_id != null) {
+                    if (dayjs.utc(row.user_solo?.current_solo_start).isAfter(dayjs.utc())) {
+                        return (
+                            <Badge color={COLOR_OPTS.DANGER}>
+                                <>Ab {dayjs.utc(row.user_solo?.current_solo_start).format(Config.DATE_FORMAT)}</>
+                            </Badge>
+                        );
+                    }
+
                     return (
                         <Badge color={COLOR_OPTS.DANGER}>
                             <>
-                                {dayjs.utc(row?.user_solo?.current_solo_end).format(Config.DATE_FORMAT)} | {row?.user_solo?.extension_count} Verl.
+                                Bis {dayjs.utc(row?.user_solo?.current_solo_end).format(Config.DATE_FORMAT)}
                             </>
                         </Badge>
                     );
