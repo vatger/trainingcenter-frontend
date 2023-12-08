@@ -12,11 +12,10 @@ type UserMentorGroupsPartialProps = {
 
 export function UVMentorGroupsPartial(props: UserMentorGroupsPartialProps) {
     const navigate = useNavigate();
-    const columns: TableColumn<MentorGroupModel>[] = MentorGroupListTypes.getColumns(navigate);
 
     return (
         <Card header={"Mentorengruppen"} className={"mt-7"} headerBorder>
-            <Table paginate={props.mentorGroups.length > 10} columns={columns} data={props.mentorGroups} />
+            <Table paginate defaultSortField={1} columns={MentorGroupListTypes.getColumns(navigate)} data={props.mentorGroups} />
         </Card>
     );
 }

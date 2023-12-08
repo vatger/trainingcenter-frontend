@@ -2,9 +2,9 @@ import { UserModel, UserSoloModel } from "@/models/UserModel";
 import { Card } from "@/components/ui/Card/Card";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { COLOR_OPTS, SIZE_OPTS, TYPE_OPTS } from "@/assets/theme.config";
-import { TbAdjustmentsCog, TbAlertTriangle, TbPlaylistAdd } from "react-icons/tb";
+import { TbAdjustmentsCog, TbAlertTriangle, TbPlaylistAdd, TbTrash } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
-import React, { Dispatch, useState } from "react";
+import React, { Dispatch, useContext, useState } from "react";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { UVAddSoloModal } from "@/pages/administration/mentor/users/view/_modals/UVAddSolo.modal";
 import { Input } from "@/components/ui/Input/Input";
@@ -19,6 +19,8 @@ import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosError, AxiosResponse } from "axios";
 import useApi from "@/utils/hooks/useApi";
 import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
+import authContext from "@/utils/contexts/AuthContext";
+import { UVDeleteSoloModal } from "@/pages/administration/mentor/users/view/_modals/UVDeleteSolo.modal";
 
 export type SoloExtensionError = {
     cpt_planned: boolean;
@@ -26,10 +28,14 @@ export type SoloExtensionError = {
 };
 
 export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Dispatch<UserModel> }) {
+    const { userPermissions } = useContext(authContext);
+
     const { loading: loadingEndorsementGroups, data: mentorableEndorsementGroups } = useApi<EndorsementGroupModel[]>({
         url: "/administration/endorsement-group/mentorable",
         method: "get",
     });
+
+    const [showDeleteSoloModal, setShowDeleteSoloModal] = useState<boolean>(false);
 
     const [showAddSoloModal, setShowAddSoloModal] = useState<boolean>(false);
     const [showUseKontingentSoloModal, setShowUseKontingentSoloModal] = useState<boolean>(false);
@@ -188,6 +194,21 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
                                     </Button>
                                 }
                             />
+
+                            <RenderIf
+                                truthValue={userPermissions.includes("ATD.SOLO.DELETE")}
+                                elementTrue={
+                                    <Button
+                                        icon={<TbAlertTriangle size={20} />}
+                                        className={"ml-3"}
+                                        size={SIZE_OPTS.SM}
+                                        onClick={() => setShowDeleteSoloModal(true)}
+                                        variant={"twoTone"}
+                                        color={COLOR_OPTS.DANGER}>
+                                        Solo Löschen
+                                    </Button>
+                                }
+                            />
                         </>
                     }
                 />
@@ -202,6 +223,7 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
                 user={user}
                 setUser={setUser}
             />
+            <UVDeleteSoloModal show={showDeleteSoloModal} onClose={() => setShowDeleteSoloModal(false)} user={user} setUser={setUser} />
             <UVUseKontingentSoloModal
                 show={showUseKontingentSoloModal}
                 endorsementGroups={mentorableEndorsementGroups}

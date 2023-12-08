@@ -24,11 +24,11 @@ export function ManageAccountView() {
 
             <Card>
                 <Tabs tabHeaders={tabHeaders} type={"underline"}>
-                    <MAProfilePartial/>
-                    <MASettingsPartial/>
-                    <MANotificationsPartial/>
-                    <MASignedInDevicesPartial/>
-                    <MADangerPartial/>
+                    <MAProfilePartial />
+                    <MASettingsPartial />
+                    <MANotificationsPartial />
+                    <MASignedInDevicesPartial />
+                    <MADangerPartial />
                 </Tabs>
             </Card>
         </>

@@ -57,6 +57,7 @@ function getEndorsementTableColumns(navigate: NavigateFunction, userSolo?: UserS
         {
             name: "Name",
             selector: row => row.name,
+            sortable: true,
         },
         {
             name: "Solo",
@@ -83,6 +84,7 @@ function getEndorsementTableColumns(navigate: NavigateFunction, userSolo?: UserS
         {
             name: "Freigabe Am",
             selector: row => dayjs.utc(row.EndorsementGroupsBelongsToUsers?.createdAt).format(Config.DATE_FORMAT),
+            sortable: true,
         },
         {
             name: "Aktion",

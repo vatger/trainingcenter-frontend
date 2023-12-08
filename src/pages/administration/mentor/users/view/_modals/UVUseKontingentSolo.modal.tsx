@@ -119,7 +119,11 @@ export function UVUseKontingentSoloModal({
                                 </option>
                                 <MapArray
                                     data={(endorsementGroups ?? []).filter(eg => {
-                                        return user?.endorsement_groups?.find(ueg => ueg.id == eg.id) == null;
+                                        console.log(eg);
+                                        return (
+                                            user?.endorsement_groups?.find(ueg => ueg.id == eg.id && ueg.EndorsementGroupsBelongsToUsers?.solo_id == null) ==
+                                            null
+                                        );
                                     })}
                                     mapFunction={(e: EndorsementGroupModel, index) => {
                                         return (

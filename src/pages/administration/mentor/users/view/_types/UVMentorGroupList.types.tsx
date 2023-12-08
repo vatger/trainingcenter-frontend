@@ -8,6 +8,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<MentorGroupModel>[]
         {
             name: "Name",
             selector: row => row.name,
+            sortable: true,
         },
         {
             name: "Mitglied Seit",

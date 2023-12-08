@@ -21,7 +21,7 @@ export function UVCoursesPartial({ courses, user_id }: { courses: CourseModel[] 
                     In Kurs Einschreiben
                 </Button>
             }>
-            <Table columns={UVTypes.getCoursesTableColumns(navigate, user_id)} data={courses ?? []} />
+            <Table columns={UVTypes.getCoursesTableColumns(navigate, user_id)} paginate defaultSortField={1} data={courses ?? []} />
         </Card>
     );
 }
