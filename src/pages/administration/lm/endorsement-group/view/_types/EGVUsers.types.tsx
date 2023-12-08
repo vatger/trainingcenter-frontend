@@ -27,7 +27,7 @@ function getColumns(onRemove: OnRemoveFunction): (TableColumn<UserModel> & { sea
         {
             name: "Solo",
             cell: row => {
-                if (row.EndorsementGroupsBelongsToUsers?.solo_id != null) {
+                if (row.user_solo != null) {
                     if (dayjs.utc(row.user_solo?.current_solo_start).isAfter(dayjs.utc())) {
                         return (
                             <Badge color={COLOR_OPTS.DANGER}>
@@ -60,6 +60,7 @@ function getColumns(onRemove: OnRemoveFunction): (TableColumn<UserModel> & { sea
                 return (
                     <Button
                         className={"my-3"}
+                        disabled={row.user_solo != null}
                         onClick={() => {
                             onRemove(row.id);
                         }}
