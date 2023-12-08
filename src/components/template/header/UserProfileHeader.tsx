@@ -1,6 +1,6 @@
 import { TbActivityHeartbeat, TbLogout, TbSettings, TbUser } from "react-icons/tb";
 import { MenuItem } from "../../ui/MenuItem/MenuItem";
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { generateUUID } from "../../../utils/helper/UUIDHelper";
 
 import "./GenericHeaderAnimation.scss";
@@ -90,30 +90,34 @@ export function UserProfileHeader() {
                 </div>
 
                 {/* Dropdown */}
-                <ul id={`dropdown-${profileMenuUUID.current}`} className={"dropdown-menu bottom-end right-[-6px] sm:right-0 min-w-[220px] hidden"}>
+                <ul id={`dropdown-${profileMenuUUID.current}`}
+                    className={"dropdown-menu bottom-end right-[-6px] sm:right-0 min-w-[220px] hidden"}>
                     <li className="menu-item-header">
                         <div className="py-2 px-3 flex items-center gap-2">
                             <div>
-                                <div className="font-bold text-gray-900 dark:text-gray-100">{user?.first_name + " " + user?.last_name}</div>
+                                <div
+                                    className="font-bold text-gray-900 dark:text-gray-100">{user?.first_name + " " + user?.last_name}</div>
                                 <div className="text-xs">{user?.email}</div>
                             </div>
                         </div>
                     </li>
                     <li id="menu-item-16-GcfayYzLSI" className="menu-item-divider"></li>
-                    <MenuItem href={"account/manage#profile"} icon={<TbUser size={20} />}>
+                    <MenuItem href={"account/manage#profile"} icon={<TbUser size={20}/>}>
                         Profile
                     </MenuItem>
-                    <MenuItem href={"account/manage#settings"} icon={<TbSettings size={20} />}>
+                    <MenuItem href={"account/manage#settings"} icon={<TbSettings size={20}/>}>
                         Settings
                     </MenuItem>
-                    <MenuItem icon={<TbActivityHeartbeat size={20} />}>Activity</MenuItem>
+                    <MenuItem icon={<TbActivityHeartbeat size={20}/>}>Activity</MenuItem>
                     <li id="menu-item-16-GcfayYzLSI" className="menu-item-divider"></li>
                     <MenuItem
                         disabled={loggingOut}
                         onClick={() => handleLogout()}
                         isNoLink
                         className={"text-danger"}
-                        icon={loggingOut ? <Spinner size={20} className={"my-auto"} borderWidth={2} color={"rgb(239 68 68)"} /> : <TbLogout size={20} />}>
+                        icon={loggingOut ?
+                            <Spinner size={20} className={"my-auto"} borderWidth={2} color={"rgb(239 68 68)"}/> :
+                            <TbLogout size={20}/>}>
                         {loggingOut ? "Logging Out" : "Logout"}
                     </MenuItem>
                 </ul>

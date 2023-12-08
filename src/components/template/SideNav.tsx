@@ -20,7 +20,6 @@ import {
     TbFilePlus,
     TbInbox,
     TbList,
-    TbListCheck,
     TbListDetails,
     TbLock,
     TbRss,
@@ -106,33 +105,34 @@ export function SideNav() {
                     <div style={{ position: "relative", overflow: "hidden", width: "100%", height: "100%" }}>
                         <div className={"absolute inset-0 overflow-y-auto mr-0 mb-0 pb-10 side-nav-hide-scrollbar"}>
                             <nav className="menu menu-transparent px-4 pt-5">
-                                <MenuItem icon={<TbDashboard size={20} />} href={"overview"}>
+                                <MenuItem icon={<TbDashboard size={20}/>} href={"overview"}>
                                     Dashboard
                                 </MenuItem>
 
                                 <div className="menu-group">
                                     <div className="menu-title menu-title-transparent">Ausbildung</div>
 
-                                    <CollapsableMenu title={courseSidenavTranslation[language].title} icon={<TbBooks size={20} />}>
-                                        <MenuItem href={"course"} icon={<TbSearch size={20} />}>
+                                    <CollapsableMenu title={courseSidenavTranslation[language].title}
+                                                     icon={<TbBooks size={20}/>}>
+                                        <MenuItem href={"course"} icon={<TbSearch size={20}/>}>
                                             {courseSidenavTranslation[language].search}
                                         </MenuItem>
-                                        <MenuItem href={"course/active"} icon={<TbListDetails size={20} />}>
+                                        <MenuItem href={"course/active"} icon={<TbListDetails size={20}/>}>
                                             {courseSidenavTranslation[language].active}
                                         </MenuItem>
-                                        <MenuItem href={"course/completed"} icon={<TbCheckupList size={20} />}>
+                                        <MenuItem href={"course/completed"} icon={<TbCheckupList size={20}/>}>
                                             {courseSidenavTranslation[language].completed}
                                         </MenuItem>
                                     </CollapsableMenu>
 
-                                    <CollapsableMenu title={"Trainings"} icon={<TbCalendarEvent size={20} />}>
-                                        <MenuItem href={"training/request/open"} icon={<TbClock size={20} />}>
+                                    <CollapsableMenu title={"Trainings"} icon={<TbCalendarEvent size={20}/>}>
+                                        <MenuItem href={"training/request/open"} icon={<TbClock size={20}/>}>
                                             Offene Trainingsanfragen
                                         </MenuItem>
-                                        <MenuItem href={"training/planned"} icon={<TbCalendarStats size={20} />}>
+                                        <MenuItem href={"training/planned"} icon={<TbCalendarStats size={20}/>}>
                                             Geplante Trainings
                                         </MenuItem>
-                                        <MenuItem href={"training/completed"} icon={<TbList size={20} />}>
+                                        <MenuItem href={"training/completed"} icon={<TbList size={20}/>}>
                                             Abgeschlossene Trainings
                                         </MenuItem>
                                     </CollapsableMenu>
@@ -143,31 +143,37 @@ export function SideNav() {
                                     elementTrue={
                                         <>
                                             <div className="menu-title menu-title-transparent">Mentoren</div>
-                                            <CollapsableMenu title={"Mitglieder"} icon={<TbUsers size={20} />}>
-                                                <MenuItem href={"administration/users/list"} icon={<TbSearch size={20} />}>
+                                            <CollapsableMenu title={"Mitglieder"} icon={<TbUsers size={20}/>}>
+                                                <MenuItem href={"administration/users/list"}
+                                                          icon={<TbSearch size={20}/>}>
                                                     Mitglied Suchen
                                                 </MenuItem>
-                                                <MenuItem icon={<TbList size={20} />}>Übersicht Trainees</MenuItem>
+                                                <MenuItem icon={<TbList size={20}/>}>Übersicht Trainees</MenuItem>
                                             </CollapsableMenu>
 
-                                            <CollapsableMenu title={"Trainings"} icon={<TbCalendar size={20} />}>
-                                                <MenuItem href={"administration/training-request/open"} icon={<TbInbox size={20} />}>
+                                            <CollapsableMenu title={"Trainings"} icon={<TbCalendar size={20}/>}>
+                                                <MenuItem href={"administration/training-request/open"}
+                                                          icon={<TbInbox size={20}/>}>
                                                     Offene Trainingsanfragen
                                                 </MenuItem>
-                                                <MenuItem href={"administration/training-session/create"} icon={<TbCalendarPlus size={20} />}>
+                                                <MenuItem href={"administration/training-session/create"}
+                                                          icon={<TbCalendarPlus size={20}/>}>
                                                     Training Erstellen
                                                 </MenuItem>
-                                                <MenuItem href={"administration/training-request/planned"} icon={<TbCalendarStats size={20} />}>
+                                                <MenuItem href={"administration/training-request/planned"}
+                                                          icon={<TbCalendarStats size={20}/>}>
                                                     Geplante Trainings
                                                 </MenuItem>
-                                                <MenuItem icon={<TbList size={20} />}>Meine Trainings</MenuItem>
+                                                <MenuItem icon={<TbList size={20}/>}>Meine Trainings</MenuItem>
                                             </CollapsableMenu>
 
-                                            <CollapsableMenu title={"CPTs"} icon={<TbCertificate size={20} />}>
-                                                <MenuItem href={"/administration/cpt/create"} icon={<TbInbox size={20} />}>
+                                            <CollapsableMenu title={"CPTs"} icon={<TbCertificate size={20}/>}>
+                                                <MenuItem href={"/administration/cpt/create"}
+                                                          icon={<TbInbox size={20}/>}>
                                                     CPT Anfragen
                                                 </MenuItem>
-                                                <MenuItem href={"/administration/cpt/open"} icon={<TbCalendarEvent size={20} />}>
+                                                <MenuItem href={"/administration/cpt/open"}
+                                                          icon={<TbCalendarEvent size={20}/>}>
                                                     CPT Übersicht
                                                 </MenuItem>
                                             </CollapsableMenu>
@@ -180,43 +186,54 @@ export function SideNav() {
                                     elementTrue={
                                         <>
                                             <div className="menu-title menu-title-transparent">LM</div>
-                                            <CollapsableMenu title={"Freigabegruppen"} icon={<TbCertificate size={20} />}>
-                                                <MenuItem href={"administration/endorsement-group"} icon={<TbListDetails size={20} />}>
+                                            <CollapsableMenu title={"Freigabegruppen"}
+                                                             icon={<TbCertificate size={20}/>}>
+                                                <MenuItem href={"administration/endorsement-group"}
+                                                          icon={<TbListDetails size={20}/>}>
                                                     Verwalten
                                                 </MenuItem>
-                                                <MenuItem href={"administration/endorsement-group/create"} icon={<TbFilePlus size={20} />}>
+                                                <MenuItem href={"administration/endorsement-group/create"}
+                                                          icon={<TbFilePlus size={20}/>}>
                                                     Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
-                                            <CollapsableMenu title={"Mentorgruppen"} icon={<TbUsers size={20} />}>
-                                                <MenuItem href={"administration/mentor-group"} icon={<TbListDetails size={20} />}>
+                                            <CollapsableMenu title={"Mentorgruppen"} icon={<TbUsers size={20}/>}>
+                                                <MenuItem href={"administration/mentor-group"}
+                                                          icon={<TbListDetails size={20}/>}>
                                                     Verwalten
                                                 </MenuItem>
-                                                <MenuItem href={"administration/mentor-group/create"} icon={<TbFilePlus size={20} />}>
+                                                <MenuItem href={"administration/mentor-group/create"}
+                                                          icon={<TbFilePlus size={20}/>}>
                                                     Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
-                                            <CollapsableMenu title={"Kurse"} icon={<TbClipboardList size={20} />}>
-                                                <MenuItem href={"administration/course"} icon={<TbListDetails size={20} />}>
+                                            <CollapsableMenu title={"Kurse"} icon={<TbClipboardList size={20}/>}>
+                                                <MenuItem href={"administration/course"}
+                                                          icon={<TbListDetails size={20}/>}>
                                                     Verwalten
                                                 </MenuItem>
-                                                <MenuItem href={"administration/course/create"} icon={<TbFilePlus size={20} />}>
+                                                <MenuItem href={"administration/course/create"}
+                                                          icon={<TbFilePlus size={20}/>}>
                                                     Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
-                                            <CollapsableMenu title={"Trainingstypen"} icon={<TbTemplate size={20} />}>
-                                                <MenuItem href={"administration/training-type"} icon={<TbListDetails size={20} />}>
+                                            <CollapsableMenu title={"Trainingstypen"} icon={<TbTemplate size={20}/>}>
+                                                <MenuItem href={"administration/training-type"}
+                                                          icon={<TbListDetails size={20}/>}>
                                                     Verwalten
                                                 </MenuItem>
-                                                <MenuItem href={"administration/training-type/create"} icon={<TbFilePlus size={20} />}>
+                                                <MenuItem href={"administration/training-type/create"}
+                                                          icon={<TbFilePlus size={20}/>}>
                                                     Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
-                                            <CollapsableMenu title={"Aktionen | Bedingungen"} icon={<TbAdjustments size={20} />}>
-                                                <MenuItem icon={<TbListDetails size={20} />} href={"administration/action-requirement"}>
+                                            <CollapsableMenu title={"Aktionen | Bedingungen"}
+                                                             icon={<TbAdjustments size={20}/>}>
+                                                <MenuItem icon={<TbListDetails size={20}/>}
+                                                          href={"administration/action-requirement"}>
                                                     Verwalten
                                                 </MenuItem>
-                                                <MenuItem icon={<TbFilePlus size={20} />}>Erstellen</MenuItem>
+                                                <MenuItem icon={<TbFilePlus size={20}/>}>Erstellen</MenuItem>
                                             </CollapsableMenu>
                                         </>
                                     }
@@ -227,36 +244,42 @@ export function SideNav() {
                                     elementTrue={
                                         <>
                                             <div className="menu-title menu-title-transparent">ATD</div>
-                                            <CollapsableMenu requiredPerm={"atd.examiner.view"} title={"Prüfer"} icon={<TbUsers size={20} />}>
-                                                <MenuItem icon={<TbClipboardList size={20} />}>CPTs</MenuItem>
-                                                <MenuItem href={"/administration/atd-examiner/cpt/available"} icon={<TbCalendar size={20} />}>
+                                            <CollapsableMenu requiredPerm={"atd.examiner.view"} title={"Prüfer"}
+                                                             icon={<TbUsers size={20}/>}>
+                                                <MenuItem icon={<TbClipboardList size={20}/>}>CPTs</MenuItem>
+                                                <MenuItem href={"/administration/atd-examiner/cpt/available"}
+                                                          icon={<TbCalendar size={20}/>}>
                                                     Offene CPTs
                                                 </MenuItem>
-                                                <MenuItem icon={<TbList size={20} />}>Meine CPTs</MenuItem>
+                                                <MenuItem icon={<TbList size={20}/>}>Meine CPTs</MenuItem>
                                             </CollapsableMenu>
 
-                                            <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20} />}>
-                                                <MenuItem href={"administration/log-template/view"} icon={<TbListDetails size={20} />}>
+                                            <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20}/>}>
+                                                <MenuItem href={"administration/log-template/view"}
+                                                          icon={<TbListDetails size={20}/>}>
                                                     Verwalten
                                                 </MenuItem>
-                                                <MenuItem href={"administration/log-template/create"} icon={<TbFilePlus size={20} />}>
+                                                <MenuItem href={"administration/log-template/create"}
+                                                          icon={<TbFilePlus size={20}/>}>
                                                     Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
 
-                                            <MenuItem requiredPerm={"atd.fast_track.view"} icon={<TbChevronsRight size={20} />}>
+                                            <MenuItem requiredPerm={"atd.fast_track.view"}
+                                                      icon={<TbChevronsRight size={20}/>}>
                                                 Fast-Tracks
                                             </MenuItem>
 
-                                            <MenuItem requiredPerm={"atd.atsim.view"} icon={<TbSquareCheck size={20} />}>
+                                            <MenuItem requiredPerm={"atd.atsim.view"} icon={<TbSquareCheck size={20}/>}>
                                                 ATSIM Anfragen
                                             </MenuItem>
 
                                             <CollapsableMenu
                                                 requiredPerm={"atd.training_stations.view"}
                                                 title={"Trainingsstationen"}
-                                                icon={<TbRss size={20} />}>
-                                                <MenuItem href={"administration/training-station"} icon={<TbListDetails size={20} />}>
+                                                icon={<TbRss size={20}/>}>
+                                                <MenuItem href={"administration/training-station"}
+                                                          icon={<TbListDetails size={20}/>}>
                                                     Verwalten
                                                 </MenuItem>
                                             </CollapsableMenu>
@@ -269,13 +292,16 @@ export function SideNav() {
                                     elementTrue={
                                         <>
                                             <div className="menu-title menu-title-transparent">Administration</div>
-                                            <MenuItem requiredPerm={"tech.syslog.view"} href={"administration/syslog"} icon={<TbClipboardText size={20} />}>
+                                            <MenuItem requiredPerm={"tech.syslog.view"} href={"administration/syslog"}
+                                                      icon={<TbClipboardText size={20}/>}>
                                                 Systemlogs
                                             </MenuItem>
-                                            <MenuItem requiredPerm={"tech.permissions.view"} href={"administration/permission"} icon={<TbLock size={20} />}>
+                                            <MenuItem requiredPerm={"tech.permissions.view"}
+                                                      href={"administration/permission"} icon={<TbLock size={20}/>}>
                                                 Rechteverwaltung
                                             </MenuItem>
-                                            <MenuItem requiredPerm={"tech.appsettings.view"} icon={<TbSettings size={20} />}>
+                                            <MenuItem requiredPerm={"tech.appsettings.view"}
+                                                      icon={<TbSettings size={20}/>}>
                                                 App Einstellungen
                                             </MenuItem>
                                         </>

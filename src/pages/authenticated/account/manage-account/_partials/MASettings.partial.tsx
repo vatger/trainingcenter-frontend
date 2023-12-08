@@ -2,8 +2,7 @@ import { ManageAccountElement } from "@/components/ui/Account/ManageAccountEleme
 import { Select } from "@/components/ui/Select/Select";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
-import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import themeContext from "../../../../../utils/contexts/ThemeContext";
 import languageContext, { LanguageEnum } from "../../../../../utils/contexts/LanguageContext";
 import GDPRService from "../../../../../services/user/UserGDPRService";
@@ -172,8 +171,8 @@ export function MASettingsPartial() {
                 }
             />
             <ManageAccountElement
-                hideBottomBorder
                 break
+                hideBottomBorder
                 title={
                     <>
                         Personenbezogene Daten Herunterladen
