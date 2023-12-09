@@ -12,6 +12,13 @@ import { TbPlus } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
+import { useFilter } from "@/utils/hooks/useFilter";
+import { useDebounce } from "@/utils/hooks/useDebounce";
+import { Input } from "@/components/ui/Input/Input";
+
+function filterStations(element: TrainingStationModel, searchValue: string) {
+    return element.callsign.startsWith(searchValue.toUpperCase());
+}
 
 export function EGVStationsSubpage() {
     const { id } = useParams();
@@ -31,6 +38,10 @@ export function EGVStationsSubpage() {
         url: "/administration/training-station",
         method: "get",
     });
+
+    const [searchValue, setSearchValue] = useState<string>("");
+    const debouncedSearchValue = useDebounce<string>(searchValue);
+    const filteredData = useFilter<TrainingStationModel>(trainingStations ?? [], searchValue, debouncedSearchValue, filterStations);
 
     function addStation() {
         setIsSubmitting(true);
@@ -80,9 +91,19 @@ export function EGVStationsSubpage() {
 
     return (
         <>
+            <Input
+                label={"Stationen Suchen"}
+                onChange={e => setSearchValue(e.target.value)}
+                value={searchValue}
+                fieldClassName={"uppercase"}
+                placeholder={"EDDF"}
+                labelSmall
+            />
+
             <Select
                 label={"Trainingsstation Hinzufügen"}
                 labelSmall
+                className={"mt-5"}
                 disabled={loadingStations || loadingEndorsementGroupStations}
                 onChange={v => {
                     if (v == "-1") {
@@ -96,7 +117,7 @@ export function EGVStationsSubpage() {
                     Trainingsstation Auswählen
                 </option>
                 <MapArray
-                    data={trainingStations?.filter(t => endorsementGroupStations?.find(e => e.id == t.id) == null) ?? []}
+                    data={filteredData?.filter(t => endorsementGroupStations?.find(e => e.id == t.id) == null) ?? []}
                     mapFunction={(station: TrainingStationModel, index) => {
                         return <option value={station.id.toString()}>{`${station.callsign.toUpperCase()} (${station.frequency.toFixed(3)})`}</option>;
                     }}

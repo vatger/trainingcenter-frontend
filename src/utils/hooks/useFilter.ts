@@ -15,7 +15,7 @@ export function useFilter<T>(
     debouncedSearchValue: string,
     filterFunction: (element: T, searchValue: string) => boolean,
     noEntriesIfSearchEmpty?: boolean
-): any {
+): T[] {
     const [filteredData, setFilteredData] = useState<T[]>(data);
 
     useEffect(() => {

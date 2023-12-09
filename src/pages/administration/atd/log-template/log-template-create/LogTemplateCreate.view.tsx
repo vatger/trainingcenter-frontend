@@ -11,11 +11,13 @@ import { MapArray } from "../../../../../components/conditionals/MapArray";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplateAdminService";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { LogTemplateElement } from "@/models/TrainingLogTemplateModel";
+import { LogTemplateElement, TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { LTTemplateElementPreviewPartial } from "@/pages/administration/atd/log-template/_shared/_partials/LTTemplateElementPreview.partial";
 import { LTTemplateElementPartial } from "@/pages/administration/atd/log-template/_shared/_partials/LTTemplateElement.partial";
 import { LTTemplateElementModal } from "@/pages/administration/atd/log-template/_shared/_modals/LTTemplateElement.modal";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { AxiosResponse } from "axios";
 
 export function LogTemplateCreateView() {
     const navigate: NavigateFunction = useNavigate();
@@ -31,9 +33,12 @@ export function LogTemplateCreateView() {
         let data = FormHelper.getEntries(e.target);
         data["content"] = content;
 
-        TrainingLogTemplateAdminService.create(data)
-            .then((res: { id: number }) => {
-                navigate("/administration/log-template/" + res.id);
+        axiosInstance
+            .post("/administration/training-log/template", data)
+            .then((res: AxiosResponse) => {
+                const data = res.data as TrainingLogTemplateModel;
+
+                navigate("/administration/log-template/" + data.id);
                 ToastHelper.success("Logvorlage erfolgreich erstellt");
             })
             .catch(() => {

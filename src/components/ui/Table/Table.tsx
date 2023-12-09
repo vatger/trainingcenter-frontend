@@ -1,16 +1,40 @@
 import { TableProps } from "./Table.props";
 import { Input } from "../Input/Input";
-import DataTable from "react-data-table-component";
+import DataTable, { TableColumn } from "react-data-table-component";
 import { TbSortDescending } from "react-icons/tb";
 import { Spinner } from "../Spinner/Spinner";
 import { RenderIf } from "../../conditionals/RenderIf";
 import { useContext, useEffect, useState } from "react";
 import { useDebounce } from "@/utils/hooks/useDebounce";
-import { search } from "./Table.helper";
 import tableTranslation from "../../../assets/lang/table.translation";
 import languageContext from "../../../utils/contexts/LanguageContext";
 
 const TABLE_PAGINATION_PER_PAGE_DEFAULT = 15;
+
+function search(headers: (TableColumn<any> & { searchable?: boolean })[], data: Object[], searchString: string): Object[] {
+    const lowerCaseSearchString = searchString.toLowerCase();
+    let searchableIndexArray: number[] = [];
+    let filteredData: Object[] = [];
+
+    headers.forEach((value, index) => {
+        if (value.searchable) searchableIndexArray.push(index);
+    });
+
+    dataLoop: for (const dataValue of data) {
+        for (const value of searchableIndexArray) {
+            if (headers[value] == null) break;
+            const selected = headers[value].selector?.(dataValue);
+            if (selected == null) break;
+
+            if (selected.toString().toLowerCase().indexOf(lowerCaseSearchString) !== -1) {
+                filteredData.push(dataValue);
+                break dataLoop;
+            }
+        }
+    }
+
+    return filteredData;
+}
 
 export function Table(props: TableProps) {
     const { language } = useContext(languageContext);
@@ -23,7 +47,8 @@ export function Table(props: TableProps) {
 
     useEffect(() => {
         if (debouncedSearch.length === 0) {
-            setData(props.data);
+            console.log(props.data);
+            setData([...props.data]);
             return;
         }
 
@@ -31,7 +56,7 @@ export function Table(props: TableProps) {
     }, [debouncedSearch]);
 
     useEffect(() => {
-        setData(props.data);
+        setData([...props.data]);
         setLoading(props.loading ?? false);
     }, [props.data, props.loading]);
 

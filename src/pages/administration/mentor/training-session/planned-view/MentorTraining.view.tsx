@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendarEvent, TbClipboardPlus, TbId } from "react-icons/tb";
+import { TbCalendarEvent, TbClipboardPlus, TbId, TbRadar, TbRadio, TbWifi } from "react-icons/tb";
 import dayjs from "dayjs";
 import { Select } from "@/components/ui/Select/Select";
 import { MapArray } from "@/components/conditionals/MapArray";
@@ -96,34 +96,53 @@ export function MentorTrainingView() {
                                         value={dayjs.utc(trainingSession?.date).format("YYYY-MM-DD HH:mm")}
                                     />
 
-                                    <Select
-                                        label={"Trainingsstation"}
-                                        labelSmall
-                                        name={"training_station_id"}
-                                        defaultValue={trainingSession?.training_station?.id}
-                                        disabled={
-                                            trainingSession?.training_type?.training_stations == null ||
-                                            trainingSession.training_type.training_stations.length == 0 ||
-                                            trainingSession.training_type.type == "cpt"
-                                        }>
-                                        <option value={"-1"}>N/A</option>
-                                        <MapArray
-                                            data={trainingSession?.training_type?.training_stations ?? []}
-                                            mapFunction={(trainingStation: TrainingStationModel, index) => {
-                                                return (
-                                                    <option key={index} value={trainingStation.id}>
-                                                        {trainingStation.callsign.toUpperCase()} ({trainingStation.frequency.toFixed(3)})
-                                                    </option>
-                                                );
-                                            }}
-                                        />
-                                    </Select>
+                                    <RenderIf
+                                        truthValue={trainingSession?.training_type?.type == "cpt"}
+                                        elementTrue={
+                                            <Input
+                                                label={"Trainingsstation"}
+                                                name={"training_station_id"}
+                                                disabled={trainingSession?.training_type?.type == "cpt"}
+                                                labelSmall
+                                                preIcon={<TbRadar size={20} />}
+                                                value={`${trainingSession?.training_station?.callsign.toUpperCase()} (${trainingSession?.training_station?.frequency.toFixed(
+                                                    3
+                                                )})`}
+                                            />
+                                        }
+                                        elementFalse={
+                                            <Select
+                                                label={"Trainingsstation"}
+                                                labelSmall
+                                                name={"training_station_id"}
+                                                defaultValue={trainingSession?.training_station?.id}
+                                                disabled={
+                                                    trainingSession?.training_type?.training_stations == null ||
+                                                    trainingSession.training_type.training_stations.length == 0 ||
+                                                    trainingSession.training_type.type == "cpt"
+                                                }>
+                                                <option value={"-1"}>N/A</option>
+                                                <MapArray
+                                                    data={trainingSession?.training_type?.training_stations ?? []}
+                                                    mapFunction={(trainingStation: TrainingStationModel, index) => {
+                                                        return (
+                                                            <option key={index} value={trainingStation.id}>
+                                                                {trainingStation.callsign.toUpperCase()} ({trainingStation.frequency.toFixed(3)})
+                                                            </option>
+                                                        );
+                                                    }}
+                                                />
+                                            </Select>
+                                        }
+                                    />
 
                                     <Select
                                         label={"Mentor"}
                                         labelSmall
                                         description={
-                                            "Falls du nicht zur Session erscheinen kannst, kannst Du hier das Training an einen anderen Mentoren übertragen."
+                                            trainingSession?.training_type?.type == "cpt"
+                                                ? "CPT Beisitzer"
+                                                : "Falls du nicht zur Session erscheinen kannst, kannst Du hier das Training an einen anderen Mentoren übertragen."
                                         }
                                         name={"mentor_id"}
                                         disabled={trainingSession?.training_type?.type == "cpt"}
@@ -160,28 +179,40 @@ export function MentorTrainingView() {
                                     />
                                 </div>
 
-                                <Separator />
+                                <RenderIf
+                                    truthValue={trainingSession?.training_type?.type != "cpt"}
+                                    elementTrue={
+                                        <>
+                                            <Separator />
 
-                                <div className={"flex lg:flex-row flex-col gap-3"}>
-                                    <Button color={COLOR_OPTS.PRIMARY} variant={"twoTone"} icon={<TbRefresh size={20} />} type={"submit"} loading={updating}>
-                                        Aktualisieren
-                                    </Button>
+                                            <div className={"flex lg:flex-row flex-col gap-3"}>
+                                                <Button
+                                                    color={COLOR_OPTS.PRIMARY}
+                                                    variant={"twoTone"}
+                                                    icon={<TbRefresh size={20} />}
+                                                    type={"submit"}
+                                                    loading={updating}>
+                                                    Aktualisieren
+                                                </Button>
 
-                                    <RenderIf
-                                        truthValue={trainingSession?.training_type?.type != "cpt"}
-                                        elementTrue={
-                                            <Button
-                                                color={COLOR_OPTS.PRIMARY}
-                                                variant={"twoTone"}
-                                                icon={<TbClipboardPlus size={20} />}
-                                                type={"button"}
-                                                disabled={updating}
-                                                onClick={() => navigate("logs-create")}>
-                                                Logs Erstellen
-                                            </Button>
-                                        }
-                                    />
-                                </div>
+                                                <RenderIf
+                                                    truthValue={trainingSession?.training_type?.type != "cpt"}
+                                                    elementTrue={
+                                                        <Button
+                                                            color={COLOR_OPTS.PRIMARY}
+                                                            variant={"twoTone"}
+                                                            icon={<TbClipboardPlus size={20} />}
+                                                            type={"button"}
+                                                            disabled={updating}
+                                                            onClick={() => navigate("logs-create")}>
+                                                            Logs Erstellen
+                                                        </Button>
+                                                    }
+                                                />
+                                            </div>
+                                        </>
+                                    }
+                                />
                             </form>
                         </Card>
                         <Card header={"Teilnehmer"} headerBorder className={"mt-5"}>

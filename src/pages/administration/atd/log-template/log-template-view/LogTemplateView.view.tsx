@@ -21,6 +21,7 @@ import { LTViewSkeleton } from "@/pages/administration/atd/log-template/_shared/
 import { LTVDeleteModal } from "@/pages/administration/atd/log-template/log-template-view/_modals/LTVDelete.modal";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
+import { AxiosResponse } from "axios";
 
 export function LogTemplateViewView() {
     const { id } = useParams();
@@ -60,9 +61,11 @@ export function LogTemplateViewView() {
         data["content"] = content;
 
         TrainingLogTemplateAdminService.update(id, data)
-            .then(() => {
+            .then((res: AxiosResponse) => {
+                const data = res.data as TrainingLogTemplateModel;
+
                 ToastHelper.success("Logvorlage erfolgreich aktualisiert");
-                setTrainingLogTemplate({ ...trainingLogTemplate!, updatedAt: new Date() });
+                setTrainingLogTemplate({ ...data, updatedAt: new Date() });
             })
             .catch(() => {
                 ToastHelper.error("Fehler beim aktualisieren der Logvorlage");

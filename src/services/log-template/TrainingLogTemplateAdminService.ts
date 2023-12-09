@@ -37,16 +37,6 @@ function getAll() {
     };
 }
 
-/**
- * Create a new training log template
- * @param data
- */
-async function create(data: object) {
-    return axiosInstance.post("/administration/training-log/template", data).then((res: AxiosResponse) => {
-        return res.data as { id: number };
-    });
-}
-
 async function update(id: string, data: object) {
     return axiosInstance.patch(`/administration/training-log/template/${id}`, data);
 }
@@ -57,7 +47,6 @@ async function destroy(id: number) {
 
 export default {
     getAll,
-    create,
     update,
     destroy,
 };
