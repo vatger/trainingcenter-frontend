@@ -17,6 +17,7 @@ import { EndorsementGroupRouter } from "@/routers/administration/EndorsementGrou
 import { UserCourseProgressRouter } from "@/routers/administration/UserCourseProgress.router";
 import { ATDExaminerRouter } from "@/routers/administration/ATDExaminer.router";
 import { MentorCPTRouter } from "@/routers/administration/MentorCPT.router";
+import { FastTrackRouter } from "@/routers/administration/FastTrack.router";
 
 export function AdministrationRouter() {
     const location = useLocation();
@@ -36,6 +37,7 @@ export function AdministrationRouter() {
             <Route path={"action-requirement/*"} element={<ActionRequirementRouter />} />
             <Route path={"endorsement-group/*"} element={<EndorsementGroupRouter />} />
             <Route path={"atd-examiner/*"} element={<ATDExaminerRouter />} />
+            <Route path={"fast-track/*"} element={<FastTrackRouter />} />
 
             <Route path={"syslog/*"} element={<SysLogRouter />} />
             <Route path={"permission/*"} element={<PermissionRouter />} />

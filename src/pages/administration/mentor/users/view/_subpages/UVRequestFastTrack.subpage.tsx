@@ -9,26 +9,37 @@ import { useParams } from "react-router-dom";
 import { Select } from "@/components/ui/Select/Select";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { COLOR_OPTS, TYPE_OPTS } from "@/assets/theme.config";
-import { AxiosProgressEvent } from "axios";
+import { AxiosProgressEvent, AxiosResponse } from "axios";
 import { TextArea } from "@/components/ui/Textarea/TextArea";
-import FastTrackAdminService from "../../../../../../services/fast-track/FastTrackAdminService";
 import { TableColumn } from "react-data-table-component";
 import { FastTrackRequestModel } from "@/models/FastTrackRequestModel";
 import FastTrackListTypes from "../_types/UVFastTrackList.types";
 import { Table } from "@/components/ui/Table/Table";
-import { FastTrackModel } from "@/models/FastTrackModel";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { Alert } from "@/components/ui/Alert/Alert";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import useApi from "@/utils/hooks/useApi";
+import ToastHelper from "@/utils/helper/ToastHelper";
+import { E_VATSIM_RATING } from "@/utils/helper/vatsim/AtcRatingHelper";
 
 export function RequestFastTrackView() {
     const { user_id } = useParams();
-    const fastTrackColumns: TableColumn<FastTrackRequestModel>[] = FastTrackListTypes.getColumns();
 
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [uploadProgress, setUploadProgress] = useState<number>(0);
     const [fileList, setFileList] = useState<File[]>([]);
 
-    const { fastTracks, setFastTracks, loading: loadingFTRequests } = FastTrackAdminService.getRequestsByUserID(user_id);
+    const {
+        data: fastTracks,
+        setData: setFastTracks,
+        loading: loadingFTRequests,
+    } = useApi<FastTrackRequestModel[]>({
+        url: "/administration/fast-track/user",
+        params: {
+            user_id: user_id,
+        },
+        method: "get",
+    });
 
     function createFastTrackRequest(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -45,12 +56,20 @@ export function RequestFastTrackView() {
         // Append extra info
         formData.append("user_id", user_id ?? "-1");
 
-        FastTrackAdminService.create(formData, handleUploadProgressChange)
-            .then((res: FastTrackModel) => {
-                setUploadProgress(0);
-                setFastTracks([...fastTracks, res]);
+        axiosInstance
+            .post("/administration/fast-track", formData, {
+                onUploadProgress: (e: AxiosProgressEvent) => handleUploadProgressChange,
+                timeout: 60_000,
             })
-            .catch(() => {})
+            .then((res: AxiosResponse) => {
+                const data = res.data as FastTrackRequestModel;
+                setUploadProgress(0);
+                setFastTracks([...(fastTracks ?? []), data]);
+                ToastHelper.success("Fast-Track Request erfolgreich erstellt.");
+            })
+            .catch(() => {
+                ToastHelper.error("Fehler beim Erstellen des Fast-Track Requests");
+            })
             .then(() => setIsUploading(false));
     }
 
@@ -67,12 +86,12 @@ export function RequestFastTrackView() {
                 className={"mb-7"}
                 headerBorder
                 headerExtra={<Badge color={COLOR_OPTS.PRIMARY}>{fastTracks?.length ?? "Laden..."}</Badge>}>
-                <Table columns={fastTrackColumns} data={fastTracks} loading={loadingFTRequests} paginationPerPage={5} />
+                <Table columns={FastTrackListTypes.getColumns()} data={fastTracks ?? []} loading={loadingFTRequests} paginationPerPage={5} />
             </Card>
 
             <Card header={"Fast-Track Request Erstellen"} headerBorder>
                 <RenderIf
-                    truthValue={fastTracks.find(ft => ft.status != 4 && ft.status != 5) != null}
+                    truthValue={fastTracks?.find(ft => ft.status != 4 && ft.status != 5) != null}
                     elementTrue={
                         <Alert type={TYPE_OPTS.DANGER} showIcon rounded>
                             Es gibt bereits einen aktiven Fast-Track Request. Warte bitte, bis dieser abgeschlossen ist, um einen neuen Request erstellen zu
@@ -90,8 +109,8 @@ export function RequestFastTrackView() {
                                     required
                                     name={"rating"}
                                     preIcon={<TbActivity size={20} />}>
-                                    <option value={0}>{"S2"}</option>
-                                    <option value={1}>{"S3"}</option>
+                                    <option value={E_VATSIM_RATING.S2}>{"S2"}</option>
+                                    <option value={E_VATSIM_RATING.S3}>{"S3"}</option>
                                 </Select>
                             </div>
 
@@ -110,7 +129,7 @@ export function RequestFastTrackView() {
 
                             <h6 className={"text-sm"}>Dateiupload</h6>
                             <FileUpload
-                                accept={["jpg", "png", "pdf"]}
+                                accept={["jpg", "png"]}
                                 isUploading={isUploading}
                                 progress={uploadProgress}
                                 fileLimit={loadingFTRequests ? 0 : 1}

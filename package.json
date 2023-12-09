@@ -28,6 +28,7 @@
 		"@types/toastr": "^2.1.40",
 		"apexcharts": "^3.37.0",
 		"axios": "^1.2.1",
+		"buffer": "^6.0.3",
 		"dayjs": "^1.11.8",
 		"dotenv": "^16.0.3",
 		"fuzzy-search": "^3.2.1",

@@ -243,9 +243,20 @@ export function SideNav() {
                                                 </MenuItem>
                                             </CollapsableMenu>
 
-                                            <MenuItem requiredPerm={"atd.fast_track.view"} icon={<TbChevronsRight size={20} />}>
-                                                Fast-Tracks
-                                            </MenuItem>
+                                            <CollapsableMenu title={"Fast-Tracks"} icon={<TbChevronsRight size={20} />}>
+                                                <MenuItem
+                                                    href={"administration/fast-track/view"}
+                                                    requiredPerm={"atd.fast_track.view"}
+                                                    icon={<TbChevronsRight size={20} />}>
+                                                    Offene Anfragen
+                                                </MenuItem>
+                                                <MenuItem
+                                                    href={"administration/fast-track/all"}
+                                                    requiredPerm={"atd.fast_track.view"}
+                                                    icon={<TbChevronsRight size={20} />}>
+                                                    Alle Anfragen
+                                                </MenuItem>
+                                            </CollapsableMenu>
 
                                             <MenuItem requiredPerm={"atd.atsim.view"} icon={<TbSquareCheck size={20} />}>
                                                 ATSIM Anfragen

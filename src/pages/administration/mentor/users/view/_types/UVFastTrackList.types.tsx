@@ -6,40 +6,18 @@ import { Badge } from "../../../../../../components/ui/Badge/Badge";
 import moment from "moment";
 import { Button } from "../../../../../../components/ui/Button/Button";
 import { TbEye } from "react-icons/tb";
+import { getAtcRatingShort } from "@/utils/helper/vatsim/AtcRatingHelper";
+import FastTrackHelper from "@/utils/helper/FastTrackHelper";
 
 function getColumns(): TableColumn<FastTrackRequestModel>[] {
     return [
         {
             name: "Rating",
-            selector: row => {
-                switch (row.rating) {
-                    case 0:
-                        return "S2";
-
-                    case 1:
-                        return "S3";
-
-                    default:
-                        return "N/A";
-                }
-            },
+            selector: row => getAtcRatingShort(row.rating),
         },
         {
             name: "Status",
-            cell: row => {
-                switch (row.status) {
-                    case 0:
-                        return <Badge color={COLOR_OPTS.PRIMARY}>Requested</Badge>;
-                    case 1:
-                        return <Badge color={COLOR_OPTS.PRIMARY}>Uploaded, Test requested</Badge>;
-                    case 2:
-                        return <Badge color={COLOR_OPTS.WARNING}>Test failed</Badge>;
-                    case 3:
-                        return <Badge color={COLOR_OPTS.SUCCESS}>Intro done</Badge>;
-                    case 4:
-                        return <Badge color={COLOR_OPTS.DANGER}>Request denied</Badge>;
-                }
-            },
+            cell: row => FastTrackHelper.statusToBadge(row.status),
         },
         {
             name: "Erstellt Am",

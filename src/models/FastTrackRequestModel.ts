@@ -1,3 +1,5 @@
+import { UserModel } from "@/models/UserModel";
+
 export type FastTrackRequestModel = {
     id: number;
     user_id: number;
@@ -9,4 +11,7 @@ export type FastTrackRequestModel = {
     response?: string;
     createdAt: Date;
     updatedAt?: Date;
+
+    user?: UserModel;
+    requested_by_user?: UserModel;
 };
