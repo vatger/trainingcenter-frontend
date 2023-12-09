@@ -18,7 +18,7 @@ export function CAVTrainingRequestsPartial(props: ActiveCourseTrainingRequestsPa
             <Card header={"Trainingsanfragen"} headerBorder className={"mt-5"}>
                 <p className={"text-xs mb-2"}>
                     Du bekommst zum Ablaufdatum eine E-Mail von uns, in der Du dein weiteres Interesse an diesem Training bestätigen musst. Falls dies nicht
-                    innerhalb von x Wochen bestätigt wird, verfällt deine Anfrage automatisch.
+                    innerhalb von 4 Wochen bestätigt wird, verfällt deine Anfrage automatisch.
                 </p>
                 <Table
                     paginate={false}

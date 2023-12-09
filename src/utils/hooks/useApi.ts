@@ -27,7 +27,7 @@ interface IUseApiReturn<T> {
 function useApi<T>(props: IUseApi<T>): IUseApiReturn<T> {
     const [loading, setLoading] = React.useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<AxiosError | undefined>(undefined);
-    const [data, setData] = React.useState<T | undefined>(undefined);
+    const [responseData, setResponseData] = React.useState<T | undefined>(undefined);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -35,7 +35,7 @@ function useApi<T>(props: IUseApi<T>): IUseApiReturn<T> {
         axiosInstance({
             method: props.method,
             params: props.params,
-            data: data,
+            data: props.data,
             url: props.url,
             responseType: props.responseType ?? "json",
             signal: controller.signal,
@@ -43,7 +43,7 @@ function useApi<T>(props: IUseApi<T>): IUseApiReturn<T> {
             .then((res: AxiosResponse) => {
                 const response: T = res.data as T;
 
-                setData(response);
+                setResponseData(response);
                 if (props.onLoad) {
                     props.onLoad(response);
                 }
@@ -61,8 +61,8 @@ function useApi<T>(props: IUseApi<T>): IUseApiReturn<T> {
     return {
         loading: loading,
         loadingError: loadingError,
-        data: data,
-        setData: setData,
+        data: responseData,
+        setData: setResponseData,
     };
 }
 

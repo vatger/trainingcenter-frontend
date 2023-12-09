@@ -15,6 +15,7 @@ import { AdministrationRouter } from "@/routers/Administration.router";
 import { Error403 } from "@/pages/errors/403";
 import { Error404 } from "@/pages/errors/404";
 import { TrainingLogViewView } from "@/pages/authenticated/training/training-log-view/TrainingLogView.view";
+import {ConfirmInterestedView} from "@/pages/authenticated/misc/ConfirmInterested.view";
 
 export function MainRouter() {
     const location = useLocation();
@@ -22,6 +23,7 @@ export function MainRouter() {
     return (
         <Routes>
             <Route path={"overview"} element={<Overview />} />
+            <Route path={"confirm-interested"} element={<ConfirmInterestedView/>}/>
 
             <Route path={"account"}>
                 <Route path={"manage"} element={<ManageAccountView />} />
