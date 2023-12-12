@@ -40,7 +40,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
         url: "/administration/mentor-group",
         method: "get",
     });
-    const [selectedMentorGroup, setSelectedMentorGroup] = useState<string | undefined>("");
+    const [selectedMentorGroup, setSelectedMentorGroup] = useState<string | undefined>(undefined);
     const [selectedMentorGroupEdit, setSelectedMentorGroupEdit] = useState<boolean>(false);
     const [submitting, setSubmitting] = useState<boolean>(false);
 
@@ -102,6 +102,7 @@ export function CVMentorgroupsSubpage({ courseUUID }: { courseUUID: string | und
 
                                     setSelectedMentorGroup(v);
                                 }}
+                                defaultValue={"-1"}
                                 value={selectedMentorGroup ?? "-1"}>
                                 <option value={"-1"} disabled>
                                     Mentorengruppe Auswählen

@@ -18,5 +18,6 @@ export type TableProps = {
     paginationPerPage?: number;
 
     defaultSortField?: string | number;
+    defaultSortAsc?: boolean;
     persistTableHead?: boolean;
 };

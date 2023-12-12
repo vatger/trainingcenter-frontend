@@ -231,7 +231,9 @@ export function SideNav() {
                                                 <MenuItem href={"/administration/atd-examiner/cpt/available"} icon={<TbCalendar size={20} />}>
                                                     Offene CPTs
                                                 </MenuItem>
-                                                <MenuItem icon={<TbList size={20} />}>Meine CPTs</MenuItem>
+                                                <MenuItem href={"/administration/atd-examiner/cpt/my"} icon={<TbList size={20} />}>
+                                                    Meine CPTs
+                                                </MenuItem>
                                             </CollapsableMenu>
 
                                             <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20} />}>
@@ -251,7 +253,7 @@ export function SideNav() {
                                                     Offene Anfragen
                                                 </MenuItem>
                                                 <MenuItem
-                                                    href={"administration/fast-track/all"}
+                                                    href={"administration/fast-track/view/all"}
                                                     requiredPerm={"atd.fast_track.view"}
                                                     icon={<TbChevronsRight size={20} />}>
                                                     Alle Anfragen

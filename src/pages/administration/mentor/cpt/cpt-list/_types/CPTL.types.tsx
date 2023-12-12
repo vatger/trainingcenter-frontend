@@ -10,6 +10,7 @@ import React, { Dispatch, useState } from "react";
 import { UserModel } from "@/models/UserModel";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
+import CPTBadgeHelper from "@/utils/helper/CPTBadgeHelper";
 
 function getColumns(
     user: UserModel | undefined,
@@ -104,19 +105,7 @@ function getColumns(
         },
         {
             name: "Status",
-            cell: row => {
-                if (row.cpt_atsim_passed && row.mentor_id != null && row.cpt_examiner_id != null) {
-                    return <Badge color={COLOR_OPTS.SUCCESS}>Bestätigt</Badge>;
-                }
-
-                if (row.mentor_id == null || row.cpt_examiner_id == null) {
-                    return <Badge color={COLOR_OPTS.DANGER}>Kein Mentor / Prüfer</Badge>;
-                }
-
-                if (row.cpt_atsim_passed == false) {
-                    return <Badge color={COLOR_OPTS.DANGER}>ATSIM Nicht bestanden</Badge>;
-                }
-            },
+            cell: row => CPTBadgeHelper.getBadge(row),
         },
         {
             name: "Aktion",

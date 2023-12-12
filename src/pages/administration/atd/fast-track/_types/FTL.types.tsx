@@ -31,6 +31,7 @@ function getColumns(): (TableColumn<FastTrackRequestModel> & { searchable?: bool
         {
             name: "Angefragt Am (UTC)",
             cell: row => dayjs.utc(row.createdAt).format(Config.DATE_FORMAT),
+            sortable: true,
         },
         {
             name: "Aktion",
@@ -39,7 +40,7 @@ function getColumns(): (TableColumn<FastTrackRequestModel> & { searchable?: bool
                     <div className={"flex"}>
                         <Button
                             className={"my-3"}
-                            onClick={() => navigate(`${row.id}`)}
+                            onClick={() => navigate(`/administration/fast-track/view/${row.id}`)}
                             size={SIZE_OPTS.SM}
                             variant={"twoTone"}
                             color={COLOR_OPTS.PRIMARY}

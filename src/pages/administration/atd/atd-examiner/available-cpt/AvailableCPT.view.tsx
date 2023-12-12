@@ -13,7 +13,7 @@ export function AvailableCPTView() {
 
     return (
         <>
-            <PageHeader title={"Offene CPTs"} hideBackLink />
+            <PageHeader title={"Offene CPTs (Prüfer)"} hideBackLink />
 
             <Card>
                 <Table

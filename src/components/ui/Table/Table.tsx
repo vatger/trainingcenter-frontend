@@ -85,6 +85,7 @@ export function Table(props: TableProps) {
                     defaultSortFieldId={props.defaultSortField}
                     sortIcon={<TbSortDescending className={"ml-2"} />}
                     data={data}
+                    defaultSortAsc={props.defaultSortAsc}
                     noDataComponent={<div className={"p-4"}>{tableTranslation.noData[language]}</div>}
                     columns={props.columns}
                     pagination={shouldPaginate}
