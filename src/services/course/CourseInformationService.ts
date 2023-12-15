@@ -121,48 +121,8 @@ function getCourseTrainingInformationByUUID(course_uuid?: string) {
     };
 }
 
-function validateCourseRequirements(course_uuid?: string) {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [loadingError, setLoadingError] = useState<APIResponseError>(undefined);
-    const [courseRequirements, setCourseRequirements] = useState<{ action: string; req_id: number; passed: boolean }[]>([]);
-    const [allRequirementsSatisfied, setAllRequirementsSatisfied] = useState<boolean>(false);
-
-    useEffect(() => {
-        axiosInstance
-            .get("/course/info/requirements/validate", {
-                params: {
-                    course_uuid: course_uuid,
-                },
-            })
-            .then((res: AxiosResponse) => {
-                const data = res.data as { action: string; req_id: number; passed: boolean }[];
-
-                setCourseRequirements(data);
-                setAllRequirementsSatisfied(data.find(a => !a.passed) == null);
-            })
-            .catch((err: AxiosError) => {
-                setLoadingError({
-                    error: err,
-                    custom: {
-                        code: "ERR_API_COURSE_REQ_VALIDATE",
-                        message: "Failed to validate course's requirements",
-                    },
-                });
-            })
-            .finally(() => setLoading(false));
-    }, []);
-
-    return {
-        courseRequirements,
-        allRequirementsSatisfied,
-        loading,
-        loadingError,
-    };
-}
-
 export default {
     getCourseInformationByUUID,
     getMyCourseInformationByUUID,
     getCourseTrainingInformationByUUID,
-    validateCourseRequirements,
 };

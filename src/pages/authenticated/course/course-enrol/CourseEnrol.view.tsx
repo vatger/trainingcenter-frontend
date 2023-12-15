@@ -1,7 +1,6 @@
 import { Card } from "@/components/ui/Card/Card";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
-import CourseInformationService from "@/services/course/CourseInformationService";
 import { EnrolRequirementItemComponent } from "@/pages/authenticated/course/course-enrol/_components/EnrolRequirementItem.component";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { RenderIf } from "@/components/conditionals/RenderIf";
@@ -13,18 +12,24 @@ import { TbCheckbox, TbDoorEnter, TbX } from "react-icons/tb";
 import { useState } from "react";
 import CourseService from "@/services/course/CourseService";
 import ToastHelper from "@/utils/helper/ToastHelper";
-
-type Requirement = {
-    req_id: number;
-    action: string;
-    passed?: boolean;
-};
+import useApi from "@/utils/hooks/useApi";
 
 export function CourseEnrolView() {
     const navigate = useNavigate();
     const { uuid: courseUUID } = useParams();
-    const { courseRequirements, loading: loadingRequirements, allRequirementsSatisfied } = CourseInformationService.validateCourseRequirements(courseUUID);
     const [enrolling, setEnrolling] = useState<boolean>(false);
+
+    const [allRequirementsSatisfied, setAllRequirementsSatisfied] = useState<boolean>(false);
+    const {data: courseRequirements, loading: loadingRequirements} = useApi<{ action: string; req_id: number; passed: boolean }[]>({
+        url: "/course/info/requirements/validate",
+        params: {
+            course_uuid: courseUUID
+        },
+        method: "get",
+        onLoad: value => {
+            setAllRequirementsSatisfied(value.find(a => !a.passed) == null);
+        }
+    });
 
     function enrol() {
         setEnrolling(true);
@@ -50,13 +55,13 @@ export function CourseEnrolView() {
                 elementFalse={
                     <Card header={"Einschreibevoraussetzungen"} headerBorder>
                         <MapArray
-                            data={courseRequirements}
+                            data={courseRequirements ?? []}
                             mapFunction={(courseRequirement, index) => {
                                 return <EnrolRequirementItemComponent key={index} action={courseRequirement.action} passed={courseRequirement.passed} />;
                             }}
                         />
 
-                        <div className={courseRequirements.length > 0 ? "mt-5" : ""}>
+                        <div className={(courseRequirements?.length ?? 0) > 0 ? "mt-5" : ""}>
                             <RenderIf
                                 truthValue={allRequirementsSatisfied}
                                 elementTrue={
