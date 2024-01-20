@@ -4,6 +4,7 @@ import { Error403 } from "@/pages/errors/403";
 import { Error404 } from "@/pages/errors/404";
 import { AvailableCPTView } from "@/pages/administration/atd/atd-examiner/available-cpt/AvailableCPT.view";
 import { MyCPTListView } from "@/pages/administration/atd/atd-examiner/my-cpt/MyCPTList.view";
+import { AllCPTView } from "@/pages/administration/atd/atd-examiner/all-cpt/AllCPT.view";
 
 export function ATDExaminerRouter() {
     const location = useLocation();
@@ -12,6 +13,7 @@ export function ATDExaminerRouter() {
         <>
             <Routes>
                 <Route path={"cpt"}>
+                    <Route path={""} element={<AllCPTView />} />
                     <Route path={"available"} element={<AvailableCPTView />} />
                     <Route path={"my"} element={<MyCPTListView />} />
                 </Route>

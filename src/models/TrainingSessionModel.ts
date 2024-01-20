@@ -7,6 +7,7 @@ import { UserModel } from "./UserModel";
 export interface TrainingSessionModel {
     id: number;
     uuid: string;
+    completed?: boolean;
     mentor_id?: number;
     cpt_examiner_id?: number;
     cpt_atsim_passed?: boolean;

@@ -52,6 +52,10 @@ function getColumns(
             selector: row => (row.mentor ? `${row.mentor?.first_name} ${row.mentor?.last_name} (${row.mentor?.id})` : "N/A"),
         },
         {
+            name: "Prüfer",
+            selector: row => (row.cpt_examiner ? `${row.cpt_examiner.first_name} ${row.cpt_examiner.last_name} (${row.cpt_examiner_id})` : "N/A"),
+        },
+        {
             name: "Station",
             selector: row => row.training_station?.callsign ?? "N/A",
         },
@@ -75,7 +79,7 @@ function getColumns(
                                 icon={<TbEye size={20} />}></Button>
                         </Tooltip>
 
-                        <Tooltip content={"Als Prüfer abmelden"}>
+                        <Tooltip content={"Abmelden"}>
                             <Button
                                 onClick={() => unregisterCPTExaminer(row)}
                                 disabled={submitting}

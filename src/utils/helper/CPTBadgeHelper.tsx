@@ -8,8 +8,16 @@ function getBadge(row: TrainingSessionModel) {
         return <Badge color={COLOR_OPTS.SUCCESS}>Bestätigt</Badge>;
     }
 
-    if (row.mentor_id == null || row.cpt_examiner_id == null) {
-        return <Badge color={COLOR_OPTS.DANGER}>Kein Mentor / Prüfer</Badge>;
+    if (row.mentor_id == null && row.cpt_examiner_id == null) {
+        return <Badge color={COLOR_OPTS.DANGER}>Kein Mentor & Prüfer</Badge>;
+    }
+
+    if (row.mentor_id != null && row.cpt_examiner_id == null) {
+        return <Badge color={COLOR_OPTS.DANGER}>Kein Prüfer</Badge>;
+    }
+
+    if (row.mentor_id == null && row.cpt_examiner_id != null) {
+        return <Badge color={COLOR_OPTS.DANGER}>Kein Mentor</Badge>;
     }
 
     if (row.cpt_atsim_passed == false) {

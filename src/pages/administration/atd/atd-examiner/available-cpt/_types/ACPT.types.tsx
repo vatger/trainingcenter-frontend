@@ -7,28 +7,16 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbCircleCheck, TbEye } from "react-icons/tb";
 import CPTBadgeHelper from "@/utils/helper/CPTBadgeHelper";
-import { useContext, useState } from "react";
+import { Dispatch, useContext, useState } from "react";
 import authContext from "@/utils/contexts/AuthContext";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
 
-function getColumns(): (TableColumn<TrainingSessionModel> & { searchable?: boolean })[] {
-    const navigate = useNavigate();
+function getColumns(
+    setShowRegisterModal: Dispatch<boolean>,
+    setSelectedCPT: Dispatch<undefined | TrainingSessionModel>
+): (TableColumn<TrainingSessionModel> & { searchable?: boolean })[] {
     const [submitting, setSubmitting] = useState<boolean>(false);
-
-    function registerCPTExaminer(row: TrainingSessionModel) {
-        axiosInstance
-            .post("/administration/cpt/examiner", {
-                training_session_id: row.id,
-            })
-            .then(() => {
-                ToastHelper.success("Erfolgreich als Prüfer angemeldet.");
-                navigate("/administration/atd-examiner/cpt/my");
-            })
-            .catch(() => {
-                ToastHelper.error("Fehler beim Eintragen als Prüfer.");
-            });
-    }
 
     return [
         {
@@ -46,6 +34,10 @@ function getColumns(): (TableColumn<TrainingSessionModel> & { searchable?: boole
             selector: row => (row.mentor ? `${row.mentor?.first_name} ${row.mentor?.last_name} (${row.mentor?.id})` : "N/A"),
         },
         {
+            name: "Prüfer",
+            selector: row => (row.cpt_examiner ? `${row.cpt_examiner.first_name} ${row.cpt_examiner.last_name} (${row.cpt_examiner_id})` : "N/A"),
+        },
+        {
             name: "Station",
             selector: row => row.training_station?.callsign ?? "N/A",
         },
@@ -58,7 +50,10 @@ function getColumns(): (TableColumn<TrainingSessionModel> & { searchable?: boole
             cell: row => {
                 return (
                     <Button
-                        onClick={() => registerCPTExaminer(row)}
+                        onClick={() => {
+                            setShowRegisterModal(true);
+                            setSelectedCPT(row);
+                        }}
                         disabled={submitting}
                         className={"my-3"}
                         size={SIZE_OPTS.SM}

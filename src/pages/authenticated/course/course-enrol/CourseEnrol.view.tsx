@@ -20,15 +20,15 @@ export function CourseEnrolView() {
     const [enrolling, setEnrolling] = useState<boolean>(false);
 
     const [allRequirementsSatisfied, setAllRequirementsSatisfied] = useState<boolean>(false);
-    const {data: courseRequirements, loading: loadingRequirements} = useApi<{ action: string; req_id: number; passed: boolean }[]>({
+    const { data: courseRequirements, loading: loadingRequirements } = useApi<{ action: string; req_id: number; passed: boolean }[]>({
         url: "/course/info/requirements/validate",
         params: {
-            course_uuid: courseUUID
+            course_uuid: courseUUID,
         },
         method: "get",
         onLoad: value => {
             setAllRequirementsSatisfied(value.find(a => !a.passed) == null);
-        }
+        },
     });
 
     function enrol() {
