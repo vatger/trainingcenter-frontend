@@ -56,13 +56,13 @@ function getColorTheme(): TColorScheme {
  */
 function setColorTheme(value: TColorScheme) {
     window.localStorage.setItem(LOCAL_STORAGE_KEY, value);
-    updateColorScheme();
+    _updateColorScheme();
 }
 
 /**
  * Updates the color scheme
  */
-function updateColorScheme() {
+function _updateColorScheme() {
     const theme = getColorTheme();
 
     const html = document.getElementById("dark-mode-selector");
@@ -75,8 +75,16 @@ function updateColorScheme() {
     }
 }
 
+function init() {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', () => {
+        _updateColorScheme();
+    });
+
+    _updateColorScheme();
+}
+
 export default {
-    updateColorScheme,
     getColorTheme,
     setColorTheme,
+    init
 };

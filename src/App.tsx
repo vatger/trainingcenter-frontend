@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { MainRouter } from "@/Main.router";
 import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
 
-LocalStorageLibrary.updateColorScheme();
+LocalStorageLibrary.init();
 
 const toastSettings: ToastContainerProps = {
     position: "top-right",
