@@ -1,24 +1,28 @@
 import vaccLogoDark from "../../assets/img/vacc_logo_dark.png";
 import vaccLogo from "../../assets/img/vacc_logo.png";
-
-import { COLOR_OPTS } from "../../assets/theme.config";
-import { Button } from "../../components/ui/Button/Button";
-import React, { useContext, useState } from "react";
-import authContext from "../../utils/contexts/AuthContext";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import { Button } from "@/components/ui/Button/Button";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
-import { SelectLanguageHeader } from "../../components/template/header/SelectLanguageHeader";
-import { Checkbox } from "../../components/ui/Checkbox/Checkbox";
+import { SelectLanguageHeader } from "@/components/template/header/SelectLanguageHeader";
+import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
 import { TbArrowRight, TbRefresh } from "react-icons/tb";
 import LoginService from "../../services/login/LoginService";
-import { UserModel } from "../../models/UserModel";
-import { RenderIf } from "../../components/conditionals/RenderIf";
-import { APIResponseError } from "../../exceptions/APIResponseError";
-import { NetworkError } from "../../components/errors/NetworkError";
+import { UserModel } from "@/models/UserModel";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { APIResponseError } from "@/exceptions/APIResponseError";
+import { NetworkError } from "@/components/errors/NetworkError";
+import { signIn } from "@/app/features/authSlice";
+import hero from "@/assets/img/hero.jpg";
+import { store } from "@/app/store";
+import { useSettingsSelector } from "@/app/features/settingsSlice";
+import loginTranslation from "@/assets/lang/login/login.translation";
+import genericTranslation from "@/assets/lang/generic.translation";
 
 export function LoginCallbackView() {
     const navigate = useNavigate();
-    const { changeUser } = useContext(authContext);
+    const language = useSettingsSelector().language;
 
     const [rememberCheckboxState, setRememberCheckboxState] = useState<boolean>(false);
     const [loadingSignIn, setLoadingSignIn] = useState<boolean>(false);
@@ -29,7 +33,7 @@ export function LoginCallbackView() {
 
         LoginService.handleLogin(rememberCheckboxState)
             .then((user: UserModel) => {
-                changeUser(user);
+                store.dispatch(signIn(user));
                 navigate("/overview");
             })
             .catch((err: AxiosError) => {
@@ -55,12 +59,10 @@ export function LoginCallbackView() {
                             <div className="grid lg:grid-cols-3 h-full">
                                 <div
                                     className="bg-no-repeat bg-cover bg-center py-6 px-16 flex-col justify-end hidden lg:flex"
-                                    style={{ backgroundImage: "url('https://cdn.discordapp.com/attachments/954516195963461634/1063564334074171392/7.jpg')" }}>
+                                    style={{ backgroundImage: `url('${hero}')` }}>
                                     <div>
                                         <div className="mb-6 flex items-center gap-4">
-                                            <span className="text-white">
-                                                Copyright {new Date().getFullYear()} <span className="font-semibold">VATSIM Germany</span>{" "}
-                                            </span>
+                                            <span className="text-white">&copy; {new Date().getFullYear()} VATSIM Germany</span>
                                         </div>
                                     </div>
                                 </div>
@@ -76,14 +78,15 @@ export function LoginCallbackView() {
                                         />
 
                                         <div className="mb-8">
-                                            <h3 className="mb-1">{loadingSignIn ? "Wird angemeldet..." : "Angemeldet Bleiben?"}</h3>
+                                            <h3 className="mb-1">
+                                                {loadingSignIn
+                                                    ? `${loginTranslation.logging_in_title[language]}...`
+                                                    : `${loginTranslation.remain_logged_in_title[language]}?`}
+                                            </h3>
                                         </div>
                                         <div className={"mb-6"}>
                                             <p className={"xl:max-w-[500px]"}>
-                                                {loadingSignIn
-                                                    ? "Wir melden Dich gerade an. Gedulde Dich bitte ein paar Momente."
-                                                    : `Wähle aus, ob Du diesem PC vertrauen möchtest. Dies hat einen Einfluss darauf, wie lange es dauert, bis Du Dich wieder neu anmelden musst.
-                                                    Falls Du in einem öffentlichen Netz (bspw. im Hotel oder am Flughafen) bist, raten davon ab diese Option auszuwählen.`}
+                                                {loadingSignIn ? loginTranslation.logging_in_title[language] : loginTranslation.remain_logged_in_text[language]}
                                             </p>
                                         </div>
 
@@ -92,7 +95,7 @@ export function LoginCallbackView() {
                                             elementTrue={
                                                 <div>
                                                     <Checkbox checked={rememberCheckboxState} onChange={checked => setRememberCheckboxState(checked)}>
-                                                        Angemeldet Bleiben
+                                                        {loginTranslation.remain_logged_in_title[language]}
                                                     </Checkbox>
                                                 </div>
                                             }
@@ -114,7 +117,7 @@ export function LoginCallbackView() {
                                                     setSignInError(undefined);
                                                     login();
                                                 }}>
-                                                {signInError == null ? "Weiter" : "Erneut versuchen"}
+                                                {signInError == null ? genericTranslation.continue[language] : genericTranslation.retry[language]}
                                             </Button>
                                         </div>
                                     </div>
@@ -134,7 +137,7 @@ export function LoginCallbackView() {
                         </a>
                     </div>
                     <div className={"m-4 absolute float-right right-0"}>
-                        <SelectLanguageHeader />
+                        <SelectLanguageHeader saveSelection={false} />
                     </div>
                 </div>
             </div>

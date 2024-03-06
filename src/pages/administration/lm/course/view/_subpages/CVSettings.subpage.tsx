@@ -40,11 +40,12 @@ export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefin
         e.preventDefault();
         setIsSubmitting(true);
 
-        let data = FormHelper.getEntries(e.target);
-        data["active"] = data["active"] == "1";
-        data["self_enrol_enabled"] = data["self_enrol_enabled"] == "1";
+        let formData = FormHelper.getEntries(e.target);
+        FormHelper.set(formData, "course_uuid", courseUUID);
+        FormHelper.setBool(formData, "active", formData.get("active") == "1");
+        FormHelper.setBool(formData, "self_enrol_enabled", formData.get("self_enrol_enabled") == "1");
 
-        CourseAdministrationService.update(data)
+        CourseAdministrationService.update(formData)
             .then(() => {
                 if (course != null) {
                     setCourse({ ...course, updatedAt: new Date() });
@@ -68,14 +69,10 @@ export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefin
                 elementFalse={
                     <div>
                         <form onSubmit={handleFormSubmission}>
-                            <Input labelSmall label={"UUID"} preIcon={<TbId size={20} />} disabled value={course?.uuid} />
-                            <Input className={"hidden"} labelSmall name={"course_uuid"} readOnly value={course?.uuid} />
-
                             <Input
                                 labelSmall
                                 disabled
                                 label={"Zuletzt aktualisiert (UTC)"}
-                                className={"mt-5"}
                                 preIcon={<TbCalendarEvent size={20} />}
                                 value={course?.updatedAt == null ? "N/A" : dayjs.utc(course?.updatedAt).format(Config.DATETIME_FORMAT)}
                             />

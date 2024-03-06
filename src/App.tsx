@@ -4,15 +4,16 @@ import { ContentContainer } from "./components/template/ContentContainer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SideNavMenuProvider } from "./utils/contexts/SideNavMenuContext";
 import { LoginView } from "./pages/login/Login.view";
-import { AuthProvider } from "./utils/contexts/AuthContext";
+import { LoginOverlay } from "./pages/login/LoginOverlay";
 import { LoginCallbackView } from "./pages/login/LoginCallbackView";
 import { AxiosInterceptors } from "./utils/network/AxiosInterceptors";
-import { DarkModeProvider } from "./utils/contexts/ThemeContext";
-import { LanguageProvider } from "./utils/contexts/LanguageContext";
 import { ToastContainer, ToastContainerProps } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import { MainRouter } from "@/Main.router";
+import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
+
+LocalStorageLibrary.updateColorScheme();
 
 const toastSettings: ToastContainerProps = {
     position: "top-right",
@@ -26,38 +27,34 @@ const toastSettings: ToastContainerProps = {
 
 function App() {
     return (
-        <AuthProvider>
-            <LanguageProvider>
-                <DarkModeProvider>
-                    <SideNavMenuProvider>
-                        <BrowserRouter>
-                            <AxiosInterceptors />
-                            <ToastContainer {...toastSettings} />
+        <LoginOverlay>
+            <SideNavMenuProvider>
+                <BrowserRouter>
+                    <AxiosInterceptors />
+                    <ToastContainer {...toastSettings} />
 
-                            <Routes>
-                                <Route path={"/login"} element={<LoginView />} />
-                                <Route path={"/login/callback"} element={<LoginCallbackView />} />
+                    <Routes>
+                        <Route path={"/login"} element={<LoginView />} />
+                        <Route path={"/login/callback"} element={<LoginCallbackView />} />
 
-                                <Route
-                                    path={"*"}
-                                    element={
-                                        <div
-                                            className="App flex flex-auto absolute top-0 left-0 w-full min-w-0 h-[100dvh] min-h-[100dvh] max-h-[100dvh]"
-                                            style={{ backgroundColor: "white" }}>
-                                            <SideNav />
+                        <Route
+                            path={"*"}
+                            element={
+                                <div
+                                    className="App flex flex-auto absolute top-0 left-0 w-full min-w-0 h-[100dvh] min-h-[100dvh] max-h-[100dvh]"
+                                    style={{ backgroundColor: "white" }}>
+                                    <SideNav />
 
-                                            <ContentContainer>
-                                                <MainRouter />
-                                            </ContentContainer>
-                                        </div>
-                                    }
-                                />
-                            </Routes>
-                        </BrowserRouter>
-                    </SideNavMenuProvider>
-                </DarkModeProvider>
-            </LanguageProvider>
-        </AuthProvider>
+                                    <ContentContainer>
+                                        <MainRouter />
+                                    </ContentContainer>
+                                </div>
+                            }
+                        />
+                    </Routes>
+                </BrowserRouter>
+            </SideNavMenuProvider>
+        </LoginOverlay>
     );
 }
 

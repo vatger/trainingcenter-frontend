@@ -9,7 +9,6 @@ import React, { FormEvent, useContext, useState } from "react";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import { UserModel } from "../../../../../models/UserModel";
 import { Table } from "../../../../../components/ui/Table/Table";
-import authContext from "../../../../../utils/contexts/AuthContext";
 import MentorGroupAdministrationService from "../../../../../services/mentor-group/MentorGroupAdminService";
 import { MentorGroupModel } from "../../../../../models/MentorGroupModel";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
@@ -19,6 +18,7 @@ import UserAdminService from "@/services/user/UserAdminService";
 import { AxiosResponse } from "axios";
 import MGCUsersTableTypes from "@/pages/administration/lm/mentor-group/mentor-group-create/_types/MGCUsersTable.types";
 import { CommonConstants, CommonRegexp } from "@/core/Config";
+import { useUserSelector } from "@/app/features/authSlice";
 
 export interface IUserInMentorGroup {
     user: UserModel;
@@ -28,7 +28,7 @@ export interface IUserInMentorGroup {
 
 export function MentorGroupCreateView() {
     const navigate = useNavigate();
-    const { user } = useContext(authContext);
+    const user = useUserSelector();
 
     const defaultUser: IUserInMentorGroup = { user: user ?? ({} as UserModel), admin: true, can_manage: true };
     const [newUserID, setNewUserID] = useState<string>("");
@@ -41,10 +41,10 @@ export function MentorGroupCreateView() {
         e.preventDefault();
         setSubmitting(true);
 
-        let data = FormHelper.getEntries(e.target);
-        data["users"] = users;
+        let formData = FormHelper.getEntries(e.target);
+        FormHelper.set(formData, "users", users);
 
-        MentorGroupAdministrationService.create(data)
+        MentorGroupAdministrationService.create(formData)
             .then((res: MentorGroupModel) => {
                 navigate("/administration/mentor-group/" + res.id + "?r");
                 ToastHelper.success("Mentorengruppe erfolgreich erstellt");

@@ -39,20 +39,18 @@ export function MGVUsersSubpage({ mentorGroupID }: { mentorGroupID: string | und
         }
 
         setAddingUser(true);
-        const data = FormHelper.getEntries(e.target);
+        const formData = FormHelper.getEntries(e.target);
+        FormHelper.set(formData, "mentor_group_id", mentorGroupID);
+        FormHelper.setBool(formData, "group_admin", formData.get("group_admin") == "on");
+        FormHelper.setBool(formData, "can_manage_course", formData.get("can_manage_course") == "on");
 
         axiosInstance
-            .put("/administration/mentor-group/member", {
-                mentor_group_id: mentorGroupID,
-                user_id: data["cid"],
-                group_admin: data["group_admin"] == "on",
-                can_manage_course: data["can_manage_course"] == "on",
-            })
+            .put("/administration/mentor-group/member", formData)
             .then((res: AxiosResponse) => {
                 let user = res.data as UserModel;
                 user.UserBelongToMentorGroups = {} as UserMentorGroupThrough;
-                user.UserBelongToMentorGroups.group_admin = data["group_admin"] == "on";
-                user.UserBelongToMentorGroups.can_manage_course = data["can_manage_course"] == "on";
+                user.UserBelongToMentorGroups.group_admin = formData.get("group_admin") == "true";
+                user.UserBelongToMentorGroups.can_manage_course = formData.get("can_manage_course") == "true";
 
                 setUsers([...(users ?? []), user]);
                 ToastHelper.success("Benutzer erfolgreich hinzugefügt");
@@ -75,7 +73,7 @@ export function MGVUsersSubpage({ mentorGroupID }: { mentorGroupID: string | und
                                 setNewUserID(e.target.value);
                             }}
                             label={"Benutzer Hinzufügen"}
-                            name={"cid"}
+                            name={"user_id"}
                             labelSmall
                             maxLength={CommonConstants.CID_MAX_LEN}
                             regex={CommonRegexp.CID}

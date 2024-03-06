@@ -3,8 +3,8 @@ import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel
 import { Button } from "../../../../../components/ui/Button/Button";
 import { COLOR_OPTS } from "../../../../../assets/theme.config";
 import { useState } from "react";
-import UserTrainingService from "../../../../../services/user/UserTrainingService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 export function CAVDeleteTrainingRequestModal(props: {
     open: boolean;
@@ -16,7 +16,13 @@ export function CAVDeleteTrainingRequestModal(props: {
 
     function deleteTrainingRequest() {
         setSubmitting(true);
-        UserTrainingService.destroyTrainingRequestByUUID(props.trainingRequest?.uuid)
+
+        axiosInstance
+            .delete("/training-request", {
+                data: {
+                    uuid: props.trainingRequest?.uuid,
+                },
+            })
             .then(() => {
                 ToastHelper.success("Anfrage erfolgreich gelöscht");
                 props.onClose();

@@ -7,10 +7,18 @@ import React from "react";
 import moment from "moment";
 import { Badge } from "../../../../../components/ui/Badge/Badge";
 import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { TextArea } from "@/components/ui/Textarea/TextArea";
+import useApi from "@/utils/hooks/useApi";
+import { SyslogModel } from "@/models/SyslogModel";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 
 export function SyslogViewView() {
     const { id } = useParams();
-    const { systemLog, loading, loadingError } = SyslogAdminService.getInformationByID(id);
+
+    const { data: syslog, loading } = useApi<SyslogModel>({
+        url: `/administration/syslog/${id}`,
+        method: "GET",
+    });
 
     return (
         <>
@@ -25,18 +33,23 @@ export function SyslogViewView() {
                     </Badge>
                 }>
                 <div className={"grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"}>
-                    <Input label={"Benutzer"} disabled value={systemLog?.user_id ?? "N/A"} />
+                    <Input label={"Benutzer"} disabled value={syslog?.user_id ?? "N/A"} />
 
-                    <Input label={"Methode"} disabled value={systemLog?.method} />
+                    <Input label={"Methode"} disabled value={syslog?.method} />
 
-                    <Input label={"Request IP"} disabled value={systemLog?.remote_addr} />
+                    <Input label={"Request IP"} disabled value={syslog?.remote_addr} />
                 </div>
 
                 <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
-                    <Input className={"mt-5"} label={"Datum (UTC)"} disabled value={moment(systemLog?.createdAt).utc().format("DD.MM.YYYY HH:mm:ss")} />
+                    <Input className={"mt-5"} label={"Datum (UTC)"} disabled value={moment(syslog?.createdAt).utc().format("DD.MM.YYYY HH:mm:ss")} />
 
-                    <Input className={"mt-5"} label={"Pfad"} disabled value={systemLog?.path} />
+                    <Input className={"mt-5"} label={"Pfad"} disabled value={syslog?.path} />
                 </div>
+
+                <RenderIf
+                    truthValue={syslog?.message != null}
+                    elementTrue={<TextArea disabled label={"Nachricht"} className={"mt-5"} value={syslog?.message}></TextArea>}
+                />
             </Card>
         </>
     );

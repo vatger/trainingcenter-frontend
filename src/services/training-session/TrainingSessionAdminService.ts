@@ -20,7 +20,7 @@ async function createTrainingSession(
     users: UserModel[],
     course_uuid?: string,
     training_type_id?: number,
-    training_station_id?: string,
+    training_station_id?: string | null,
     date?: string
 ): Promise<TrainingSessionModel> {
     if (users.length == 0) {

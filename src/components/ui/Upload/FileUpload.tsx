@@ -2,65 +2,64 @@ import { TbCheck, TbUpload, TbX } from "react-icons/tb";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { MapArray } from "../../conditionals/MapArray";
 import prettyBytes from "pretty-bytes";
-import { Button } from "../Button/Button";
-import { COLOR_OPTS } from "../../../assets/theme.config";
 import { RenderIf } from "../../conditionals/RenderIf";
 import { ProgressBar } from "../ProgressBar/ProgressBar";
 import { FileUploadProps } from "./FileUpload.props";
 import FileUploadHelper from "./FileUpload.helper";
+import ToastHelper from "@/utils/helper/ToastHelper";
 
 export function FileUpload(props: FileUploadProps) {
     const [isHover, setIsHover] = useState<boolean>(false);
     const [fileList, setFileList] = useState<File[] | undefined>(undefined);
 
+    function _fileExistsInList(fileName: string, fileList: File[]) {
+        for (const file of fileList) {
+            if (fileName == file.name) return true;
+        }
+
+        return false;
+    }
+
     function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
-        let files: File[];
-        if (fileList == null) files = [];
-        else files = [...fileList];
+        let files: File[] = [...(fileList ?? [])];
 
-        if (e.target.files == null) return;
+        const target = e.target;
+        if (target.files == null) return;
 
-        for (let i = 0; i < e.target.files.length; i++) {
-            let exists = false;
-            files.forEach(value => {
-                if (value.name == e.target.files?.[i].name) {
-                    exists = true;
-                }
-            });
+        for (const file of target.files) {
+            // These are the files we want to add to our list
+            let exists = _fileExistsInList(file.name, files);
 
-            if (files.length == props.fileLimit) continue;
-            if (!exists) files.push(e.target.files[i]);
+            if (!props.accept.includes(file.name.split(".")[1].toLowerCase())) {
+                ToastHelper.error(`Dieser Dateityp wird nicht unterstützt. Möglich sind: ${props.accept.join(", ")}`);
+                continue;
+            }
+
+            if (files.length >= (props.fileLimit ?? 5)) continue;
+            if (!exists) files.push(file);
         }
 
         setFileList(files);
         props.onFileChange?.(files);
     }
 
-    function removeFile(name: string) {
-        if (fileList == null) return;
+    function removeFile(fileName: string) {
+        let files: File[] = [...(fileList ?? [])];
 
-        let files: File[] = [...fileList];
-        files = files.filter(value => {
-            return value.name != name;
+        files = files.filter(file => {
+            return file.name != fileName;
         });
 
         setFileList(files);
-    }
-
-    function handleSubmit() {
-        const formData = new FormData();
-        if (fileList == null) return;
-
-        fileList.forEach(value => {
-            formData.append("files", value);
-        });
-
-        props.onSubmit?.(formData);
+        props.onFileChange?.(files);
     }
 
     useEffect(() => {
-        if (props.showSuccess) setFileList([]);
-    }, [props.showSuccess]);
+        if (props.success) {
+            setFileList([]);
+            props.onFileChange?.([]);
+        }
+    }, [props.success]);
 
     return (
         <>
@@ -69,7 +68,7 @@ export function FileUpload(props: FileUploadProps) {
                     props.disabled || props.isUploading || (props.fileLimit ?? 999) == fileList?.length
                         ? "disabled"
                         : "hover:border-indigo-600 hover:bg-indigo-50 dark:hover:border-indigo-600 dark:hover:bg-indigo-900"
-                } ${props.showSuccess ? "border-emerald-500" : ""}`}>
+                } ${props.success ? "border-emerald-500" : ""}`}>
                 <input
                     readOnly={(props.disabled || props.isUploading || (props.fileLimit ?? 999) == fileList?.length) ?? false}
                     onDragEnter={() => setIsHover(true)}
@@ -80,37 +79,31 @@ export function FileUpload(props: FileUploadProps) {
                     onChange={handleFileChange}
                     className="upload-input draggable"
                     type="file"
-                    name={props.inputName ?? "files"}
-                    accept={props.accept
-                        .map(v => {
-                            return "." + v;
-                        })
-                        .join(",")}
-                    title=""
-                    value=""
+                    name={props.inputName}
+                    accept={props.accept.map(v => `.${v}`).join(",")}
                     multiple
                 />
                 <div className="my-10 text-center">
                     <div className="text-6xl mb-4 flex justify-center">
                         <RenderIf
-                            truthValue={props.showSuccess ?? false}
+                            truthValue={props.success ?? false}
                             elementTrue={<TbCheck className={"text-success"} size={30} />}
                             elementFalse={<TbUpload className={"text-primary"} size={30} />}
                         />
                     </div>
-                    <p className="font-semibold">
-                        <span className="text-gray-800 dark:text-white">
-                            Drop your image here, or click to browse {props.fileLimit ? `(${fileList?.length ?? 0}/${props.fileLimit})` : ""}
-                        </span>
-                    </p>
-                    <p className="mt-1 opacity-60 dark:text-white">
-                        File Formats:{" "}
-                        {props.accept
-                            .map(v => {
-                                return "." + v;
-                            })
-                            .join(", ")}
-                    </p>
+
+                    <RenderIf
+                        truthValue={props.success ?? false}
+                        elementTrue={<p className="font-semibold text-success">Dateien erfolgreich hochgeladen!</p>}
+                        elementFalse={
+                            <>
+                                <p className="font-semibold text-gray-800 dark:text-white">
+                                    Drop your image here, or click to browse {props.fileLimit ? `(${fileList?.length ?? 0}/${props.fileLimit})` : ""}
+                                </p>
+                                <p className="mt-1 opacity-60 dark:text-white">File Formats: {props.accept.map(v => `.${v}`).join(",")}</p>
+                            </>
+                        }
+                    />
                 </div>
             </div>
 
@@ -148,18 +141,6 @@ export function FileUpload(props: FileUploadProps) {
                     </div>
                 }
             />
-
-            <Button
-                loading={props.isUploading}
-                variant={"twoTone"}
-                type={props.buttonIsSubmit ? "submit" : "button"}
-                disabled={props.disabled || fileList == null || fileList?.length == 0}
-                onClick={() => handleSubmit()}
-                className={"mt-3"}
-                color={COLOR_OPTS.PRIMARY}
-                icon={props.customButtonIcon ?? <TbUpload size={20} />}>
-                {props.customButtonText ?? "Hochladen"}
-            </Button>
         </>
     );
 }

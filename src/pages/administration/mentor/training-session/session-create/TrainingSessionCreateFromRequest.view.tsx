@@ -75,15 +75,15 @@ export function TrainingSessionCreateFromRequestView() {
             return;
         }
 
-        const data = FormHelper.getEntries(event?.target) as { date: string; training_station: string };
+        const formData = FormHelper.getEntries(event?.target);
 
         setSubmitting(true);
         TrainingSessionAdminService.createTrainingSession(
             participants,
             trainingRequest?.course?.uuid,
             trainingRequest?.training_type_id,
-            data.training_station,
-            data.date
+            formData.get("training_station")?.toString(),
+            formData.get("date")?.toString()
         )
             .then(session => {
                 ToastHelper.success("Session wurde erfolgreich erstellt");

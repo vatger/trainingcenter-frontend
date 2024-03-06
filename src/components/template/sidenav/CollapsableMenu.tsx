@@ -3,8 +3,8 @@ import React, { ReactElement, useContext, useRef } from "react";
 import { MENU_ITEM_HEIGHT } from "../../../assets/theme.config";
 import { generateUUID } from "../../../utils/helper/UUIDHelper";
 import { sideNavMenuContext } from "../../../utils/contexts/SideNavMenuContext";
-import authContext from "../../../utils/contexts/AuthContext";
 import { RenderIf } from "../../conditionals/RenderIf";
+import { useAuthSelector } from "@/app/features/authSlice";
 
 type CollapsableMenuProps = {
     title: string;
@@ -34,7 +34,7 @@ export function CollapsableMenu(props: CollapsableMenuProps) {
     }
 
     const { menuExtended } = useContext(sideNavMenuContext);
-    const { userPermissions } = useContext(authContext);
+    const userPermissions = useAuthSelector().userPermissions;
 
     return (
         <RenderIf

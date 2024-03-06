@@ -4,13 +4,13 @@ import { Table } from "@/components/ui/Table/Table";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 import CPTLTypes from "@/pages/administration/mentor/cpt/cpt-list/_types/CPTL.types";
-import { useContext } from "react";
-import AuthContext from "@/utils/contexts/AuthContext";
 import { Alert } from "@/components/ui/Alert/Alert";
 import { TYPE_OPTS } from "@/assets/theme.config";
+import { useUserSelector } from "@/app/features/authSlice";
 
 export function CPTListView() {
-    const { user } = useContext(AuthContext);
+    const user = useUserSelector();
+
     const {
         data: CPTList,
         loading: loadingCPTList,

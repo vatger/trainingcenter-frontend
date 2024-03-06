@@ -38,11 +38,11 @@ export function UVAddSoloModal({
         if (user == null) return;
         setSubmitting(true);
 
-        const data = FormHelper.getEntries(e.target);
-        data.trainee_id = user?.id;
+        const formData = FormHelper.getEntries(e.target);
+        FormHelper.set(formData, "trainee_id", user?.id);
 
         axiosInstance
-            .post("/administration/solo", data)
+            .post("/administration/solo", formData)
             .then((res: AxiosResponse) => {
                 const data: UserModel = res.data as UserModel;
 

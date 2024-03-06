@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { Config } from "./Config";
-import { generateUUID } from "../utils/helper/UUIDHelper";
+import { generateUUID } from "@/utils/helper/UUIDHelper";
 
 // If the unique browser token isn't present, create one.
 // This is used for the session creation

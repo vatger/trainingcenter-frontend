@@ -1,10 +1,10 @@
-import { UserModel, UserSoloModel } from "@/models/UserModel";
+import { UserModel } from "@/models/UserModel";
 import { Card } from "@/components/ui/Card/Card";
 import { RenderIf } from "@/components/conditionals/RenderIf";
-import { COLOR_OPTS, SIZE_OPTS, TYPE_OPTS } from "@/assets/theme.config";
-import { TbAdjustmentsCog, TbAlertTriangle, TbPlaylistAdd, TbTrash } from "react-icons/tb";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { TbAdjustmentsCog, TbAlertTriangle, TbPlaylistAdd } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
-import React, { Dispatch, useContext, useState } from "react";
+import React, { Dispatch, useState } from "react";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { UVAddSoloModal } from "@/pages/administration/mentor/users/view/_modals/UVAddSolo.modal";
 import { Input } from "@/components/ui/Input/Input";
@@ -12,15 +12,14 @@ import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { UVUseKontingentSoloModal } from "@/pages/administration/mentor/users/view/_modals/UVUseKontingentSolo.modal";
 import { UVExtendSoloErrorModal } from "@/pages/administration/mentor/users/view/_modals/UVExtendSoloError.modal";
-import { Alert } from "@/components/ui/Alert/Alert";
 import { Separator } from "@/components/ui/Separator/Separator";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import useApi from "@/utils/hooks/useApi";
 import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
-import authContext from "@/utils/contexts/AuthContext";
 import { UVDeleteSoloModal } from "@/pages/administration/mentor/users/view/_modals/UVDeleteSolo.modal";
+import { useAuthSelector } from "@/app/features/authSlice";
 
 export type SoloExtensionError = {
     cpt_planned: boolean;
@@ -28,7 +27,7 @@ export type SoloExtensionError = {
 };
 
 export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Dispatch<UserModel> }) {
-    const { userPermissions } = useContext(authContext);
+    const userPermissions = useAuthSelector().userPermissions;
 
     const { loading: loadingEndorsementGroups, data: mentorableEndorsementGroups } = useApi<EndorsementGroupModel[]>({
         url: "/administration/endorsement-group/mentorable",

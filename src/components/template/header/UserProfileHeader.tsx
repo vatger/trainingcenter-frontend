@@ -1,15 +1,18 @@
 import { TbActivityHeartbeat, TbLogout, TbSettings, TbUser } from "react-icons/tb";
 import { MenuItem } from "../../ui/MenuItem/MenuItem";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { generateUUID } from "../../../utils/helper/UUIDHelper";
-
+import React, { useEffect, useRef, useState } from "react";
+import { generateUUID } from "@/utils/helper/UUIDHelper";
 import "./GenericHeaderAnimation.scss";
-import authContext from "../../../utils/contexts/AuthContext";
-import { axiosInstance } from "../../../utils/network/AxiosInstance";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { Spinner } from "../../ui/Spinner/Spinner";
+import { signOut, useUserSelector } from "@/app/features/authSlice";
+import { useAppDispatch } from "@/app/hooks";
+import { useNavigate } from "react-router-dom";
 
 export function UserProfileHeader() {
-    const { user } = useContext(authContext);
+    const user = useUserSelector();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const profileMenuUUID = useRef(generateUUID());
     const [profileMenuHidden, setProfileMenuHidden] = useState<boolean>(true);
@@ -22,7 +25,8 @@ export function UserProfileHeader() {
             .post("/auth/logout")
             .then(res => {
                 if (res.data.success) {
-                    window.location.replace("/login?logout");
+                    navigate("/login?logout");
+                    dispatch(signOut());
                 }
             })
             .catch(() => {

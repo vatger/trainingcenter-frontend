@@ -33,18 +33,15 @@ import {
 import { CollapsableMenu } from "./sidenav/CollapsableMenu";
 import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 import { handleResize } from "./sidenav/SideNav.helper";
-import themeContext from "../../utils/contexts/ThemeContext";
 import { RenderIf } from "../conditionals/RenderIf";
-import authContext from "../../utils/contexts/AuthContext";
-import languageContext from "../../utils/contexts/LanguageContext";
-import courseSidenavTranslation from "../../assets/lang/sidenav/courseSidenav.translation";
 import { SIDENAV_WIDTH } from "@/assets/theme.config";
+import { useAuthSelector, useUserSelector } from "@/app/features/authSlice";
+import { useSettingsSelector } from "@/app/features/settingsSlice";
 
 export function SideNav() {
-    const { userPermissions } = useContext(authContext);
+    const userPermissions = useAuthSelector().userPermissions;
     const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
-    const { darkMode } = useContext(themeContext);
-    const { language } = useContext(languageContext);
+    const theme = useSettingsSelector().colorScheme;
 
     function toggleMobileNav() {
         const backdrop = document.getElementById("backdrop-small-nav");
@@ -94,7 +91,12 @@ export function SideNav() {
                 <div className={"side-nav-header flex justify-center"}>
                     <div className={"logo px-6 pt-5 mx-auto"} style={{ width: "auto", maxWidth: "80%" }}>
                         <a target={"_blank"} href={"https://vatsim-germany.org"}>
-                            <img className={"sm:w-auto w-[20px]"} style={{ width: "auto" }} src={darkMode ? vaccLogoDark : vaccLogo} alt={"VATGER Logo"} />
+                            <img
+                                className={"sm:w-auto w-[20px]"}
+                                style={{ width: "auto" }}
+                                src={theme == "dark" ? vaccLogoDark : vaccLogo}
+                                alt={"VATGER Logo"}
+                            />
                         </a>
                     </div>
                     <div onClick={toggleMobileNav} className="sm:hidden block header-action-item header-action-item-hoverable text-2xl m-auto mt-4">
@@ -112,15 +114,15 @@ export function SideNav() {
                                 <div className="menu-group">
                                     <div className="menu-title menu-title-transparent">Ausbildung</div>
 
-                                    <CollapsableMenu title={courseSidenavTranslation[language].title} icon={<TbBooks size={20} />}>
+                                    <CollapsableMenu title={"Kurse"} icon={<TbBooks size={20} />}>
                                         <MenuItem href={"course"} icon={<TbSearch size={20} />}>
-                                            {courseSidenavTranslation[language].search}
+                                            {"Suchen"}
                                         </MenuItem>
                                         <MenuItem href={"course/active"} icon={<TbListDetails size={20} />}>
-                                            {courseSidenavTranslation[language].active}
+                                            {"Aktiv"}
                                         </MenuItem>
                                         <MenuItem href={"course/completed"} icon={<TbCheckupList size={20} />}>
-                                            {courseSidenavTranslation[language].completed}
+                                            {"Abgeschlossen"}
                                         </MenuItem>
                                     </CollapsableMenu>
 
@@ -195,14 +197,9 @@ export function SideNav() {
                                                     Erstellen
                                                 </MenuItem>
                                             </CollapsableMenu>
-                                            <CollapsableMenu title={"Kurse"} icon={<TbClipboardList size={20} />}>
-                                                <MenuItem href={"administration/course"} icon={<TbListDetails size={20} />}>
-                                                    Verwalten
-                                                </MenuItem>
-                                                <MenuItem href={"administration/course/create"} icon={<TbFilePlus size={20} />}>
-                                                    Erstellen
-                                                </MenuItem>
-                                            </CollapsableMenu>
+                                            <MenuItem href={"administration/course"} icon={<TbClipboardList size={20} />}>
+                                                Kurse
+                                            </MenuItem>
                                             <CollapsableMenu title={"Trainingstypen"} icon={<TbTemplate size={20} />}>
                                                 <MenuItem href={"administration/training-type"} icon={<TbListDetails size={20} />}>
                                                     Verwalten

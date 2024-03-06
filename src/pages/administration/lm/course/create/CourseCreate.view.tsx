@@ -24,7 +24,6 @@ import { MentorGroupModel } from "@/models/MentorGroupModel";
 import ToastHelper from "@/utils/helper/ToastHelper";
 
 export function CourseCreateView() {
-    const uuid = useRef<string>(generateUUID());
     const navigate = useNavigate();
 
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -43,11 +42,11 @@ export function CourseCreateView() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        const data = FormHelper.getEntries(e.target);
-        data["active"] = data["active"] == "1";
-        data["self_enrol_enabled"] = data["self_enrol_enabled"] == "1";
+        const formData = FormHelper.getEntries(e.target);
+        FormHelper.setBool(formData, "active", formData.get("active") == "1");
+        FormHelper.setBool(formData, "self_enrol_enabled", formData.get("self_enrol_enabled") == "1");
 
-        CourseAdministrationService.createCourse(data)
+        CourseAdministrationService.createCourse(formData)
             .then(res => {
                 navigate(`/administration/course/${res.uuid}`);
                 ToastHelper.success(`Kurs erfolgreich erstellt`);
@@ -60,7 +59,7 @@ export function CourseCreateView() {
 
     return (
         <>
-            <PageHeader title={"Kurs Erstellen"} hideBackLink />
+            <PageHeader title={"Kurs Erstellen"} />
 
             <RenderIf
                 truthValue={loadingMentorGroups || loadingTrainingTypes}
@@ -76,11 +75,6 @@ export function CourseCreateView() {
                         elementFalse={
                             <Card>
                                 <form onSubmit={handleFormSubmission}>
-                                    <Input labelSmall label={"UUID"} preIcon={<TbId size={20} />} disabled value={uuid.current} />
-                                    <Input className={"hidden"} name={"course_uuid"} value={uuid.current} />
-
-                                    <Separator />
-
                                     <div className={"grid grid-cols-1 md:grid-cols-2 md:gap-5"}>
                                         <Input
                                             name={"name_de"}

@@ -1,13 +1,12 @@
-import { Input } from "../../../../../components/ui/Input/Input";
-import { ManageAccountElement } from "../../../../../components/ui/Account/ManageAccountElement";
+import { Input } from "@/components/ui/Input/Input";
+import { ManageAccountElement } from "@/components/ui/Account/ManageAccountElement";
 import { TbMail, TbMapPin, TbNumbers, TbPlaneDeparture, TbRss, TbUserCircle, TbWorld } from "react-icons/tb";
-import { useContext } from "react";
-import authContext from "../../../../../utils/contexts/AuthContext";
-import { getAtcRatingLong, getAtcRatingShort } from "../../../../../utils/helper/vatsim/AtcRatingHelper";
-import { COLOR_OPTS } from "../../../../../assets/theme.config";
-import { getPilotRatingLong, getPilotRatingShort } from "../../../../../utils/helper/vatsim/PilotRatingHelper";
-import { Badge } from "../../../../../components/ui/Badge/Badge";
-import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { getAtcRatingLong, getAtcRatingShort } from "@/utils/helper/vatsim/AtcRatingHelper";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import { getPilotRatingLong, getPilotRatingShort } from "@/utils/helper/vatsim/PilotRatingHelper";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { useUserSelector } from "@/app/features/authSlice";
 
 const guestTag = (
     <div className={"mt-1 lg:mt-0"}>
@@ -18,13 +17,13 @@ const guestTag = (
 );
 
 export function MAProfilePartial() {
-    const { user } = useContext(authContext);
+    const user = useUserSelector();
 
     return (
         <>
             <ManageAccountElement
                 title={"Name"}
-                element={<Input disabled preIcon={<TbUserCircle size={20} />} className={"w-full"} value={user?.first_name + " " + user?.last_name} />}
+                element={<Input disabled preIcon={<TbUserCircle size={20} />} className={"w-full"} value={`${user?.first_name} ${user?.last_name}`} />}
             />
             <ManageAccountElement
                 title={"Certificate"}

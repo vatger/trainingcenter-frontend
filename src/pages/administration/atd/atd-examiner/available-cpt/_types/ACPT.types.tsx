@@ -7,10 +7,7 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbCircleCheck, TbEye } from "react-icons/tb";
 import CPTBadgeHelper from "@/utils/helper/CPTBadgeHelper";
-import { Dispatch, useContext, useState } from "react";
-import authContext from "@/utils/contexts/AuthContext";
-import { axiosInstance } from "@/utils/network/AxiosInstance";
-import ToastHelper from "@/utils/helper/ToastHelper";
+import { Dispatch, useState } from "react";
 
 function getColumns(
     setShowRegisterModal: Dispatch<boolean>,

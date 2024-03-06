@@ -8,5 +8,5 @@ export type TimeLineItemProps = {
     color: string;
     avatarIcon: ReactElement;
     showConnectionLine: boolean;
-    children?: ReactElement | ReactElement[];
+    children?: ReactElement | ReactElement[] | string;
 };

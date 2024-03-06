@@ -5,7 +5,6 @@ import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { Button } from "@/components/ui/Button/Button";
 import { TbEye, TbEyeOff, TbTrash } from "react-icons/tb";
 import NotificationHelper from "@/utils/helper/NotificationHelper";
-import { LanguageEnum } from "@/utils/contexts/LanguageContext";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { Dispatch, useState } from "react";
@@ -64,7 +63,7 @@ function getColumns(notifications: NotificationModel[], setNotifications: Dispat
         },
         {
             name: "Inhalt",
-            cell: row => <span dangerouslySetInnerHTML={{ __html: NotificationHelper.convertNotificationContent(row, LanguageEnum.DE) }}></span>,
+            cell: row => <span dangerouslySetInnerHTML={{ __html: NotificationHelper.convertNotificationContent(row, "de") }}></span>,
         },
         {
             name: "Erstellt Am (UTC)",

@@ -57,10 +57,10 @@ export function LogTemplateViewView() {
 
         setSubmitting(true);
 
-        let data = FormHelper.getEntries(e.target);
-        data["content"] = content;
+        let formData = FormHelper.getEntries(e.target);
+        FormHelper.set(formData, "content", content);
 
-        TrainingLogTemplateAdminService.update(id, data)
+        TrainingLogTemplateAdminService.update(id, formData)
             .then((res: AxiosResponse) => {
                 const data = res.data as TrainingLogTemplateModel;
 

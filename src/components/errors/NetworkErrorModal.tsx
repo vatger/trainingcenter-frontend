@@ -1,7 +1,6 @@
 import { Modal } from "../ui/Modal/Modal";
 import { AxiosError } from "axios";
 import { useContext, useRef, useState } from "react";
-import authContext from "../../utils/contexts/AuthContext";
 import { ConversionUtils } from "turbocommons-ts";
 import moment from "moment";
 import { Button } from "../ui/Button/Button";
@@ -10,9 +9,11 @@ import { TbCheck, TbCopy } from "react-icons/tb";
 import { copyText } from "../../utils/helper/clipboard/ClipboardHelper";
 import { Separator } from "../ui/Separator/Separator";
 import { Accordion } from "../ui/Accordion/Accordion";
+import { Config } from "@/core/Config";
+import { useUserSelector } from "@/app/features/authSlice";
 
 export function NetworkErrorModal(props: { error: AxiosError; show: boolean; title: string; uuid: string; onClose: () => any }) {
-    const { user } = useContext(authContext);
+    const user = useUserSelector();
     const [copied, setCopied] = useState<boolean>(false);
 
     const errorContainerRef = useRef<HTMLDivElement>(null);
@@ -28,15 +29,10 @@ export function NetworkErrorModal(props: { error: AxiosError; show: boolean; tit
     function copyError() {
         copyText(base64Error.current).then(() => {
             setCopied(true);
-            errorContainerRef.current?.classList.add("text-gray-600");
-
-            setTimeout(() => {
-                errorContainerRef.current?.classList.remove("text-gray-600");
-            }, 500);
 
             setTimeout(() => {
                 setCopied(false);
-            }, 5000);
+            }, Config.SHOW_SUCCESS_TIMEOUT);
         });
     }
 

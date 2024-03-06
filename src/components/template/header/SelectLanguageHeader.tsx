@@ -1,35 +1,31 @@
 import { BiCheck } from "react-icons/bi";
 import { MenuItem } from "../../ui/MenuItem/MenuItem";
 import { useContext, useEffect, useRef, useState } from "react";
-import { generateUUID } from "../../../utils/helper/UUIDHelper";
+import { generateUUID } from "@/utils/helper/UUIDHelper";
 
 import "./GenericHeaderAnimation.scss";
-import languageContext, { LanguageEnum } from "../../../utils/contexts/LanguageContext";
 import languageTranslation from "../../../assets/lang/language.translation";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
 
+import flagDe from "@/assets/img/flag_de.png";
+import flagEn from "@/assets/img/flag_en.png";
+import { setLanguage, useSettingsSelector } from "@/app/features/settingsSlice";
+import { store } from "@/app/store";
+
 const flag_de = (
     <div className={"w-[20px] h-[20px] avatar-circle"}>
-        <img
-            className={"avatar-img avatar-circle"}
-            alt={"German Flag"}
-            src={"https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/1200px-Flag_of_Germany.svg.png"}
-        />
+        <img className={"avatar-img avatar-circle"} alt={"German Flag"} src={flagDe} />
     </div>
 );
 const flag_en = (
     <div className={"w-[20px] h-[20px] avatar-circle"}>
-        <img
-            className={"avatar-img avatar-circle"}
-            alt={"UK Flag"}
-            src={"https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/640px-Flag_of_the_United_Kingdom.svg.png"}
-        />
+        <img className={"avatar-img avatar-circle"} alt={"UK Flag"} src={flagEn} />
     </div>
 );
 
-export function SelectLanguageHeader() {
-    const { language, changeLanguage } = useContext(languageContext);
+export function SelectLanguageHeader({ saveSelection }: { saveSelection?: boolean }) {
+    const { language } = useSettingsSelector();
 
     const selectLanguageUUID = useRef(generateUUID());
     const [languageMenuHidden, setLanguageMenuHidden] = useState<boolean>(true);
@@ -81,10 +77,15 @@ export function SelectLanguageHeader() {
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     function updateSettings(value: { language: string }) {
+        if (!saveSelection) return;
+
         setSubmitting(true);
 
         axiosInstance
             .patch("/settings", value)
+            .then(() => {
+                ToastHelper.success("Sprachauswahl erfolgreich gespeichert");
+            })
             .catch(() => {
                 ToastHelper.error("Fehler beim speichern der Einstellungen");
             })
@@ -97,7 +98,7 @@ export function SelectLanguageHeader() {
                 <div className="dropdown-toggle" onClick={() => setLanguageMenuHidden(false)} id={`dropdown-toggle-${selectLanguageUUID.current}`}>
                     <div className="header-action-item header-action-item-hoverable flex items-center">
                         <span className="avatar avatar-circle w-[20px] h-[20px] min-w-[20px]" style={{ lineHeight: 24, fontSize: 12 }}>
-                            {language == LanguageEnum.EN ? flag_en : flag_de}
+                            {language == "en" ? flag_en : flag_de}
                         </span>
                     </div>
                 </div>
@@ -107,23 +108,23 @@ export function SelectLanguageHeader() {
                     <MenuItem
                         disabled={submitting}
                         onClick={() => {
-                            changeLanguage(LanguageEnum.DE);
+                            store.dispatch(setLanguage("de"));
                             updateSettings({ language: "de" });
                         }}
                         isNoLink
                         icon={flag_de}
-                        icon_suffix={language == LanguageEnum.DE ? <BiCheck size={20} /> : <></>}>
+                        icon_suffix={language == "de" ? <BiCheck size={20} /> : <></>}>
                         {languageTranslation.german[language]}
                     </MenuItem>
                     <MenuItem
                         disabled={submitting}
                         onClick={() => {
-                            changeLanguage(LanguageEnum.EN);
+                            store.dispatch(setLanguage("en"));
                             updateSettings({ language: "en" });
                         }}
                         isNoLink
                         icon={flag_en}
-                        icon_suffix={language == LanguageEnum.EN ? <BiCheck size={20} /> : <></>}>
+                        icon_suffix={language == "en" ? <BiCheck size={20} /> : <></>}>
                         {languageTranslation.english[language]}
                     </MenuItem>
                 </ul>

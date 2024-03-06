@@ -1,29 +1,31 @@
-import { Modal } from "../../../../../components/ui/Modal/Modal";
-import { Input } from "../../../../../components/ui/Input/Input";
+import { Modal } from "@/components/ui/Modal/Modal";
+import { Input } from "@/components/ui/Input/Input";
 import StringHelper from "../../../../../utils/helper/StringHelper";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, TYPE_OPTS } from "../../../../../assets/theme.config";
-import { Separator } from "../../../../../components/ui/Separator/Separator";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, TYPE_OPTS } from "@/assets/theme.config";
+import { Separator } from "@/components/ui/Separator/Separator";
 import { TbChecklist } from "react-icons/tb";
 import TrainingTypeService from "../../../../../services/training-type/TrainingTypeService";
-import { CourseModel } from "../../../../../models/CourseModel";
-import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { CourseModel } from "@/models/CourseModel";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 import { CAVTrainingModalSkeleton } from "../_skeletons/CAVTrainingModal.skeleton";
-import TrainingRequestService from "../../../../../services/training-request/TrainingRequestService";
 import { Dispatch, FormEvent, useState } from "react";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import { Select } from "../../../../../components/ui/Select/Select";
-import { MapArray } from "../../../../../components/conditionals/MapArray";
-import { TrainingStationModel } from "../../../../../models/TrainingStationModel";
-import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
-import { TextArea } from "../../../../../components/ui/Textarea/TextArea";
+import { Select } from "@/components/ui/Select/Select";
+import { MapArray } from "@/components/conditionals/MapArray";
+import { TrainingStationModel } from "@/models/TrainingStationModel";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
+import { TextArea } from "@/components/ui/Textarea/TextArea";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import { Alert } from "@/components/ui/Alert/Alert";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { AxiosResponse } from "axios";
 
 type RequestTrainingModalPartialProps = {
     show: boolean;
     onClose: () => any;
     course: CourseModel;
+    trainingRequests: TrainingRequestModel[];
     setTrainingRequests: Dispatch<TrainingRequestModel[]>;
 };
 
@@ -35,11 +37,13 @@ export function CAVRequestTrainingModal(props: RequestTrainingModalPartialProps)
         e.preventDefault();
         setSubmitting(true);
 
-        const data = FormHelper.getEntries(e.target);
+        const formData = FormHelper.getEntries(e.target);
 
-        TrainingRequestService.create(data)
-            .then((res: TrainingRequestModel) => {
-                props.setTrainingRequests([res]);
+        axiosInstance
+            .post("/training-request", formData)
+            .then((res: AxiosResponse) => {
+                const trainingRequest = res.data as TrainingRequestModel;
+                props.setTrainingRequests([...props.trainingRequests, trainingRequest]);
                 props.onClose();
                 ToastHelper.success("Training wurde erfolgreich beantragt");
             })

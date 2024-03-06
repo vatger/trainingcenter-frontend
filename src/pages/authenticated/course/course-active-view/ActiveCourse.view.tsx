@@ -5,7 +5,6 @@ import { CAVInformationSkeleton } from "./_skeletons/CAVInformation.skeleton";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { CAVTrainingHistorySkeleton } from "./_skeletons/CAVTrainingHistory.skeleton";
 import React, { useState } from "react";
-import UserTrainingService from "../../../../services/user/UserTrainingService";
 import { CAVInformationPartial } from "./_partials/CAVInformation.partial";
 import { CAVTrainingRequestsPartial } from "./_partials/CAVTrainingRequests.partial";
 import { CAVTrainingHistoryPartial } from "./_partials/CAVTrainingHistory.partial";

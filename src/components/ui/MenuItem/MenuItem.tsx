@@ -1,18 +1,18 @@
-import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
+import { joinClassNames } from "@/utils/helper/ClassNameHelper";
 import React, { useContext } from "react";
-import { MENU_ITEM_HEIGHT, MOBILE_MAX_WIDTH_PX } from "../../../assets/theme.config";
+import { MENU_ITEM_HEIGHT, MOBILE_MAX_WIDTH_PX } from "@/assets/theme.config";
 import { MenuItemProps } from "./MenuItem.props";
 import { Link } from "react-router-dom";
 import { RenderIf } from "../../conditionals/RenderIf";
-import authContext from "../../../utils/contexts/AuthContext";
-import { sideNavMenuContext } from "../../../utils/contexts/SideNavMenuContext";
+import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
+import { useAuthSelector } from "@/app/features/authSlice";
 
 const menuItemActiveClass = `menu-item-active`;
 const menuItemHoverClass = `menu-item-hoverable`;
 const disabledClass = "menu-item-disabled";
 
 export function MenuItem(props: MenuItemProps) {
-    const { userPermissions } = useContext(authContext);
+    const userPermissions = useAuthSelector().userPermissions;
     const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
 
     const classes = joinClassNames(

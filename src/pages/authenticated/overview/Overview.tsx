@@ -1,112 +1,70 @@
-import { COLOR_OPTS, TYPE_OPTS } from "../../../assets/theme.config";
-import { Card } from "../../../components/ui/Card/Card";
-import { Alert } from "../../../components/ui/Alert/Alert";
-import { Checkbox } from "../../../components/ui/Checkbox/Checkbox";
-import { Tabs } from "../../../components/ui/Tabs/Tabs";
-import { Button } from "../../../components/ui/Button/Button";
-import { Modal } from "../../../components/ui/Modal/Modal";
-import { useEffect, useState } from "react";
-import { FileUpload } from "../../../components/ui/Upload/FileUpload";
-import { axiosInstance } from "../../../utils/network/AxiosInstance";
-import { AxiosProgressEvent } from "axios";
-import { PageHeader } from "../../../components/ui/PageHeader/PageHeader";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
+import React from "react";
+import { getAtcRatingLong, getAtcRatingShort } from "@/utils/helper/vatsim/AtcRatingHelper";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import generalTranslation from "@/assets/lang/generic.translation";
+import { useUserSelector } from "@/app/features/authSlice";
+import { useSettingsSelector } from "@/app/features/settingsSlice";
 
 export function Overview() {
-    const [showModal, setShowModal] = useState<boolean>(false);
-    const [uploadProgress, setUploadProgress] = useState<number>(0);
-    const [showSuccess, setShowSuccess] = useState<boolean>(false);
-    const [isUploading, setIsUploading] = useState<boolean>(false);
-
-    function abc(data: FormData) {
-        setIsUploading(true);
-        console.log(data);
-
-        const formData = new FormData();
-        data.forEach(value => {
-            formData.append("files", value);
-        });
-
-        formData.append("input", "3.14159265");
-
-        console.log(formData);
-
-        axiosInstance
-            .post("/ab", formData, {
-                onUploadProgress: (e: AxiosProgressEvent) => {
-                    setUploadProgress(e.progress ?? 0);
-                },
-                timeout: 60_000,
-            })
-            .then(r => {
-                setShowSuccess(true);
-                setIsUploading(false);
-                setUploadProgress(0);
-
-                setTimeout(() => {
-                    setShowSuccess(false);
-                }, 1000);
-            });
-    }
+    const user = useUserSelector();
+    const language = useSettingsSelector().language;
 
     return (
         <>
             <PageHeader title={"VATSIM Germany Trainingcenter"} hideBackLink />
 
-            <Modal
-                footer={
-                    <span className={"flex justify-end"}>
-                        {" "}
-                        <Button className={"right-0"} color={COLOR_OPTS.DANGER} variant={"twoTone"}>
-                            Submit
-                        </Button>{" "}
-                    </span>
-                }
-                title={"Delete Account"}
-                show={showModal}
-                onClose={() => setShowModal(false)}>
-                <p>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-                    diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-                    dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-                    sanctus est Lorem ipsum dolor sit amet.
-                </p>
-            </Modal>
-            <div>
-                <Checkbox onChange={e => console.log(e)}>Hello World</Checkbox>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="card card-border rounded-lg hover:shadow transition-shadow" role="presentation">
+                    <div className="card-body">
+                        <h6 className="font-semibold mb-4 text-sm">ATC Rating</h6>
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <h4 className="font-bold">
+                                    <span>
+                                        {getAtcRatingLong(user?.user_data?.rating_atc ?? -1)} ({getAtcRatingShort(user?.user_data?.rating_atc ?? -1)})
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card card-border rounded-lg hover:shadow transition-shadow" role="presentation">
+                    <div className="card-body">
+                        <h6 className="font-semibold mb-4 text-sm">Subdivision</h6>
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <h4 className="font-bold">
+                                    <span>{user?.user_data?.subdivision_code}</span>
+                                </h4>
+                            </div>
+                            <RenderIf
+                                truthValue={user?.user_data?.subdivision_code?.toLowerCase() != "ger"}
+                                elementTrue={<Badge color={COLOR_OPTS.DANGER}>{generalTranslation.guest[language]}</Badge>}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card card-border rounded-lg hover:shadow transition-shadow" role="presentation">
+                    <div className="card-body">
+                        <h6 className="font-semibold mb-4 text-sm">Training Sessions</h6>
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <h4 className="font-bold">
+                                    <span>-1</span>
+                                </h4>
+                            </div>
+                            <div className="tag gap-1 font-bold border-0 text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-500/20">
+                                <span>11.4%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <Button onClick={() => setShowModal(true)} color={COLOR_OPTS.PRIMARY} variant={"solid"}>
-                Click
-            </Button>
-
-            <Card className={"mt-5 mb-5"}>
-                <Tabs type={"underline"} tabHeaders={["Hello", "World", "This", "Is", "A"]}>
-                    <>
-                        <Alert className={"mb-5"} rounded type={TYPE_OPTS.INFO} showIcon>
-                            This is an Alert!
-                        </Alert>
-
-                        <Alert className={"mb-5"} rounded type={TYPE_OPTS.DANGER} showIcon>
-                            This is an Alert!
-                        </Alert>
-
-                        <Alert className={"mb-5"} rounded type={TYPE_OPTS.SUCCESS} showIcon>
-                            This is an Alert!
-                        </Alert>
-
-                        <Alert rounded type={TYPE_OPTS.WARNING} showIcon>
-                            This is an Alert!
-                        </Alert>
-                    </>
-                    <p>This</p>
-                    <p>Is</p>
-                    <p>A</p>
-                    <p>Test</p>
-                </Tabs>
-            </Card>
-
-            <FileUpload onSubmit={abc} isUploading={isUploading} showSuccess={showSuccess} progress={uploadProgress * 100} accept={["*"]} />
         </>
     );
 }

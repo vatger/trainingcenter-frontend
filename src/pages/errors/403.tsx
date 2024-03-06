@@ -21,7 +21,7 @@ export function Error403() {
                         <h3 className="mb-2">Zugang verweigert | 403</h3>
                         <p className="text-base">Du hast keine Berechtigung auf diese Seite/Aktion zuzugreifen.</p>
 
-                        <RenderIf truthValue={m.length > 0} elementTrue={<pre className={"mt-4"}>{m}</pre>} />
+                        <RenderIf truthValue={m.length > 0} elementTrue={<pre className={"mt-4"}>{m.toUpperCase()}</pre>} />
 
                         <Button
                             className={"mt-7"}

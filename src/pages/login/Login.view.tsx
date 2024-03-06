@@ -1,31 +1,29 @@
-import { COLOR_OPTS } from "../../assets/theme.config";
-import React, { useContext, useEffect } from "react";
-import { Button } from "../../components/ui/Button/Button";
-import { SelectLanguageHeader } from "../../components/template/header/SelectLanguageHeader";
-import loginTranslation from "../../assets/lang/login/login.translation";
-import languageContext from "../../utils/contexts/LanguageContext";
-import vaccLogoDark from "../../assets/img/vacc_logo_dark.png";
-import LoginService from "../../services/login/LoginService";
-import authContext from "../../utils/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { UserModel } from "../../models/UserModel";
-import vaccLogo from "../../assets/img/vacc_logo.png";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import React, { useEffect } from "react";
+import { Button } from "@/components/ui/Button/Button";
+import { SelectLanguageHeader } from "@/components/template/header/SelectLanguageHeader";
+import loginTranslation from "@/assets/lang/login/login.translation";
+import vaccLogoDark from "@/assets/img/vacc_logo_dark.png";
+import LoginService from "@/services/login/LoginService";
+import vaccLogo from "@/assets/img/vacc_logo.png";
 import { LoginStatusPartial } from "./_partials/LoginStatus.partial";
+import { useAuthSelector } from "@/app/features/authSlice";
+import { useNavigate } from "react-router-dom";
+import hero from "@/assets/img/hero.jpg";
+import vatsimLogoRound from "@/assets/img/vatsim_logo_round.png";
+import { useSettingsSelector } from "@/app/features/settingsSlice";
 
 export function LoginView() {
-    const { language } = useContext(languageContext);
-    const { changeUser } = useContext(authContext);
+    const auth = useAuthSelector();
     const navigate = useNavigate();
+    const language = useSettingsSelector().language;
     const { uri, loading, loadingError } = LoginService.getOAuthRedirectUri();
 
     useEffect(() => {
-        LoginService.validateSession()
-            .then((user: UserModel) => {
-                changeUser(user);
-                navigate("/overview");
-            })
-            .catch(() => {});
-    }, []);
+        if (auth.signedIn) {
+            navigate("/overview");
+        }
+    }, [auth.signedIn]);
 
     return (
         <>
@@ -36,12 +34,10 @@ export function LoginView() {
                             <div className="grid lg:grid-cols-3 h-full">
                                 <div
                                     className="bg-no-repeat bg-cover bg-center py-6 px-16 flex-col justify-end hidden lg:flex"
-                                    style={{ backgroundImage: "url('https://cdn.discordapp.com/attachments/954516195963461634/1063564334074171392/7.jpg')" }}>
+                                    style={{ backgroundImage: `url('${hero}')` }}>
                                     <div>
                                         <div className="mb-6 flex items-center gap-4">
-                                            <span className="text-white">
-                                                &copy; {new Date().getFullYear()} <span className="font-semibold">VATSIM Germany</span>
-                                            </span>
+                                            <span className="text-white">&copy; {new Date().getFullYear()} VATSIM Germany</span>
                                         </div>
                                     </div>
                                 </div>
@@ -69,15 +65,7 @@ export function LoginView() {
                                             <Button
                                                 loading={loading}
                                                 disabled={loadingError != null}
-                                                icon={
-                                                    <img
-                                                        src={
-                                                            "https://vatsim-forums.nyc3.digitaloceanspaces.com/monthly_2020_08/Vatsim-social_icon.thumb.png.e9bdf49928c9bd5327f08245a68d8304.png"
-                                                        }
-                                                        width={24}
-                                                        height={24}
-                                                    />
-                                                }
+                                                icon={<img src={vatsimLogoRound} width={24} height={24} alt={"VATSIM Logo"} />}
                                                 variant={"twoTone"}
                                                 block
                                                 onClick={() => {
@@ -104,7 +92,7 @@ export function LoginView() {
                         </a>
                     </div>
                     <div className={"hidden sm:block m-4 absolute float-right right-0"}>
-                        <SelectLanguageHeader />
+                        <SelectLanguageHeader saveSelection={false} />
                     </div>
                 </div>
             </div>

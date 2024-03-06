@@ -3,18 +3,18 @@ import { Dispatch, useContext, useEffect, useRef, useState } from "react";
 import { generateUUID } from "../../../utils/helper/UUIDHelper";
 import { NotificationModel } from "../../../models/NotificationModel";
 import UserNotificationService from "../../../services/user/UserNotificationService";
-import authContext from "../../../utils/contexts/AuthContext";
 import { AxiosError } from "axios";
 import { MapArray } from "../../conditionals/MapArray";
 import NotificationHelper, { getIconByString, getIconColorBySeverity } from "../../../utils/helper/NotificationHelper";
 import dayjs from "dayjs";
-import languageContext from "../../../utils/contexts/LanguageContext";
 import { Tooltip } from "../../ui/Tooltip/Tooltip";
 import { RenderIf } from "../../conditionals/RenderIf";
 import ToastHelper from "../../../utils/helper/ToastHelper";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { useUserSelector } from "@/app/features/authSlice";
+import { useSettingsSelector } from "@/app/features/settingsSlice";
 
 function loadNotifications(setNotifications: Dispatch<NotificationModel[]>, user_id?: number) {
     if (user_id == null) return;
@@ -30,8 +30,8 @@ function loadNotifications(setNotifications: Dispatch<NotificationModel[]>, user
 
 export function NotificationHeader() {
     const selectNotificationUUID = useRef(generateUUID());
-    const { user } = useContext(authContext);
-    const { language } = useContext(languageContext);
+    const user = useUserSelector();
+    const language = useSettingsSelector().language;
     const [notificationMenuHidden, setNotificationMenuHidden] = useState<boolean>(true);
     const [markingAllRead, setMarkingAllRead] = useState<boolean>(false);
 

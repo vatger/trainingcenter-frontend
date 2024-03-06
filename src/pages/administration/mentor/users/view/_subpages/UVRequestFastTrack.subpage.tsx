@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { Card } from "@/components/ui/Card/Card";
 import { FileUpload } from "@/components/ui/Upload/FileUpload";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import { TbActivity, TbId, TbListCheck } from "react-icons/tb";
 import { Input } from "@/components/ui/Input/Input";
 import { Separator } from "@/components/ui/Separator/Separator";
@@ -9,9 +9,8 @@ import { useParams } from "react-router-dom";
 import { Select } from "@/components/ui/Select/Select";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { COLOR_OPTS, TYPE_OPTS } from "@/assets/theme.config";
-import { AxiosProgressEvent, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { TextArea } from "@/components/ui/Textarea/TextArea";
-import { TableColumn } from "react-data-table-component";
 import { FastTrackRequestModel } from "@/models/FastTrackRequestModel";
 import FastTrackListTypes from "../_types/UVFastTrackList.types";
 import { Table } from "@/components/ui/Table/Table";
@@ -21,13 +20,14 @@ import { axiosInstance } from "@/utils/network/AxiosInstance";
 import useApi from "@/utils/hooks/useApi";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { E_VATSIM_RATING } from "@/utils/helper/vatsim/AtcRatingHelper";
+import { useUploadHook } from "@/utils/hooks/useUploadHook";
+import { Button } from "@/components/ui/Button/Button";
+import FormHelper from "@/utils/helper/FormHelper";
 
 export function RequestFastTrackView() {
     const { user_id } = useParams();
 
-    const [isUploading, setIsUploading] = useState<boolean>(false);
-    const [uploadProgress, setUploadProgress] = useState<number>(0);
-    const [fileList, setFileList] = useState<File[]>([]);
+    const { uploadProgress, onUploadProgress, files, setFiles, resetUpload, isUploading } = useUploadHook();
 
     const {
         data: fastTracks,
@@ -43,38 +43,25 @@ export function RequestFastTrackView() {
 
     function createFastTrackRequest(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        setIsUploading(true);
 
-        // Form Data required, cannot use formhelper here!
-        const formData = new FormData(e.target as HTMLFormElement);
-
-        // Append files
-        fileList.forEach(f => {
-            formData.append("files", f);
-        });
-
-        // Append extra info
-        formData.append("user_id", user_id ?? "-1");
+        const formData = FormHelper.getEntries(e.target);
+        FormHelper.addFiles(formData, files);
+        FormHelper.append(formData, "user_id", user_id);
 
         axiosInstance
             .post("/administration/fast-track", formData, {
-                onUploadProgress: (e: AxiosProgressEvent) => handleUploadProgressChange,
-                timeout: 60_000,
+                onUploadProgress: onUploadProgress,
+                timeout: 50_000,
             })
             .then((res: AxiosResponse) => {
-                const data = res.data as FastTrackRequestModel;
-                setUploadProgress(0);
-                setFastTracks([...(fastTracks ?? []), data]);
+                const fastTrack = res.data as FastTrackRequestModel;
+                setFastTracks([...(fastTracks ?? []), fastTrack]);
                 ToastHelper.success("Fast-Track Request erfolgreich erstellt.");
             })
             .catch(() => {
                 ToastHelper.error("Fehler beim Erstellen des Fast-Track Requests");
-            })
-            .then(() => setIsUploading(false));
-    }
-
-    function handleUploadProgressChange(e: AxiosProgressEvent) {
-        setUploadProgress(e.progress ?? 0);
+                resetUpload();
+            });
     }
 
     return (
@@ -132,14 +119,16 @@ export function RequestFastTrackView() {
                                 accept={["jpg", "png"]}
                                 isUploading={isUploading}
                                 progress={uploadProgress}
+                                success={uploadProgress == 100}
                                 fileLimit={loadingFTRequests ? 0 : 1}
-                                showSuccess={false}
-                                onFileChange={setFileList}
+                                onFileChange={setFiles}
                                 customButtonText={"Fast-Track Request Erstellen"}
                                 customButtonIcon={<TbListCheck size={20} />}
-                                buttonIsSubmit
-                                inputName={"files"}
                             />
+
+                            <Button disabled={isUploading || files.length == 0} variant={"twoTone"} color={COLOR_OPTS.PRIMARY} type={"submit"}>
+                                Erstellen
+                            </Button>
                         </form>
                     }
                 />

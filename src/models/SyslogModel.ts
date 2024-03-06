@@ -4,6 +4,7 @@ export type SyslogModel = {
     path: string;
     method: string;
     remote_addr?: string;
+    message?: string;
     createdAt: Date;
     updatedAt: Date;
 };

@@ -54,11 +54,11 @@ export function UVAddEndorsementModal({
         if (selectedEndorsementGroup == null || user == null) return;
         setSubmitting(true);
 
-        const data = FormHelper.getEntries(e.target);
-        data["user_id"] = user?.id;
+        const formData = FormHelper.getEntries(e.target);
+        FormHelper.set(formData, "user_id", user?.id);
 
         axiosInstance
-            .post("/administration/endorsement", data)
+            .post("/administration/endorsement", formData)
             .then((res: AxiosResponse) => {
                 ToastHelper.success("Freigabe erfolgreich erstellt");
                 const endorsements = res.data as EndorsementGroupModel[];

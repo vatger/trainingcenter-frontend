@@ -7,7 +7,7 @@ import { RenderIf } from "../../conditionals/RenderIf";
 import { useContext, useEffect, useState } from "react";
 import { useDebounce } from "@/utils/hooks/useDebounce";
 import tableTranslation from "../../../assets/lang/table.translation";
-import languageContext from "../../../utils/contexts/LanguageContext";
+import { useSettingsSelector } from "@/app/features/settingsSlice";
 
 const TABLE_PAGINATION_PER_PAGE_DEFAULT = 15;
 
@@ -37,7 +37,7 @@ function search(headers: (TableColumn<any> & { searchable?: boolean })[], data: 
 }
 
 export function Table(props: TableProps) {
-    const { language } = useContext(languageContext);
+    const language = useSettingsSelector().language;
 
     const [searchInput, setSearchInput] = useState<string>("");
     const debouncedSearch = useDebounce<string>(searchInput, 250);

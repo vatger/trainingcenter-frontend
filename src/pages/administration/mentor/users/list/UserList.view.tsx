@@ -1,21 +1,20 @@
-import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
-import { Card } from "../../../../../components/ui/Card/Card";
-import { Input } from "../../../../../components/ui/Input/Input";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
+import { Card } from "@/components/ui/Card/Card";
+import { Input } from "@/components/ui/Input/Input";
 import { TbUser } from "react-icons/tb";
 import { useContext, useState } from "react";
-import { useDebounce } from "../../../../../utils/hooks/useDebounce";
-import { UserModel } from "../../../../../models/UserModel";
-import { Table } from "../../../../../components/ui/Table/Table";
-import { TableColumn } from "react-data-table-component";
+import { useDebounce } from "@/utils/hooks/useDebounce";
+import { UserModel } from "@/models/UserModel";
+import { Table } from "@/components/ui/Table/Table";
 import { getUserSearchTableColumns } from "./_types/US.types";
 import { useNavigate } from "react-router-dom";
 import UserService from "../../../../../services/user/UserAdminService";
-import { useFilter } from "../../../../../utils/hooks/useFilter";
-import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import { getAtcRatingShort } from "../../../../../utils/helper/vatsim/AtcRatingHelper";
-import authContext from "../../../../../utils/contexts/AuthContext";
-import { RenderIf } from "../../../../../components/conditionals/RenderIf";
-import { NetworkError } from "../../../../../components/errors/NetworkError";
+import { useFilter } from "@/utils/hooks/useFilter";
+import { fuzzySearch } from "@/utils/helper/fuzzysearch/FuzzySearchHelper";
+import { getAtcRatingShort } from "@/utils/helper/vatsim/AtcRatingHelper";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { NetworkError } from "@/components/errors/NetworkError";
+import { useAuthSelector, useUserSelector } from "@/app/features/authSlice";
 
 const filterFunction = (user: UserModel, searchValue: string) => {
     return (
@@ -24,7 +23,8 @@ const filterFunction = (user: UserModel, searchValue: string) => {
 };
 
 export function UserListView() {
-    const { user, userPermissions } = useContext(authContext);
+    const user = useUserSelector();
+    const userPermissions = useAuthSelector().userPermissions;
     const navigate = useNavigate();
 
     const [searchQuery, setSearchQuery] = useState<string>("");

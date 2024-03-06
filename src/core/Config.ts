@@ -12,10 +12,15 @@ export const Config = {
     VERSION: "0.0.1-Beta",
     VATGER_BROWSER_TOKEN_NAME: "vatger_tc_browser_token",
 
-    APP_HOST: import.meta.env.VITE_APP_HOST,
-    API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
+    APP_HOST: import.meta.env.ENV == "production" ? "https://api.tc.vatsim-germany.org" : "http://localhost:8000",
+    API_BASE_URL: import.meta.env.ENV == "production" ? "https://tc.vatsim-germany.org" : "http://localhost:8001",
     DATE_FORMAT: "DD.MM.YYYY",
     DATETIME_FORMAT: "DD.MM.YYYY HH:mm",
+
+    SHOW_SUCCESS_TIMEOUT: 1500,
+
+    VACC_LOGO_WHITE: "https://cdn.vatsim-germany.org/img/vacc_logo_white.png",
+    VACC_LOGO_COLOR: "https://cdn.vatsim-germany.org/img/vacc_logo_color.png"
 };
 
 export const CommonConstants = {

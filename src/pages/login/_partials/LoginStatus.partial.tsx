@@ -22,6 +22,17 @@ export function LoginStatusPartial(props: { loadingError: APIResponseError }) {
             />
 
             <RenderIf
+                truthValue={props.loadingError == null && url.searchParams.get("sinv") != null}
+                elementTrue={
+                    <div className={"mb-5"}>
+                        <Alert rounded type={TYPE_OPTS.WARNING} showIcon>
+                            Deine Session ist abgelaufen. Melde dich bitte erneut an.
+                        </Alert>
+                    </div>
+                }
+            />
+
+            <RenderIf
                 truthValue={props.loadingError == null && url.searchParams.get("refresh") != null}
                 elementTrue={
                     <div className={"mb-5"}>

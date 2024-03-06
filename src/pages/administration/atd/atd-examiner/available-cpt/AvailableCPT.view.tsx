@@ -34,12 +34,12 @@ export function AvailableCPTView() {
             return;
         }
 
-        const data = FormHelper.getEntries(e.target);
+        const formData = FormHelper.getEntries(e.target);
 
         axiosInstance
             .post("/administration/cpt/examiner", {
                 training_session_id: selectedCPT.id,
-                examiner: data.type == "examiner",
+                examiner: formData.get("type") == "examiner",
             })
             .then(() => {
                 ToastHelper.success("Erfolgreich angemeldet.");

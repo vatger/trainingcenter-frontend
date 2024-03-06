@@ -11,7 +11,6 @@ import { MapArray } from "@/components/conditionals/MapArray";
 import UserNoteAdminService from "../../../../../../services/user/UserNoteAdminService";
 import { useParams } from "react-router-dom";
 import { UserNoteModel } from "@/models/UserNoteModel";
-import authContext from "../../../../../../utils/contexts/AuthContext";
 import { UserModel } from "@/models/UserModel";
 import { Select } from "@/components/ui/Select/Select";
 import UserAdminService from "../../../../../../services/user/UserAdminService";
@@ -21,10 +20,11 @@ import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { UVCreateNoteModal } from "../_modals/UVCreateNote.modal";
+import { useUserSelector } from "@/app/features/authSlice";
 
 export function UVNotesSubpage() {
     const { user_id } = useParams();
-    const { user } = useContext(authContext);
+    const user = useUserSelector();
 
     const [showCreateNoteModal, setShowCreateModal] = useState<boolean>(false);
 

@@ -47,12 +47,12 @@ export function UserCourseProgressView() {
         e.preventDefault();
         setSubmitting(true);
 
-        const data = FormHelper.getEntries(e.target);
-        data.user_id = user_id;
-        data.course_uuid = course_uuid;
+        const formData = FormHelper.getEntries(e.target);
+        FormHelper.set(formData, "user_id", user_id);
+        FormHelper.set(formData, "course_uuid", course_uuid);
 
         axiosInstance
-            .patch("/administration/user-course-progress", data)
+            .patch("/administration/user-course-progress", formData)
             .then(() => {
                 ToastHelper.success("Kurs Fortschritt erfolgreich angepasst");
             })

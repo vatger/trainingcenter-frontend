@@ -27,6 +27,8 @@ import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { Alert } from "@/components/ui/Alert/Alert";
 import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { AxiosResponse } from "axios";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -71,12 +73,15 @@ export function TrainingSessionCreateView() {
 
     function createSession(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        setSubmitting(true);
 
         const data = FormHelper.getEntries(event?.target);
+        FormHelper.set(data, "user_ids", participants.map(u => u.id).join(","));
 
-        setSubmitting(true);
-        TrainingSessionAdminService.createTrainingSession(participants, data.course_uuid, data.training_type_id, data.training_station_id, data.date)
-            .then((session: TrainingSessionModel) => {
+        axiosInstance
+            .post("/administration/training-session/training", data)
+            .then((res: AxiosResponse) => {
+                const session = res.data as TrainingSessionModel;
                 ToastHelper.success("Session wurde erfolgreich erstellt");
                 navigate(`/administration/training-request/planned/${session.uuid}`);
             })

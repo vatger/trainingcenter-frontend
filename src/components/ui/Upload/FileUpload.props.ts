@@ -6,7 +6,7 @@ export type FileUploadProps = {
     progress: number;
     disabled?: boolean;
     onSubmit?: (data: FormData) => any;
-    showSuccess: boolean;
+    success?: boolean;
     fileLimit?: number;
     customButtonIcon?: ReactElement;
     onFileChange?: (files: File[]) => any;

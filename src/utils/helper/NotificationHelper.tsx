@@ -1,10 +1,10 @@
 import { NotificationModel } from "../../models/NotificationModel";
-import { LanguageEnum } from "../contexts/LanguageContext";
 import { TbAlertTriangle, TbCheck, TbCircleCheck, TbClipboard, TbDoorExit, TbTrash } from "react-icons/tb";
+import { TLanguage } from "@/app/features/settingsSlice";
 
-function convertNotificationContent(n: NotificationModel, l: LanguageEnum): string {
+function convertNotificationContent(n: NotificationModel, l: TLanguage): string {
     let s = "";
-    if (l == LanguageEnum.DE) s = n.content_de;
+    if (l == "de") s = n.content_de;
     else s = n.content_en;
 
     s = s.replaceAll("$author", `<strong>${n.author?.first_name} ${n.author?.last_name}</strong>`);

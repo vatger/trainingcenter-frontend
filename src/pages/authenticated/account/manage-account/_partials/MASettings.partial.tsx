@@ -2,24 +2,23 @@ import { ManageAccountElement } from "@/components/ui/Account/ManageAccountEleme
 import { Select } from "@/components/ui/Select/Select";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
-import React, { useContext, useState } from "react";
-import themeContext from "../../../../../utils/contexts/ThemeContext";
-import languageContext, { LanguageEnum } from "../../../../../utils/contexts/LanguageContext";
+import React, { useState } from "react";
 import GDPRService from "../../../../../services/user/UserGDPRService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { TbDownload, TbRefresh, TbRefreshOff } from "react-icons/tb";
 import { RenderIf } from "@/components/conditionals/RenderIf";
-import authContext from "../../../../../utils/contexts/AuthContext";
-import moment from "moment";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { UserModel } from "@/models/UserModel";
 import dayjs from "dayjs";
+import { setLanguage, TColorScheme, TLanguage, useSettingsSelector } from "@/app/features/settingsSlice";
+import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
+import { updateData, useUserSelector } from "@/app/features/authSlice";
+import { store } from "@/app/store";
 
 export function MASettingsPartial() {
-    const { user, changeUser } = useContext(authContext);
-    const { themeString, changeDarkMode } = useContext(themeContext);
-    const { language, changeLanguage } = useContext(languageContext);
+    const user = useUserSelector();
+    const language = useSettingsSelector().language;
 
     const [submittingSettings, setSubmittingSettings] = useState<boolean>(false);
 
@@ -31,28 +30,11 @@ export function MASettingsPartial() {
     const [dataSynchronisationDisabled, setDataSynchronisationDisabled] = useState<boolean>(dayjs.utc().diff(dayjs(user?.updatedAt), "minutes") < 30);
     const lastUserDataUpdateDate: Date = user?.updatedAt ?? new Date();
 
-    function setLanguage(lang: string) {
-        const l = lang.toLowerCase();
-
-        switch (l) {
-            case "de":
-                changeLanguage(LanguageEnum.DE);
-                break;
-
-            case "en":
-                changeLanguage(LanguageEnum.EN);
-                break;
-        }
-    }
-
     function updateSettings(value: { language: string }) {
         setSubmittingSettings(true);
 
         axiosInstance
             .patch("/settings", value)
-            .then(() => {
-                ToastHelper.success("Einstellungen erfolgreich gespeichert");
-            })
             .catch(() => {
                 ToastHelper.error("Fehler beim speichern der Einstellungen");
             })
@@ -76,7 +58,7 @@ export function MASettingsPartial() {
             .get("/user/update")
             .then((res: AxiosResponse) => {
                 const user = res.data as UserModel;
-                changeUser(user);
+                store.dispatch(updateData(user));
                 setDataSynchronisationDisabled(true);
                 ToastHelper.success("Daten erfolgreich synchronisiert");
             })
@@ -95,8 +77,6 @@ export function MASettingsPartial() {
             .finally(() => setSyncingData(false));
     }
 
-    console.log(themeString);
-
     return (
         <>
             <ManageAccountElement
@@ -105,9 +85,9 @@ export function MASettingsPartial() {
                 element={
                     <div className={"w-full lg:w-1/2 float-right"}>
                         <Select
-                            defaultValue={language}
+                            value={language}
                             onChange={(newLanguage: string) => {
-                                setLanguage(newLanguage);
+                                store.dispatch(setLanguage(newLanguage as TLanguage));
                                 updateSettings({ language: newLanguage });
                             }}
                             disabled={submittingSettings}>
@@ -128,11 +108,7 @@ export function MASettingsPartial() {
                 }
                 element={
                     <div className={"w-full lg:w-1/2  float-right"}>
-                        <Select
-                            onChange={value => {
-                                changeDarkMode(value as "auto" | "dark" | "light");
-                            }}
-                            defaultValue={themeString}>
+                        <Select onChange={value => LocalStorageLibrary.setColorTheme(value as TColorScheme)} defaultValue={LocalStorageLibrary.getColorTheme()}>
                             <option value="auto">Automatisch (Betriebssystem)</option>
                             <option value="dark">Dunkel</option>
                             <option value="light">Hell</option>
