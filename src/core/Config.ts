@@ -11,6 +11,7 @@ dayjs.extend(duration);
 export const Config = {
     VERSION: "0.0.1-Beta",
     VATGER_BROWSER_TOKEN_NAME: "vatger_tc_browser_token",
+    VATGER_LOGIN_LANGUAGE_NAME: "vatger_login_language",
 
     APP_HOST: "https://tc-dev.vatsim-germany.org",
     API_BASE_URL: "https://tc-api-dev.vatsim-germany.org",
@@ -20,7 +21,7 @@ export const Config = {
     SHOW_SUCCESS_TIMEOUT: 1500,
 
     VACC_LOGO_WHITE: "https://cdn.vatsim-germany.org/img/vacc_logo_white.png",
-    VACC_LOGO_COLOR: "https://cdn.vatsim-germany.org/img/vacc_logo_color.png"
+    VACC_LOGO_COLOR: "https://cdn.vatsim-germany.org/img/vacc_logo_color.png",
 };
 
 export const CommonConstants = {
