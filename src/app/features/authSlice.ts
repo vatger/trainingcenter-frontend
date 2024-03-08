@@ -1,6 +1,8 @@
 import { UserDataModel, UserModel, UserSettingsModel } from "@/models/UserModel";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useAppSelector } from "@/app/hooks";
+import {store} from "@/app/store";
+import {setLanguage} from "@/app/features/settingsSlice";
 
 interface AuthState {
     signedIn: boolean;
@@ -26,6 +28,9 @@ export const authSlice = createSlice({
             state.user = action.payload;
             state.userSettings = action.payload.user_settings;
             state.userData = action.payload.user_data;
+
+            // Set the language to whatever is stored in settings
+            store.dispatch(setLanguage(state.userSettings?.language ?? "de"));
 
             const perms: string[] = [];
             action.payload.roles?.forEach(role => {

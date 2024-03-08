@@ -1,6 +1,6 @@
 import { TbMenu2 } from "react-icons/tb";
 import { useContext } from "react";
-import { sideNavMenuContext } from "../../../utils/contexts/SideNavMenuContext";
+import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 import { UserProfileHeader } from "./UserProfileHeader";
 import { SelectLanguageHeader } from "./SelectLanguageHeader";
 import { NotificationHeader } from "./NotificationHeader";
@@ -19,7 +19,7 @@ export function Header() {
                     </div>
                 </div>
                 <div className="header-action header-action-end">
-                    <SelectLanguageHeader />
+                    <SelectLanguageHeader saveSelection/>
 
                     <NotificationHeader />
 
