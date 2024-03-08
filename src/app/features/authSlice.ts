@@ -29,9 +29,6 @@ export const authSlice = createSlice({
             state.userSettings = action.payload.user_settings;
             state.userData = action.payload.user_data;
 
-            // Set the language to whatever is stored in settings
-            store.dispatch(setLanguage(state.userSettings?.language ?? "de"));
-
             const perms: string[] = [];
             action.payload.roles?.forEach(role => {
                 role.permissions?.forEach(perm => {

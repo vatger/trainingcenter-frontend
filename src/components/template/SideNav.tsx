@@ -37,11 +37,12 @@ import { RenderIf } from "../conditionals/RenderIf";
 import { SIDENAV_WIDTH } from "@/assets/theme.config";
 import { useAuthSelector } from "@/app/features/authSlice";
 import { useSettingsSelector } from "@/app/features/settingsSlice";
+import SidenavTranslation from "@/assets/lang/sidenav/sidenav.translation";
 
 export function SideNav() {
     const userPermissions = useAuthSelector().userPermissions;
     const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
-    const theme = useSettingsSelector().colorScheme;
+    const {colorScheme, language} = useSettingsSelector();
 
     function toggleMobileNav() {
         const backdrop = document.getElementById("backdrop-small-nav");
@@ -94,7 +95,7 @@ export function SideNav() {
                             <img
                                 className={"sm:w-auto w-[20px]"}
                                 style={{ width: "auto" }}
-                                src={theme == "dark" ? vaccLogoDark : vaccLogo}
+                                src={colorScheme == "dark" ? vaccLogoDark : vaccLogo}
                                 alt={"VATGER Logo"}
                             />
                         </a>
@@ -108,7 +109,7 @@ export function SideNav() {
                         <div className={"absolute inset-0 overflow-y-auto mr-0 mb-0 pb-10 side-nav-hide-scrollbar"}>
                             <nav className="menu menu-transparent px-4 pt-5">
                                 <MenuItem icon={<TbDashboard size={20} />} href={"overview"}>
-                                    Dashboard
+                                    {SidenavTranslation.dashboard[language]}
                                 </MenuItem>
 
                                 <div className="menu-group">

@@ -64,6 +64,23 @@ function setColorTheme(value: TColorScheme) {
 }
 
 /**
+ * Sets a key in localstorage
+ * @param key
+ * @param value
+ */
+function setKey(key: string, value: string) {
+    window.localStorage.setItem(key, value)
+}
+
+/**
+ * Gets a key from localstorage
+ * @param key
+ */
+function getKey(key: string) {
+    return window.localStorage.getItem(key)
+}
+
+/**
  * Updates the color scheme
  */
 function _updateColorScheme() {
@@ -91,4 +108,6 @@ export default {
     getColorTheme,
     setColorTheme,
     init,
+    setKey,
+    getKey
 };

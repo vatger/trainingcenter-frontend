@@ -12,6 +12,8 @@ import flagDe from "@/assets/img/flag_de.png";
 import flagEn from "@/assets/img/flag_en.png";
 import { setLanguage, useSettingsSelector } from "@/app/features/settingsSlice";
 import { store } from "@/app/store";
+import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
+import {Config} from "@/core/Config";
 
 const flag_de = (
     <div className={"w-[20px] h-[20px] avatar-circle"}>
@@ -110,6 +112,10 @@ export function SelectLanguageHeader({ saveSelection }: { saveSelection?: boolea
                         onClick={() => {
                             store.dispatch(setLanguage("de"));
                             updateSettings({ language: "de" });
+
+                            if (window.location.href.includes("/login")) {
+                                LocalStorageLibrary.setKey(Config.VATGER_LOGIN_LANGUAGE_NAME, "de");
+                            }
                         }}
                         isNoLink
                         icon={flag_de}
@@ -121,6 +127,10 @@ export function SelectLanguageHeader({ saveSelection }: { saveSelection?: boolea
                         onClick={() => {
                             store.dispatch(setLanguage("en"));
                             updateSettings({ language: "en" });
+
+                            if (window.location.href.includes("/login")) {
+                                LocalStorageLibrary.setKey(Config.VATGER_LOGIN_LANGUAGE_NAME, "en");
+                            }
                         }}
                         isNoLink
                         icon={flag_en}
