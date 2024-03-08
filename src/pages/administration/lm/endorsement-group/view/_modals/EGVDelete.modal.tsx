@@ -31,11 +31,9 @@ export function EGVDeleteModal({ id, show, onClose }: { id?: string; show: boole
             title={"Freigabegruppe Löschen"}
             onClose={onClose}
             footer={
-                <div className={"flex justify-end"}>
-                    <Button loading={submitting} icon={<TbTrash size={20} />} color={COLOR_OPTS.DANGER} variant={"twoTone"} onClick={deleteEndorsementGroup}>
-                        Löschen
-                    </Button>
-                </div>
+                <Button loading={submitting} icon={<TbTrash size={20} />} color={COLOR_OPTS.DANGER} variant={"twoTone"} onClick={deleteEndorsementGroup}>
+                    Löschen
+                </Button>
             }>
             <p>
                 Bist du sicher, dass du die Freigabegruppe löschen möchtest? Mitglieder, die in dieser Freigabegruppe sind, verlieren - sofern nicht durch

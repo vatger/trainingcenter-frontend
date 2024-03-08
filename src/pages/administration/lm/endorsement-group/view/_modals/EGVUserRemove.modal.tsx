@@ -52,11 +52,9 @@ export function EGVUserRemoveModal({
             onClose={onClose}
             title={"Benutzer Entfernen"}
             footer={
-                <div className={"flex justify-end mt-5"}>
-                    <Button icon={<TbTrash size={20} />} loading={isRemovingUser} variant={"twoTone"} onClick={handleRemoveUser} color={COLOR_OPTS.DANGER}>
-                        Entfernen
-                    </Button>
-                </div>
+                <Button icon={<TbTrash size={20} />} loading={isRemovingUser} variant={"twoTone"} onClick={handleRemoveUser} color={COLOR_OPTS.DANGER}>
+                    Entfernen
+                </Button>
             }>
             <p>
                 Bist du sicher, dass du den Benutzer{" "}

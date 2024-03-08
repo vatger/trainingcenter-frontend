@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { Button } from "@/components/ui/Button/Button";
-import {IUserInMentorGroup} from "@/pages/administration/lm/mentor-group/create/MentorGroupCreate.view";
+import { IUserInMentorGroup } from "@/pages/administration/lm/mentor-group/create/MentorGroupCreate.view";
 
 enum EditType {
     ADMIN,

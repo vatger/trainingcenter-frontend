@@ -59,11 +59,9 @@ export function UVDeleteSoloModal({ show, onClose, user, setUser }: { show: bool
                 onClose={onClose}
                 title={"Solo Löschen"}
                 footer={
-                    <div className={"flex justify-end"}>
-                        <Button type={"submit"} loading={deletingSolo} icon={<TbTrash size={20} />} color={COLOR_OPTS.DANGER} variant={"twoTone"}>
-                            Löschen
-                        </Button>
-                    </div>
+                    <Button type={"submit"} loading={deletingSolo} icon={<TbTrash size={20} />} color={COLOR_OPTS.DANGER} variant={"twoTone"}>
+                        Löschen
+                    </Button>
                 }>
                 <Input label={"Verbrauchte Tage der Solo"} labelSmall disabled value={user?.user_solo?.solo_used.toString()} />
 

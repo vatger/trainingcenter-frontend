@@ -47,7 +47,15 @@ export function UVCreateNoteModal(props: CreateUserNotePartialProps) {
     }
 
     return (
-        <Modal show={props.show} onClose={props.onClose} title={"Notiz erstellen"}>
+        <Modal
+            show={props.show}
+            onClose={props.onClose}
+            title={"Notiz erstellen"}
+            footer={
+                <Button icon={<TbClipboardPlus size={20} />} type={"submit"} loading={submitting} color={COLOR_OPTS.PRIMARY} variant={"twoTone"}>
+                    Erstellen
+                </Button>
+            }>
             <form onSubmit={createNote}>
                 <input className={"hidden"} name={"user_id"} value={props.user_id} />
 
@@ -73,14 +81,7 @@ export function UVCreateNoteModal(props: CreateUserNotePartialProps) {
                 </Select>
 
                 <TextArea className={"mt-5"} name={"content"} required labelSmall label={"Notiz"}></TextArea>
-
-                <div className={"w-full mt-4"}>
-                    <div className={"flex justify-end"}>
-                        <Button icon={<TbClipboardPlus size={20} />} type={"submit"} loading={submitting} color={COLOR_OPTS.PRIMARY} variant={"twoTone"}>
-                            Erstellen
-                        </Button>
-                    </div>
-                </div>
+                <div className={"flex flex-col sm:flex-row"}></div>
             </form>
         </Modal>
     );

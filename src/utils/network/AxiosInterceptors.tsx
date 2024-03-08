@@ -3,6 +3,8 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { AxiosResponse } from "axios";
 import { ConversionUtils } from "turbocommons-ts";
+import { store } from "@/app/store";
+import { signOut } from "@/app/features/authSlice";
 
 export function AxiosInterceptors() {
     const navigate: NavigateFunction = useNavigate();
@@ -15,7 +17,8 @@ export function AxiosInterceptors() {
         const responseErrorInterceptor = (error: any) => {
             if (error.response != null && error.response.status == 401) {
                 if (window.location.href.toLowerCase().includes("login")) return;
-                navigate("/login");
+                store.dispatch(signOut());
+                navigate("/login?sinv");
             }
 
             if (error.response != null && error.response.status == 403) {

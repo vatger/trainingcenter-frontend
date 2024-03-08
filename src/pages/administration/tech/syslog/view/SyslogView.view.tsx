@@ -32,22 +32,22 @@ export function SyslogViewView() {
                     </Badge>
                 }>
                 <div className={"grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"}>
-                    <Input label={"Benutzer"} disabled value={syslog?.user_id ?? "N/A"} />
+                    <Input label={"Benutzer"} labelSmall disabled value={syslog?.user_id ?? "N/A"} />
 
-                    <Input label={"Methode"} disabled value={syslog?.method} />
+                    <Input label={"Methode"} labelSmall disabled value={syslog?.method} />
 
-                    <Input label={"Request IP"} disabled value={syslog?.remote_addr} />
+                    <Input label={"Request IP"} labelSmall disabled value={syslog?.remote_addr} />
                 </div>
 
-                <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
-                    <Input className={"mt-5"} label={"Datum (UTC)"} disabled value={moment(syslog?.createdAt).utc().format("DD.MM.YYYY HH:mm:ss")} />
+                <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 mt-5"}>
+                    <Input label={"Datum (UTC)"} labelSmall disabled value={moment(syslog?.createdAt).utc().format("DD.MM.YYYY HH:mm:ss")} />
 
-                    <Input className={"mt-5"} label={"Pfad"} disabled value={syslog?.path} />
+                    <Input label={"Pfad"} labelSmall disabled value={syslog?.path} />
                 </div>
 
                 <RenderIf
                     truthValue={syslog?.message != null}
-                    elementTrue={<TextArea disabled label={"Nachricht"} className={"mt-5"} value={syslog?.message}></TextArea>}
+                    elementTrue={<TextArea disabled label={"Nachricht"} labelSmall className={"mt-5"} value={syslog?.message}></TextArea>}
                 />
             </Card>
         </>

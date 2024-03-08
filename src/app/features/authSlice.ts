@@ -38,6 +38,9 @@ export const authSlice = createSlice({
         },
         signOut: state => {
             state.user = undefined;
+            state.userSettings = undefined;
+            state.userData = undefined;
+            state.userPermissions = [];
             state.signedIn = false;
         },
         updateData: (state, action: PayloadAction<UserModel>) => {

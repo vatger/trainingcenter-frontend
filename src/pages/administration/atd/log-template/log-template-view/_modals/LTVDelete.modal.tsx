@@ -46,11 +46,9 @@ export function LTVDeleteModal({
             onClose={onClose}
             title={"Logvorlage Löschen"}
             footer={
-                <div className={"flex justify-end mt-5"}>
-                    <Button icon={<TbTrash size={20} />} loading={deleting} variant={"twoTone"} onClick={() => deleteLogTemplae()} color={COLOR_OPTS.DANGER}>
-                        Abmelden
-                    </Button>
-                </div>
+                <Button icon={<TbTrash size={20} />} loading={deleting} variant={"twoTone"} onClick={() => deleteLogTemplae()} color={COLOR_OPTS.DANGER}>
+                    Löschen
+                </Button>
             }>
             <p>
                 Bist du sicher, dass du die Logvorlage <strong>"{logTemplate?.name}"</strong> löschen möchtest? Diese Aktion kann nicht rückgängig gemacht

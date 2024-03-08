@@ -18,6 +18,7 @@ import { UserCourseProgressRouter } from "@/routers/administration/UserCoursePro
 import { ATDExaminerRouter } from "@/routers/administration/ATDExaminer.router";
 import { MentorCPTRouter } from "@/routers/administration/MentorCPT.router";
 import { FastTrackRouter } from "@/routers/administration/FastTrack.router";
+import { JobLogRouter } from "@/routers/administration/JobLog.router";
 
 export function AdministrationRouter() {
     const location = useLocation();
@@ -40,6 +41,7 @@ export function AdministrationRouter() {
             <Route path={"fast-track/*"} element={<FastTrackRouter />} />
 
             <Route path={"syslog/*"} element={<SysLogRouter />} />
+            <Route path={"joblog/*"} element={<JobLogRouter />} />
             <Route path={"permission/*"} element={<PermissionRouter />} />
 
             <Route path={"403"} element={<Error403 />} />

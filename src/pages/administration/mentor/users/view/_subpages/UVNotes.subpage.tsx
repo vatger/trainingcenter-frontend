@@ -216,9 +216,8 @@ function renderUserNotes(userNotes: UserNoteModel[], user?: UserModel) {
                                         <div className={"flex flex-col"}>
                                             <h6>
                                                 {value.author?.first_name + " " + value.author?.last_name} &#x2022;{" "}
-                                                {dayjs.utc(value.createdAt).format(Config.DATETIME_FORMAT) + " UTC"}
+                                                {dayjs.utc(value.createdAt).format(Config.DATETIME_FORMAT)}
                                             </h6>
-                                            <pre className={"text-gray-400 dark:text-gray-400"}>{value.uuid}</pre>
                                         </div>
                                         <RenderIf
                                             truthValue={value.author?.id == user?.id}

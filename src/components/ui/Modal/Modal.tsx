@@ -39,7 +39,15 @@ export function Modal(props: ModalProps) {
                                 <Separator className={"my-2"} />
                                 <div>{props.children}</div>
 
-                                {props.footer && <div className={"w-full mt-4"}>{props.footer}</div>}
+                                <RenderIf
+                                    truthValue={props.footer != null}
+                                    elementTrue={
+                                        <>
+                                            <Separator />
+                                            <div className={"w-full mt-4 flex justify-end sm:flex-row flex-col"}>{props.footer}</div>
+                                        </>
+                                    }
+                                />
                             </div>
                         </div>
                     </div>

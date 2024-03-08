@@ -68,11 +68,9 @@ export function UVUseKontingentSoloModal({
                 onClose={onClose}
                 title={"Kontingent Nutzen"}
                 footer={
-                    <div className={"flex justify-end"}>
-                        <Button type={"submit"} loading={submitting} icon={<TbPlaylistAdd size={20} />} color={COLOR_OPTS.PRIMARY} variant={"twoTone"}>
-                            Verlängern
-                        </Button>
-                    </div>
+                    <Button type={"submit"} loading={submitting} icon={<TbPlaylistAdd size={20} />} color={COLOR_OPTS.PRIMARY} variant={"twoTone"}>
+                        Verlängern
+                    </Button>
                 }>
                 <Input
                     label={"Kontingent"}

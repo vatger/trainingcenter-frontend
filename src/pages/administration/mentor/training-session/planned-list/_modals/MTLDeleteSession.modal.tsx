@@ -54,11 +54,9 @@ export function MTLDeleteSessionModal({
             title={"Training Löschen"}
             onClose={onClose}
             footer={
-                <span className={"flex justify-end"}>
-                    <Button loading={submitting} onClick={deleteSession} icon={<TbTrash size={20} />} color={COLOR_OPTS.DANGER} variant={"twoTone"}>
-                        Löschen
-                    </Button>
-                </span>
+                <Button loading={submitting} onClick={deleteSession} icon={<TbTrash size={20} />} color={COLOR_OPTS.DANGER} variant={"twoTone"}>
+                    Löschen
+                </Button>
             }>
             <Input label={"Kurs"} labelSmall disabled readOnly value={selectedTrainingSession?.course?.name} />
             <Input className={"mt-3"} label={"Trainingstyp"} labelSmall disabled readOnly value={selectedTrainingSession?.training_type?.name} />

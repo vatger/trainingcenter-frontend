@@ -2,7 +2,7 @@ import { Dispatch, useState } from "react";
 import { Modal } from "@/components/ui/Modal/Modal";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { TbListNumbers, TbSection, TbTextDirectionLtr } from "react-icons/tb";
+import { TbListNumbers, TbPlus, TbSection, TbTextDirectionLtr } from "react-icons/tb";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { Input } from "@/components/ui/Input/Input";
 import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
@@ -49,20 +49,31 @@ export function LTTemplateElementModal(props: {
                 <RenderIf
                     truthValue={showingSecondPage}
                     elementTrue={
-                        <div className={"flex w-full justify-end"}>
+                        <>
                             <Button
                                 size={SIZE_OPTS.SM}
                                 onClick={() => {
                                     setShowingSecondPage(false);
                                     setElement({} as LogTemplateElement);
                                 }}
-                                className={"mr-3"}>
+                                className={"sm:mr-3"}>
                                 Zurück
                             </Button>
-                            <Button size={SIZE_OPTS.SM} onClick={() => addSelectedElement(element)} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
+                            <Button
+                                icon={<TbPlus size={18} />}
+                                size={SIZE_OPTS.SM}
+                                onClick={() => addSelectedElement(element)}
+                                variant={"twoTone"}
+                                color={COLOR_OPTS.PRIMARY}
+                                className={"sm:mt-0 mt-3"}>
                                 Hinzufügen
                             </Button>
-                        </div>
+                        </>
+                    }
+                    elementFalse={
+                        <Button size={SIZE_OPTS.SM} variant={"plain"} color={COLOR_OPTS.DEFAULT} onClick={() => props.onClose()}>
+                            Schließen
+                        </Button>
                     }
                 />
             }>
@@ -203,7 +214,8 @@ function renderCreateRatingElement(element: LogTemplateElement, setElement: Disp
                 regex={RegExp("^[1-9][0-9]*")}
                 regexMatchEmpty
                 regexCheckInitial
-                description={"Maximaler Wert der Bewertungsskala"}
+                type={"number"}
+                description={"Maximaler Wert der Bewertungsskala (Mindestwert: 1)"}
                 labelSmall
                 onChange={e => setElement({ ...element, type: "rating", max: Number(e.target.value) })}
             />

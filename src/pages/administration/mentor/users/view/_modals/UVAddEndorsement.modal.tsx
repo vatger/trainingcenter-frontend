@@ -82,17 +82,15 @@ export function UVAddEndorsementModal({
                 }}
                 title={"Freigabegruppe Hinzufügen"}
                 footer={
-                    <div className={"flex justify-end mt-5"}>
-                        <Button
-                            icon={<TbPlus size={20} />}
-                            disabled={selectedEndorsementGroup == null}
-                            loading={submitting}
-                            variant={"twoTone"}
-                            type={"submit"}
-                            color={COLOR_OPTS.PRIMARY}>
-                            Hinzufügen
-                        </Button>
-                    </div>
+                    <Button
+                        icon={<TbPlus size={20} />}
+                        disabled={selectedEndorsementGroup == null}
+                        loading={submitting}
+                        variant={"twoTone"}
+                        type={"submit"}
+                        color={COLOR_OPTS.PRIMARY}>
+                        Hinzufügen
+                    </Button>
                 }>
                 <Select
                     label={"Freigabegruppe Wählen"}

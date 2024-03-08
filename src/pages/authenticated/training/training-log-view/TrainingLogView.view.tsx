@@ -39,7 +39,7 @@ export function TrainingLogViewView() {
                 elementTrue={<TLVViewSkeleton />}
                 elementFalse={
                     <Card>
-                        <div className={"grid grid-cols-1 md:grid-cols-2 md:gap-5"}>
+                        <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                             <Input
                                 type={"text"}
                                 labelSmall

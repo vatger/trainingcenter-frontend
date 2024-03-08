@@ -48,16 +48,9 @@ export function CVRemoveUserModal({ show, onClose, user, courseUUID }: RemoveUse
             title={"Benutzer entfernen"}
             onClose={() => onClose(undefined)}
             footer={
-                <div className={"flex justify-end mt-5"}>
-                    <Button
-                        icon={<TbTrash size={20} />}
-                        loading={removingUser}
-                        variant={"twoTone"}
-                        onClick={() => handleRemove(user)}
-                        color={COLOR_OPTS.DANGER}>
-                        Entfernen
-                    </Button>
-                </div>
+                <Button icon={<TbTrash size={20} />} loading={removingUser} variant={"twoTone"} onClick={() => handleRemove(user)} color={COLOR_OPTS.DANGER}>
+                    Entfernen
+                </Button>
             }>
             <p>
                 Bist du sicher, dass Du den Benutzer{" "}

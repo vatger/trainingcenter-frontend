@@ -47,11 +47,9 @@ export function CAVWithdrawPartial(props: WithdrawFromCoursePartialProps) {
             onClose={props.onClose}
             title={"Vom Kurs Abmelden"}
             footer={
-                <div className={"flex justify-end mt-5"}>
-                    <Button loading={withdrawing} variant={"twoTone"} onClick={withdrawFromCourse} icon={<TbTrash size={20} />} color={COLOR_OPTS.DANGER}>
-                        Abmelden
-                    </Button>
-                </div>
+                <Button loading={withdrawing} variant={"twoTone"} onClick={withdrawFromCourse} icon={<TbTrash size={20} />} color={COLOR_OPTS.DANGER}>
+                    Abmelden
+                </Button>
             }>
             <p>
                 Bist du sicher, dass du dich vom Kurs <strong>{props.course?.name}</strong> abmelden möchtest? Diese Aktion lässt sich nicht rückgängig machen

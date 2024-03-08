@@ -247,6 +247,9 @@ export function SideNav() {
                                             <MenuItem requiredPerm={"tech.syslog.view"} href={"administration/syslog"} icon={<TbClipboardText size={20} />}>
                                                 Systemlogs
                                             </MenuItem>
+                                            <MenuItem requiredPerm={"tech.joblog.view"} href={"administration/joblog"} icon={<TbClipboardText size={20} />}>
+                                                Joblogs
+                                            </MenuItem>
                                             <MenuItem requiredPerm={"tech.permissions.view"} href={"administration/permission"} icon={<TbLock size={20} />}>
                                                 Rechteverwaltung
                                             </MenuItem>

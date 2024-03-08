@@ -67,11 +67,9 @@ export function UVAddSoloModal({
                 onClose={onClose}
                 title={"Solo Hinzufügen"}
                 footer={
-                    <div className={"flex justify-end"}>
-                        <Button type={"submit"} loading={submitting} icon={<TbPlaylistAdd size={20} />} color={COLOR_OPTS.PRIMARY} variant={"twoTone"}>
-                            Hinzufügen
-                        </Button>
-                    </div>
+                    <Button type={"submit"} loading={submitting} icon={<TbPlaylistAdd size={20} />} color={COLOR_OPTS.PRIMARY} variant={"twoTone"}>
+                        Hinzufügen
+                    </Button>
                 }>
                 <Input
                     label={"Aktuelles ATC Rating"}

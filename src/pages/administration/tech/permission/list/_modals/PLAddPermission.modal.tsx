@@ -40,11 +40,9 @@ export function PLAddPermissionModal(props: { show: boolean; onClose: () => any;
                 show={props.show}
                 title={"Berechtigung Hinzufügen"}
                 footer={
-                    <div className={"flex justify-end mt-5"}>
-                        <Button type={"submit"} loading={loading} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
-                            Hinzufügen
-                        </Button>
-                    </div>
+                    <Button type={"submit"} loading={loading} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
+                        Hinzufügen
+                    </Button>
                 }
                 onClose={props.onClose}>
                 <Input

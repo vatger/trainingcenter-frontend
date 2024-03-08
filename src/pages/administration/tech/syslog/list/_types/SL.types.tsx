@@ -1,8 +1,8 @@
 import { TableColumn } from "react-data-table-component";
-import { SyslogModel } from "../../../../../../models/SyslogModel";
+import { SyslogModel } from "@/models/SyslogModel";
 import moment from "moment/moment";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEye } from "react-icons/tb";
 import { NavigateFunction } from "react-router-dom";
 

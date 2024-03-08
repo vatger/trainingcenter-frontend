@@ -41,11 +41,9 @@ export function OTRVDeleteTrainingRequestModal(props: {
             title={"Trainingsanfrage Löschen"}
             onClose={props.onClose}
             footer={
-                <div className={"flex justify-end"}>
-                    <Button icon={<TbTrash size={20} />} loading={submitting} color={COLOR_OPTS.DANGER} variant={"twoTone"} onClick={deleteTrainingRequest}>
-                        Löschen
-                    </Button>
-                </div>
+                <Button icon={<TbTrash size={20} />} loading={submitting} color={COLOR_OPTS.DANGER} variant={"twoTone"} onClick={deleteTrainingRequest}>
+                    Löschen
+                </Button>
             }>
             <p>
                 Bist du sicher, dass Du die Trainingsanfrage von{" "}

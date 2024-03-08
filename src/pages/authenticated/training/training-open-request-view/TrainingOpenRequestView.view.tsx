@@ -158,7 +158,7 @@ export function TrainingOpenRequestViewView() {
                                     truthValue={trainingRequest?.training_session_id != null && trainingRequest.training_session != null}
                                     elementTrue={
                                         <Button
-                                            className={"lg:mr-3"}
+                                            className={"lg:mt-0 mt-3"}
                                             variant={"twoTone"}
                                             color={COLOR_OPTS.PRIMARY}
                                             onClick={() => navigate("/training/planned/" + trainingRequest?.training_session?.uuid)}

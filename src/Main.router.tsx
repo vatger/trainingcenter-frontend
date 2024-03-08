@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { CourseEnrolView } from "@/pages/authenticated/course/course-enrol/CourseEnrol.view";
 import { CourseView } from "@/pages/authenticated/course/course-view/Course.view";
 import { CourseListView } from "@/pages/authenticated/course/course-list/CourseList.view";
@@ -63,6 +63,7 @@ export function MainRouter() {
             <Route path={"administration/*"} element={<AdministrationRouter />} />
 
             <Route path={"403"} element={<Error403 />} />
+            <Route index path={""} element={<Navigate replace to={"/overview"} />} />
             <Route path={"*"} element={<Error404 path={location.pathname} />} />
         </Routes>
     );

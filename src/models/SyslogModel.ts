@@ -6,5 +6,5 @@ export type SyslogModel = {
     remote_addr?: string;
     message?: string;
     createdAt: Date;
-    updatedAt: Date;
+    updatedAt?: Date;
 };

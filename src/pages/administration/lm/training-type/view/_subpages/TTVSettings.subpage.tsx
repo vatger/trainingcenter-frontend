@@ -137,9 +137,11 @@ export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) 
 
                     <Separator />
 
-                    <Button type={"submit"} loading={isSubmitting} icon={<TbEdit size={20} />} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
-                        {isSubmitting ? <>Änderungen werden gespeichert</> : <>Änderungen Speichern</>}
-                    </Button>
+                    <div className={"flex flex-col sm:flex-row"}>
+                        <Button type={"submit"} loading={isSubmitting} icon={<TbEdit size={20} />} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
+                            {isSubmitting ? <>Änderungen werden gespeichert</> : <>Änderungen Speichern</>}
+                        </Button>
+                    </div>
                 </form>
             }
         />
