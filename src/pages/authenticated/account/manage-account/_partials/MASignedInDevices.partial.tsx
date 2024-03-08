@@ -1,4 +1,4 @@
-import SessionService from "@/services/login/SessionService";
+import SessionService from "@/pages/login/_services/SessionService";
 import { Table } from "@/components/ui/Table/Table";
 import MASignedInDevicesListTypes from "@/pages/authenticated/account/manage-account/_types/MASignedInDevicesList.types";
 import { Config } from "@/core/Config";

@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
-import TrainingRequestAdminService from "../../../../../services/training-request/TrainingRequestAdminService";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
 import { TbCalendarEvent, TbCalendarPlus, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/tb";
@@ -16,13 +15,17 @@ import { OTRVDeleteTrainingRequestModal } from "./_modals/OTRVDeleteTrainingRequ
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { OpenTrainingRequestSkeleton } from "@/pages/administration/mentor/request/open-request-view/_skeletons/OpenTrainingRequest.skeleton";
+import useApi from "@/utils/hooks/useApi";
 
 export function OpenTrainingRequestView() {
     const navigate = useNavigate();
     const { uuid: training_request_uuid } = useParams();
 
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
-    const { trainingRequest, loading } = TrainingRequestAdminService.getByUUID(training_request_uuid);
+    const { data: trainingRequest, loading } = useApi<TrainingRequestModel>({
+        url: `/administration/training-request/${training_request_uuid}`,
+        method: "get",
+    });
 
     return (
         <>

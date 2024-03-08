@@ -1,6 +1,5 @@
 /**
- * Gets all text-based entries of a form
- * Doesn't get any files! These need to be acquired manually!
+ * Gets all entries of a form
  * @param target
  */
 function getEntries(target: EventTarget) {
@@ -21,6 +20,13 @@ function addFiles(form: FormData, files: File[] | File) {
 }
 
 function append(form: FormData, key: string, value: any) {
+    if (value == null) return;
+
+    if (typeof value == "object") {
+        form.append(key, JSON.stringify(value));
+        return;
+    }
+
     form.append(key, value);
 }
 
@@ -29,6 +35,12 @@ function set(form: FormData, key: string, value: any) {
         form.set(key, "undefined");
         return;
     }
+
+    if (typeof value == "object") {
+        form.set(key, JSON.stringify(value));
+        return;
+    }
+
     form.set(key, value);
 }
 

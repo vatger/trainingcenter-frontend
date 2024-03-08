@@ -5,11 +5,11 @@ import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { Table } from "@/components/ui/Table/Table";
 import { TableColumn } from "react-data-table-component";
 import { getCourseTableColumns } from "./_types/CL.types";
-import { getEditableCourses } from "@/services/course/CourseAdminService";
 import { Card } from "@/components/ui/Card/Card";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbPlus } from "react-icons/tb";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 export function AdminCourseListView() {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ export function AdminCourseListView() {
     const [courseData, setCourseData] = useState<CourseModel[]>([]);
 
     useEffect(() => {
-        getEditableCourses().then(res => {
+        axiosInstance.get("/administration/course/editable").then(res => {
             setCourseData(res.data as CourseModel[]);
             setLoading(false);
         });
@@ -33,7 +33,7 @@ export function AdminCourseListView() {
                 header={
                     <Link to={"create"}>
                         <Button icon={<TbPlus size={14} />} size={SIZE_OPTS.SM} color={COLOR_OPTS.PRIMARY} variant={"twoTone"}>
-                            Kurs Anlegen
+                            Kurs Erstellen
                         </Button>
                     </Link>
                 }

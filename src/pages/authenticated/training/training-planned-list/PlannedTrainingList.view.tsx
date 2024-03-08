@@ -1,19 +1,22 @@
-import TrainingRequestService from "../../../../services/training-request/TrainingRequestService";
-import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
-import { Card } from "../../../../components/ui/Card/Card";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
+import { Card } from "@/components/ui/Card/Card";
 import PlannedTrainingListTypes from "./_types/TPLList.types";
-import { useNavigate } from "react-router-dom";
-import { Table } from "../../../../components/ui/Table/Table";
+import { Table } from "@/components/ui/Table/Table";
+import useApi from "@/utils/hooks/useApi";
+import { TrainingSessionBelongsToUserModel } from "@/models/TrainingSessionBelongsToUser.model";
 
 export function PlannedTrainingListView() {
-    const { sessions, loading: loadingSessions } = TrainingRequestService.getPlanned();
+    const { data: sessions, loading: loadingSessions } = useApi<TrainingSessionBelongsToUserModel[]>({
+        url: "/training-request/planned",
+        method: "get",
+    });
 
     return (
         <>
             <PageHeader title={"Geplante Trainings"} hideBackLink />
 
             <Card>
-                <Table paginate columns={PlannedTrainingListTypes.getColumns()} data={sessions} loading={loadingSessions} />
+                <Table paginate columns={PlannedTrainingListTypes.getColumns()} data={sessions ?? []} loading={loadingSessions} />
             </Card>
         </>
     );

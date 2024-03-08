@@ -2,8 +2,6 @@ import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import React, { FormEvent, useRef, useState } from "react";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { COLOR_OPTS, TYPE_OPTS } from "@/assets/theme.config";
-import { generateUUID } from "@/utils/helper/UUIDHelper";
-import CourseAdministrationService from "../../../../../services/course/CourseAdminService";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Input } from "@/components/ui/Input/Input";
 import { TbActivity, TbFilePlus, TbId, TbLock, TbTemplate } from "react-icons/tb";
@@ -22,6 +20,9 @@ import { MapArray } from "@/components/conditionals/MapArray";
 import StringHelper from "@/utils/helper/StringHelper";
 import { MentorGroupModel } from "@/models/MentorGroupModel";
 import ToastHelper from "@/utils/helper/ToastHelper";
+import axios, { AxiosResponse } from "axios";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { CourseModel } from "@/models/CourseModel";
 
 export function CourseCreateView() {
     const navigate = useNavigate();
@@ -46,9 +47,11 @@ export function CourseCreateView() {
         FormHelper.setBool(formData, "active", formData.get("active") == "1");
         FormHelper.setBool(formData, "self_enrol_enabled", formData.get("self_enrol_enabled") == "1");
 
-        CourseAdministrationService.createCourse(formData)
-            .then(res => {
-                navigate(`/administration/course/${res.uuid}`);
+        axiosInstance
+            .post("/administration/course", formData)
+            .then((res: AxiosResponse) => {
+                const course = res.data as CourseModel;
+                navigate(`/administration/course/${course.uuid}`);
                 ToastHelper.success(`Kurs erfolgreich erstellt`);
             })
             .catch(() => {

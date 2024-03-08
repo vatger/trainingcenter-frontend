@@ -167,47 +167,49 @@ export function UVSoloPartial({ user, setUser }: { user?: UserModel; setUser: Di
 
                             <Separator />
 
-                            <RenderIf
-                                truthValue={kontingent > 0}
-                                elementTrue={
-                                    <Button
-                                        icon={<TbAdjustmentsCog size={20} />}
-                                        size={SIZE_OPTS.SM}
-                                        onClick={() => {
-                                            setShowUseKontingentSoloModal(true);
-                                        }}
-                                        variant={"twoTone"}
-                                        color={COLOR_OPTS.PRIMARY}>
-                                        Kontingent Nutzen
-                                    </Button>
-                                }
-                                elementFalse={
-                                    <Button
-                                        icon={<TbPlaylistAdd size={20} />}
-                                        size={SIZE_OPTS.SM}
-                                        onClick={extendSolo}
-                                        loading={submittingExtension}
-                                        variant={"twoTone"}
-                                        color={COLOR_OPTS.PRIMARY}>
-                                        Solo Verlängern
-                                    </Button>
-                                }
-                            />
+                            <div className={"flex flex-col lg:flex-row"}>
+                                <RenderIf
+                                    truthValue={kontingent > 0}
+                                    elementTrue={
+                                        <Button
+                                            icon={<TbAdjustmentsCog size={20} />}
+                                            size={SIZE_OPTS.SM}
+                                            onClick={() => {
+                                                setShowUseKontingentSoloModal(true);
+                                            }}
+                                            variant={"twoTone"}
+                                            color={COLOR_OPTS.PRIMARY}>
+                                            Kontingent Nutzen
+                                        </Button>
+                                    }
+                                    elementFalse={
+                                        <Button
+                                            icon={<TbPlaylistAdd size={20} />}
+                                            size={SIZE_OPTS.SM}
+                                            onClick={extendSolo}
+                                            loading={submittingExtension}
+                                            variant={"twoTone"}
+                                            color={COLOR_OPTS.PRIMARY}>
+                                            Solo Verlängern
+                                        </Button>
+                                    }
+                                />
 
-                            <RenderIf
-                                truthValue={userPermissions.includes("ATD.SOLO.DELETE")}
-                                elementTrue={
-                                    <Button
-                                        icon={<TbAlertTriangle size={20} />}
-                                        className={"ml-3"}
-                                        size={SIZE_OPTS.SM}
-                                        onClick={() => setShowDeleteSoloModal(true)}
-                                        variant={"twoTone"}
-                                        color={COLOR_OPTS.DANGER}>
-                                        Solo Löschen
-                                    </Button>
-                                }
-                            />
+                                <RenderIf
+                                    truthValue={userPermissions.includes("ATD.SOLO.DELETE")}
+                                    elementTrue={
+                                        <Button
+                                            icon={<TbAlertTriangle size={20} />}
+                                            className={"mt-3 lg:mt-0 lg:ml-3"}
+                                            size={SIZE_OPTS.SM}
+                                            onClick={() => setShowDeleteSoloModal(true)}
+                                            variant={"twoTone"}
+                                            color={COLOR_OPTS.DANGER}>
+                                            Solo Löschen
+                                        </Button>
+                                    }
+                                />
+                            </div>
                         </>
                     }
                 />

@@ -1,11 +1,11 @@
 import { Dispatch, useState } from "react";
-import { Modal } from "../../../../../../components/ui/Modal/Modal";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Modal } from "@/components/ui/Modal/Modal";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbListNumbers, TbSection, TbTextDirectionLtr } from "react-icons/tb";
-import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
-import { Input } from "../../../../../../components/ui/Input/Input";
-import { Checkbox } from "../../../../../../components/ui/Checkbox/Checkbox";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import { Input } from "@/components/ui/Input/Input";
+import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
 import { LogTemplateElement, LogTemplateElementRating, LogTemplateType } from "@/models/TrainingLogTemplateModel";
 
 export function LTTemplateElementModal(props: {
@@ -25,7 +25,7 @@ export function LTTemplateElementModal(props: {
 
         if (elem.type == "rating") {
             let e = elem as LogTemplateElementRating;
-            if (e.max == null || isNaN(e.max)) return;
+            if (e.max == null || isNaN(e.max) || Number(e.max <= 0)) return;
         }
 
         let templates = [...props.logTemplateElements];
@@ -41,7 +41,10 @@ export function LTTemplateElementModal(props: {
         <Modal
             show={props.show}
             title={"Logvorlagen-Element Hinzufügen"}
-            onClose={props.onClose}
+            onClose={() => {
+                props.onClose();
+                setShowingSecondPage(false);
+            }}
             footer={
                 <RenderIf
                     truthValue={showingSecondPage}
@@ -197,7 +200,7 @@ function renderCreateRatingElement(element: LogTemplateElement, setElement: Disp
                 className={"mt-4"}
                 label={"Maximaler Wert"}
                 required
-                regex={RegExp("^[0-9]+")}
+                regex={RegExp("^[1-9][0-9]*")}
                 regexMatchEmpty
                 regexCheckInitial
                 description={"Maximaler Wert der Bewertungsskala"}

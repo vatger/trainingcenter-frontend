@@ -47,7 +47,6 @@ export function Table(props: TableProps) {
 
     useEffect(() => {
         if (debouncedSearch.length === 0) {
-            console.log(props.data);
             setData([...props.data]);
             return;
         }

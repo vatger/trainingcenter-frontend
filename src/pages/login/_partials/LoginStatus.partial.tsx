@@ -1,7 +1,7 @@
 import { RenderIf } from "../../../components/conditionals/RenderIf";
 import { NetworkError } from "../../../components/errors/NetworkError";
 import React from "react";
-import { APIResponseError } from "../../../exceptions/APIResponseError";
+import { APIResponseError } from "../_services/APIResponseError";
 import { Alert } from "../../../components/ui/Alert/Alert";
 import { TYPE_OPTS } from "../../../assets/theme.config";
 

@@ -10,9 +10,10 @@ import { COLOR_OPTS } from "@/assets/theme.config";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { TbCheckbox, TbDoorEnter, TbX } from "react-icons/tb";
 import { useState } from "react";
-import CourseService from "@/services/course/CourseService";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import useApi from "@/utils/hooks/useApi";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import FormHelper from "@/utils/helper/FormHelper";
 
 export function CourseEnrolView() {
     const navigate = useNavigate();
@@ -34,7 +35,11 @@ export function CourseEnrolView() {
     function enrol() {
         setEnrolling(true);
 
-        CourseService.enrol(courseUUID)
+        const formData = new FormData();
+        FormHelper.set(formData, "course_uuid", courseUUID);
+
+        axiosInstance
+            .put("/course/enrol", formData)
             .then(() => {
                 navigate(`/course/active/${courseUUID}?r`);
                 ToastHelper.success("Du wurdest erfolgreich in diesen Kurs eingeschrieben");

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, TYPE_OPTS } from "@/assets/theme.config";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { TbChecklist } from "react-icons/tb";
-import TrainingTypeService from "../../../../../services/training-type/TrainingTypeService";
 import { CourseModel } from "@/models/CourseModel";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { CAVTrainingModalSkeleton } from "../_skeletons/CAVTrainingModal.skeleton";
@@ -20,6 +19,8 @@ import FormHelper from "../../../../../utils/helper/FormHelper";
 import { Alert } from "@/components/ui/Alert/Alert";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosResponse } from "axios";
+import useApi from "@/utils/hooks/useApi";
+import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 
 type RequestTrainingModalPartialProps = {
     show: boolean;
@@ -31,13 +32,17 @@ type RequestTrainingModalPartialProps = {
 
 export function CAVRequestTrainingModal(props: RequestTrainingModalPartialProps) {
     const [submitting, setSubmitting] = useState<boolean>(false);
-    const { trainingType: nextTraining, loading: loadingNextTraining } = TrainingTypeService.getByID(props.course.UsersBelongsToCourses?.next_training_type);
+    const { data: nextTraining, loading: loadingNextTraining } = useApi<TrainingTypeModel>({
+        url: `/training-type/${props.course.UsersBelongsToCourses?.next_training_type}`,
+        method: "get",
+    });
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setSubmitting(true);
 
         const formData = FormHelper.getEntries(e.target);
+        FormHelper.set(formData, "testkey", { key: "value", key2: 2 });
 
         axiosInstance
             .post("/training-request", formData)

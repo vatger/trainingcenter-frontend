@@ -4,7 +4,7 @@ import useApi from "@/utils/hooks/useApi";
 import { LogTemplateElement, TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendar, TbCalendarTime, TbEdit, TbEyeCheck, TbFilePlus, TbId, TbRefresh, TbReload, TbTrash } from "react-icons/tb";
+import { TbCalendarTime, TbEdit, TbEyeCheck, TbFilePlus, TbId, TbRefresh, TbTrash } from "react-icons/tb";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
@@ -15,13 +15,13 @@ import { LTTemplateElementPreviewPartial } from "@/pages/administration/atd/log-
 import { LTTemplateElementPartial } from "@/pages/administration/atd/log-template/_shared/_partials/LTTemplateElement.partial";
 import { LTTemplateElementModal } from "@/pages/administration/atd/log-template/_shared/_modals/LTTemplateElement.modal";
 import FormHelper from "@/utils/helper/FormHelper";
-import TrainingLogTemplateAdminService from "@/services/log-template/TrainingLogTemplateAdminService";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { LTViewSkeleton } from "@/pages/administration/atd/log-template/_shared/_skeletons/LTView.skeleton";
 import { LTVDeleteModal } from "@/pages/administration/atd/log-template/log-template-view/_modals/LTVDelete.modal";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { AxiosResponse } from "axios";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 export function LogTemplateViewView() {
     const { id } = useParams();
@@ -45,7 +45,8 @@ export function LogTemplateViewView() {
 
     useEffect(() => {
         if (!loadingTrainingLogTemplate && trainingLogTemplate != null) {
-            setContent(trainingLogTemplate.content as LogTemplateElement[]);
+            const trainingLogTemplateContent = trainingLogTemplate.content as LogTemplateElement[];
+            setContent(trainingLogTemplateContent);
         }
     }, [trainingLogTemplate]);
 
@@ -60,7 +61,8 @@ export function LogTemplateViewView() {
         let formData = FormHelper.getEntries(e.target);
         FormHelper.set(formData, "content", content);
 
-        TrainingLogTemplateAdminService.update(id, formData)
+        axiosInstance
+            .patch(`/administration/training-log/template/${id}`, formData)
             .then((res: AxiosResponse) => {
                 const data = res.data as TrainingLogTemplateModel;
 
@@ -140,7 +142,7 @@ export function LogTemplateViewView() {
 
                         <Card className={"mt-5"} header={"Inhalt der Logvorlage"} headerBorder>
                             <RenderIf
-                                truthValue={content.length == 0}
+                                truthValue={content.length == 0 || !Array.isArray(content)}
                                 elementTrue={<>Kein Inhalt vorhanden</>}
                                 elementFalse={
                                     <MapArray

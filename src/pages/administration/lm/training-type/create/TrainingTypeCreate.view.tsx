@@ -1,23 +1,21 @@
-import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
-import { TTAddLogTemplateModal } from "../_modals/TTAddLogTemplate.modal";
-import { TrainingLogTemplateModel } from "../../../../../models/TrainingLogTemplateModel";
-import { Card } from "../../../../../components/ui/Card/Card";
-import { Input } from "../../../../../components/ui/Input/Input";
-import { TbBook2, TbCirclePlus, TbFilePlus, TbId, TbTemplate, TbTrash } from "react-icons/tb";
-import { Select } from "../../../../../components/ui/Select/Select";
-import { Separator } from "../../../../../components/ui/Separator/Separator";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
-import { RenderIf } from "../../../../../components/conditionals/RenderIf";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
+import { TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
+import { Card } from "@/components/ui/Card/Card";
+import { Input } from "@/components/ui/Input/Input";
+import { TbBook2, TbFilePlus, TbId, TbTemplate } from "react-icons/tb";
+import { Select } from "@/components/ui/Select/Select";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import { FormEvent, useState } from "react";
 import FormHelper from "../../../../../utils/helper/FormHelper";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import TrainingTypeAdminService from "../../../../../services/training-type/TrainingTypeAdminService";
 import { useNavigate } from "react-router-dom";
-import { TrainingTypeModel, TrainingTypes } from "../../../../../models/TrainingTypeModel";
-import TrainingLogTemplateAdminService from "@/services/log-template/TrainingLogTemplateAdminService";
 import { MapArray } from "@/components/conditionals/MapArray";
 import useApi from "@/utils/hooks/useApi";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { AxiosResponse } from "axios";
+import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 
 export function TrainingTypeCreateView() {
     const navigate = useNavigate();
@@ -36,9 +34,11 @@ export function TrainingTypeCreateView() {
 
         const data = FormHelper.getEntries(e.target);
 
-        TrainingTypeAdminService.create(data)
-            .then((res: { id: number | string }) => {
-                navigate("/administration/training-type/" + res.id + "?r");
+        axiosInstance
+            .post("/administration/training-type", data)
+            .then((res: AxiosResponse) => {
+                const data = res.data as TrainingTypeModel;
+                navigate("/administration/training-type/" + data.id + "?r");
                 ToastHelper.success("Trainingstyp erfolgreich erstellt");
             })
             .catch(() => {
@@ -49,7 +49,7 @@ export function TrainingTypeCreateView() {
 
     return (
         <>
-            <PageHeader title={"Trainingstyp Erstellen"} hideBackLink />
+            <PageHeader title={"Trainingstyp Erstellen"} />
 
             <Card>
                 <form onSubmit={e => handleSubmit(e)}>

@@ -1,13 +1,13 @@
 import { TableColumn } from "react-data-table-component";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
-import { Button } from "../../../../../../components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
+import { Button } from "@/components/ui/Button/Button";
 import { TbTrash } from "react-icons/tb";
-import { TrainingStationModel } from "../../../../../../models/TrainingStationModel";
-import { Badge } from "../../../../../../components/ui/Badge/Badge";
+import { TrainingStationModel } from "@/models/TrainingStationModel";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 import { Dispatch, useState } from "react";
-import TrainingTypeAdminService from "@/services/training-type/TrainingTypeAdminService";
 import ToastHelper from "@/utils/helper/ToastHelper";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import FormHelper from "@/utils/helper/FormHelper";
 
 function getColumns(
     trainingType?: TrainingTypeModel,
@@ -16,13 +16,17 @@ function getColumns(
     const [removing, setRemoving] = useState<boolean>(false);
 
     function removeStation(id: number) {
-        if (trainingType == null || setTrainingType == null) {
-            return;
-        }
-
+        if (trainingType == null || setTrainingType == null) return;
         setRemoving(true);
 
-        TrainingTypeAdminService.removeStationByID(trainingType.id, id)
+        const formData = new FormData();
+        FormHelper.set(formData, "training_type_id", trainingType.id);
+        FormHelper.set(formData, "training_station_id", id);
+
+        axiosInstance
+            .delete("/administration/training-type/station", {
+                data: formData,
+            })
             .then(() => {
                 if (trainingType.training_stations == null) {
                     return;

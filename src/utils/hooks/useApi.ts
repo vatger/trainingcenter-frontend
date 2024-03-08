@@ -44,9 +44,7 @@ function useApi<T>(props: IUseApi<T>): IUseApiReturn<T> {
                 const response: T = res.data as T;
 
                 setResponseData(response);
-                if (props.onLoad) {
-                    props.onLoad(response);
-                }
+                props.onLoad?.(response);
             })
             .catch((err: AxiosError) => {
                 setLoadingError(err);

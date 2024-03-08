@@ -1,9 +1,8 @@
 import { TbBell, TbMailOpened } from "react-icons/tb";
-import { Dispatch, useContext, useEffect, useRef, useState } from "react";
-import { generateUUID } from "../../../utils/helper/UUIDHelper";
-import { NotificationModel } from "../../../models/NotificationModel";
-import UserNotificationService from "../../../services/user/UserNotificationService";
-import { AxiosError } from "axios";
+import { Dispatch, useEffect, useRef, useState } from "react";
+import { generateUUID } from "@/utils/helper/UUIDHelper";
+import { NotificationModel } from "@/models/NotificationModel";
+import { AxiosError, AxiosResponse } from "axios";
 import { MapArray } from "../../conditionals/MapArray";
 import NotificationHelper, { getIconByString, getIconColorBySeverity } from "../../../utils/helper/NotificationHelper";
 import dayjs from "dayjs";
@@ -15,12 +14,15 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { useUserSelector } from "@/app/features/authSlice";
 import { useSettingsSelector } from "@/app/features/settingsSlice";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 function loadNotifications(setNotifications: Dispatch<NotificationModel[]>, user_id?: number) {
     if (user_id == null) return;
 
-    UserNotificationService.getUnreadNotifications()
-        .then((notifications: NotificationModel[]) => {
+    axiosInstance
+        .get("/notification/unread")
+        .then((res: AxiosResponse) => {
+            const notifications = res.data as NotificationModel[];
             setNotifications(notifications);
         })
         .catch((err: AxiosError) => {
@@ -93,7 +95,8 @@ export function NotificationHeader() {
 
         setMarkingAllRead(true);
 
-        UserNotificationService.markAllAsRead()
+        axiosInstance
+            .post("/notification/read/all")
             .then(() => {
                 setNotifications([]);
                 ToastHelper.success("Notifications marked as read");
@@ -119,7 +122,7 @@ export function NotificationHeader() {
                 {/* Dropdown */}
                 <ul
                     id={`dropdown-${selectNotificationUUID.current}`}
-                    className="dropdown-menu bottom-end p-0 min-w-[300px] md:min-w-[340px] opacity-100 right-[-50px] sm:right-0 sm:right-0 hidden">
+                    className="dropdown-menu bottom-end p-0 min-w-[300px] md:min-w-[340px] opacity-100 right-[-50px] sm:right-0 hidden">
                     <li className="menu-item-header">
                         <div className="border-b border-gray-200 dark:border-gray-600 px-4 py-2 flex items-center justify-between">
                             <h6>Notifications ({notifications.length})</h6>

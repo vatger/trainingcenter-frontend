@@ -13,7 +13,7 @@ import { RenderIf } from "@/components/conditionals/RenderIf";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import { TbPlus } from "react-icons/tb";
-import TrainingSessionService from "@/services/USE_THIS_LATER/TrainingSessionService";
+import TrainingSessionService from "@/pages/administration/mentor/training-session/session-log-create/_services/TrainingSessionService";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
 import { Select } from "@/components/ui/Select/Select";
@@ -53,25 +53,21 @@ export function TrainingSessionLogsCreateView() {
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!loadingLogTemplate && logTemplate != null) {
-            let logTemplates = logTemplate.content as LogTemplateElement[];
-            const logTemplatesWithUUID = logTemplates.map(l => {
-                return { ...l, uuid: generateUUID() };
-            });
+        if (loadingLogTemplate) return;
+
+        if (logTemplate != null) {
+            let logTemplates = JSON.parse(logTemplate.content as any) as LogTemplateElement[];
+            const logTemplatesWithUUID = logTemplates.map(logTempElement => ({ ...logTempElement, uuid: generateUUID() }));
 
             setLogTemplateElements(logTemplatesWithUUID);
             return;
         }
 
-        if (!loadingLogTemplate) {
-            setLogTemplateElements([{ uuid: generateUUID(), type: "textarea", title: "Bewertung" }]);
-        }
+        setLogTemplateElements([{ uuid: generateUUID(), type: "textarea", title: "Bewertung" }]);
     }, [loadingLogTemplate]);
 
     useEffect(() => {
-        if (participants == null || loadingParticipants) {
-            return;
-        }
+        if (participants == null || loadingParticipants) return;
 
         let arr: ParticipantStatus[] = [];
         for (let i = 0; i < participants?.length; i++) {

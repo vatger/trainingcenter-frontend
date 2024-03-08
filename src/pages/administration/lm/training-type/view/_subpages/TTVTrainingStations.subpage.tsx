@@ -11,9 +11,10 @@ import { TbPlus } from "react-icons/tb";
 import { useState } from "react";
 import { Separator } from "@/components/ui/Separator/Separator";
 import ToastHelper from "@/utils/helper/ToastHelper";
-import TrainingTypeAdminService from "@/services/training-type/TrainingTypeAdminService";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TTVSkeleton } from "@/pages/administration/lm/training-type/view/_skeletons/TTV.skeleton";
+import FormHelper from "@/utils/helper/FormHelper";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 export function TTVTrainingStationsSubpage(props: { trainingTypeID?: string }) {
     const [selectedTrainingStation, setSelectedTrainingStation] = useState<string | undefined>(undefined);
@@ -45,7 +46,12 @@ export function TTVTrainingStationsSubpage(props: { trainingTypeID?: string }) {
         let newStations = [...(trainingType.training_stations ?? [])];
         newStations.push({ ...trainingStation });
 
-        TrainingTypeAdminService.addStationByID(props.trainingTypeID, selectedTrainingStation)
+        const formData = new FormData();
+        FormHelper.set(formData, "training_type_id", props.trainingTypeID);
+        FormHelper.set(formData, "training_station_id", selectedTrainingStation);
+
+        axiosInstance
+            .put("/administration/training-type/station", formData)
             .then(() => {
                 ToastHelper.success("Trainingsstation erfolgreich hinzugefügt");
                 setTrainingType({ ...trainingType, training_stations: newStations });

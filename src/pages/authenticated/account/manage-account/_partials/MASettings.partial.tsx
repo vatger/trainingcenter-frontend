@@ -3,7 +3,7 @@ import { Select } from "@/components/ui/Select/Select";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import React, { useState } from "react";
-import GDPRService from "../../../../../services/user/UserGDPRService";
+import GDPRService from "../_services/UserGDPRService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { TbDownload, TbRefresh, TbRefreshOff } from "react-icons/tb";
 import { RenderIf } from "@/components/conditionals/RenderIf";
@@ -18,7 +18,7 @@ import { store } from "@/app/store";
 
 export function MASettingsPartial() {
     const user = useUserSelector();
-    const language = useSettingsSelector().language;
+    const { language, selectedColorScheme } = useSettingsSelector();
 
     const [submittingSettings, setSubmittingSettings] = useState<boolean>(false);
 
@@ -108,7 +108,7 @@ export function MASettingsPartial() {
                 }
                 element={
                     <div className={"w-full lg:w-1/2  float-right"}>
-                        <Select onChange={value => LocalStorageLibrary.setColorTheme(value as TColorScheme)} defaultValue={LocalStorageLibrary.getColorTheme()}>
+                        <Select onChange={value => LocalStorageLibrary.setColorTheme(value as TColorScheme)} value={selectedColorScheme}>
                             <option value="auto">Automatisch (Betriebssystem)</option>
                             <option value="dark">Dunkel</option>
                             <option value="light">Hell</option>

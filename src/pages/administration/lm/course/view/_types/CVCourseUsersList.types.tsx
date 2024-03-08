@@ -25,7 +25,7 @@ function getColumns(
                 row == null ? (
                     "N/A"
                 ) : (
-                    <Link to={"/administration/users/" + row.id}>
+                    <Link to={"/administration/user/" + row.id}>
                         <span className={"text-primary hover:cursor-pointer hover:underline"}>
                             {row.first_name} {row.last_name}
                         </span>

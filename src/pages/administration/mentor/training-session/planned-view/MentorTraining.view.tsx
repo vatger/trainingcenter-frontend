@@ -7,7 +7,6 @@ import { Select } from "@/components/ui/Select/Select";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { TrainingStationModel } from "@/models/TrainingStationModel";
 import React, { FormEvent, FormEventHandler, useEffect, useState } from "react";
-import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";

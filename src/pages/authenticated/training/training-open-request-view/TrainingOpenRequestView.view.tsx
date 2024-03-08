@@ -1,29 +1,32 @@
-import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
-import { Card } from "../../../../components/ui/Card/Card";
-import { Input } from "../../../../components/ui/Input/Input";
-import { TbCalendar, TbCalendarEvent, TbCalendarTime, TbClipboard, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/tb";
+import { Card } from "@/components/ui/Card/Card";
+import { Input } from "@/components/ui/Input/Input";
+import { TbCalendar, TbCalendarEvent, TbCalendarTime, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/tb";
 import React, { useState } from "react";
-import TrainingRequestService from "../../../../services/training-request/TrainingRequestService";
-import { Button } from "../../../../components/ui/Button/Button";
-import { Separator } from "../../../../components/ui/Separator/Separator";
-import { COLOR_OPTS } from "../../../../assets/theme.config";
+import { Button } from "@/components/ui/Button/Button";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import moment from "moment";
 import StringHelper from "../../../../utils/helper/StringHelper";
-import { TextArea } from "../../../../components/ui/Textarea/TextArea";
-import { RenderIf } from "../../../../components/conditionals/RenderIf";
+import { TextArea } from "@/components/ui/Textarea/TextArea";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 import { CAVDeleteTrainingRequestModal } from "../../course/course-active-view/_modals/CAVDeleteTrainingRequest.modal";
-import { TrainingRequestModel } from "../../../../models/TrainingRequestModel";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 import dayjs from "dayjs";
-import { Config } from "../../../../core/Config";
+import { Config } from "@/core/Config";
 import { TrainingOpenRequestSkeleton } from "@/pages/authenticated/training/training-open-request-view/_skeletons/TrainingOpenRequest.skeleton";
+import useApi from "@/utils/hooks/useApi";
 
 export function TrainingOpenRequestViewView() {
     const navigate = useNavigate();
     const { uuid: training_request_uuid } = useParams();
 
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-    const { trainingRequest, loading: loadingTrainingRequest } = TrainingRequestService.getByUUID(training_request_uuid);
+    const { data: trainingRequest, loading: loadingTrainingRequest } = useApi<TrainingRequestModel>({
+        url: `/training-request/${training_request_uuid}`,
+        method: "get",
+    });
 
     return (
         <>

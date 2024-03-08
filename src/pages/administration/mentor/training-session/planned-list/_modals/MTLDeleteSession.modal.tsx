@@ -8,8 +8,9 @@ import { COLOR_OPTS } from "@/assets/theme.config";
 import { TbTrash } from "react-icons/tb";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { useState } from "react";
-import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";
 import ToastHelper from "@/utils/helper/ToastHelper";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import FormHelper from "@/utils/helper/FormHelper";
 
 export function MTLDeleteSessionModal({
     show,
@@ -25,12 +26,17 @@ export function MTLDeleteSessionModal({
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     function deleteSession() {
-        if (selectedTrainingSession == null) {
-            return;
-        }
+        if (selectedTrainingSession == null) return;
 
         setSubmitting(true);
-        TrainingSessionAdminService.deleteTrainingSession(selectedTrainingSession.id)
+
+        const formData = new FormData();
+        FormHelper.set(formData, "training_session_id", selectedTrainingSession.id);
+
+        axiosInstance
+            .delete("/administration/training-session/training", {
+                data: formData,
+            })
             .then(() => {
                 onSubmit(selectedTrainingSession);
                 onClose();

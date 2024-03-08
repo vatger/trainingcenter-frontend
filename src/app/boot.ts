@@ -1,6 +1,6 @@
 import { store } from "@/app/store";
 import { signIn } from "@/app/features/authSlice";
-import LoginService from "@/services/login/LoginService";
+import LoginService from "@/pages/login/_services/LoginService";
 import { UserModel } from "@/models/UserModel";
 import { Config } from "@/core/Config";
 

@@ -1,11 +1,12 @@
 import { NavigateFunction } from "react-router-dom";
 import { TableColumn } from "react-data-table-component";
-import { PermissionModel, RoleModel } from "../../../../../../models/PermissionModel";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { PermissionModel, RoleModel } from "@/models/PermissionModel";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbCircleMinus, TbCirclePlus } from "react-icons/tb";
-import RoleAdministrationService from "../../../../../../services/permissions/RoleAdminService";
 import { Dispatch, useState } from "react";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import FormHelper from "@/utils/helper/FormHelper";
 
 function getColumns(
     navigate: NavigateFunction,
@@ -14,6 +15,68 @@ function getColumns(
     setRole: Dispatch<RoleModel>
 ): TableColumn<PermissionModel>[] {
     const [loading, setLoading] = useState<{ perm_id: number | undefined }>({ perm_id: undefined });
+
+    function addPermission(row: PermissionModel) {
+        if (role == null) return;
+
+        setLoading({ perm_id: row.id });
+        const formData = new FormData();
+        FormHelper.set(formData, "permission_id", row.id);
+
+        axiosInstance
+            .put(`/administration/role/perm/${role.id}`, formData)
+            .then(() => {
+                const p: PermissionModel = {
+                    id: row.id,
+                    name: row.name,
+                    createdAt: row.createdAt,
+                };
+                let permissions = role.permissions ?? [];
+                permissions.push(p);
+
+                setRole({ ...role, permissions: permissions });
+            })
+            .catch(() => {
+                const permissions = role?.permissions?.filter((p: PermissionModel) => {
+                    return p.id != row.id;
+                });
+
+                setRole({ ...role, permissions: permissions });
+            })
+            .finally(() => setLoading({ perm_id: undefined }));
+    }
+
+    function removePermission(row: PermissionModel) {
+        if (role == null) return;
+
+        setLoading({ perm_id: row.id });
+        const formData = new FormData();
+        FormHelper.set(formData, "permission_id", row.id);
+
+        axiosInstance
+            .delete(`/administration/role/perm/${role.id}`, {
+                data: formData,
+            })
+            .then(() => {
+                const permissions = role?.permissions?.filter((p: PermissionModel) => {
+                    return p.id != row.id;
+                });
+
+                setRole({ ...role, permissions: permissions });
+            })
+            .catch(() => {
+                const p: PermissionModel = {
+                    id: row.id,
+                    name: row.name,
+                    createdAt: row.createdAt,
+                };
+                let permissions = role.permissions ?? [];
+                permissions.push(p);
+
+                setRole({ ...role, permissions: permissions });
+            })
+            .finally(() => setLoading({ perm_id: undefined }));
+    }
 
     return [
         {
@@ -42,27 +105,7 @@ function getColumns(
                             disabled={loading.perm_id != null}
                             loading={loading.perm_id == row.id}
                             onClick={() => {
-                                setLoading({ perm_id: row.id });
-                                RoleAdministrationService.addPermission(role?.id ?? -1, row.id)
-                                    .then(() => {
-                                        const p: PermissionModel = {
-                                            id: row.id,
-                                            name: row.name,
-                                            createdAt: row.createdAt,
-                                        };
-                                        let permissions = role?.permissions ?? [];
-                                        permissions.push(p);
-
-                                        if (role != null) setRole({ ...role, permissions: permissions });
-                                    })
-                                    .catch(() => {
-                                        const permissions = role?.permissions?.filter((p: PermissionModel) => {
-                                            return p.id != row.id;
-                                        });
-
-                                        if (role != null) setRole({ ...role, permissions: permissions });
-                                    })
-                                    .finally(() => setLoading({ perm_id: undefined }));
+                                addPermission(row);
                             }}>
                             Hinzufügen
                         </Button>
@@ -77,27 +120,7 @@ function getColumns(
                             disabled={loading.perm_id != null}
                             loading={loading.perm_id == row.id}
                             onClick={() => {
-                                setLoading({ perm_id: row.id });
-                                RoleAdministrationService.removePermission(role.id ?? -1, row.id)
-                                    .then(() => {
-                                        const permissions = role.permissions?.filter((p: PermissionModel) => {
-                                            return p.id != row.id;
-                                        });
-
-                                        setRole({ ...role, permissions: permissions });
-                                    })
-                                    .catch(() => {
-                                        const p: PermissionModel = {
-                                            id: row.id,
-                                            name: row.name,
-                                            createdAt: row.createdAt,
-                                        };
-                                        let permissions = role.permissions ?? [];
-                                        permissions.push(p);
-
-                                        setRole({ ...role, permissions: permissions });
-                                    })
-                                    .finally(() => setLoading({ perm_id: undefined }));
+                                removePermission(row);
                             }}>
                             Entfernen
                         </Button>

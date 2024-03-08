@@ -1,11 +1,11 @@
-import { Modal } from "../../../../../../components/ui/Modal/Modal";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS } from "../../../../../../assets/theme.config";
-import { TrainingRequestModel } from "../../../../../../models/TrainingRequestModel";
+import { Modal } from "@/components/ui/Modal/Modal";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 import { useState } from "react";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import { TbTrash } from "react-icons/tb";
-import TrainingRequestAdminService from "../../../../../../services/training-request/TrainingRequestAdminService";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 /**
  * Confirms and deletes a training of a specific user.
@@ -22,7 +22,8 @@ export function OTRVDeleteTrainingRequestModal(props: {
 
     function deleteTrainingRequest() {
         setSubmitting(true);
-        TrainingRequestAdminService.destroyTrainingRequestByUUID(props.trainingRequest?.uuid)
+        axiosInstance
+            .delete(`/administration/training-request/${props.trainingRequest?.uuid}`)
             .then(() => {
                 ToastHelper.success("Anfrage erfolgreich gelöscht");
                 props.onClose();

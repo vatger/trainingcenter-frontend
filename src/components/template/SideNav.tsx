@@ -35,7 +35,7 @@ import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 import { handleResize } from "./sidenav/SideNav.helper";
 import { RenderIf } from "../conditionals/RenderIf";
 import { SIDENAV_WIDTH } from "@/assets/theme.config";
-import { useAuthSelector, useUserSelector } from "@/app/features/authSlice";
+import { useAuthSelector } from "@/app/features/authSlice";
 import { useSettingsSelector } from "@/app/features/settingsSlice";
 
 export function SideNav() {
@@ -181,39 +181,21 @@ export function SideNav() {
                                     elementTrue={
                                         <>
                                             <div className="menu-title menu-title-transparent">LM</div>
-                                            <CollapsableMenu title={"Freigabegruppen"} icon={<TbCertificate size={20} />}>
-                                                <MenuItem href={"administration/endorsement-group"} icon={<TbListDetails size={20} />}>
-                                                    Verwalten
-                                                </MenuItem>
-                                                <MenuItem href={"administration/endorsement-group/create"} icon={<TbFilePlus size={20} />}>
-                                                    Erstellen
-                                                </MenuItem>
-                                            </CollapsableMenu>
-                                            <CollapsableMenu title={"Mentorgruppen"} icon={<TbUsers size={20} />}>
-                                                <MenuItem href={"administration/mentor-group"} icon={<TbListDetails size={20} />}>
-                                                    Verwalten
-                                                </MenuItem>
-                                                <MenuItem href={"administration/mentor-group/create"} icon={<TbFilePlus size={20} />}>
-                                                    Erstellen
-                                                </MenuItem>
-                                            </CollapsableMenu>
+                                            <MenuItem href={"administration/endorsement-group"} icon={<TbCertificate size={20} />}>
+                                                Freigabegruppen
+                                            </MenuItem>
+                                            <MenuItem href={"administration/mentor-group"} icon={<TbUsers size={20} />}>
+                                                Mentorgruppen
+                                            </MenuItem>
                                             <MenuItem href={"administration/course"} icon={<TbClipboardList size={20} />}>
                                                 Kurse
                                             </MenuItem>
-                                            <CollapsableMenu title={"Trainingstypen"} icon={<TbTemplate size={20} />}>
-                                                <MenuItem href={"administration/training-type"} icon={<TbListDetails size={20} />}>
-                                                    Verwalten
-                                                </MenuItem>
-                                                <MenuItem href={"administration/training-type/create"} icon={<TbFilePlus size={20} />}>
-                                                    Erstellen
-                                                </MenuItem>
-                                            </CollapsableMenu>
-                                            <CollapsableMenu title={"Aktionen | Bedingungen"} icon={<TbAdjustments size={20} />}>
-                                                <MenuItem icon={<TbListDetails size={20} />} href={"administration/action-requirement"}>
-                                                    Verwalten
-                                                </MenuItem>
-                                                <MenuItem icon={<TbFilePlus size={20} />}>Erstellen</MenuItem>
-                                            </CollapsableMenu>
+                                            <MenuItem href={"administration/training-type"} icon={<TbTemplate size={20} />}>
+                                                Trainingstypen
+                                            </MenuItem>
+                                            <MenuItem icon={<TbAdjustments size={20} />} href={"administration/action-requirement"}>
+                                                Aktionen | Bedingungen
+                                            </MenuItem>
                                         </>
                                     }
                                 />
@@ -235,42 +217,24 @@ export function SideNav() {
                                                 </MenuItem>
                                             </CollapsableMenu>
 
-                                            <CollapsableMenu title={"Logvorlagen"} icon={<TbTemplate size={20} />}>
-                                                <MenuItem href={"administration/log-template/view"} icon={<TbListDetails size={20} />}>
-                                                    Verwalten
-                                                </MenuItem>
-                                                <MenuItem href={"administration/log-template/create"} icon={<TbFilePlus size={20} />}>
-                                                    Erstellen
-                                                </MenuItem>
-                                            </CollapsableMenu>
+                                            <MenuItem href={"administration/log-template"} icon={<TbTemplate size={20} />}>
+                                                Logvorlagen
+                                            </MenuItem>
 
-                                            <CollapsableMenu title={"Fast-Tracks"} icon={<TbChevronsRight size={20} />}>
-                                                <MenuItem
-                                                    href={"administration/fast-track/view"}
-                                                    requiredPerm={"atd.fast_track.view"}
-                                                    icon={<TbChevronsRight size={20} />}>
-                                                    Offene Anfragen
-                                                </MenuItem>
-                                                <MenuItem
-                                                    href={"administration/fast-track/view/all"}
-                                                    requiredPerm={"atd.fast_track.view"}
-                                                    icon={<TbChevronsRight size={20} />}>
-                                                    Alle Anfragen
-                                                </MenuItem>
-                                            </CollapsableMenu>
+                                            <MenuItem
+                                                href={"administration/fast-track"}
+                                                requiredPerm={"atd.fast_track.view"}
+                                                icon={<TbChevronsRight size={20} />}>
+                                                Fast-Tracks
+                                            </MenuItem>
 
                                             <MenuItem requiredPerm={"atd.atsim.view"} icon={<TbSquareCheck size={20} />}>
                                                 ATSIM Anfragen
                                             </MenuItem>
 
-                                            <CollapsableMenu
-                                                requiredPerm={"atd.training_stations.view"}
-                                                title={"Trainingsstationen"}
-                                                icon={<TbRss size={20} />}>
-                                                <MenuItem href={"administration/training-station"} icon={<TbListDetails size={20} />}>
-                                                    Verwalten
-                                                </MenuItem>
-                                            </CollapsableMenu>
+                                            <MenuItem href={"administration/training-station"} icon={<TbRss size={20} />}>
+                                                Trainingsstationen
+                                            </MenuItem>
                                         </>
                                     }
                                 />

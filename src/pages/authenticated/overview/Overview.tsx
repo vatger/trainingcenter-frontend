@@ -7,17 +7,24 @@ import { COLOR_OPTS } from "@/assets/theme.config";
 import generalTranslation from "@/assets/lang/generic.translation";
 import { useUserSelector } from "@/app/features/authSlice";
 import { useSettingsSelector } from "@/app/features/settingsSlice";
+import useApi from "@/utils/hooks/useApi";
+import { RatingTimesPartial } from "@/pages/authenticated/overview/_partials/RatingTimes.partial";
 
 export function Overview() {
     const user = useUserSelector();
     const language = useSettingsSelector().language;
+
+    const { data, loading, loadingError } = useApi<any>({
+        url: "/statistics/rating-times",
+        method: "get",
+    });
 
     return (
         <>
             <PageHeader title={"VATSIM Germany Trainingcenter"} hideBackLink />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="card card-border rounded-lg hover:shadow transition-shadow" role="presentation">
+                <div className="card card-border rounded-md hover:shadow transition-shadow" role="presentation">
                     <div className="card-body">
                         <h6 className="font-semibold mb-4 text-sm">ATC Rating</h6>
                         <div className="flex justify-between items-center">
@@ -32,7 +39,7 @@ export function Overview() {
                     </div>
                 </div>
 
-                <div className="card card-border rounded-lg hover:shadow transition-shadow" role="presentation">
+                <div className="card card-border rounded-md hover:shadow transition-shadow" role="presentation">
                     <div className="card-body">
                         <h6 className="font-semibold mb-4 text-sm">Subdivision</h6>
                         <div className="flex justify-between items-center">
@@ -43,13 +50,13 @@ export function Overview() {
                             </div>
                             <RenderIf
                                 truthValue={user?.user_data?.subdivision_code?.toLowerCase() != "ger"}
-                                elementTrue={<Badge color={COLOR_OPTS.DANGER}>{generalTranslation.guest[language]}</Badge>}
+                                elementTrue={<Badge color={COLOR_OPTS.PRIMARY}>{generalTranslation.guest[language]}</Badge>}
                             />
                         </div>
                     </div>
                 </div>
 
-                <div className="card card-border rounded-lg hover:shadow transition-shadow" role="presentation">
+                <div className="card card-border rounded-md hover:shadow transition-shadow" role="presentation">
                     <div className="card-body">
                         <h6 className="font-semibold mb-4 text-sm">Training Sessions</h6>
                         <div className="flex justify-between items-center">
@@ -65,6 +72,8 @@ export function Overview() {
                     </div>
                 </div>
             </div>
+
+            <RatingTimesPartial data={data} loading={loading} loadingError={loadingError} />
         </>
     );
 }

@@ -40,7 +40,7 @@ function getColumns(): (TableColumn<FastTrackRequestModel> & { searchable?: bool
                     <div className={"flex"}>
                         <Button
                             className={"my-3"}
-                            onClick={() => navigate(`/administration/fast-track/view/${row.id}`)}
+                            onClick={() => navigate(`/administration/fast-track/${row.id}`)}
                             size={SIZE_OPTS.SM}
                             variant={"twoTone"}
                             color={COLOR_OPTS.PRIMARY}

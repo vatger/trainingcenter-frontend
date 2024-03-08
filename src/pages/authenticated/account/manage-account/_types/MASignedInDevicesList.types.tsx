@@ -6,7 +6,7 @@ import { Config } from "@/core/Config";
 import { Dispatch, useState } from "react";
 import { UserSessionModel } from "@/models/UserSessionModel";
 import { TbTrash } from "react-icons/tb";
-import SessionService from "@/services/login/SessionService";
+import SessionService from "@/pages/login/_services/SessionService";
 import ToastHelper from "@/utils/helper/ToastHelper";
 
 function getColumns(sessions: UserSessionModel[], setSessions: Dispatch<UserSessionModel[]>): TableColumn<UserSessionModel>[] {

@@ -1,12 +1,13 @@
-import { Modal } from "../../../../../components/ui/Modal/Modal";
-import { CourseModel } from "../../../../../models/CourseModel";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { Modal } from "@/components/ui/Modal/Modal";
+import { CourseModel } from "@/models/CourseModel";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import React, { useState } from "react";
-import CourseService from "../../../../../services/course/CourseService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { TbTrash } from "react-icons/tb";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import FormHelper from "@/utils/helper/FormHelper";
 
 type WithdrawFromCoursePartialProps = {
     show: boolean;
@@ -21,7 +22,13 @@ export function CAVWithdrawPartial(props: WithdrawFromCoursePartialProps) {
     function withdrawFromCourse() {
         setWithdrawing(true);
 
-        CourseService.withdraw(props.course?.id)
+        const formData = new FormData();
+        FormHelper.set(formData, "course_id", props.course?.id);
+
+        axiosInstance
+            .delete("/course/withdraw", {
+                data: formData,
+            })
             .then(() => {
                 ToastHelper.success("Erfolgreich vom Kurs abgemeldet");
                 navigate("/course/active");

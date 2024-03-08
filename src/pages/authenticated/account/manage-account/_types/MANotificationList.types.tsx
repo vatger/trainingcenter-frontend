@@ -8,8 +8,10 @@ import NotificationHelper from "@/utils/helper/NotificationHelper";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { Dispatch, useState } from "react";
-import UserNotificationService from "@/services/user/UserNotificationService";
 import ToastHelper from "@/utils/helper/ToastHelper";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { Form } from "react-router-dom";
+import FormHelper from "@/utils/helper/FormHelper";
 
 function getColumns(notifications: NotificationModel[], setNotifications: Dispatch<NotificationModel[]>): TableColumn<NotificationModel>[] {
     const [deletingNotificationID, setDeletingNotificationID] = useState<number | undefined>(undefined);
@@ -17,7 +19,11 @@ function getColumns(notifications: NotificationModel[], setNotifications: Dispat
     function deleteNotification(notificationID: number) {
         setDeletingNotificationID(notificationID);
 
-        UserNotificationService.deleteNotification(notificationID)
+        const formData = new FormData();
+        FormHelper.set(formData, "notification_id", notificationID);
+
+        axiosInstance
+            .delete("/notification", { data: formData })
             .then(() => {
                 const newNotifications = notifications.filter(n => n.id != notificationID);
                 setNotifications(newNotifications);
@@ -38,7 +44,11 @@ function getColumns(notifications: NotificationModel[], setNotifications: Dispat
 
         n.read = !n.read;
 
-        UserNotificationService.toggleRead(notificationID)
+        const formData = new FormData();
+        FormHelper.set(formData, "notification_id", notificationID);
+
+        axiosInstance
+            .post("/notification/toggle", formData)
             .then(() => {
                 setNotifications(newNotifications);
                 ToastHelper.success("Benachrichtigung erfolgreich aktualisiert");

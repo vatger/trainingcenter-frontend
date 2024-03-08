@@ -1,4 +1,4 @@
-import { setColorScheme, TColorScheme } from "@/app/features/settingsSlice";
+import { setColorScheme, setSelectedColorScheme, TColorScheme } from "@/app/features/settingsSlice";
 import { store } from "@/app/store";
 
 const LOCAL_STORAGE_KEY: string = "vatger_tc_theme";
@@ -24,8 +24,22 @@ function getColorTheme(): TColorScheme {
     let theme = "light";
     // Check local storage if user isn't logged in for example
     switch (lsDarkMode) {
+        case "dark":
+            store.dispatch(setSelectedColorScheme("dark"));
+            store.dispatch(setColorScheme("dark"));
+            theme = "dark";
+            break;
+
+        case "light":
+            store.dispatch(setSelectedColorScheme("light"));
+            store.dispatch(setColorScheme("light"));
+            theme = "light";
+            break;
+
         case "auto":
         default:
+            store.dispatch(setSelectedColorScheme("auto"));
+
             // If the localstorage is set to auto, we can continue with the OS theme
             if (osDarkMode) {
                 store.dispatch(setColorScheme("dark"));
@@ -34,16 +48,6 @@ function getColorTheme(): TColorScheme {
                 store.dispatch(setColorScheme("light"));
                 theme = "light";
             }
-            break;
-
-        case "dark":
-            store.dispatch(setColorScheme("dark"));
-            theme = "dark";
-            break;
-
-        case "light":
-            store.dispatch(setColorScheme("light"));
-            theme = "light";
             break;
     }
 
@@ -76,7 +80,7 @@ function _updateColorScheme() {
 }
 
 function init() {
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', () => {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
         _updateColorScheme();
     });
 
@@ -86,5 +90,5 @@ function init() {
 export default {
     getColorTheme,
     setColorTheme,
-    init
+    init,
 };

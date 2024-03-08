@@ -1,23 +1,27 @@
-import { PageHeader } from "../../../../components/ui/PageHeader/PageHeader";
-import TrainingSessionService from "../../../../services/training-session/TrainingSessionService";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
-import { Card } from "../../../../components/ui/Card/Card";
-import { Input } from "../../../../components/ui/Input/Input";
+import { Card } from "@/components/ui/Card/Card";
+import { Input } from "@/components/ui/Input/Input";
 import { TbCalendarEvent, TbDoorExit, TbId, TbListCheck, TbRadar, TbUsers } from "react-icons/tb";
 import React, { useState } from "react";
 import StringHelper from "../../../../utils/helper/StringHelper";
 import dayjs from "dayjs";
-import { Config } from "../../../../core/Config";
-import { Separator } from "../../../../components/ui/Separator/Separator";
-import { Button } from "../../../../components/ui/Button/Button";
-import { COLOR_OPTS } from "../../../../assets/theme.config";
-import { RenderIf } from "../../../../components/conditionals/RenderIf";
+import { Config } from "@/core/Config";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TPVWithdrawModal } from "./_modals/TPVWithdraw.modal";
+import useApi from "@/utils/hooks/useApi";
+import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 
 export function PlannedTrainingView() {
     const navigate = useNavigate();
     const { uuid } = useParams();
-    const { trainingSession } = TrainingSessionService.getSessionByUUID(uuid);
+    const { data: trainingSession } = useApi<TrainingSessionModel>({
+        url: `/training/session/${uuid}`,
+        method: "get",
+    });
 
     const [submitting, setSubmitting] = useState<boolean>(false);
     const [showWithdrawModal, setShowWithdrawModal] = useState<boolean>(false);
@@ -27,11 +31,8 @@ export function PlannedTrainingView() {
             <PageHeader title={"Geplante Session Verwalten"} />
 
             <Card>
-                <Input labelSmall label={"UUID"} preIcon={<TbId size={20} />} disabled value={trainingSession?.uuid} />
-
                 <Input
                     labelSmall
-                    className={"mt-5"}
                     label={"Zuletzt aktualisiert (UTC)"}
                     preIcon={<TbCalendarEvent size={20} />}
                     disabled
@@ -77,7 +78,13 @@ export function PlannedTrainingView() {
                         preIcon={<TbListCheck size={20} />}
                         label={"Mentor"}
                         disabled
-                        value={`${trainingSession?.mentor?.first_name} ${trainingSession?.mentor?.last_name} (${trainingSession?.mentor?.id})`}
+                        inputError={trainingSession?.mentor == null}
+                        hideInputErrorText
+                        value={
+                            trainingSession?.mentor == null
+                                ? "N/A"
+                                : `${trainingSession?.mentor?.first_name} ${trainingSession?.mentor?.last_name} (${trainingSession?.mentor?.id})`
+                        }
                     />
                     <Input labelSmall preIcon={<TbUsers size={20} />} label={"Teilnehmer"} disabled value={trainingSession?.users?.length.toString() ?? "0"} />
 

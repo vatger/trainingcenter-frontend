@@ -6,9 +6,10 @@ import { Badge } from "@/components/ui/Badge/Badge";
 import { MentorGroupModel } from "@/models/MentorGroupModel";
 import moment from "moment";
 import { Dispatch, useState } from "react";
-import CourseAdminService from "../../../../../../services/course/CourseAdminService";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import { MentorGroupMembersModalT } from "@/pages/administration/lm/course/view/_subpages/CVMentorgroups.subpage";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import FormHelper from "@/utils/helper/FormHelper";
 
 function getColumns(
     courseUUID: string | undefined,
@@ -23,7 +24,13 @@ function getColumns(
     function removeMentorGroup(id: number) {
         setRemovingMentorGroupID(id);
 
-        CourseAdminService.removeMentorGroupByID({ course_uuid: courseUUID, mentor_group_id: id })
+        const formData = new FormData();
+        FormHelper.set(formData, "mentor_group_id", id);
+
+        axiosInstance
+            .delete(`/administration/course/mentor-group/${courseUUID}`, {
+                data: formData,
+            })
             .then(() => {
                 const toBeRemoved = mentorGroups.find(mg => mg.id == id);
                 if (toBeRemoved != null && !mentorGroupDropDown?.find(mg => mg.id)) {

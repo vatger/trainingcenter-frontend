@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button/Button";
 import { SelectLanguageHeader } from "@/components/template/header/SelectLanguageHeader";
 import loginTranslation from "@/assets/lang/login/login.translation";
 import vaccLogoDark from "@/assets/img/vacc_logo_dark.png";
-import LoginService from "@/services/login/LoginService";
+import LoginService from "@/pages/login/_services/LoginService";
 import vaccLogo from "@/assets/img/vacc_logo.png";
 import { LoginStatusPartial } from "./_partials/LoginStatus.partial";
 import { useAuthSelector } from "@/app/features/authSlice";

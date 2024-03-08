@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/Card/Card";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/Input/Input";
-import { TbArrowRight, TbCalendarEvent, TbCalendarPlus, TbUser } from "react-icons/tb";
+import { TbCalendarEvent, TbCalendarPlus, TbUser } from "react-icons/tb";
 import dayjs from "dayjs";
 import React, { FormEvent, useState } from "react";
 import { Table } from "@/components/ui/Table/Table";
@@ -11,11 +11,9 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS, TYPE_OPTS } from "@/assets/theme.config";
 import { UserModel } from "@/models/UserModel";
 import TSCParticipantListTypes from "@/pages/administration/mentor/training-session/session-create/_types/TSCParticipantList.types";
-import UserAdminService from "@/services/user/UserAdminService";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TrainingSessionCreateSkeleton } from "@/pages/administration/mentor/training-session/session-create/_skeletons/TrainingSessionCreate.skeleton";
-import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";
 import { Select } from "@/components/ui/Select/Select";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { TrainingStationModel } from "@/models/TrainingStationModel";
@@ -26,7 +24,6 @@ import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { Alert } from "@/components/ui/Alert/Alert";
-import { Checkbox } from "@/components/ui/Checkbox/Checkbox";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosResponse } from "axios";
 
@@ -57,7 +54,10 @@ export function TrainingSessionCreateView() {
         }
 
         setLoadingUser(true);
-        UserAdminService.getUserBasicDetails(newParticipantID)
+        axiosInstance
+            .get(`/administration/user/data/basic`, {
+                params: { user_id: newParticipantID },
+            })
             .then(res => {
                 let p = [...participants];
                 const user = res.data as UserModel;
@@ -76,7 +76,11 @@ export function TrainingSessionCreateView() {
         setSubmitting(true);
 
         const data = FormHelper.getEntries(event?.target);
-        FormHelper.set(data, "user_ids", participants.map(u => u.id).join(","));
+        FormHelper.set(
+            data,
+            "user_ids",
+            participants.map(u => u.id)
+        );
 
         axiosInstance
             .post("/administration/training-session/training", data)
@@ -107,16 +111,16 @@ export function TrainingSessionCreateView() {
                                         label={`Kurs Auswählen`}
                                         labelSmall
                                         name={"course_uuid"}
-                                        defaultValue={"-1"}
+                                        defaultValue={"none"}
                                         onChange={value => {
-                                            if (value == "-1") {
+                                            if (value == "none") {
                                                 setCourseUUID(undefined);
                                                 return;
                                             }
                                             setTrainingTypeID(undefined);
                                             setCourseUUID(value);
                                         }}>
-                                        <option value={"-1"}>N/A</option>
+                                        <option value={"none"}>N/A</option>
                                         <MapArray
                                             data={courses ?? []}
                                             mapFunction={(course: CourseModel, index) => {
@@ -134,15 +138,15 @@ export function TrainingSessionCreateView() {
                                         labelSmall
                                         disabled={courses?.find(c => c.uuid == courseUUID)?.training_types?.length == 0 || courseUUID == null}
                                         name={"training_type_id"}
-                                        defaultValue={"-1"}
+                                        defaultValue={"none"}
                                         onChange={value => {
-                                            if (value == "-1") {
+                                            if (value == "none") {
                                                 setTrainingTypeID(undefined);
                                                 return;
                                             }
                                             setTrainingTypeID(Number(value));
                                         }}>
-                                        <option value={"-1"}>N/A</option>
+                                        <option value={"none"}>N/A</option>
                                         <MapArray
                                             data={courses?.find(c => c.uuid == courseUUID)?.training_types ?? []}
                                             mapFunction={(trainingType: TrainingTypeModel, index) => {
@@ -182,8 +186,8 @@ export function TrainingSessionCreateView() {
                                             courseUUID == null
                                         }
                                         name={"training_station_id"}
-                                        defaultValue={"-1"}>
-                                        <option value={"-1"}>N/A</option>
+                                        defaultValue={"none"}>
+                                        <option value={"none"}>N/A</option>
                                         <MapArray
                                             data={
                                                 courses?.find(c => c.uuid == courseUUID)?.training_types?.find(t => t.id == trainingTypeID)

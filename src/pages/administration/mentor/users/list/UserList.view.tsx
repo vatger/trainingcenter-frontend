@@ -8,13 +8,13 @@ import { UserModel } from "@/models/UserModel";
 import { Table } from "@/components/ui/Table/Table";
 import { getUserSearchTableColumns } from "./_types/US.types";
 import { useNavigate } from "react-router-dom";
-import UserService from "../../../../../services/user/UserAdminService";
 import { useFilter } from "@/utils/hooks/useFilter";
 import { fuzzySearch } from "@/utils/helper/fuzzysearch/FuzzySearchHelper";
 import { getAtcRatingShort } from "@/utils/helper/vatsim/AtcRatingHelper";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { NetworkError } from "@/components/errors/NetworkError";
 import { useAuthSelector, useUserSelector } from "@/app/features/authSlice";
+import useApi from "@/utils/hooks/useApi";
 
 const filterFunction = (user: UserModel, searchValue: string) => {
     return (
@@ -30,8 +30,16 @@ export function UserListView() {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const debouncedValue = useDebounce<string>(searchQuery, 250);
 
-    const { users, loading, loadingError } = UserService.getAllUsers();
-    const filteredUsers = useFilter<UserModel>(users, searchQuery, debouncedValue, filterFunction);
+    const {
+        data: users,
+        loading,
+        loadingError,
+    } = useApi<UserModel[]>({
+        url: "/administration/user",
+        method: "get",
+    });
+
+    const filteredUsers = useFilter<UserModel>(users ?? [], searchQuery, debouncedValue, filterFunction);
 
     return (
         <>
@@ -39,7 +47,7 @@ export function UserListView() {
 
             <RenderIf
                 truthValue={loadingError != null}
-                elementTrue={<NetworkError error={loadingError?.error} closeable={false} />}
+                elementTrue={<NetworkError error={loadingError} closeable={false} />}
                 elementFalse={
                     <>
                         <Card>

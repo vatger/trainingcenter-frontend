@@ -1,20 +1,20 @@
-import { Input } from "../../../../../../components/ui/Input/Input";
+import { Input } from "@/components/ui/Input/Input";
 import { TbBook2, TbCirclePlus, TbEdit, TbId, TbTemplate, TbTrash } from "react-icons/tb";
-import { Select } from "../../../../../../components/ui/Select/Select";
-import { Separator } from "../../../../../../components/ui/Separator/Separator";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
-import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
-import React, { Dispatch, FormEvent, useEffect, useState } from "react";
-import { TrainingTypeModel, TrainingTypes } from "../../../../../../models/TrainingTypeModel";
-import { TTAddLogTemplateModal } from "../../_modals/TTAddLogTemplate.modal";
-import { TrainingLogTemplateModel } from "../../../../../../models/TrainingLogTemplateModel";
+import { Select } from "@/components/ui/Select/Select";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS } from "@/assets/theme.config";
+import { RenderIf } from "@/components/conditionals/RenderIf";
+import React, { FormEvent, useState } from "react";
+import { TrainingTypeModel } from "@/models/TrainingTypeModel";
+import { TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
 import FormHelper from "../../../../../../utils/helper/FormHelper";
-import TrainingTypeAdminService from "../../../../../../services/training-type/TrainingTypeAdminService";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import useApi from "@/utils/hooks/useApi";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { TTViewSettingsSkeleton } from "@/pages/administration/lm/training-type/_skeletons/TTViewSettings.skeleton";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { AxiosResponse } from "axios";
 
 type TrainingTypeViewSettingsSubpageProps = {
     trainingTypeID?: string;
@@ -22,10 +22,18 @@ type TrainingTypeViewSettingsSubpageProps = {
 
 export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [selectedType, setSelectedType] = useState<string>("");
 
-    const { data: trainingType, loading: loadingTrainingType } = useApi<TrainingTypeModel>({
+    const {
+        data: trainingType,
+        loading: loadingTrainingType,
+        setData: setTrainingType,
+    } = useApi<TrainingTypeModel>({
         url: `/administration/training-type/${props.trainingTypeID ?? "-1"}`,
         method: "get",
+        onLoad: trainingType => {
+            setSelectedType(trainingType.type);
+        },
     });
 
     const { data: trainingLogTemplates, loading: loadingTrainingLogTemplates } = useApi<TrainingLogTemplateModel[]>({
@@ -42,8 +50,13 @@ export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) 
         setIsSubmitting(true);
 
         const data = FormHelper.getEntries(e.target);
-        TrainingTypeAdminService.update(props.trainingTypeID, data)
-            .then(() => {
+        console.log(data);
+
+        axiosInstance
+            .patch(`/administration/training-type/${props.trainingTypeID}`, data)
+            .then((res: AxiosResponse) => {
+                const trainingType = res.data as TrainingTypeModel;
+                setTrainingType(trainingType);
                 ToastHelper.success("Trainingstyp erfolgreich aktualisiert");
             })
             .catch(() => {
@@ -57,7 +70,7 @@ export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) 
             truthValue={loadingTrainingType || loadingTrainingLogTemplates}
             elementTrue={<TTViewSettingsSkeleton />}
             elementFalse={
-                <form onSubmit={e => handleUpdate(e)}>
+                <form onSubmit={handleUpdate}>
                     <div className={"grid md:gap-5"}>
                         <Input
                             name={"name"}
@@ -87,7 +100,8 @@ export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) 
                             required
                             defaultValue={trainingType?.type}
                             name={"type"}
-                            preIcon={<TbBook2 size={20} />}>
+                            preIcon={<TbBook2 size={20} />}
+                            onChange={e => setSelectedType(e)}>
                             <option value={"lesson"}>Lesson</option>
                             <option value={"online"}>Online</option>
                             <option value={"sim"}>Sim Session</option>
@@ -99,7 +113,7 @@ export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) 
 
                     <Select
                         labelSmall
-                        disabled={trainingType?.type == "cpt"}
+                        disabled={selectedType == "cpt"}
                         label={"Logvorlage"}
                         description={
                             "Bei jedem Training von diesem Typen werden die Mentoren dazu aufgefordert ein Log mit der unten stehenden Vorlage auszuwählen. " +
@@ -108,7 +122,7 @@ export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) 
                         name={"log_template_id"}
                         preIcon={<TbTemplate size={20} />}
                         defaultValue={trainingType?.log_template_id ?? "-1"}>
-                        <option value={"-1"}>N/A</option>
+                        <option value={"n/a"}>N/A</option>
                         <MapArray
                             data={trainingLogTemplates ?? []}
                             mapFunction={(trainingLogTemplate: TrainingLogTemplateModel, index: number) => {

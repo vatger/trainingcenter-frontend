@@ -7,9 +7,8 @@ import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { RenderIf } from "@/components/conditionals/RenderIf";
-import { MapArray } from "../../../../../components/conditionals/MapArray";
+import { MapArray } from "@/components/conditionals/MapArray";
 import FormHelper from "../../../../../utils/helper/FormHelper";
-import TrainingLogTemplateAdminService from "../../../../../services/log-template/TrainingLogTemplateAdminService";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { LogTemplateElement, TrainingLogTemplateModel } from "@/models/TrainingLogTemplateModel";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
@@ -50,7 +49,7 @@ export function LogTemplateCreateView() {
 
     return (
         <>
-            <PageHeader title={"Logvorlage Erstellen"} hideBackLink />
+            <PageHeader title={"Logvorlage Erstellen"} />
 
             <Card header={"Eigenschaften"} headerBorder>
                 <form onSubmit={createTemplate}>

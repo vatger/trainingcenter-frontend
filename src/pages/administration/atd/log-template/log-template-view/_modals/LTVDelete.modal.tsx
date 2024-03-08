@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/Button/Button";
 import { TbTrash } from "react-icons/tb";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import React, { useState } from "react";
-import TrainingLogTemplateAdminService from "@/services/log-template/TrainingLogTemplateAdminService";
 import { NavigateFunction } from "react-router-dom";
 import ToastHelper from "@/utils/helper/ToastHelper";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 export function LTVDeleteModal({
     show,
@@ -28,10 +28,11 @@ export function LTVDeleteModal({
 
         setDeleting(true);
 
-        TrainingLogTemplateAdminService.destroy(logTemplate.id)
+        axiosInstance
+            .delete(`/administration/training-log/template/${logTemplate.id}`)
             .then(() => {
                 ToastHelper.success("Logvorlage erfolgreich gelöscht");
-                navigate("/administration/log-template/view");
+                navigate("/administration/log-template");
             })
             .catch(() => {
                 ToastHelper.error("Fehler beim Löschen der Logvorlage");

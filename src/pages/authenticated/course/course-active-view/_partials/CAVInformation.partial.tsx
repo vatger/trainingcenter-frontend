@@ -37,7 +37,6 @@ export function CAVInformationPartial(props: ActiveCourseInformationPartialProps
 
             <Card header={"Allgemeine Informationen"} headerBorder headerExtra={<Badge color={COLOR_OPTS.PRIMARY}>Eingeschrieben</Badge>}>
                 <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
-                    <Input preIcon={<TbId size={20} />} labelSmall label={"UUID"} disabled value={props.course?.uuid} />
                     <Input preIcon={<TbId size={20} />} labelSmall label={"Kurs Name"} disabled value={props.course?.name} />
                     <Input
                         preIcon={<TbCalendar size={20} />}

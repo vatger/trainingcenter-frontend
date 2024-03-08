@@ -1,7 +1,6 @@
 import { Card } from "@/components/ui/Card/Card";
 import { Table } from "@/components/ui/Table/Table";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
-import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";
 import MTLListTypes from "@/pages/administration/mentor/training-session/planned-list/_types/MTLList.types";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";

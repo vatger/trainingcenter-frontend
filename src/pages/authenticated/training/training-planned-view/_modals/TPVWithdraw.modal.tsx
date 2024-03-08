@@ -1,14 +1,14 @@
-import { Modal } from "../../../../../components/ui/Modal/Modal";
-import TrainingSessionService from "../../../../../services/training-session/TrainingSessionService";
+import { Modal } from "@/components/ui/Modal/Modal";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { useNavigate } from "react-router-dom";
 import React, { Dispatch } from "react";
-import { TrainingSessionModel } from "../../../../../models/TrainingSessionModel";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { TrainingSessionModel } from "@/models/TrainingSessionModel";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import { TbDoorExit } from "react-icons/tb";
 import dayjs from "dayjs";
-import { Config } from "../../../../../core/Config";
+import { Config } from "@/core/Config";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 type Props = {
     show: boolean;
@@ -27,7 +27,8 @@ export function TPVWithdrawModal(props: Props) {
         }
 
         props.setSubmitting(true);
-        TrainingSessionService.withdrawFromSessionByUUID(props.trainingSession.uuid)
+        axiosInstance
+            .delete(`/training-session/withdraw/${props.trainingSession.uuid}`)
             .then(() => {
                 ToastHelper.success("Erfolgreich von Session abgemeldet");
                 navigate("/training/planned");

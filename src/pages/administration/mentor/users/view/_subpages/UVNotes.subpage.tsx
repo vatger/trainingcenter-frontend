@@ -3,17 +3,15 @@ import { Card } from "@/components/ui/Card/Card";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEdit, TbPlus, TbTrash } from "react-icons/tb";
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { UVUserNoteSkeleton } from "../_skeletons/UVUserNote.skeleton";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { MapArray } from "@/components/conditionals/MapArray";
-import UserNoteAdminService from "../../../../../../services/user/UserNoteAdminService";
 import { useParams } from "react-router-dom";
 import { UserNoteModel } from "@/models/UserNoteModel";
 import { UserModel } from "@/models/UserModel";
 import { Select } from "@/components/ui/Select/Select";
-import UserAdminService from "../../../../../../services/user/UserAdminService";
 import { CourseModel } from "@/models/CourseModel";
 import { AxiosError, AxiosResponse } from "axios";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
@@ -21,6 +19,8 @@ import dayjs from "dayjs";
 import { Config } from "@/core/Config";
 import { UVCreateNoteModal } from "../_modals/UVCreateNote.modal";
 import { useUserSelector } from "@/app/features/authSlice";
+import useApi from "@/utils/hooks/useApi";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 export function UVNotesSubpage() {
     const { user_id } = useParams();
@@ -28,9 +28,26 @@ export function UVNotesSubpage() {
 
     const [showCreateNoteModal, setShowCreateModal] = useState<boolean>(false);
 
-    const { userNotes, setUserNotes, loading: loadingUserNotes } = UserNoteAdminService.getGeneralUserNotes(user_id);
+    const {
+        data: userNotes,
+        setData: setUserNotes,
+        loading: loadingUserNotes,
+    } = useApi<UserNoteModel[]>({
+        url: "/administration/user/notes",
+        method: "get",
+        params: {
+            user_id: user_id,
+        },
+    });
 
-    const { courses, loading: loadingUserCourses } = UserAdminService.getUserCoursesMatch(user?.id);
+    const { data: courses } = useApi<CourseModel[]>({
+        url: "/administration/user/course/match",
+        method: "get",
+        params: {
+            user_id: user?.id,
+        },
+    });
+
     const [courseNotes, setCourseNotes] = useState<UserNoteModel[]>([]);
     const [loadingCourseNotes, setLoadingCourseNotes] = useState<boolean>(false);
     const courseNoteCache = useRef<Map<string, UserNoteModel[]>>(new Map<string, UserNoteModel[]>());
@@ -48,7 +65,13 @@ export function UVNotesSubpage() {
 
         setLoadingCourseNotes(true);
 
-        UserAdminService.getUserNotesByCourseID(value, user_id)
+        axiosInstance
+            .get("/administration/user/notes/course", {
+                params: {
+                    courseID: value,
+                    userID: user_id,
+                },
+            })
             .then((res: AxiosResponse) => {
                 setCourseNotes(res.data as UserNoteModel[]);
                 courseNoteCache.current.set(value, res.data as UserNoteModel[]);
@@ -87,7 +110,7 @@ export function UVNotesSubpage() {
                         Kurs Auswählen
                     </option>
                     <MapArray
-                        data={courses}
+                        data={courses ?? []}
                         mapFunction={(value: CourseModel, index: number) => {
                             return (
                                 <option key={index} value={value.id}>
@@ -112,7 +135,7 @@ export function UVNotesSubpage() {
                             }}
                         />
                     }
-                    elementFalse={renderUserNotes(userNotes, user)}
+                    elementFalse={renderUserNotes(userNotes ?? [], user)}
                 />
             </Card>
 
@@ -128,18 +151,18 @@ export function UVNotesSubpage() {
                             courseNoteCache.current.set(key, [...(notes ?? []), userNote]);
 
                             if (courseNotes.length > 0 && courseNotes[0].course_id == userNote.course_id) {
-                                setCourseNotes(courseNoteCache.current.get(key) ?? []);
+                                setCourseNotes([...(courseNoteCache.current.get(key) ?? [])]);
                             }
                         }
 
                         return;
                     }
 
-                    // If is has no course_id, then we can just add it to the array of things
-                    setUserNotes([...userNotes, userNote]);
+                    // If it has no course_id, then we can just add it to the array of things
+                    setUserNotes([...(userNotes ?? []), userNote]);
                 }}
                 onClose={() => setShowCreateModal(false)}
-                courses={courses}
+                courses={courses ?? []}
                 user_id={user_id}
             />
         </>

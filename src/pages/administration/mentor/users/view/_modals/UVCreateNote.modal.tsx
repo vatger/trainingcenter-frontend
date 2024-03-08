@@ -34,10 +34,11 @@ export function UVCreateNoteModal(props: CreateUserNotePartialProps) {
 
         const formData = FormHelper.getEntries(e.target);
         axiosInstance
-            .put("/administration/user/note", formData)
+            .post("/administration/user/note", formData)
             .then((res: AxiosResponse) => {
                 props.onCreate(res.data as UserNoteModel);
                 toastHelper.success("Notiz erfolgreich erstellt");
+                props.onClose();
             })
             .catch((err: AxiosError) => {
                 toastHelper.error("Fehler beim Erstellen der Notiz");

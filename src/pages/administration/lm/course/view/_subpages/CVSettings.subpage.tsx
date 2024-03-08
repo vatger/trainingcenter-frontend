@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/Button/Button";
 import { TextArea } from "@/components/ui/Textarea/TextArea";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import FormHelper from "../../../../../../utils/helper/FormHelper";
-import CourseAdministrationService from "../../../../../../services/course/CourseAdminService";
 import useApi from "@/utils/hooks/useApi";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
@@ -18,6 +17,7 @@ import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 import { MapArray } from "@/components/conditionals/MapArray";
 import StringHelper from "@/utils/helper/StringHelper";
 import { CVSettingsSkeleton } from "@/pages/administration/lm/course/view/_skeletons/CVSettings.skeleton";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefined }) {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -37,6 +37,7 @@ export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefin
     });
 
     function handleFormSubmission(e: FormEvent<HTMLFormElement>) {
+        if (course == null) return;
         e.preventDefault();
         setIsSubmitting(true);
 
@@ -45,17 +46,13 @@ export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefin
         FormHelper.setBool(formData, "active", formData.get("active") == "1");
         FormHelper.setBool(formData, "self_enrol_enabled", formData.get("self_enrol_enabled") == "1");
 
-        CourseAdministrationService.update(formData)
+        axiosInstance
+            .patch("/administration/course", formData)
             .then(() => {
-                if (course != null) {
-                    setCourse({ ...course, updatedAt: new Date() });
-                }
+                setCourse({ ...course, updatedAt: new Date() });
                 ToastHelper.success("Kurs aktualisiert");
             })
             .catch(() => {
-                if (course != null) {
-                    setCourse({ ...course, updatedAt: new Date() });
-                }
                 ToastHelper.error("Fehler beim Aktualisieren des Kurses");
             })
             .finally(() => setIsSubmitting(false));

@@ -18,9 +18,16 @@ import dayjs from "dayjs";
 export function TrainingLogViewView() {
     const { uuid } = useParams();
 
-    const { data: trainingLog, loading: loadingTrainingLog } = useApi<TrainingLogModel>({
+    const {
+        data: trainingLog,
+        loading: loadingTrainingLog,
+        setData,
+    } = useApi<TrainingLogModel>({
         url: `/training-log/${uuid}`,
         method: "get",
+        onLoad: trainingLog => {
+            setData({ ...trainingLog, content: JSON.parse(trainingLog.content as any) });
+        },
     });
 
     return (

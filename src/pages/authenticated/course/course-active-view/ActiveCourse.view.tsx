@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
-import CourseInformationService from "../../../../services/course/CourseInformationService";
 import { CAVInformationSkeleton } from "./_skeletons/CAVInformation.skeleton";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { CAVTrainingHistorySkeleton } from "./_skeletons/CAVTrainingHistory.skeleton";
@@ -11,13 +10,28 @@ import { CAVTrainingHistoryPartial } from "./_partials/CAVTrainingHistory.partia
 import { CAVTrainingRequestsSkeleton } from "./_skeletons/CAVTrainingRequests.skeleton";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
+import { CourseModel } from "@/models/CourseModel";
+import { UserTrainingSessionModel } from "@/models/TrainingSessionModel";
 
 export function ActiveCourseView() {
     const { uuid } = useParams();
     const [showRequestTrainingModal, setShowRequestTrainingModal] = useState<boolean>(false);
 
-    const { course, loading: loadingCourse } = CourseInformationService.getMyCourseInformationByUUID(uuid);
-    const { trainingData, loading: loadingTrainingData } = CourseInformationService.getCourseTrainingInformationByUUID(uuid);
+    const { data: course, loading: loadingCourse } = useApi<CourseModel>({
+        url: "/course/info/my",
+        method: "get",
+        params: {
+            uuid: uuid,
+        },
+    });
+
+    const { data: trainingData, loading: loadingTrainingData } = useApi<UserTrainingSessionModel[]>({
+        url: "/course/info/training",
+        method: "get",
+        params: {
+            uuid: uuid,
+        },
+    });
 
     const {
         data: ActiveTrainingRequests,
@@ -55,7 +69,7 @@ export function ActiveCourseView() {
 
                         <CAVTrainingRequestsPartial trainingRequests={ActiveTrainingRequests ?? []} loadingTrainingRequests={loadingActiveTrainingRequests} />
 
-                        <CAVTrainingHistoryPartial trainingData={trainingData} />
+                        <CAVTrainingHistoryPartial trainingData={trainingData ?? []} />
                     </>
                 }
             />

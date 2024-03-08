@@ -1,6 +1,5 @@
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
-import CourseInformationService from "../../../../services/course/CourseInformationService";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { CourseViewSkeleton } from "@/pages/authenticated/course/course-view/_skeletons/CourseView.skeleton";
 import { Badge } from "@/components/ui/Badge/Badge";

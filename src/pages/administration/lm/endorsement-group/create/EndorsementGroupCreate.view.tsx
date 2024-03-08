@@ -67,7 +67,7 @@ export function EndorsementGroupCreateView() {
 
     return (
         <>
-            <PageHeader title={"Freigabegruppe Erstellen"} hideBackLink />
+            <PageHeader title={"Freigabegruppe Erstellen"} />
 
             <RenderIf
                 truthValue={loadingStations}
@@ -109,7 +109,7 @@ export function EndorsementGroupCreateView() {
                                     data={trainingStations?.filter(t => trainingStationIDs.indexOf(t.id) == -1) ?? []}
                                     mapFunction={(station: TrainingStationModel, index) => {
                                         return (
-                                            <option value={station.id.toString()}>{`${station.callsign.toUpperCase()} (${station.frequency.toFixed(
+                                            <option key={index} value={station.id.toString()}>{`${station.callsign.toUpperCase()} (${station.frequency.toFixed(
                                                 3
                                             )})`}</option>
                                         );

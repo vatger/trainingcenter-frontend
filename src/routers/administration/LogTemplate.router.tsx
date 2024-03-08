@@ -11,9 +11,9 @@ export function LogTemplateRouter() {
 
     return (
         <Routes>
-            <Route path={"view"} element={<LogTemplateListView />} />
-            <Route path={"view/:id"} element={<LogTemplateViewView />} />
-            <Route path={"create"} element={<LogTemplateCreateView />} />
+            <Route path={"/"} element={<LogTemplateListView />} />
+            <Route path={"/:id"} element={<LogTemplateViewView />} />
+            <Route path={"/create"} element={<LogTemplateCreateView />} />
 
             <Route path={"403"} element={<Error403 />} />
             <Route path={"*"} element={<Error404 path={location.pathname} />} />

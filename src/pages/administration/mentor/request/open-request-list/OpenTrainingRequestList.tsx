@@ -1,21 +1,21 @@
-import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
-import TrainingRequestAdminService from "../../../../../services/training-request/TrainingRequestAdminService";
-import { Table } from "../../../../../components/ui/Table/Table";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
+import { Table } from "@/components/ui/Table/Table";
 import { TableColumn } from "react-data-table-component";
-import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 import OpenRequestListTypes from "./_types/OTRLList.types";
 import { useNavigate } from "react-router-dom";
-import { Input } from "../../../../../components/ui/Input/Input";
-import { Button } from "../../../../../components/ui/Button/Button";
+import { Input } from "@/components/ui/Input/Input";
+import { Button } from "@/components/ui/Button/Button";
 import { TbFilter } from "react-icons/tb";
-import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import { useState } from "react";
-import { useDebounce } from "../../../../../utils/hooks/useDebounce";
-import { useFilter } from "../../../../../utils/hooks/useFilter";
-import { fuzzySearch } from "../../../../../utils/helper/fuzzysearch/FuzzySearchHelper";
-import { Card } from "../../../../../components/ui/Card/Card";
-import { Tabs } from "../../../../../components/ui/Tabs/Tabs";
+import { useDebounce } from "@/utils/hooks/useDebounce";
+import { useFilter } from "@/utils/hooks/useFilter";
+import { fuzzySearch } from "@/utils/helper/fuzzysearch/FuzzySearchHelper";
+import { Card } from "@/components/ui/Card/Card";
+import { Tabs } from "@/components/ui/Tabs/Tabs";
 import { Badge } from "@/components/ui/Badge/Badge";
+import useApi from "@/utils/hooks/useApi";
 
 type SearchFilter = {
     modal_open: boolean;
@@ -36,14 +36,17 @@ const filterTrainingRequestFunction = (trainingRequest: TrainingRequestModel, se
 
 export function OpenTrainingRequestList() {
     const navigate = useNavigate();
-    const { trainingRequests, setTrainingRequests, loading } = TrainingRequestAdminService.getOpenRequests();
+    const { data: trainingRequests, loading } = useApi<TrainingRequestModel[]>({
+        url: "/administration/training-request",
+        method: "get",
+    });
 
     const [searchFilter, setSearchFilter] = useState<SearchFilter>({ modal_open: false, available_only: false });
     const [searchInputValue, setSearchInputValue] = useState<string>("");
     const debouncedInput = useDebounce(searchInputValue, 250);
 
     const columns: TableColumn<TrainingRequestModel>[] = OpenRequestListTypes.getColumns(navigate);
-    const filteredTrainingRequests = useFilter<TrainingRequestModel>(trainingRequests, searchInputValue, debouncedInput, filterTrainingRequestFunction);
+    const filteredTrainingRequests = useFilter<TrainingRequestModel>(trainingRequests ?? [], searchInputValue, debouncedInput, filterTrainingRequestFunction);
 
     return (
         <>
@@ -58,7 +61,9 @@ export function OpenTrainingRequestList() {
                         disabled={loading}
                         label={"Anfragen Filtern"}
                         placeholder={
-                            trainingRequests?.length > 0 ? `${trainingRequests[0].user?.first_name} ${trainingRequests[0].user?.last_name}` : "Max Mustermann"
+                            trainingRequests?.[0] != null
+                                ? `${trainingRequests?.[0]?.user?.first_name} ${trainingRequests?.[0]?.user?.last_name}`
+                                : "Max Mustermann"
                         }
                     />
 

@@ -1,12 +1,11 @@
-import { PageHeader } from "../../../../../components/ui/PageHeader/PageHeader";
-import SyslogAdminService from "../../../../../services/syslog/SyslogAdminService";
+import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useParams } from "react-router-dom";
-import { Card } from "../../../../../components/ui/Card/Card";
-import { Input } from "../../../../../components/ui/Input/Input";
+import { Card } from "@/components/ui/Card/Card";
+import { Input } from "@/components/ui/Input/Input";
 import React from "react";
 import moment from "moment";
-import { Badge } from "../../../../../components/ui/Badge/Badge";
-import { COLOR_OPTS } from "../../../../../assets/theme.config";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import { TextArea } from "@/components/ui/Textarea/TextArea";
 import useApi from "@/utils/hooks/useApi";
 import { SyslogModel } from "@/models/SyslogModel";

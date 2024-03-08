@@ -1,28 +1,29 @@
 import { Card } from "@/components/ui/Card/Card";
 import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
-import TrainingRequestAdminService from "@/services/training-request/TrainingRequestAdminService";
 import { Input } from "@/components/ui/Input/Input";
 import { TbCalendarEvent, TbCalendarPlus, TbId, TbUser } from "react-icons/tb";
 import dayjs from "dayjs";
-import React, { FormEvent, FormEventHandler, useEffect, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Table } from "@/components/ui/Table/Table";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { UserModel } from "@/models/UserModel";
 import TSCParticipantListTypes from "@/pages/administration/mentor/training-session/session-create/_types/TSCParticipantList.types";
-import UserAdminService from "@/services/user/UserAdminService";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TrainingSessionCreateSkeleton } from "@/pages/administration/mentor/training-session/session-create/_skeletons/TrainingSessionCreate.skeleton";
-import TrainingSessionAdminService from "@/services/training-session/TrainingSessionAdminService";
 import { Select } from "@/components/ui/Select/Select";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { TrainingStationModel } from "@/models/TrainingStationModel";
 import FormHelper from "@/utils/helper/FormHelper";
-import { CommonRegexp } from "@/core/Config";
 import { Badge } from "@/components/ui/Badge/Badge";
+import useApi from "@/utils/hooks/useApi";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { AxiosResponse } from "axios";
+import { TrainingSessionModel } from "@/models/TrainingSessionModel";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -31,7 +32,10 @@ import { Badge } from "@/components/ui/Badge/Badge";
 export function TrainingSessionCreateFromRequestView() {
     const navigate = useNavigate();
     const { uuid: courseUUID } = useParams();
-    const { trainingRequest, loading } = TrainingRequestAdminService.getByUUID(courseUUID);
+    const { data: trainingRequest, loading } = useApi<TrainingRequestModel>({
+        url: `/administration/training-request/${courseUUID}`,
+        method: "get",
+    });
 
     const [submitting, setSubmitting] = useState<boolean>(false);
 
@@ -54,7 +58,10 @@ export function TrainingSessionCreateFromRequestView() {
         }
 
         setLoadingUser(true);
-        UserAdminService.getUserBasicDetails(newParticipantID)
+        axiosInstance
+            .get(`/administration/user/data/basic`, {
+                params: { user_id: newParticipantID },
+            })
             .then(res => {
                 let p = [...participants];
                 const user = res.data as UserModel;
@@ -69,6 +76,8 @@ export function TrainingSessionCreateFromRequestView() {
     }
 
     function createSession(event?: FormEvent<HTMLFormElement>) {
+        if (trainingRequest == null) return;
+
         event?.preventDefault();
         if (event == null) {
             ToastHelper.error("Ein unerwarteter Fehler ist aufgetreten. Versuche es bitte erneut.");
@@ -76,16 +85,19 @@ export function TrainingSessionCreateFromRequestView() {
         }
 
         const formData = FormHelper.getEntries(event?.target);
+        FormHelper.set(formData, "training_type_id", trainingRequest.training_type_id);
+        FormHelper.set(
+            formData,
+            "user_ids",
+            participants.map(u => u.id)
+        );
+        FormHelper.set(formData, "course_uuid", trainingRequest.course?.uuid);
 
         setSubmitting(true);
-        TrainingSessionAdminService.createTrainingSession(
-            participants,
-            trainingRequest?.course?.uuid,
-            trainingRequest?.training_type_id,
-            formData.get("training_station")?.toString(),
-            formData.get("date")?.toString()
-        )
-            .then(session => {
+        axiosInstance
+            .post("/administration/training-session/training", formData)
+            .then((res: AxiosResponse) => {
+                const session = res.data as TrainingSessionModel;
                 ToastHelper.success("Session wurde erfolgreich erstellt");
                 navigate(`/administration/training-request/planned/${session.uuid}`);
             })
@@ -129,13 +141,13 @@ export function TrainingSessionCreateFromRequestView() {
                                     <Select
                                         label={"Trainingsstation"}
                                         labelSmall
-                                        name={"training_station"}
-                                        defaultValue={trainingRequest?.training_type_id}
+                                        name={"training_station_id"}
+                                        defaultValue={trainingRequest?.training_type_id ?? "none"}
                                         disabled={
                                             trainingRequest?.training_type?.training_stations == null ||
                                             trainingRequest.training_type.training_stations.length == 0
                                         }>
-                                        <option value={"-1"}>N/A</option>
+                                        <option value={"none"}>N/A</option>
                                         <MapArray
                                             data={trainingRequest?.training_type?.training_stations ?? []}
                                             mapFunction={(trainingStation: TrainingStationModel, index) => {
