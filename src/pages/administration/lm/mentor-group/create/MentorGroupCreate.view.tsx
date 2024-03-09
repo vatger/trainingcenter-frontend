@@ -41,7 +41,11 @@ export function MentorGroupCreateView() {
         setSubmitting(true);
 
         let formData = FormHelper.getEntries(e.target);
-        FormHelper.set(formData, "users", users);
+        FormHelper.set(formData, "users", users.map(u => ({
+            user_id: u.user.id,
+            admin: u.admin,
+            can_manage: u.can_manage
+        })));
 
         axiosInstance
             .post("/administration/mentor-group", formData)

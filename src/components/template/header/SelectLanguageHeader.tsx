@@ -13,7 +13,7 @@ import flagEn from "@/assets/img/flag_en.png";
 import { setLanguage, useSettingsSelector } from "@/app/features/settingsSlice";
 import { store } from "@/app/store";
 import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
-import {Config} from "@/core/Config";
+import { Config } from "@/core/Config";
 
 const flag_de = (
     <div className={"w-[20px] h-[20px] avatar-circle"}>

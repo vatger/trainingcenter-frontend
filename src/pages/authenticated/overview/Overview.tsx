@@ -14,9 +14,14 @@ export function Overview() {
     const user = useUserSelector();
     const language = useSettingsSelector().language;
 
-    const { data, loading, loadingError } = useApi<any>({
+    const { data: ratingTimes, loading: loadingRatingTimes, loadingError } = useApi<any>({
         url: "/statistics/rating-times",
         method: "get",
+    });
+
+    const { data: trainingSessionCount, loading: loadingTrainingSessionCount } = useApi<{ count: number }>({
+        url: "/statistics/training-session-count",
+        method: "get"
     });
 
     return (
@@ -62,18 +67,15 @@ export function Overview() {
                         <div className="flex justify-between items-center">
                             <div>
                                 <h4 className="font-bold">
-                                    <span>-1</span>
+                                    <span>{trainingSessionCount?.count}</span>
                                 </h4>
-                            </div>
-                            <div className="tag gap-1 font-bold border-0 text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-500/20">
-                                <span>11.4%</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <RatingTimesPartial data={data} loading={loading} loadingError={loadingError} />
+            <RatingTimesPartial data={ratingTimes} loading={loadingRatingTimes} loadingError={loadingError} />
         </>
     );
 }

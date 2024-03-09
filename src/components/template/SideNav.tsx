@@ -42,7 +42,7 @@ import SidenavTranslation from "@/assets/lang/sidenav/sidenav.translation";
 export function SideNav() {
     const userPermissions = useAuthSelector().userPermissions;
     const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
-    const {colorScheme, language} = useSettingsSelector();
+    const { colorScheme, language } = useSettingsSelector();
 
     function toggleMobileNav() {
         const backdrop = document.getElementById("backdrop-small-nav");

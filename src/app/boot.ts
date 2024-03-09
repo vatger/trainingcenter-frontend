@@ -3,7 +3,7 @@ import { signIn } from "@/app/features/authSlice";
 import LoginService from "@/pages/login/_services/LoginService";
 import { UserModel } from "@/models/UserModel";
 import { Config } from "@/core/Config";
-import {setLanguage, TLanguage} from "@/app/features/settingsSlice";
+import { setLanguage, TLanguage } from "@/app/features/settingsSlice";
 import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
 
 function trySignIn() {

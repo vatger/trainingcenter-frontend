@@ -1,8 +1,8 @@
 import { UserDataModel, UserModel, UserSettingsModel } from "@/models/UserModel";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useAppSelector } from "@/app/hooks";
-import {store} from "@/app/store";
-import {setLanguage} from "@/app/features/settingsSlice";
+import { store } from "@/app/store";
+import { setLanguage } from "@/app/features/settingsSlice";
 
 interface AuthState {
     signedIn: boolean;

@@ -16,11 +16,11 @@ import { NetworkError } from "@/components/errors/NetworkError";
 import { signIn } from "@/app/features/authSlice";
 import hero from "@/assets/img/hero.jpg";
 import { store } from "@/app/store";
-import {setLanguage, TLanguage, useSettingsSelector} from "@/app/features/settingsSlice";
+import { setLanguage, TLanguage, useSettingsSelector } from "@/app/features/settingsSlice";
 import loginTranslation from "@/assets/lang/login/login.translation";
 import genericTranslation from "@/assets/lang/generic.translation";
 import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
-import {Config} from "@/core/Config";
+import { Config } from "@/core/Config";
 
 export function LoginCallbackView() {
     const navigate = useNavigate();

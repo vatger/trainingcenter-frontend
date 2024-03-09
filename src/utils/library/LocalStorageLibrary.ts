@@ -69,7 +69,7 @@ function setColorTheme(value: TColorScheme) {
  * @param value
  */
 function setKey(key: string, value: string) {
-    window.localStorage.setItem(key, value)
+    window.localStorage.setItem(key, value);
 }
 
 /**
@@ -77,7 +77,7 @@ function setKey(key: string, value: string) {
  * @param key
  */
 function getKey(key: string) {
-    return window.localStorage.getItem(key)
+    return window.localStorage.getItem(key);
 }
 
 /**
@@ -109,5 +109,5 @@ export default {
     setColorTheme,
     init,
     setKey,
-    getKey
+    getKey,
 };

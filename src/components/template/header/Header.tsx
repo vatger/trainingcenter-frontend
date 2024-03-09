@@ -19,7 +19,7 @@ export function Header() {
                     </div>
                 </div>
                 <div className="header-action header-action-end">
-                    <SelectLanguageHeader saveSelection/>
+                    <SelectLanguageHeader saveSelection />
 
                     <NotificationHeader />
 
