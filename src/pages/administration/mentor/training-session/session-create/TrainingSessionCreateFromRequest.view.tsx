@@ -11,19 +11,16 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { UserModel } from "@/models/UserModel";
 import TSCParticipantListTypes from "@/pages/administration/mentor/training-session/session-create/_types/TSCParticipantList.types";
-import ToastHelper from "@/utils/helper/ToastHelper";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TrainingSessionCreateSkeleton } from "@/pages/administration/mentor/training-session/session-create/_skeletons/TrainingSessionCreate.skeleton";
 import { Select } from "@/components/ui/Select/Select";
 import { MapArray } from "@/components/conditionals/MapArray";
 import { TrainingStationModel } from "@/models/TrainingStationModel";
-import FormHelper from "@/utils/helper/FormHelper";
 import { Badge } from "@/components/ui/Badge/Badge";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
-import { axiosInstance } from "@/utils/network/AxiosInstance";
-import { AxiosResponse } from "axios";
-import { TrainingSessionModel } from "@/models/TrainingSessionModel";
+import TrainingSessionCreateService
+    from "@/pages/administration/mentor/training-session/session-create/_services/TrainingSessionCreate.service";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -52,61 +49,6 @@ export function TrainingSessionCreateFromRequestView() {
         }
     }, [trainingRequest]);
 
-    function addUser() {
-        if (participants.find(u => u.id == Number(newParticipantID)) || newParticipantID.length < 4) {
-            return;
-        }
-
-        setLoadingUser(true);
-        axiosInstance
-            .get(`/administration/user/data/basic`, {
-                params: { user_id: newParticipantID },
-            })
-            .then(res => {
-                let p = [...participants];
-                const user = res.data as UserModel;
-                p.push(user);
-                setParticipants(p);
-                setNewParticipantID("");
-            })
-            .catch(() => {
-                ToastHelper.error(`Fehler beim laden des Benutzers ${newParticipantID}`);
-            })
-            .finally(() => setLoadingUser(false));
-    }
-
-    function createSession(event?: FormEvent<HTMLFormElement>) {
-        if (trainingRequest == null) return;
-
-        event?.preventDefault();
-        if (event == null) {
-            ToastHelper.error("Ein unerwarteter Fehler ist aufgetreten. Versuche es bitte erneut.");
-            return;
-        }
-
-        const formData = FormHelper.getEntries(event?.target);
-        FormHelper.set(formData, "training_type_id", trainingRequest.training_type_id);
-        FormHelper.set(
-            formData,
-            "user_ids",
-            participants.map(u => u.id)
-        );
-        FormHelper.set(formData, "course_uuid", trainingRequest.course?.uuid);
-
-        setSubmitting(true);
-        axiosInstance
-            .post("/administration/training-session/training", formData)
-            .then((res: AxiosResponse) => {
-                const session = res.data as TrainingSessionModel;
-                ToastHelper.success("Session wurde erfolgreich erstellt");
-                navigate(`/administration/training-request/planned/${session.uuid}`);
-            })
-            .catch(err => {
-                ToastHelper.error("Fehler beim Erstellen der Session");
-            })
-            .finally(() => setSubmitting(false));
-    }
-
     return (
         <>
             <PageHeader title={"Trainingssession Erstellen"} />
@@ -116,14 +58,24 @@ export function TrainingSessionCreateFromRequestView() {
                 elementTrue={<TrainingSessionCreateSkeleton />}
                 elementFalse={
                     <>
-                        <form onSubmit={createSession}>
+                        <form onSubmit={async (e) => {
+                            await TrainingSessionCreateService.createSession({
+                                event: e,
+                                setSubmitting: setSubmitting,
+                                participants: participants,
+                                navigate: navigate,
+                                fromRequest: true,
+                                trainingRequest: trainingRequest
+                            });
+                        }}>
                             <Card header={"Training"} headerBorder>
                                 <div className={"grid grid-cols-1 lg:grid-cols-2 gap-5"}>
-                                    <Input label={"Kurs"} labelSmall preIcon={<TbId size={20} />} disabled readOnly value={trainingRequest?.course?.name} />
+                                    <Input label={"Kurs"} labelSmall preIcon={<TbId size={20}/>} disabled readOnly
+                                           value={trainingRequest?.course?.name}/>
                                     <Input
                                         label={"Trainingstyp"}
                                         labelSmall
-                                        preIcon={<TbId size={20} />}
+                                        preIcon={<TbId size={20}/>}
                                         disabled
                                         readOnly
                                         value={`${trainingRequest?.training_type?.name} (${trainingRequest?.training_type?.type})`}
@@ -135,7 +87,7 @@ export function TrainingSessionCreateFromRequestView() {
                                         type={"datetime-local"}
                                         name={"date"}
                                         labelSmall
-                                        preIcon={<TbCalendarEvent size={20} />}
+                                        preIcon={<TbCalendarEvent size={20}/>}
                                         value={dayjs().utc().format("YYYY-MM-DD HH:mm")}
                                     />
                                     <Select
@@ -160,9 +112,10 @@ export function TrainingSessionCreateFromRequestView() {
                                         />
                                     </Select>
                                 </div>
-                                <Separator />
+                                <Separator/>
 
-                                <Button variant={"twoTone"} loading={submitting} color={COLOR_OPTS.PRIMARY} icon={<TbCalendarPlus size={20} />} type={"submit"}>
+                                <Button variant={"twoTone"} loading={submitting} color={COLOR_OPTS.PRIMARY}
+                                        icon={<TbCalendarPlus size={20}/>} type={"submit"}>
                                     Session Erstellen
                                 </Button>
                             </Card>
@@ -173,7 +126,8 @@ export function TrainingSessionCreateFromRequestView() {
                             headerBorder
                             className={"mt-5"}
                             headerExtra={
-                                participants.length == 0 ? <Badge color={COLOR_OPTS.DANGER}>Mindestens ein Teilnehmer erforderlich</Badge> : undefined
+                                participants.length == 0 ? <Badge color={COLOR_OPTS.DANGER}>Mindestens ein Teilnehmer
+                                    erforderlich</Badge> : undefined
                             }>
                             <Input
                                 onChange={e => setNewParticipantID(e.target.value)}
@@ -194,7 +148,15 @@ export function TrainingSessionCreateFromRequestView() {
                                 disabled={submitting}
                                 variant={"twoTone"}
                                 className={"mt-3"}
-                                onClick={e => addUser()}>
+                                onClick={async () => {
+                                    await TrainingSessionCreateService.addUser({
+                                        participants: participants,
+                                        setParticipants: setParticipants,
+                                        newParticipantId: newParticipantID,
+                                        setNewParticipantId: setNewParticipantID,
+                                        setLoadingUser: setLoadingUser
+                                    });
+                                }}>
                                 Hinzufügen
                             </Button>
 
