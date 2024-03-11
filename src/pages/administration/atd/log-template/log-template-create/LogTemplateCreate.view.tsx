@@ -38,7 +38,7 @@ export function LogTemplateCreateView() {
             .then((res: AxiosResponse) => {
                 const data = res.data as TrainingLogTemplateModel;
 
-                navigate("/administration/log-template/" + data.id);
+                navigate("/administration/log-template/" + data.id + "?r");
                 ToastHelper.success("Logvorlage erfolgreich erstellt");
             })
             .catch(() => {
