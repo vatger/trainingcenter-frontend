@@ -17,9 +17,27 @@ function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationMod
             sortable: true,
         },
         {
-            name: "Frequenz",
-            selector: row => row.frequency?.toFixed(3) ?? "Wird Ermittelt",
+            name: "gcap_class",
+            selector: row => row.gcap_class,
+            searchable: false,
+            sortable: true,
+        },
+        {
+            name: "gcap_class_group",
+            selector: row => row.gcap_class_group ?? "Wird Ermittelt",
             searchable: true,
+            sortable: true,
+        },
+        {
+            name: "gcap_training_airport",
+            selector: row => (row.gcap_training_airport ? "Ja" : "Nein"),
+            searchable: false,
+            sortable: true,
+        },
+        {
+            name: "s1_twr",
+            selector: row => (row.s1_twr ? "Ja" : "Nein"),
+            searchable: false,
             sortable: true,
         },
         {
