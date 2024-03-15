@@ -1,7 +1,7 @@
 import "./assets/styles/app.scss";
 import { SideNav } from "./components/template/SideNav";
 import { ContentContainer } from "./components/template/ContentContainer";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
 import { SideNavMenuProvider } from "./utils/contexts/SideNavMenuContext";
 import { LoginView } from "./pages/login/Login.view";
 import { LoginOverlay } from "./pages/login/LoginOverlay";
@@ -9,7 +9,7 @@ import { LoginCallbackView } from "./pages/login/LoginCallbackView";
 import { AxiosInterceptors } from "./utils/network/AxiosInterceptors";
 import { ToastContainer, ToastContainerProps } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { MainRouter } from "@/Main.router";
+import { Router } from "@/routers/Router";
 import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
 
 LocalStorageLibrary.init();
@@ -45,7 +45,7 @@ function App() {
                                     <SideNav />
 
                                     <ContentContainer>
-                                        <MainRouter />
+                                        <Router />
                                     </ContentContainer>
                                 </div>
                             }

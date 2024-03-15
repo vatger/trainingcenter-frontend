@@ -37,7 +37,7 @@ export function LoginCallbackView() {
             .then((user: UserModel) => {
                 store.dispatch(signIn(user));
                 store.dispatch(setLanguage((user.user_settings?.language as TLanguage) ?? "de"));
-                navigate("/overview");
+                navigate("/");
             })
             .catch((err: AxiosError) => {
                 setSignInError({
