@@ -1,12 +1,12 @@
-import {UserModel} from "@/models/UserModel";
-import {axiosInstance} from "@/utils/network/AxiosInstance";
+import { UserModel } from "@/models/UserModel";
+import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
-import {Dispatch, FormEvent} from "react";
+import { Dispatch, FormEvent } from "react";
 import FormHelper from "@/utils/helper/FormHelper";
-import {AxiosResponse} from "axios";
-import {TrainingSessionModel} from "@/models/TrainingSessionModel";
-import {NavigateFunction} from "react-router-dom";
-import {TrainingRequestModel} from "@/models/TrainingRequestModel";
+import { AxiosResponse } from "axios";
+import { TrainingSessionModel } from "@/models/TrainingSessionModel";
+import { NavigateFunction } from "react-router-dom";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 
 interface AddUserPropsT {
     participants: UserModel[];
@@ -38,7 +38,6 @@ async function addUser(opts: AddUserPropsT) {
         })
         .finally(() => opts.setLoadingUser(false));
 }
-
 
 interface CreateSessionPropsT {
     event: FormEvent<HTMLFormElement>;
@@ -81,5 +80,5 @@ async function createSession(opts: CreateSessionPropsT) {
 
 export default {
     addUser,
-    createSession
-}
+    createSession,
+};

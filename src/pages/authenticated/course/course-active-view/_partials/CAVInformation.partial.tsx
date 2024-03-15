@@ -5,13 +5,14 @@ import { Badge } from "@/components/ui/Badge/Badge";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { Input } from "@/components/ui/Input/Input";
 import { TbCalendar, TbCertificate, TbChevronsRight, TbDoorExit, TbId } from "react-icons/tb";
-import moment from "moment";
 import { getAtcRatingCombined } from "@/utils/helper/vatsim/AtcRatingHelper";
 import { Button } from "@/components/ui/Button/Button";
 import React, { Dispatch, useState } from "react";
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { CAVWithdrawPartial } from "./CAVWithdraw.partial";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 type ActiveCourseInformationPartialProps = {
     showRequestTrainingModal: boolean;
@@ -43,7 +44,7 @@ export function CAVInformationPartial(props: ActiveCourseInformationPartialProps
                         label={"Eingeschrieben am"}
                         labelSmall
                         disabled
-                        value={moment(props.course?.UsersBelongsToCourses?.createdAt).utc().format("DD.MM.YYYY HH:mm") + "Z"}
+                        value={dayjs.utc(props.course?.UsersBelongsToCourses?.createdAt).format(Config.DATETIME_FORMAT)}
                     />
                     <Input
                         preIcon={<TbCertificate size={20} />}

@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
 import React from "react";
-import moment from "moment";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import { TextArea } from "@/components/ui/Textarea/TextArea";
 import useApi from "@/utils/hooks/useApi";
 import { SyslogModel } from "@/models/SyslogModel";
 import { RenderIf } from "@/components/conditionals/RenderIf";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 export function SyslogViewView() {
     const { id } = useParams();
@@ -40,7 +41,7 @@ export function SyslogViewView() {
                 </div>
 
                 <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 mt-5"}>
-                    <Input label={"Datum (UTC)"} labelSmall disabled value={moment(syslog?.createdAt).utc().format("DD.MM.YYYY HH:mm:ss")} />
+                    <Input label={"Datum (UTC)"} labelSmall disabled value={dayjs.utc(syslog?.createdAt).format(Config.DATETIME_FORMAT)} />
 
                     <Input label={"Pfad"} labelSmall disabled value={syslog?.path} />
                 </div>

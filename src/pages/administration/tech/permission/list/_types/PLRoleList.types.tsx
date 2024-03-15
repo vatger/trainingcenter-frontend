@@ -1,10 +1,11 @@
 import { NavigateFunction } from "react-router-dom";
 import { TableColumn } from "react-data-table-component";
-import { RoleModel } from "../../../../../../models/PermissionModel";
-import moment from "moment/moment";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { RoleModel } from "@/models/PermissionModel";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEye } from "react-icons/tb";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 function getTableColumn(navigate: NavigateFunction): (TableColumn<RoleModel> & { searchable?: boolean })[] {
     return [
@@ -16,7 +17,7 @@ function getTableColumn(navigate: NavigateFunction): (TableColumn<RoleModel> & {
         },
         {
             name: "Erstellt am",
-            selector: row => moment(row.createdAt).format("DD.MM.YYYY HH:mm"),
+            selector: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT),
         },
         {
             name: "Aktion",

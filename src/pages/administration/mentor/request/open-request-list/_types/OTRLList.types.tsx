@@ -1,10 +1,11 @@
 import { TableColumn } from "react-data-table-component";
-import moment from "moment/moment";
-import { Button } from "../../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../../assets/theme.config";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEye } from "react-icons/tb";
 import { Link, NavigateFunction } from "react-router-dom";
-import { TrainingRequestModel } from "../../../../../../models/TrainingRequestModel";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
     return [
@@ -39,7 +40,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
         },
         {
             name: "Angefragt",
-            selector: row => moment(row.createdAt).format("DD.MM.YYYY"),
+            selector: row => dayjs.utc(row.createdAt).format(Config.DATE_FORMAT),
         },
         {
             name: "Aktion",

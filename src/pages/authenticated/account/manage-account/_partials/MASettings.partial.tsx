@@ -44,7 +44,6 @@ export function MASettingsPartial() {
     function downloadGDPR() {
         setLoadingGDPR(true);
         GDPRService.getData()
-            .then(() => {})
             .catch(err => {
                 console.log(err);
                 ToastHelper.error("Fehler beim herunterladen deiner Daten");

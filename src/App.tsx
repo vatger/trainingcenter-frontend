@@ -1,7 +1,7 @@
 import "./assets/styles/app.scss";
 import { SideNav } from "./components/template/SideNav";
 import { ContentContainer } from "./components/template/ContentContainer";
-import {BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
+import { BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
 import { SideNavMenuProvider } from "./utils/contexts/SideNavMenuContext";
 import { LoginView } from "./pages/login/Login.view";
 import { LoginOverlay } from "./pages/login/LoginOverlay";

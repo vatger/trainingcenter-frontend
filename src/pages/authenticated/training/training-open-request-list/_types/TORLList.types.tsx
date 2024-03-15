@@ -1,12 +1,13 @@
 import { TableColumn } from "react-data-table-component";
-import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
-import { Badge } from "../../../../../components/ui/Badge/Badge";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import React from "react";
-import moment from "moment";
-import { Button } from "../../../../../components/ui/Button/Button";
+import { Button } from "@/components/ui/Button/Button";
 import { TbEye } from "react-icons/tb";
 import { NavigateFunction } from "react-router-dom";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
     return [
@@ -35,7 +36,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
         },
         {
             name: "Beantragt Am (UTC)",
-            cell: row => moment(row.createdAt).utc().format("DD.MM.YYYY HH:mm"),
+            cell: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT),
         },
         {
             name: "Aktion",

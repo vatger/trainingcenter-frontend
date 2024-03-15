@@ -1,65 +1,49 @@
-import {Route, Routes, useLocation} from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import React from "react";
 import { Error403 } from "@/pages/errors/403";
 import { Error404 } from "@/pages/errors/404";
-import {UserListView} from "@/pages/administration/mentor/users/list/UserList.view";
-import {UserViewView} from "@/pages/administration/mentor/users/view/UserView.view";
-import {RequestFastTrackView} from "@/pages/administration/mentor/users/view/_subpages/UVRequestFastTrack.subpage";
-import {UVNotesSubpage} from "@/pages/administration/mentor/users/view/_subpages/UVNotes.subpage";
-import {AdminCourseListView} from "@/pages/administration/lm/course/list/CourseList.view";
-import {CourseCreateView} from "@/pages/administration/lm/course/create/CourseCreate.view";
-import {CourseViewView} from "@/pages/administration/lm/course/view/CourseView.view";
-import {UserCourseProgressView} from "@/pages/administration/mentor/user-course-progress/view/UserCourseProgress.view";
-import {OpenTrainingRequestList} from "@/pages/administration/mentor/request/open-request-list/OpenTrainingRequestList";
-import {
-    OpenTrainingRequestView
-} from "@/pages/administration/mentor/request/open-request-view/OpenTrainingRequest.view";
-import {
-    MentorTrainingListView
-} from "@/pages/administration/mentor/training-session/planned-list/MentorTrainingList.view";
-import {MentorTrainingView} from "@/pages/administration/mentor/training-session/planned-view/MentorTraining.view";
-import {
-    TrainingSessionLogsCreateView
-} from "@/pages/administration/mentor/training-session/session-log-create/TrainingSessionLogsCreate.view";
-import {CPTCreateView} from "@/pages/administration/mentor/cpt/cpt-create/CPTCreate.view";
-import {CPTListView} from "@/pages/administration/mentor/cpt/cpt-list/CPTList.view";
-import {
-    TrainingSessionCreateView
-} from "@/pages/administration/mentor/training-session/session-create/TrainingSessionCreate.view";
-import {
-    TrainingSessionCreateFromRequestView
-} from "@/pages/administration/mentor/training-session/session-create/TrainingSessionCreateFromRequest.view";
-import {MentorGroupListView} from "@/pages/administration/lm/mentor-group/list/MentorGroupList.view";
-import {MentorGroupCreateView} from "@/pages/administration/lm/mentor-group/create/MentorGroupCreate.view";
-import {MentorGroupViewView} from "@/pages/administration/lm/mentor-group/view/MentorGroupView.view";
-import {TrainingTypeListView} from "@/pages/administration/lm/training-type/list/TrainingTypeList.view";
-import {TrainingTypeCreateView} from "@/pages/administration/lm/training-type/create/TrainingTypeCreate.view";
-import {TrainingTypeViewView} from "@/pages/administration/lm/training-type/view/TrainingTypeView.view";
-import {LogTemplateListView} from "@/pages/administration/atd/log-template/log-template-list/LogTemplateList.view";
-import {LogTemplateViewView} from "@/pages/administration/atd/log-template/log-template-view/LogTemplateView.view";
-import {
-    LogTemplateCreateView
-} from "@/pages/administration/atd/log-template/log-template-create/LogTemplateCreate.view";
-import {
-    TrainingStationListView
-} from "@/pages/administration/atd/training-station/training-station-list/TrainingStationList.view";
-import {ActionListView} from "@/pages/administration/lm/actions/list/ActionList.view";
-import {EndorsementGroupListView} from "@/pages/administration/lm/endorsement-group/list/EndorsementGroupList.view";
-import {
-    EndorsementGroupCreateView
-} from "@/pages/administration/lm/endorsement-group/create/EndorsementGroupCreate.view";
-import {EndorsementGroupViewView} from "@/pages/administration/lm/endorsement-group/view/EndorsementGroupView.view";
-import {AllCPTView} from "@/pages/administration/atd/atd-examiner/all-cpt/AllCPT.view";
-import {AvailableCPTView} from "@/pages/administration/atd/atd-examiner/available-cpt/AvailableCPT.view";
-import {MyCPTListView} from "@/pages/administration/atd/atd-examiner/my-cpt/MyCPTList.view";
-import {FastTrackListView} from "@/pages/administration/atd/fast-track/list/FastTrackList.view";
-import {FastTrackViewView} from "@/pages/administration/atd/fast-track/view/FastTrackView.view";
-import {SyslogListView} from "@/pages/administration/tech/syslog/list/SyslogList.view";
-import {SyslogViewView} from "@/pages/administration/tech/syslog/view/SyslogView.view";
-import {JoblogListView} from "@/pages/administration/tech/joblog/list/JoblogList.view";
-import {JoblogViewView} from "@/pages/administration/tech/joblog/view/JoblogView.view";
-import {PermissionListView} from "@/pages/administration/tech/permission/list/PermissionList.view";
-import {RoleViewView} from "@/pages/administration/tech/permission/view/RoleView.view";
+import { UserListView } from "@/pages/administration/mentor/users/list/UserList.view";
+import { UserViewView } from "@/pages/administration/mentor/users/view/UserView.view";
+import { RequestFastTrackView } from "@/pages/administration/mentor/users/view/_subpages/UVRequestFastTrack.subpage";
+import { UVNotesSubpage } from "@/pages/administration/mentor/users/view/_subpages/UVNotes.subpage";
+import { AdminCourseListView } from "@/pages/administration/lm/course/list/CourseList.view";
+import { CourseCreateView } from "@/pages/administration/lm/course/create/CourseCreate.view";
+import { CourseViewView } from "@/pages/administration/lm/course/view/CourseView.view";
+import { UserCourseProgressView } from "@/pages/administration/mentor/user-course-progress/view/UserCourseProgress.view";
+import { OpenTrainingRequestList } from "@/pages/administration/mentor/request/open-request-list/OpenTrainingRequestList";
+import { OpenTrainingRequestView } from "@/pages/administration/mentor/request/open-request-view/OpenTrainingRequest.view";
+import { MentorTrainingListView } from "@/pages/administration/mentor/training-session/planned-list/MentorTrainingList.view";
+import { MentorTrainingView } from "@/pages/administration/mentor/training-session/planned-view/MentorTraining.view";
+import { TrainingSessionLogsCreateView } from "@/pages/administration/mentor/training-session/session-log-create/TrainingSessionLogsCreate.view";
+import { CPTCreateView } from "@/pages/administration/mentor/cpt/cpt-create/CPTCreate.view";
+import { CPTListView } from "@/pages/administration/mentor/cpt/cpt-list/CPTList.view";
+import { TrainingSessionCreateView } from "@/pages/administration/mentor/training-session/session-create/TrainingSessionCreate.view";
+import { TrainingSessionCreateFromRequestView } from "@/pages/administration/mentor/training-session/session-create/TrainingSessionCreateFromRequest.view";
+import { MentorGroupListView } from "@/pages/administration/lm/mentor-group/list/MentorGroupList.view";
+import { MentorGroupCreateView } from "@/pages/administration/lm/mentor-group/create/MentorGroupCreate.view";
+import { MentorGroupViewView } from "@/pages/administration/lm/mentor-group/view/MentorGroupView.view";
+import { TrainingTypeListView } from "@/pages/administration/lm/training-type/list/TrainingTypeList.view";
+import { TrainingTypeCreateView } from "@/pages/administration/lm/training-type/create/TrainingTypeCreate.view";
+import { TrainingTypeViewView } from "@/pages/administration/lm/training-type/view/TrainingTypeView.view";
+import { LogTemplateListView } from "@/pages/administration/atd/log-template/log-template-list/LogTemplateList.view";
+import { LogTemplateViewView } from "@/pages/administration/atd/log-template/log-template-view/LogTemplateView.view";
+import { LogTemplateCreateView } from "@/pages/administration/atd/log-template/log-template-create/LogTemplateCreate.view";
+import { TrainingStationListView } from "@/pages/administration/atd/training-station/training-station-list/TrainingStationList.view";
+import { ActionListView } from "@/pages/administration/lm/actions/list/ActionList.view";
+import { EndorsementGroupListView } from "@/pages/administration/lm/endorsement-group/list/EndorsementGroupList.view";
+import { EndorsementGroupCreateView } from "@/pages/administration/lm/endorsement-group/create/EndorsementGroupCreate.view";
+import { EndorsementGroupViewView } from "@/pages/administration/lm/endorsement-group/view/EndorsementGroupView.view";
+import { AllCPTView } from "@/pages/administration/atd/atd-examiner/all-cpt/AllCPT.view";
+import { AvailableCPTView } from "@/pages/administration/atd/atd-examiner/available-cpt/AvailableCPT.view";
+import { MyCPTListView } from "@/pages/administration/atd/atd-examiner/my-cpt/MyCPTList.view";
+import { FastTrackListView } from "@/pages/administration/atd/fast-track/list/FastTrackList.view";
+import { FastTrackViewView } from "@/pages/administration/atd/fast-track/view/FastTrackView.view";
+import { SyslogListView } from "@/pages/administration/tech/syslog/list/SyslogList.view";
+import { SyslogViewView } from "@/pages/administration/tech/syslog/view/SyslogView.view";
+import { JoblogListView } from "@/pages/administration/tech/joblog/list/JoblogList.view";
+import { JoblogViewView } from "@/pages/administration/tech/joblog/view/JoblogView.view";
+import { PermissionListView } from "@/pages/administration/tech/permission/list/PermissionList.view";
+import { RoleViewView } from "@/pages/administration/tech/permission/view/RoleView.view";
 
 export function AdministrationRouter() {
     const location = useLocation();
@@ -67,19 +51,19 @@ export function AdministrationRouter() {
     return (
         <Routes>
             <Route path={"users"}>
-                <Route path={"list"} element={<UserListView/>}/>
+                <Route path={"list"} element={<UserListView />} />
 
                 <Route path={":user_id"}>
-                    <Route path={""} element={<UserViewView/>}/>
-                    <Route path={"fast-track"} element={<RequestFastTrackView/>}/>
-                    <Route path={"notes"} element={<UVNotesSubpage/>}/>
+                    <Route path={""} element={<UserViewView />} />
+                    <Route path={"fast-track"} element={<RequestFastTrackView />} />
+                    <Route path={"notes"} element={<UVNotesSubpage />} />
                 </Route>
             </Route>
 
             <Route path={"course"}>
-                <Route path={""} element={<AdminCourseListView/>}/>
-                <Route path={"create"} element={<CourseCreateView/>}/>
-                <Route path={":uuid"} element={<CourseViewView/>}/>
+                <Route path={""} element={<AdminCourseListView />} />
+                <Route path={"create"} element={<CourseCreateView />} />
+                <Route path={":uuid"} element={<CourseViewView />} />
             </Route>
 
             <Route path={"user-course-progress"}>

@@ -21,8 +21,7 @@ import { CourseModel } from "@/models/CourseModel";
 import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { Alert } from "@/components/ui/Alert/Alert";
-import TrainingSessionCreateService
-    from "@/pages/administration/mentor/training-session/session-create/_services/TrainingSessionCreate.service";
+import TrainingSessionCreateService from "@/pages/administration/mentor/training-session/session-create/_services/TrainingSessionCreate.service";
 
 export function TrainingSessionCreateView() {
     const navigate = useNavigate();
@@ -50,15 +49,16 @@ export function TrainingSessionCreateView() {
                 elementTrue={<TrainingSessionCreateSkeleton />}
                 elementFalse={
                     <>
-                        <form onSubmit={async (e) => {
-                            await TrainingSessionCreateService.createSession({
-                                event: e,
-                                setSubmitting: setSubmitting,
-                                participants: participants,
-                                navigate: navigate,
-                                fromRequest: false
-                            });
-                        }}>
+                        <form
+                            onSubmit={async e => {
+                                await TrainingSessionCreateService.createSession({
+                                    event: e,
+                                    setSubmitting: setSubmitting,
+                                    participants: participants,
+                                    navigate: navigate,
+                                    fromRequest: false,
+                                });
+                            }}>
                             <Card header={"Training"} headerBorder>
                                 <div className={"grid grid-cols-1 lg:grid-cols-2 gap-5"}>
                                     <Select
@@ -222,7 +222,7 @@ export function TrainingSessionCreateView() {
                                         setParticipants: setParticipants,
                                         newParticipantId: newParticipantID,
                                         setNewParticipantId: setNewParticipantID,
-                                        setLoadingUser: setLoadingUser
+                                        setLoadingUser: setLoadingUser,
                                     });
                                 }}>
                                 Hinzufügen

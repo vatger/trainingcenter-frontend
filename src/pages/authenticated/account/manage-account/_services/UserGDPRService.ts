@@ -1,15 +1,14 @@
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { UserModel } from "@/models/UserModel";
-import moment from "moment";
+import dayjs from "dayjs";
 
 async function getData(): Promise<void> {
     try {
-        const res = await axiosInstance.get("/gdpr", { timeout: 10_000 });
+        const res = await axiosInstance.get("/gdpr", { timeout: 60_000 });
         const user = res.data as UserModel;
 
-        const fileName = `gdpr-${user.id}-${moment().utc().unix()}.json`;
-        const data = JSON.stringify(res.data, null, 4);
-        const blob = new Blob([data], { type: "application/json" });
+        const fileName = `gdpr-${user.id}-${dayjs.utc().unix()}.json`;
+        const blob = new Blob([JSON.stringify(res.data)], { type: "application/json" });
         const href = URL.createObjectURL(blob);
 
         const link = document.createElement("a");

@@ -6,7 +6,6 @@ import { Config } from "@/core/Config";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { CourseModel } from "@/models/CourseModel";
-import moment from "moment";
 import { Button } from "@/components/ui/Button/Button";
 import { TbEye } from "react-icons/tb";
 import { UserSoloModel } from "@/models/UserModel";
@@ -29,7 +28,7 @@ function getCoursesTableColumns(navigate: NavigateFunction, user_id: string): Ta
         },
         {
             name: "Eingeschrieben Am",
-            selector: row => moment(row.through?.createdAt).format(Config.DATE_FORMAT),
+            selector: row => dayjs.utc(row.through?.createdAt).format(Config.DATE_FORMAT),
         },
         {
             name: "Aktion",

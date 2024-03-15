@@ -4,12 +4,13 @@ import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbTrash, TbUsers } from "react-icons/tb";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { MentorGroupModel } from "@/models/MentorGroupModel";
-import moment from "moment";
 import { Dispatch, useState } from "react";
 import ToastHelper from "../../../../../../utils/helper/ToastHelper";
 import { MentorGroupMembersModalT } from "@/pages/administration/lm/course/view/_subpages/CVMentorgroups.subpage";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import FormHelper from "@/utils/helper/FormHelper";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 function getColumns(
     courseUUID: string | undefined,
@@ -67,7 +68,7 @@ function getColumns(
         },
         {
             name: "Hinzugefügt Am",
-            selector: row => moment(row.MentorGroupsBelongsToCourses?.createdAt).format("DD.MM.YYYY"),
+            selector: row => dayjs.utc(row.MentorGroupsBelongsToCourses?.createdAt).format(Config.DATE_FORMAT),
         },
         {
             name: "Aktion",

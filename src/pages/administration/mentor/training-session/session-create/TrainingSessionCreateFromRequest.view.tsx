@@ -19,8 +19,7 @@ import { TrainingStationModel } from "@/models/TrainingStationModel";
 import { Badge } from "@/components/ui/Badge/Badge";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
-import TrainingSessionCreateService
-    from "@/pages/administration/mentor/training-session/session-create/_services/TrainingSessionCreate.service";
+import TrainingSessionCreateService from "@/pages/administration/mentor/training-session/session-create/_services/TrainingSessionCreate.service";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -58,24 +57,24 @@ export function TrainingSessionCreateFromRequestView() {
                 elementTrue={<TrainingSessionCreateSkeleton />}
                 elementFalse={
                     <>
-                        <form onSubmit={async (e) => {
-                            await TrainingSessionCreateService.createSession({
-                                event: e,
-                                setSubmitting: setSubmitting,
-                                participants: participants,
-                                navigate: navigate,
-                                fromRequest: true,
-                                trainingRequest: trainingRequest
-                            });
-                        }}>
+                        <form
+                            onSubmit={async e => {
+                                await TrainingSessionCreateService.createSession({
+                                    event: e,
+                                    setSubmitting: setSubmitting,
+                                    participants: participants,
+                                    navigate: navigate,
+                                    fromRequest: true,
+                                    trainingRequest: trainingRequest,
+                                });
+                            }}>
                             <Card header={"Training"} headerBorder>
                                 <div className={"grid grid-cols-1 lg:grid-cols-2 gap-5"}>
-                                    <Input label={"Kurs"} labelSmall preIcon={<TbId size={20}/>} disabled readOnly
-                                           value={trainingRequest?.course?.name}/>
+                                    <Input label={"Kurs"} labelSmall preIcon={<TbId size={20} />} disabled readOnly value={trainingRequest?.course?.name} />
                                     <Input
                                         label={"Trainingstyp"}
                                         labelSmall
-                                        preIcon={<TbId size={20}/>}
+                                        preIcon={<TbId size={20} />}
                                         disabled
                                         readOnly
                                         value={`${trainingRequest?.training_type?.name} (${trainingRequest?.training_type?.type})`}
@@ -87,7 +86,7 @@ export function TrainingSessionCreateFromRequestView() {
                                         type={"datetime-local"}
                                         name={"date"}
                                         labelSmall
-                                        preIcon={<TbCalendarEvent size={20}/>}
+                                        preIcon={<TbCalendarEvent size={20} />}
                                         value={dayjs().utc().format("YYYY-MM-DD HH:mm")}
                                     />
                                     <Select
@@ -112,10 +111,9 @@ export function TrainingSessionCreateFromRequestView() {
                                         />
                                     </Select>
                                 </div>
-                                <Separator/>
+                                <Separator />
 
-                                <Button variant={"twoTone"} loading={submitting} color={COLOR_OPTS.PRIMARY}
-                                        icon={<TbCalendarPlus size={20}/>} type={"submit"}>
+                                <Button variant={"twoTone"} loading={submitting} color={COLOR_OPTS.PRIMARY} icon={<TbCalendarPlus size={20} />} type={"submit"}>
                                     Session Erstellen
                                 </Button>
                             </Card>
@@ -126,8 +124,7 @@ export function TrainingSessionCreateFromRequestView() {
                             headerBorder
                             className={"mt-5"}
                             headerExtra={
-                                participants.length == 0 ? <Badge color={COLOR_OPTS.DANGER}>Mindestens ein Teilnehmer
-                                    erforderlich</Badge> : undefined
+                                participants.length == 0 ? <Badge color={COLOR_OPTS.DANGER}>Mindestens ein Teilnehmer erforderlich</Badge> : undefined
                             }>
                             <Input
                                 onChange={e => setNewParticipantID(e.target.value)}
@@ -154,7 +151,7 @@ export function TrainingSessionCreateFromRequestView() {
                                         setParticipants: setParticipants,
                                         newParticipantId: newParticipantID,
                                         setNewParticipantId: setNewParticipantID,
-                                        setLoadingUser: setLoadingUser
+                                        setLoadingUser: setLoadingUser,
                                     });
                                 }}>
                                 Hinzufügen

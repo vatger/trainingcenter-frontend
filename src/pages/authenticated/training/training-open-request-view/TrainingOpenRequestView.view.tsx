@@ -7,7 +7,6 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/Button/Button";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { COLOR_OPTS } from "@/assets/theme.config";
-import moment from "moment";
 import StringHelper from "../../../../utils/helper/StringHelper";
 import { TextArea } from "@/components/ui/Textarea/TextArea";
 import { RenderIf } from "@/components/conditionals/RenderIf";
@@ -63,7 +62,7 @@ export function TrainingOpenRequestViewView() {
                                     }
                                     preIcon={<TbCalendar size={20} />}
                                     disabled
-                                    value={moment(trainingRequest?.createdAt).utc().format("DD.MM.YYYY HH:mm")}
+                                    value={dayjs.utc(trainingRequest?.createdAt).format(Config.DATETIME_FORMAT)}
                                 />
 
                                 <Input
@@ -79,7 +78,7 @@ export function TrainingOpenRequestViewView() {
                                     preIcon={<TbCalendarEvent size={20} />}
                                     disabled
                                     value={
-                                        trainingRequest?.training_session != null ? "N/A" : moment(trainingRequest?.expires).utc().format("DD.MM.YYYY HH:mm")
+                                        trainingRequest?.training_session != null ? "N/A" : dayjs.utc(trainingRequest?.expires).format(Config.DATETIME_FORMAT)
                                     }
                                 />
                             </div>

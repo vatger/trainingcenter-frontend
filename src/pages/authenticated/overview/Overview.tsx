@@ -14,14 +14,18 @@ export function Overview() {
     const user = useUserSelector();
     const language = useSettingsSelector().language;
 
-    const { data: ratingTimes, loading: loadingRatingTimes, loadingError } = useApi<any>({
+    const {
+        data: ratingTimes,
+        loading: loadingRatingTimes,
+        loadingError,
+    } = useApi<any>({
         url: "/statistics/rating-times",
         method: "get",
     });
 
     const { data: trainingSessionCount, loading: loadingTrainingSessionCount } = useApi<{ count: number }>({
         url: "/statistics/training-session-count",
-        method: "get"
+        method: "get",
     });
 
     return (

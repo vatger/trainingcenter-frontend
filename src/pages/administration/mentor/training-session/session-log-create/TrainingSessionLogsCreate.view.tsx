@@ -56,7 +56,9 @@ export function TrainingSessionLogsCreateView() {
         if (loadingLogTemplate) return;
 
         if (logTemplate != null) {
-            let logTemplates = JSON.parse(logTemplate.content as any) as LogTemplateElement[];
+            let logTemplates = logTemplate.content as LogTemplateElement[];
+            if (logTemplates == null) return;
+
             const logTemplatesWithUUID = logTemplates.map(logTempElement => ({ ...logTempElement, uuid: generateUUID() }));
 
             setLogTemplateElements(logTemplatesWithUUID);

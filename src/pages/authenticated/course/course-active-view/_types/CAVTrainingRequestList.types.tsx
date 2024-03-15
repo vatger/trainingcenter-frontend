@@ -1,12 +1,13 @@
 import { TableColumn } from "react-data-table-component";
-import { TrainingRequestModel } from "../../../../../models/TrainingRequestModel";
-import { Badge } from "../../../../../components/ui/Badge/Badge";
-import moment from "moment";
-import { Button } from "../../../../../components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "../../../../../assets/theme.config";
+import { TrainingRequestModel } from "@/models/TrainingRequestModel";
+import { Badge } from "@/components/ui/Badge/Badge";
+import { Button } from "@/components/ui/Button/Button";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEye } from "react-icons/tb";
 import React from "react";
 import { NavigateFunction } from "react-router-dom";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestModel>[] {
     return [
@@ -50,11 +51,11 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
             cell: row => {
                 if (row.status != "requested") return "N/A";
 
-                const date = moment(row.expires).utc();
-                if (date.isBefore(moment())) {
-                    return <span className={"text-danger"}>{date.format("DD.MM.YYYY HH:mm")}</span>;
+                const date = dayjs.utc(row.expires);
+                if (date.isBefore(dayjs())) {
+                    return <span className={"text-danger"}>{date.format(Config.DATETIME_FORMAT)}</span>;
                 }
-                return moment(row.expires).utc().format("DD.MM.YYYY HH:mm");
+                return dayjs.utc(row.expires).format(Config.DATETIME_FORMAT);
             },
             sortable: true,
         },

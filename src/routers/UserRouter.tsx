@@ -1,24 +1,20 @@
-import {Route, Routes, useLocation} from "react-router-dom";
-import {Overview} from "@/pages/authenticated/overview/Overview";
-import {ConfirmInterestedView} from "@/pages/authenticated/misc/ConfirmInterested.view";
-import {ManageAccountView} from "@/pages/authenticated/account/manage-account/ManageAccount.view";
-import {CourseListView} from "@/pages/authenticated/course/course-list/CourseList.view";
-import {CourseView} from "@/pages/authenticated/course/course-view/Course.view";
-import {CourseEnrolView} from "@/pages/authenticated/course/course-enrol/CourseEnrol.view";
-import {ActiveCoursesListView} from "@/pages/authenticated/course/course-active-list/ActiveCoursesList.view";
-import {ActiveCourseView} from "@/pages/authenticated/course/course-active-view/ActiveCourse.view";
-import {
-    TrainingOpenRequestListView
-} from "@/pages/authenticated/training/training-open-request-list/TrainingOpenRequestList.view";
-import {
-    TrainingOpenRequestViewView
-} from "@/pages/authenticated/training/training-open-request-view/TrainingOpenRequestView.view";
-import {PlannedTrainingListView} from "@/pages/authenticated/training/training-planned-list/PlannedTrainingList.view";
-import {PlannedTrainingView} from "@/pages/authenticated/training/training-planned-view/PlannedTrainingView.view";
-import {TrainingLogViewView} from "@/pages/authenticated/training/training-log-view/TrainingLogView.view";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { Overview } from "@/pages/authenticated/overview/Overview";
+import { ConfirmInterestedView } from "@/pages/authenticated/misc/ConfirmInterested.view";
+import { ManageAccountView } from "@/pages/authenticated/account/manage-account/ManageAccount.view";
+import { CourseListView } from "@/pages/authenticated/course/course-list/CourseList.view";
+import { CourseView } from "@/pages/authenticated/course/course-view/Course.view";
+import { CourseEnrolView } from "@/pages/authenticated/course/course-enrol/CourseEnrol.view";
+import { ActiveCoursesListView } from "@/pages/authenticated/course/course-active-list/ActiveCoursesList.view";
+import { ActiveCourseView } from "@/pages/authenticated/course/course-active-view/ActiveCourse.view";
+import { TrainingOpenRequestListView } from "@/pages/authenticated/training/training-open-request-list/TrainingOpenRequestList.view";
+import { TrainingOpenRequestViewView } from "@/pages/authenticated/training/training-open-request-view/TrainingOpenRequestView.view";
+import { PlannedTrainingListView } from "@/pages/authenticated/training/training-planned-list/PlannedTrainingList.view";
+import { PlannedTrainingView } from "@/pages/authenticated/training/training-planned-view/PlannedTrainingView.view";
+import { TrainingLogViewView } from "@/pages/authenticated/training/training-log-view/TrainingLogView.view";
 import React from "react";
-import {Error403} from "@/pages/errors/403";
-import {Error404} from "@/pages/errors/404";
+import { Error403 } from "@/pages/errors/403";
+import { Error404 } from "@/pages/errors/404";
 
 export function UserRouter() {
     const location = useLocation();
@@ -65,5 +61,5 @@ export function UserRouter() {
             <Route path={"403"} element={<Error403 />} />
             <Route path={"*"} element={<Error404 path={location.pathname} />} />
         </Routes>
-    )
+    );
 }

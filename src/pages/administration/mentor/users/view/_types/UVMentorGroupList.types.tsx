@@ -1,7 +1,8 @@
 import { NavigateFunction } from "react-router-dom";
 import { TableColumn } from "react-data-table-component";
 import { MentorGroupModel } from "../../../../../../models/MentorGroupModel";
-import moment from "moment";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 function getColumns(navigate: NavigateFunction): TableColumn<MentorGroupModel>[] {
     return [
@@ -12,7 +13,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<MentorGroupModel>[]
         },
         {
             name: "Mitglied Seit",
-            selector: row => moment(row.UserBelongToMentorGroups?.createdAt).utc().format("DD.MM.YYYY HH:mm"),
+            selector: row => dayjs.utc(row.UserBelongToMentorGroups?.createdAt).format(Config.DATETIME_FORMAT),
         },
         {
             name: "Aktion",

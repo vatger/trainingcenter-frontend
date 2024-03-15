@@ -1,8 +1,7 @@
 import { Modal } from "../ui/Modal/Modal";
 import { AxiosError } from "axios";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ConversionUtils } from "turbocommons-ts";
-import moment from "moment";
 import { Button } from "../ui/Button/Button";
 import { COLOR_OPTS } from "../../assets/theme.config";
 import { TbCheck, TbCopy } from "react-icons/tb";
@@ -11,6 +10,7 @@ import { Separator } from "../ui/Separator/Separator";
 import { Accordion } from "../ui/Accordion/Accordion";
 import { Config } from "@/core/Config";
 import { useUserSelector } from "@/app/features/authSlice";
+import dayjs from "dayjs";
 
 export function NetworkErrorModal(props: { error: AxiosError; show: boolean; title: string; uuid: string; onClose: () => any }) {
     const user = useUserSelector();
@@ -21,7 +21,7 @@ export function NetworkErrorModal(props: { error: AxiosError; show: boolean; tit
     const errorObject = {
         user_id: user?.id ?? "n/a",
         axios: { ...props.error, stack: "" },
-        date: moment().toISOString(false),
+        date: dayjs.utc().unix(),
     };
 
     const base64Error = useRef<string>(ConversionUtils.stringToBase64(JSON.stringify(errorObject)));

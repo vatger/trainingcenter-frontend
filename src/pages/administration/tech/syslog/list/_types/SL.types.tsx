@@ -1,10 +1,11 @@
 import { TableColumn } from "react-data-table-component";
 import { SyslogModel } from "@/models/SyslogModel";
-import moment from "moment/moment";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEye } from "react-icons/tb";
 import { NavigateFunction } from "react-router-dom";
+import dayjs from "dayjs";
+import { Config } from "@/core/Config";
 
 function getColumns(navigate: NavigateFunction): TableColumn<SyslogModel>[] {
     return [
@@ -18,7 +19,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<SyslogModel>[] {
         },
         {
             name: "Datum",
-            selector: row => moment(row.createdAt).format("DD.MM.YYYY HH:mm:ss"),
+            selector: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT),
         },
         {
             name: "Aktion",

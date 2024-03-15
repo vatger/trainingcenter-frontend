@@ -29,8 +29,8 @@ export function UVCreateNoteModal(props: CreateUserNotePartialProps) {
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     function createNote(e: FormEvent<HTMLFormElement>) {
-        setSubmitting(true);
         e.preventDefault();
+        setSubmitting(true);
 
         const formData = FormHelper.getEntries(e.target);
         axiosInstance
@@ -47,16 +47,16 @@ export function UVCreateNoteModal(props: CreateUserNotePartialProps) {
     }
 
     return (
-        <Modal
-            show={props.show}
-            onClose={props.onClose}
-            title={"Notiz erstellen"}
-            footer={
-                <Button icon={<TbClipboardPlus size={20} />} type={"submit"} loading={submitting} color={COLOR_OPTS.PRIMARY} variant={"twoTone"}>
-                    Erstellen
-                </Button>
-            }>
-            <form onSubmit={createNote}>
+        <form onSubmit={createNote}>
+            <Modal
+                show={props.show}
+                onClose={props.onClose}
+                title={"Notiz erstellen"}
+                footer={
+                    <Button icon={<TbClipboardPlus size={20} />} type={"submit"} loading={submitting} color={COLOR_OPTS.PRIMARY} variant={"twoTone"}>
+                        Erstellen
+                    </Button>
+                }>
                 <input className={"hidden"} name={"user_id"} value={props.user_id} />
 
                 <Select
@@ -82,7 +82,7 @@ export function UVCreateNoteModal(props: CreateUserNotePartialProps) {
 
                 <TextArea className={"mt-5"} name={"content"} required labelSmall label={"Notiz"}></TextArea>
                 <div className={"flex flex-col sm:flex-row"}></div>
-            </form>
-        </Modal>
+            </Modal>
+        </form>
     );
 }
