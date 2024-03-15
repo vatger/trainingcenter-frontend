@@ -124,8 +124,8 @@ export function MentorGroupCreateView() {
                         className={"mt-5"}
                         description={"FIR der Mentorengruppe"}
                         labelSmall
-                        defaultValue={""}>
-                        <option value={""}>N/A</option>
+                        defaultValue={"none"}>
+                        <option value={"none"}>N/A</option>
                         <option value={"edww"}>EDWW</option>
                         <option value={"edgg"}>EDGG</option>
                         <option value={"edmm"}>EDMM</option>
