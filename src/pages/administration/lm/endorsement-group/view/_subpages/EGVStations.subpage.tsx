@@ -92,7 +92,7 @@ export function EGVStationsSubpage() {
     return (
         <>
             <Input
-                label={"Stationen Suchen"}
+                label={"Stationen Filtern"}
                 onChange={e => setSearchValue(e.target.value)}
                 value={searchValue}
                 fieldClassName={"uppercase"}
@@ -119,7 +119,7 @@ export function EGVStationsSubpage() {
                 <MapArray
                     data={filteredData?.filter(t => endorsementGroupStations?.find(e => e.id == t.id) == null) ?? []}
                     mapFunction={(station: TrainingStationModel, index) => {
-                        return <option value={station.id.toString()}>{`${station.callsign.toUpperCase()} (${station.frequency.toFixed(3)})`}</option>;
+                        return <option key={index} value={station.id.toString()}>{`${station.callsign.toUpperCase()} (${station.frequency.toFixed(3)})`}</option>;
                     }}
                 />
             </Select>

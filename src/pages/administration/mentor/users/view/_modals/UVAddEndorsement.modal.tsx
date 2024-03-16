@@ -17,12 +17,14 @@ import FormHelper from "@/utils/helper/FormHelper";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import { AxiosResponse } from "axios";
+import SortHelper from "@/utils/helper/SortHelper";
 
 const StationTableColumns: TableColumn<TrainingStationModel>[] = [
     {
         name: "Station",
         selector: row => row.callsign.toUpperCase(),
         sortable: true,
+        sortFunction: (a, b) => SortHelper.sortAtcStation(a.callsign, b.callsign)
     },
     {
         name: "Frequenz",

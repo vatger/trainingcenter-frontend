@@ -5,18 +5,41 @@ import { generateUUID } from "@/utils/helper/UUIDHelper";
 import "./GenericHeaderAnimation.scss";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { Spinner } from "../../ui/Spinner/Spinner";
-import { signOut, useUserSelector } from "@/app/features/authSlice";
+import { signOut, useAuthSelector, useUserSelector } from "@/app/features/authSlice";
 import { useAppDispatch } from "@/app/hooks";
 import { useNavigate } from "react-router-dom";
+import { useDropdown } from "@/utils/hooks/useDropdown";
+
+function getUserTitle() {
+    const permissions = useAuthSelector().userPermissions;
+
+    if (permissions.includes("TECH.VIEW")) {
+        return "Administrator"
+    }
+
+    if (permissions.includes("ATD.VIEW")) {
+        return "ATD"
+    }
+
+    if (permissions.includes("LM.VIEW")) {
+        return "Leitender Mentor"
+    }
+
+    if (permissions.includes("MENTOR.VIEW")) {
+        return "Mentor"
+    }
+
+    return "Trainee"
+}
 
 export function UserProfileHeader() {
     const user = useUserSelector();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const uuid = useDropdown();
 
-    const profileMenuUUID = useRef(generateUUID());
-    const [profileMenuHidden, setProfileMenuHidden] = useState<boolean>(true);
     const [loggingOut, setLoggingOut] = useState<boolean>(false);
+
 
     function handleLogout() {
         setLoggingOut(true);
@@ -34,67 +57,23 @@ export function UserProfileHeader() {
             });
     }
 
-    useEffect(() => {
-        document.addEventListener("mousedown", e => {
-            if (e.button !== 0) return;
-
-            const click_div = document.getElementById(`dropdown-toggle-${profileMenuUUID.current}`);
-            const dropdown = document.getElementById(`dropdown-${profileMenuUUID.current}`);
-            if (dropdown == null || click_div == null) return;
-
-            if (profileMenuHidden && !dropdown.contains(e.target as Node) && !click_div.contains(e.target as Node)) {
-                dropdown.classList.add("hidden");
-                dropdown.classList.remove("dropdown-expand");
-                setProfileMenuHidden(true);
-            } else if (profileMenuHidden) {
-                dropdown.classList.remove("hidden");
-                dropdown.classList.add("dropdown-expand");
-
-                setTimeout(() => {
-                    setProfileMenuHidden(false);
-                }, 150);
-            }
-        });
-
-        return document.removeEventListener("mousedown", e => {
-            if (e.button !== 0) return;
-
-            const click_div = document.getElementById(`dropdown-toggle-${profileMenuUUID.current}`);
-            const dropdown = document.getElementById(`dropdown-${profileMenuUUID.current}`);
-            if (dropdown == null || click_div == null) return;
-
-            if (profileMenuHidden && !dropdown.contains(e.target as Node) && !click_div.contains(e.target as Node)) {
-                dropdown.classList.add("hidden");
-                dropdown.classList.remove("dropdown-expand");
-                setProfileMenuHidden(true);
-            } else if (profileMenuHidden) {
-                dropdown.classList.remove("hidden");
-                dropdown.classList.add("dropdown-expand");
-
-                setTimeout(() => {
-                    setProfileMenuHidden(false);
-                }, 150);
-            }
-        });
-    }, []);
-
     return (
         <div>
             <div className="dropdown">
-                <div className="dropdown-toggle" onClick={() => setProfileMenuHidden(false)} id={`dropdown-toggle-${profileMenuUUID.current}`}>
+                <div className="dropdown-toggle" id={`dropdown-toggle-${uuid.current}`}>
                     <div className="header-action-item flex header-action-item-hoverable md:rounded-md items-center gap-2">
                         <div className={"header-action-item p-0 m-0 md:mr-2 mr-0"}>
                             <TbUser size={20} />
                         </div>
                         <div className="hidden md:block mr-1">
-                            <div className="text-xs capitalize">admin</div>
+                            <div className="text-xs capitalize">{getUserTitle()}</div>
                             <div className="font-bold">{user?.first_name + " " + user?.last_name}</div>
                         </div>
                     </div>
                 </div>
 
                 {/* Dropdown */}
-                <ul id={`dropdown-${profileMenuUUID.current}`} className={"dropdown-menu bottom-end right-[-6px] sm:right-0 min-w-[220px] hidden"}>
+                <ul id={`dropdown-${uuid.current}`} className={"dropdown-menu bottom-end right-[-6px] sm:right-0 min-w-[220px] hidden"}>
                     <li className="menu-item-header">
                         <div className="py-2 px-3 flex items-center gap-2">
                             <div>

@@ -13,3 +13,7 @@
 .text-primary, .text-primary span {
   @apply text-indigo-500;
 }
+
+.text-secondary, .text-secondary span {
+  @apply text-gray-600 dark:text-gray-300;
+}

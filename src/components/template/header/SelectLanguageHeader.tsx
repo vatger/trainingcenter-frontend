@@ -14,6 +14,7 @@ import { setLanguage, useSettingsSelector } from "@/app/features/settingsSlice";
 import { store } from "@/app/store";
 import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
 import { Config } from "@/core/Config";
+import { useDropdown } from "@/utils/hooks/useDropdown";
 
 const flag_de = (
     <div className={"w-[20px] h-[20px] avatar-circle"}>
@@ -28,55 +29,9 @@ const flag_en = (
 
 export function SelectLanguageHeader({ saveSelection }: { saveSelection?: boolean }) {
     const { language } = useSettingsSelector();
-
-    const selectLanguageUUID = useRef(generateUUID());
-    const [languageMenuHidden, setLanguageMenuHidden] = useState<boolean>(true);
-
-    useEffect(() => {
-        document.addEventListener("mousedown", e => {
-            if (e.button !== 0) return;
-
-            const click_div = document.getElementById(`dropdown-toggle-${selectLanguageUUID.current}`);
-            const dropdown = document.getElementById(`dropdown-${selectLanguageUUID.current}`);
-            if (dropdown == null || click_div == null) return;
-
-            if (languageMenuHidden && !dropdown.contains(e.target as Node) && !click_div.contains(e.target as Node)) {
-                dropdown.classList.add("hidden");
-                dropdown.classList.remove("dropdown-expand");
-                setLanguageMenuHidden(true);
-            } else if (languageMenuHidden) {
-                dropdown.classList.remove("hidden");
-                dropdown.classList.add("dropdown-expand");
-
-                setTimeout(() => {
-                    setLanguageMenuHidden(false);
-                }, 150);
-            }
-        });
-
-        return document.removeEventListener("mousedown", e => {
-            if (e.button !== 0) return;
-
-            const click_div = document.getElementById(`dropdown-toggle-${selectLanguageUUID.current}`);
-            const dropdown = document.getElementById(`dropdown-${selectLanguageUUID.current}`);
-            if (dropdown == null || click_div == null) return;
-
-            if (languageMenuHidden && !dropdown.contains(e.target as Node) && !click_div.contains(e.target as Node)) {
-                dropdown.classList.add("hidden");
-                dropdown.classList.remove("dropdown-expand");
-                setLanguageMenuHidden(true);
-            } else if (languageMenuHidden) {
-                dropdown.classList.remove("hidden");
-                dropdown.classList.add("dropdown-expand");
-
-                setTimeout(() => {
-                    setLanguageMenuHidden(false);
-                }, 150);
-            }
-        });
-    }, []);
-
     const [submitting, setSubmitting] = useState<boolean>(false);
+
+    const uuid = useDropdown();
 
     function updateSettings(value: { language: string }) {
         if (!saveSelection) return;
@@ -85,9 +40,6 @@ export function SelectLanguageHeader({ saveSelection }: { saveSelection?: boolea
 
         axiosInstance
             .patch("/settings", value)
-            .then(() => {
-                ToastHelper.success("Sprachauswahl erfolgreich gespeichert");
-            })
             .catch(() => {
                 ToastHelper.error("Fehler beim speichern der Einstellungen");
             })
@@ -97,7 +49,7 @@ export function SelectLanguageHeader({ saveSelection }: { saveSelection?: boolea
     return (
         <div>
             <div className="dropdown">
-                <div className="dropdown-toggle" onClick={() => setLanguageMenuHidden(false)} id={`dropdown-toggle-${selectLanguageUUID.current}`}>
+                <div className="dropdown-toggle" id={`dropdown-toggle-${uuid.current}`}>
                     <div className="header-action-item header-action-item-hoverable flex items-center">
                         <span className="avatar avatar-circle w-[20px] h-[20px] min-w-[20px]" style={{ lineHeight: 24, fontSize: 12 }}>
                             {language == "en" ? flag_en : flag_de}
@@ -106,7 +58,7 @@ export function SelectLanguageHeader({ saveSelection }: { saveSelection?: boolea
                 </div>
 
                 {/* Dropdown */}
-                <ul id={`dropdown-${selectLanguageUUID.current}`} className={"dropdown-menu bottom-end right-[-94px] sm:right-0 min-w-[220px] hidden"}>
+                <ul id={`dropdown-${uuid.current}`} className={"dropdown-menu bottom-end right-[-94px] sm:right-0 min-w-[220px] hidden"}>
                     <MenuItem
                         disabled={submitting}
                         onClick={() => {

@@ -3,6 +3,10 @@ export default {
         de: "Gast",
         en: "Guest",
     },
+    home: {
+        de: "Mitglied",
+        en: "Member"
+    },
     continue: {
         de: "Weiter",
         en: "Continue",

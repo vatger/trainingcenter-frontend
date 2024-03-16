@@ -89,7 +89,7 @@ export function TrainingTypeCreateView() {
                             <option value={"sim"}>Sim Session</option>
                             <option value={"lesson"}>Lesson</option>
                             <option value={"online"}>Online</option>
-                            <option value={"cpt"}>CPT</option>
+                            {/*<option value={"cpt"} disabled>CPT</option>*/}
                         </Select>
                     </div>
 

@@ -1,20 +1,21 @@
 import { TbMenu2 } from "react-icons/tb";
-import { useContext } from "react";
-import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 import { UserProfileHeader } from "./UserProfileHeader";
 import { SelectLanguageHeader } from "./SelectLanguageHeader";
 import { NotificationHeader } from "./NotificationHeader";
+import { toggleSidenav, useSideNavSelector } from "@/app/features/sideNavSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 export function Header() {
-    const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
+    const {sideNavExtended} = useSideNavSelector();
+    const dispatch = useAppDispatch();
 
     return (
         <header className="header border-b border-gray-200 dark:border-gray-700">
             <div className="header-wrapper h-16">
                 <div className="header-action header-action-start">
-                    <div className="header-action-item header-action-item-hoverable" onClick={() => toggleMenuExtended()}>
+                    <div className="header-action-item header-action-item-hoverable" onClick={() => dispatch(toggleSidenav())}>
                         <div className="text-2xl">
-                            <TbMenu2 style={{ transform: menuExtended ? "rotate(0deg)" : "rotate(180deg)" }} size={20} />
+                            <TbMenu2 style={{ transform: sideNavExtended ? "rotate(0deg)" : "rotate(180deg)" }} size={20} />
                         </div>
                     </div>
                 </div>

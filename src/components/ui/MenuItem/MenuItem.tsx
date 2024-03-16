@@ -4,8 +4,9 @@ import { MENU_ITEM_HEIGHT, MOBILE_MAX_WIDTH_PX } from "@/assets/theme.config";
 import { MenuItemProps } from "./MenuItem.props";
 import { Link } from "react-router-dom";
 import { RenderIf } from "../../conditionals/RenderIf";
-import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 import { useAuthSelector } from "@/app/features/authSlice";
+import { toggleSidenav, useSideNavSelector } from "@/app/features/sideNavSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 const menuItemActiveClass = `menu-item-active`;
 const menuItemHoverClass = `menu-item-hoverable`;
@@ -13,7 +14,8 @@ const disabledClass = "menu-item-disabled";
 
 export function MenuItem(props: MenuItemProps) {
     const userPermissions = useAuthSelector().userPermissions;
-    const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
+    const {sideNavExtended} = useSideNavSelector();
+    const dispatch = useAppDispatch();
 
     const classes = joinClassNames(
         "menu-item",
@@ -24,8 +26,8 @@ export function MenuItem(props: MenuItemProps) {
     );
 
     function handleClick(e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLAnchorElement>) {
-        if (menuExtended && window.innerWidth <= MOBILE_MAX_WIDTH_PX) {
-            toggleMenuExtended();
+        if (sideNavExtended && window.innerWidth <= MOBILE_MAX_WIDTH_PX) {
+            dispatch(toggleSidenav());
         }
 
         props.onClick?.(e);

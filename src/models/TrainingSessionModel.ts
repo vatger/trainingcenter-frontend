@@ -12,6 +12,7 @@ export interface TrainingSessionModel {
     mentor_id?: number;
     date: Date;
     training_type_id: number;
+    training_station_id?: number;
     cpt_session_id?: number;
     course_id: number;
     createdAt?: Date;

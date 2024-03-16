@@ -1,10 +1,10 @@
 import { FaChevronDown } from "react-icons/fa";
-import React, { ReactElement, useContext, useRef } from "react";
-import { MENU_ITEM_HEIGHT } from "../../../assets/theme.config";
-import { generateUUID } from "../../../utils/helper/UUIDHelper";
-import { sideNavMenuContext } from "../../../utils/contexts/SideNavMenuContext";
+import React, { useContext, useRef } from "react";
+import { MENU_ITEM_HEIGHT } from "@/assets/theme.config";
+import { generateUUID } from "@/utils/helper/UUIDHelper";
 import { RenderIf } from "../../conditionals/RenderIf";
 import { useAuthSelector } from "@/app/features/authSlice";
+import { useSideNavSelector } from "@/app/features/sideNavSlice";
 
 type CollapsableMenuProps = {
     title: string;
@@ -33,7 +33,7 @@ export function CollapsableMenu(props: CollapsableMenuProps) {
         target_chevron.style.transform = target_extended ? "rotate(0deg)" : "rotate(180deg)";
     }
 
-    const { menuExtended } = useContext(sideNavMenuContext);
+    const { sideNavExtended } = useSideNavSelector();
     const userPermissions = useAuthSelector().userPermissions;
 
     return (
@@ -54,7 +54,7 @@ export function CollapsableMenu(props: CollapsableMenuProps) {
                             id={`dropdown-${uuid.current}`}>
                             <span className="flex items-center">
                                 <span className="text-2xl mr-2">{props.icon}</span>
-                                {menuExtended && <span>{props.title}</span>}
+                                {sideNavExtended && <span>{props.title}</span>}
                             </span>
                             <span className="text-lg mt-1 transition-transform" id={`${uuid.current}-chevron`} style={{ transform: "rotate(0deg)" }}>
                                 <FaChevronDown size={12} />

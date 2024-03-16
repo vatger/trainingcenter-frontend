@@ -3,6 +3,7 @@ import { TrainingStationModel } from "@/models/TrainingStationModel";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbTrash } from "react-icons/tb";
 import { Button } from "@/components/ui/Button/Button";
+import SortHelper from "@/utils/helper/SortHelper";
 
 type OnRemoveFunction = (stationID: number) => any;
 
@@ -12,6 +13,7 @@ function getColumns(onRemove: OnRemoveFunction, isSubmitting: boolean): (TableCo
             name: "Callsign",
             selector: row => row.callsign.toUpperCase(),
             sortable: true,
+            sortFunction: (a, b) => SortHelper.sortAtcStation(a.callsign, b.callsign)
         },
         {
             name: "Frequenz",

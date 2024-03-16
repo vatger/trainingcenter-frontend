@@ -1,7 +1,7 @@
 import vaccLogo from "../../assets/img/vacc_logo.png";
 import vaccLogoDark from "../../assets/img/vacc_logo_dark.png";
 
-import React, { useContext, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MenuItem } from "../ui/MenuItem/MenuItem";
 import {
     TbAdjustments,
@@ -17,7 +17,6 @@ import {
     TbClipboardText,
     TbClock,
     TbDashboard,
-    TbFilePlus,
     TbInbox,
     TbList,
     TbListDetails,
@@ -31,17 +30,19 @@ import {
     TbX,
 } from "react-icons/tb";
 import { CollapsableMenu } from "./sidenav/CollapsableMenu";
-import { sideNavMenuContext } from "@/utils/contexts/SideNavMenuContext";
 import { handleResize } from "./sidenav/SideNav.helper";
 import { RenderIf } from "../conditionals/RenderIf";
 import { SIDENAV_WIDTH } from "@/assets/theme.config";
 import { useAuthSelector } from "@/app/features/authSlice";
 import { useSettingsSelector } from "@/app/features/settingsSlice";
 import SidenavTranslation from "@/assets/lang/sidenav/sidenav.translation";
+import { toggleSidenav, useSideNavSelector } from "@/app/features/sideNavSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 export function SideNav() {
-    const userPermissions = useAuthSelector().userPermissions;
-    const { menuExtended, toggleMenuExtended } = useContext(sideNavMenuContext);
+    const dispatch = useAppDispatch();
+    const { userPermissions } = useAuthSelector();
+    const { sideNavExtended } = useSideNavSelector();
     const { colorScheme, language } = useSettingsSelector();
 
     function toggleMobileNav() {
@@ -55,37 +56,34 @@ export function SideNav() {
         }
 
         setTimeout(() => {
-            toggleMenuExtended();
+            dispatch(toggleSidenav());
         }, 150);
     }
 
+    let resizeEventId: NodeJS.Timeout | undefined;
+    let prevWidth = window.innerWidth;
+    function handleResizeCallback() {
+        clearTimeout(resizeEventId);
+        resizeEventId = setTimeout(() => {
+            handleResize(prevWidth);
+            prevWidth = window.innerWidth;
+        }, 25);
+    }
+
     useEffect(() => {
-        let resizeEventId: NodeJS.Timeout;
-        let prevWidth = window.innerWidth;
+        if (sideNavExtended) {
+            document.getElementById("nav-container")?.setAttribute("extended", "true");
+        }
 
-        window.addEventListener("resize", () => {
-            clearTimeout(resizeEventId);
-            resizeEventId = setTimeout(() => {
-                handleResize(prevWidth, toggleMenuExtended);
-                prevWidth = window.innerWidth;
-            }, 50);
-        });
-
-        return window.removeEventListener("resize", () => {
-            console.log("r");
-            clearTimeout(resizeEventId);
-            resizeEventId = setTimeout(() => {
-                handleResize(prevWidth, toggleMenuExtended);
-                prevWidth = window.innerWidth;
-            }, 50);
-        });
-    });
+        window.addEventListener("resize", () => handleResizeCallback());
+        return window.removeEventListener("resize", () => handleResizeCallback());
+    }, []);
 
     return (
         <>
             <div
                 id={"nav-container"}
-                style={{ width: "290px", minWidth: "290px", marginLeft: menuExtended ? "" : `-${SIDENAV_WIDTH}px` }}
+                style={{ width: "290px", minWidth: "290px", marginLeft: sideNavExtended ? "" : `-${SIDENAV_WIDTH}px` }}
                 className={
                     "side-nav border-r border-gray-200 dark:border-gray-700 flex absolute top-0 left-0 h-[100svh] min-h-[100svh] max-h-[100svh] sm:relative z-[99] dark:bg-gray-800 bg-white overflow-y-hidden"
                 }>
@@ -246,7 +244,7 @@ export function SideNav() {
                 </div>
             </div>
 
-            {menuExtended && (
+            {sideNavExtended && (
                 <div
                     id={"backdrop-small-nav"}
                     onClick={toggleMobileNav}

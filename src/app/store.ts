@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/authSlice";
 import settingsReducer from "./features/settingsSlice";
+import sideNavReducer from "./features/sideNavSlice";
 import { getLoginLanguage, trySignIn } from "@/app/boot";
 
 export const store = configureStore({
     reducer: {
         authReducer,
         settingsReducer,
+        sideNavReducer,
     },
 });
 

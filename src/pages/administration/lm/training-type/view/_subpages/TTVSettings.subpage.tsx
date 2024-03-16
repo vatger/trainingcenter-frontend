@@ -105,7 +105,7 @@ export function TTVSettingsSubpage(props: TrainingTypeViewSettingsSubpageProps) 
                             <option value={"lesson"}>Lesson</option>
                             <option value={"online"}>Online</option>
                             <option value={"sim"}>Sim Session</option>
-                            <option value={"cpt"}>CPT</option>
+                            {/*<option value={"cpt"}>CPT</option>*/}
                         </Select>
                     </div>
 

@@ -12,8 +12,10 @@ import ToastHelper from "@/utils/helper/ToastHelper";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { Form } from "react-router-dom";
 import FormHelper from "@/utils/helper/FormHelper";
+import { useSettingsSelector } from "@/app/features/settingsSlice";
 
 function getColumns(notifications: NotificationModel[], setNotifications: Dispatch<NotificationModel[]>): TableColumn<NotificationModel>[] {
+    const {language} = useSettingsSelector();
     const [deletingNotificationID, setDeletingNotificationID] = useState<number | undefined>(undefined);
 
     function deleteNotification(notificationID: number) {
@@ -73,7 +75,7 @@ function getColumns(notifications: NotificationModel[], setNotifications: Dispat
         },
         {
             name: "Inhalt",
-            selector: row => NotificationHelper.convertNotificationContent(row),
+            selector: row => NotificationHelper.convertNotificationContent(row, language),
         },
         {
             name: "Erstellt Am (UTC)",

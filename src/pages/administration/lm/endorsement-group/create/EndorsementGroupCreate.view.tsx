@@ -20,6 +20,14 @@ import ToastHelper from "@/utils/helper/ToastHelper";
 import { EndorsementGroupModel } from "@/models/EndorsementGroupModel";
 import { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDebounce } from "@/utils/hooks/useDebounce";
+import { useFilter } from "@/utils/hooks/useFilter";
+import FuzzySearch from "fuzzy-search";
+import { fuzzySearch } from "@/utils/helper/fuzzysearch/FuzzySearchHelper";
+
+function filterStations(element: TrainingStationModel, searchValue: string) {
+    return element.callsign.startsWith(searchValue.toUpperCase());
+}
 
 export function EndorsementGroupCreateView() {
     const navigate = useNavigate();
@@ -31,6 +39,11 @@ export function EndorsementGroupCreateView() {
         url: "/administration/training-station",
         method: "get",
     });
+
+    const [searchValue, setSearchValue] = useState<string>("");
+    const debouncedSearchValue = useDebounce<string>(searchValue);
+    const filteredData = useFilter<TrainingStationModel>(trainingStations ?? [], searchValue, debouncedSearchValue, filterStations);
+
 
     function addTrainingStation() {
         const newTrainingStationID = Number(selectedTrainingStation);
@@ -90,23 +103,34 @@ export function EndorsementGroupCreateView() {
                                 preIcon={<TbId size={20} />}
                             />
 
+                            <Separator/>
+
+                            <Input
+                                label={"Stationen Filtern"}
+                                onChange={e => setSearchValue(e.target.value)}
+                                value={searchValue}
+                                fieldClassName={"uppercase"}
+                                placeholder={"EDDF"}
+                                labelSmall
+                            />
+
                             <Select
                                 label={"Trainingsstation Hinzufügen"}
                                 labelSmall
                                 className={"mt-5"}
                                 onChange={v => {
-                                    if (v == "-1") {
+                                    if (v == "none") {
                                         setSelectedTrainingStation(undefined);
                                         return;
                                     }
                                     setSelectedTrainingStation(v);
                                 }}
-                                value={selectedTrainingStation ?? "-1"}>
-                                <option value={"-1"} disabled>
+                                value={selectedTrainingStation ?? "none"}>
+                                <option value={"none"} disabled>
                                     Trainingsstation Auswählen
                                 </option>
                                 <MapArray
-                                    data={trainingStations?.filter(t => trainingStationIDs.indexOf(t.id) == -1) ?? []}
+                                    data={filteredData?.filter(t => trainingStationIDs.indexOf(t.id) == -1) ?? []}
                                     mapFunction={(station: TrainingStationModel, index) => {
                                         return (
                                             <option key={index} value={station.id.toString()}>{`${station.callsign.toUpperCase()} (${station.frequency.toFixed(
@@ -121,7 +145,7 @@ export function EndorsementGroupCreateView() {
                                 variant={"twoTone"}
                                 color={COLOR_OPTS.PRIMARY}
                                 className={"mt-3"}
-                                disabled={selectedTrainingStation == null || selectedTrainingStation == "-1"}
+                                disabled={selectedTrainingStation == null || selectedTrainingStation == "none"}
                                 icon={<TbPlus size={20} />}
                                 size={SIZE_OPTS.SM}
                                 onClick={() => {
