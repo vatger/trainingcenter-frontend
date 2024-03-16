@@ -30,11 +30,7 @@ export function RatingTimesPartial() {
 
     const [chartData, setChartData] = useState<any[]>([]);
 
-    const {
-        data,
-        loading,
-        loadingError,
-    } = useApi<any>({
+    const { data, loading, loadingError } = useApi<any>({
         url: "/statistics/rating-times",
         method: "get",
     });

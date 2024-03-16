@@ -14,9 +14,7 @@ import { RenderIf } from "@/components/conditionals/RenderIf";
 import { TPVWithdrawModal } from "./_modals/TPVWithdraw.modal";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingSessionModel } from "@/models/TrainingSessionModel";
-import {
-    PlannedTrainingViewSkeleton
-} from "@/pages/authenticated/training/training-planned-view/_skeletons/PlannedTrainingView.skeleton";
+import { PlannedTrainingViewSkeleton } from "@/pages/authenticated/training/training-planned-view/_skeletons/PlannedTrainingView.skeleton";
 
 export function PlannedTrainingView() {
     const navigate = useNavigate();
@@ -35,7 +33,7 @@ export function PlannedTrainingView() {
 
             <RenderIf
                 truthValue={loading}
-                elementTrue={<PlannedTrainingViewSkeleton/>}
+                elementTrue={<PlannedTrainingViewSkeleton />}
                 elementFalse={
                     <Card>
                         <Input
@@ -64,7 +62,9 @@ export function PlannedTrainingView() {
                                 disabled
                                 value={
                                     trainingSession?.training_station?.callsign
-                                        ? `${trainingSession?.training_station?.callsign.toUpperCase()} (${trainingSession?.training_station?.frequency?.toFixed(3)})`
+                                        ? `${trainingSession?.training_station?.callsign.toUpperCase()} (${trainingSession?.training_station?.frequency?.toFixed(
+                                              3
+                                          )})`
                                         : "N/A"
                                 }
                             />
@@ -93,7 +93,13 @@ export function PlannedTrainingView() {
                                         : `${trainingSession?.mentor?.first_name} ${trainingSession?.mentor?.last_name} (${trainingSession?.mentor?.id})`
                                 }
                             />
-                            <Input labelSmall preIcon={<TbUsers size={20} />} label={"Teilnehmer"} disabled value={trainingSession?.users?.length.toString() ?? "0"} />
+                            <Input
+                                labelSmall
+                                preIcon={<TbUsers size={20} />}
+                                label={"Teilnehmer"}
+                                disabled
+                                value={trainingSession?.users?.length.toString() ?? "0"}
+                            />
                         </div>
 
                         <RenderIf

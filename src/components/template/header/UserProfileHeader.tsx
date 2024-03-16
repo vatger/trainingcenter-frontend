@@ -14,22 +14,22 @@ function getUserTitle() {
     const permissions = useAuthSelector().userPermissions;
 
     if (permissions.includes("TECH.VIEW")) {
-        return "Administrator"
+        return "Administrator";
     }
 
     if (permissions.includes("ATD.VIEW")) {
-        return "ATD"
+        return "ATD";
     }
 
     if (permissions.includes("LM.VIEW")) {
-        return "Leitender Mentor"
+        return "Leitender Mentor";
     }
 
     if (permissions.includes("MENTOR.VIEW")) {
-        return "Mentor"
+        return "Mentor";
     }
 
-    return "Trainee"
+    return "Trainee";
 }
 
 export function UserProfileHeader() {
@@ -39,7 +39,6 @@ export function UserProfileHeader() {
     const uuid = useDropdown();
 
     const [loggingOut, setLoggingOut] = useState<boolean>(false);
-
 
     function handleLogout() {
         setLoggingOut(true);

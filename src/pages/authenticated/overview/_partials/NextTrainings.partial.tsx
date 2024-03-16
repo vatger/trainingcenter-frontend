@@ -12,7 +12,7 @@ interface NextTrainingT {
 export function NextTrainingsPartial(props: NextTrainingT) {
     return (
         <Card header={"Anstehende Trainings"} headerBorder>
-            <Table columns={NTTypes.getColumns()} data={props.upcomingSessions ?? []} loading={props.loading}/>
+            <Table columns={NTTypes.getColumns()} data={props.upcomingSessions ?? []} loading={props.loading} />
         </Card>
-    )
+    );
 }

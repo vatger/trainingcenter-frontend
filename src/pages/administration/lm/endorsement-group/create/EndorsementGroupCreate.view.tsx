@@ -44,7 +44,6 @@ export function EndorsementGroupCreateView() {
     const debouncedSearchValue = useDebounce<string>(searchValue);
     const filteredData = useFilter<TrainingStationModel>(trainingStations ?? [], searchValue, debouncedSearchValue, filterStations);
 
-
     function addTrainingStation() {
         const newTrainingStationID = Number(selectedTrainingStation);
 
@@ -103,7 +102,7 @@ export function EndorsementGroupCreateView() {
                                 preIcon={<TbId size={20} />}
                             />
 
-                            <Separator/>
+                            <Separator />
 
                             <Input
                                 label={"Stationen Filtern"}

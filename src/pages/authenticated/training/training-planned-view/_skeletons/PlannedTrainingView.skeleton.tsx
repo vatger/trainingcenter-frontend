@@ -49,9 +49,9 @@ export function PlannedTrainingViewSkeleton() {
                 </div>
             </div>
 
-            <Separator/>
+            <Separator />
 
             <Skeleton height={44} width={170} />
         </Card>
-    )
+    );
 }

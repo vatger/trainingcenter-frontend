@@ -119,7 +119,9 @@ export function EGVStationsSubpage() {
                 <MapArray
                     data={filteredData?.filter(t => endorsementGroupStations?.find(e => e.id == t.id) == null) ?? []}
                     mapFunction={(station: TrainingStationModel, index) => {
-                        return <option key={index} value={station.id.toString()}>{`${station.callsign.toUpperCase()} (${station.frequency.toFixed(3)})`}</option>;
+                        return (
+                            <option key={index} value={station.id.toString()}>{`${station.callsign.toUpperCase()} (${station.frequency.toFixed(3)})`}</option>
+                        );
                     }}
                 />
             </Select>

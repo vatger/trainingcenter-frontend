@@ -24,7 +24,7 @@ const StationTableColumns: TableColumn<TrainingStationModel>[] = [
         name: "Station",
         selector: row => row.callsign.toUpperCase(),
         sortable: true,
-        sortFunction: (a, b) => SortHelper.sortAtcStation(a.callsign, b.callsign)
+        sortFunction: (a, b) => SortHelper.sortAtcStation(a.callsign, b.callsign),
     },
     {
         name: "Frequenz",

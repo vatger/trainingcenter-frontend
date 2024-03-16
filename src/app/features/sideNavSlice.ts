@@ -8,25 +8,25 @@ interface SideNavState {
 
 const initialState: SideNavState = {
     sideNavExtended: window.innerWidth > MOBILE_MAX_WIDTH_PX,
-}
+};
 
 export const sideNavSlice = createSlice({
     name: "sideNav",
     initialState,
     reducers: {
-        toggleSidenav: (state) => {
+        toggleSidenav: state => {
             console.log("TOGGLING");
             state.sideNavExtended = !state.sideNavExtended;
         },
-        closeSidenav: (state) => {
+        closeSidenav: state => {
             console.log("A");
             state.sideNavExtended = false;
         },
-        openSideNav: (state) => {
+        openSideNav: state => {
             console.log("B");
             state.sideNavExtended = true;
-        }
-    }
+        },
+    },
 });
 
 export const useSideNavSelector = () => useAppSelector(store => store.sideNavReducer);

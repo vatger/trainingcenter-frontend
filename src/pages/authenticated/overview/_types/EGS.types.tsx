@@ -5,7 +5,10 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbEye } from "react-icons/tb";
 
-function getColumns(setShowStationModal: Dispatch<boolean>, setSelectedEndorsementGroup: Dispatch<EndorsementGroupModel>): TableColumn<EndorsementGroupModel>[] {
+function getColumns(
+    setShowStationModal: Dispatch<boolean>,
+    setSelectedEndorsementGroup: Dispatch<EndorsementGroupModel>
+): TableColumn<EndorsementGroupModel>[] {
     return [
         {
             name: "Gruppe",
@@ -13,7 +16,7 @@ function getColumns(setShowStationModal: Dispatch<boolean>, setSelectedEndorseme
         },
         {
             name: "# Stationen",
-            selector: row => row.stations?.length ?? 0
+            selector: row => row.stations?.length ?? 0,
         },
         {
             name: "Stationen",

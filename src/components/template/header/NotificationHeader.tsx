@@ -18,7 +18,7 @@ import { useDropdown } from "@/utils/hooks/useDropdown";
 
 export function NotificationHeader() {
     const user = useUserSelector();
-    const {language} = useSettingsSelector();
+    const { language } = useSettingsSelector();
     const [markingAllRead, setMarkingAllRead] = useState<boolean>(false);
 
     const uuid = useDropdown();
@@ -109,7 +109,9 @@ export function NotificationHeader() {
                                                 className="relative flex px-4 py-2 cursor-pointer hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-black dark:hover:bg-opacity-20 border-b border-gray-200 dark:border-gray-600">
                                                 <div>
                                                     <span
-                                                        className={`avatar avatar-circle avatar-sm flex justify-center ${NotificationHelper.getIconColorBySeverity(n.severity)}`}>
+                                                        className={`avatar avatar-circle avatar-sm flex justify-center ${NotificationHelper.getIconColorBySeverity(
+                                                            n.severity
+                                                        )}`}>
                                                         {NotificationHelper.getIconByString(20, n.icon, "m-auto")}
                                                     </span>
                                                 </div>

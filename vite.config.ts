@@ -10,8 +10,8 @@ export default defineConfig({
         compression({
             algorithm: "gzip",
             deleteOriginalAssets: false,
-            exclude: [/\.(png)$/, /\.(jpg)$/]
-        })
+            exclude: [/\.(png)$/, /\.(jpg)$/],
+        }),
     ],
     server: {
         host: true,

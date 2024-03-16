@@ -6,7 +6,7 @@ import { toggleSidenav, useSideNavSelector } from "@/app/features/sideNavSlice";
 import { useAppDispatch } from "@/app/hooks";
 
 export function Header() {
-    const {sideNavExtended} = useSideNavSelector();
+    const { sideNavExtended } = useSideNavSelector();
     const dispatch = useAppDispatch();
 
     return (

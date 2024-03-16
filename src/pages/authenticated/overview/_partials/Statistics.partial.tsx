@@ -43,18 +43,16 @@ export function StatisticsPartial(props: StatisticsT) {
                 <Card header={"Trainings"} headerBorder>
                     <RenderIf
                         truthValue={props.loading}
-                        elementTrue={
-                            <Skeleton height={28}/>
-                        }
+                        elementTrue={<Skeleton height={28} />}
                         elementFalse={
                             <div className="flex flex-row justify-between md:items-center">
                                 <h5 className={"text-secondary"}>{props?.count}</h5>
                                 <Badge color={COLOR_OPTS.PRIMARY}>{`${props?.completedCount} Abgeschlossen`}</Badge>
                             </div>
-                    }
-                />
-            </Card>
-        </div>
-</>
-)
+                        }
+                    />
+                </Card>
+            </div>
+        </>
+    );
 }

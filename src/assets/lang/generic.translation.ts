@@ -5,7 +5,7 @@ export default {
     },
     home: {
         de: "Mitglied",
-        en: "Member"
+        en: "Member",
     },
     continue: {
         de: "Weiter",

@@ -18,14 +18,14 @@ const tableColumns: TableColumn<TrainingStationModel>[] = [
         name: "Callsign",
         selector: row => row.callsign,
         sortable: true,
-        sortFunction: (a,b) => SortHelper.sortAtcStation(a.callsign, b.callsign)
+        sortFunction: (a, b) => SortHelper.sortAtcStation(a.callsign, b.callsign),
     },
     {
         name: "Frequenz",
         selector: row => row.frequency.toFixed(3),
-        sortable: true
-    }
-]
+        sortable: true,
+    },
+];
 
 export function EndorsementsPartial(props: EndorsementsT) {
     const [showStationModal, setShowStationModal] = useState<boolean>(false);
@@ -34,7 +34,11 @@ export function EndorsementsPartial(props: EndorsementsT) {
     return (
         <>
             <Card header={"Freigaben"} headerBorder className={"mt-5"}>
-                <Table columns={EGSTypes.getColumns(setShowStationModal, setSelectedEndorsementGroup)} data={props.endorsementGroups ?? []} loading={props.loading}/>
+                <Table
+                    columns={EGSTypes.getColumns(setShowStationModal, setSelectedEndorsementGroup)}
+                    data={props.endorsementGroups ?? []}
+                    loading={props.loading}
+                />
             </Card>
 
             <Modal
@@ -43,14 +47,9 @@ export function EndorsementsPartial(props: EndorsementsT) {
                 onClose={() => {
                     setShowStationModal(false);
                     setSelectedEndorsementGroup(undefined);
-                }}
-            >
-                <Table
-                    columns={tableColumns}
-                    data={selectedEndorsementGroup?.stations ?? []}
-                    defaultSortField={1}
-                />
+                }}>
+                <Table columns={tableColumns} data={selectedEndorsementGroup?.stations ?? []} defaultSortField={1} />
             </Modal>
         </>
-    )
+    );
 }

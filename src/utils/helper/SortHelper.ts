@@ -1,10 +1,10 @@
 const suffixValues: any = {
-    "del": 0,
-    "gnd": 1,
-    "twr": 2,
-    "app": 3,
-    "ctr": 4,
-}
+    del: 0,
+    gnd: 1,
+    twr: 2,
+    app: 3,
+    ctr: 4,
+};
 
 /**
  * Properly sorts two ATC Stations in ascending order (i.e. DEL, GND, TWR, ...)
@@ -32,5 +32,5 @@ function sortAtcStation(a: string, b: string) {
 }
 
 export default {
-    sortAtcStation
-}
+    sortAtcStation,
+};

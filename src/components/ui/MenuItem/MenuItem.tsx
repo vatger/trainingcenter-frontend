@@ -14,7 +14,7 @@ const disabledClass = "menu-item-disabled";
 
 export function MenuItem(props: MenuItemProps) {
     const userPermissions = useAuthSelector().userPermissions;
-    const {sideNavExtended} = useSideNavSelector();
+    const { sideNavExtended } = useSideNavSelector();
     const dispatch = useAppDispatch();
 
     const classes = joinClassNames(

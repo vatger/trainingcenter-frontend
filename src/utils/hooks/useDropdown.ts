@@ -36,7 +36,9 @@ export function useDropdown() {
 
     useEffect(() => {
         document.addEventListener("click", toggleDropdown);
-        return () => {document.removeEventListener("click", toggleDropdown)};
+        return () => {
+            document.removeEventListener("click", toggleDropdown);
+        };
     }, []);
 
     return dropdownUUID;

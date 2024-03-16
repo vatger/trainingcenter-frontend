@@ -17,24 +17,24 @@ interface OverviewT {
 }
 
 export function Overview() {
-    const {data, loading} = useApi<OverviewT>({
+    const { data, loading } = useApi<OverviewT>({
         url: "/overview",
-        method: "get"
+        method: "get",
     });
 
     return (
         <>
             <PageHeader title={"VATSIM Germany Trainingcenter"} hideBackLink />
 
-            <StatisticsPartial completedCount={data?.completedCount} count={data?.count} loading={loading}/>
+            <StatisticsPartial completedCount={data?.completedCount} count={data?.count} loading={loading} />
 
             <RatingTimesPartial />
 
-            <Separator/>
+            <Separator />
 
-            <NextTrainingsPartial upcomingSessions={data?.upcomingSessions} loading={loading}/>
+            <NextTrainingsPartial upcomingSessions={data?.upcomingSessions} loading={loading} />
 
-            <EndorsementsPartial endorsementGroups={data?.endorsementGroups} loading={loading}/>
+            <EndorsementsPartial endorsementGroups={data?.endorsementGroups} loading={loading} />
         </>
     );
 }

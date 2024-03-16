@@ -15,7 +15,7 @@ import FormHelper from "@/utils/helper/FormHelper";
 import { useSettingsSelector } from "@/app/features/settingsSlice";
 
 function getColumns(notifications: NotificationModel[], setNotifications: Dispatch<NotificationModel[]>): TableColumn<NotificationModel>[] {
-    const {language} = useSettingsSelector();
+    const { language } = useSettingsSelector();
     const [deletingNotificationID, setDeletingNotificationID] = useState<number | undefined>(undefined);
 
     function deleteNotification(notificationID: number) {
