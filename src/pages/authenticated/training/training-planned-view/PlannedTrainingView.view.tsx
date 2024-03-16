@@ -19,7 +19,7 @@ export function PlannedTrainingView() {
     const navigate = useNavigate();
     const { uuid } = useParams();
     const { data: trainingSession } = useApi<TrainingSessionModel>({
-        url: `/training/session/${uuid}`,
+        url: `/training-session/${uuid}`,
         method: "get",
     });
 

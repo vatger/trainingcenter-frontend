@@ -8,14 +8,14 @@ import { TbCalendar, TbCheck, TbX } from "react-icons/tb";
  */
 function getStatusColor(userTrainingSession: UserTrainingSessionModel): string {
     if (userTrainingSession.training_session_belongs_to_users?.passed == null) {
-        return "bg-gray-500";
+        return "bg-gray-500 dark:bg-gray-500";
     }
 
     if (userTrainingSession.training_session_belongs_to_users?.passed == true) {
-        return "bg-emerald-500";
+        return "bg-emerald-500 dark:bg-emerald-600";
     }
 
-    return "bg-red-500";
+    return "bg-red-500 dark:bg-red-700";
 }
 
 /**

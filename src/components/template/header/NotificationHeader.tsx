@@ -4,7 +4,7 @@ import { generateUUID } from "@/utils/helper/UUIDHelper";
 import { NotificationModel } from "@/models/NotificationModel";
 import { AxiosError, AxiosResponse } from "axios";
 import { MapArray } from "../../conditionals/MapArray";
-import NotificationHelper, { getIconByString, getIconColorBySeverity } from "../../../utils/helper/NotificationHelper";
+import NotificationHelper from "../../../utils/helper/NotificationHelper";
 import dayjs from "dayjs";
 import { Tooltip } from "../../ui/Tooltip/Tooltip";
 import { RenderIf } from "../../conditionals/RenderIf";
@@ -33,7 +33,6 @@ function loadNotifications(setNotifications: Dispatch<NotificationModel[]>, user
 export function NotificationHeader() {
     const selectNotificationUUID = useRef(generateUUID());
     const user = useUserSelector();
-    const language = useSettingsSelector().language;
     const [notificationMenuHidden, setNotificationMenuHidden] = useState<boolean>(true);
     const [markingAllRead, setMarkingAllRead] = useState<boolean>(false);
 
@@ -151,17 +150,13 @@ export function NotificationHeader() {
                                                 key={index}
                                                 className="relative flex px-4 py-2 cursor-pointer hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-black dark:hover:bg-opacity-20 border-b border-gray-200 dark:border-gray-600">
                                                 <div>
-                                                    <span
-                                                        className={`avatar avatar-circle avatar-md flex justify-center ${getIconColorBySeverity(n.severity)}`}>
-                                                        {getIconByString(20, n.icon, "m-auto")}
+                                                    <span className={`avatar avatar-circle avatar-sm flex justify-center ${NotificationHelper.getIconColorBySeverity(n.severity)}`}>
+                                                        {NotificationHelper.getIconByString(20, n.icon, "m-auto")}
                                                     </span>
                                                 </div>
                                                 <div className="ml-3">
                                                     <div>
-                                                        <span
-                                                            dangerouslySetInnerHTML={{
-                                                                __html: NotificationHelper.convertNotificationContent(n, language),
-                                                            }}></span>
+                                                        {NotificationHelper.convertNotificationContent(n)}
                                                     </div>
                                                     <span className="text-xs">{dayjs(n.createdAt).fromNow()}</span>
                                                 </div>

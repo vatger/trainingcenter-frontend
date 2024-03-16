@@ -1,18 +1,20 @@
-import { NotificationModel } from "../../models/NotificationModel";
+import { NotificationModel } from "@/models/NotificationModel";
 import { TbAlertTriangle, TbCheck, TbCircleCheck, TbClipboard, TbDoorExit, TbTrash } from "react-icons/tb";
-import { TLanguage } from "@/app/features/settingsSlice";
+import { TLanguage, useSettingsSelector } from "@/app/features/settingsSlice";
 
-function convertNotificationContent(n: NotificationModel, l: TLanguage): string {
-    let s = "";
-    if (l == "de") s = n.content_de;
-    else s = n.content_en;
+function convertNotificationContent(notification: NotificationModel): string {
+    const language = useSettingsSelector().language;
 
-    s = s.replaceAll("$author", `<strong>${n.author?.first_name} ${n.author?.last_name}</strong>`);
+    let s = notification.content_de;
+
+    if (language == "en") {
+        s = notification.content_en;
+    }
 
     return s;
 }
 
-export function getIconByString(size: number, s?: string, className?: string) {
+function getIconByString(size: number, s?: string, className?: string) {
     switch (s?.toLowerCase()) {
         case "trash":
             return <TbTrash className={className} size={size} />;
@@ -34,7 +36,7 @@ export function getIconByString(size: number, s?: string, className?: string) {
     }
 }
 
-export function getIconColorBySeverity(s: "default" | "info" | "success" | "danger") {
+function getIconColorBySeverity(s: "default" | "info" | "success" | "danger") {
     switch (s.toLowerCase()) {
         case "default":
             return "bg-indigo-500 dark:bg-indigo-600";
@@ -51,5 +53,7 @@ export function getIconColorBySeverity(s: "default" | "info" | "success" | "dang
 }
 
 export default {
+    getIconByString,
+    getIconColorBySeverity,
     convertNotificationContent,
 };
