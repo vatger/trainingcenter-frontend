@@ -1,11 +1,17 @@
 import { defineConfig, splitVendorChunkPlugin } from "vite";
 import react from "@vitejs/plugin-react";
 import * as path from "path";
+import compression from "vite-plugin-compression2";
 
 export default defineConfig({
     plugins: [
         react(),
-        splitVendorChunkPlugin()
+        splitVendorChunkPlugin(),
+        compression({
+            algorithm: "gzip",
+            deleteOriginalAssets: false,
+            exclude: [/\.(png)$/, /\.(jpg)$/]
+        })
     ],
     server: {
         host: true,
