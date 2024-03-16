@@ -157,61 +157,25 @@ export function MentorTrainingView() {
                                             }}
                                         />
                                     </Select>
-
-                                    <RenderIf
-                                        truthValue={trainingSession?.training_type?.type == "cpt"}
-                                        elementTrue={
-                                            <Input
-                                                label={"Prüfer"}
-                                                labelSmall
-                                                description={"Prüfer des CPTs"}
-                                                disabled
-                                                inputError={trainingSession?.cpt_examiner_id == null}
-                                                hideInputErrorText
-                                                value={
-                                                    trainingSession?.cpt_examiner == null
-                                                        ? "N/A"
-                                                        : `${trainingSession.cpt_examiner.first_name} ${trainingSession.cpt_examiner.last_name} (${trainingSession.cpt_examiner.id})`
-                                                }
-                                            />
-                                        }
-                                    />
                                 </div>
 
-                                <RenderIf
-                                    truthValue={trainingSession?.training_type?.type != "cpt"}
-                                    elementTrue={
-                                        <>
-                                            <Separator />
+                                <Separator />
 
-                                            <div className={"flex lg:flex-row flex-col gap-3"}>
-                                                <Button
-                                                    color={COLOR_OPTS.PRIMARY}
-                                                    variant={"twoTone"}
-                                                    icon={<TbRefresh size={20} />}
-                                                    type={"submit"}
-                                                    loading={updating}>
-                                                    Aktualisieren
-                                                </Button>
+                                <div className={"flex lg:flex-row flex-col gap-3"}>
+                                    <Button color={COLOR_OPTS.PRIMARY} variant={"twoTone"} icon={<TbRefresh size={20} />} type={"submit"} loading={updating}>
+                                        Aktualisieren
+                                    </Button>
 
-                                                <RenderIf
-                                                    truthValue={trainingSession?.training_type?.type != "cpt"}
-                                                    elementTrue={
-                                                        <Button
-                                                            color={COLOR_OPTS.PRIMARY}
-                                                            variant={"twoTone"}
-                                                            icon={<TbClipboardPlus size={20} />}
-                                                            type={"button"}
-                                                            disabled={updating}
-                                                            onClick={() => navigate("logs-create")}>
-                                                            Logs Erstellen
-                                                        </Button>
-                                                    }
-                                                />
-                                            </div>
-                                        </>
-                                    }
-                                />
+                                    <Button
+                                        color={COLOR_OPTS.PRIMARY}
+                                        variant={"twoTone"}
+                                        icon={<TbClipboardPlus size={20} />}
+                                        type={"button"}
+                                        disabled={updating}
+                                        onClick={() => navigate("logs-create")}>
+                                        Logs Erstellen
+                                    </Button>
+                                </div>
                             </form>
                         </Card>
                         <Card header={"Teilnehmer"} headerBorder className={"mt-5"}>

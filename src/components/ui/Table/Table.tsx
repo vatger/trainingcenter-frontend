@@ -8,10 +8,11 @@ import { useContext, useEffect, useState } from "react";
 import { useDebounce } from "@/utils/hooks/useDebounce";
 import tableTranslation from "../../../assets/lang/table.translation";
 import { useSettingsSelector } from "@/app/features/settingsSlice";
+import { fuzzySearch } from "@/utils/helper/fuzzysearch/FuzzySearchHelper";
 
 const TABLE_PAGINATION_PER_PAGE_DEFAULT = 15;
 
-function search(headers: (TableColumn<any> & { searchable?: boolean })[], data: Object[], searchString: string): Object[] {
+function search(headers: (TableColumn<any> & { searchable?: boolean })[], data: Object[], searchString: string, fuzzy = false): Object[] {
     const lowerCaseSearchString = searchString.toLowerCase();
     let searchableIndexArray: number[] = [];
     let filteredData: Object[] = [];
@@ -20,16 +21,26 @@ function search(headers: (TableColumn<any> & { searchable?: boolean })[], data: 
         if (value.searchable) searchableIndexArray.push(index);
     });
 
-    dataLoop: for (const dataValue of data) {
+    let searchArray = [];
+    for (const dataValue of data) {
         for (const value of searchableIndexArray) {
-            if (headers[value] == null) break;
+            if (headers[value] == null) continue;
             const selected = headers[value].selector?.(dataValue);
-            if (selected == null) break;
+            if (selected == null) continue;
 
-            if (selected.toString().toLowerCase().indexOf(lowerCaseSearchString) !== -1) {
-                filteredData.push(dataValue);
-                break dataLoop;
+            if (fuzzy) {
+                searchArray.push(selected);
+                continue;
             }
+
+            if (selected.toString().toLowerCase().indexOf(lowerCaseSearchString) != -1) {
+                filteredData.push(dataValue);
+                break;
+            }
+        }
+
+        if (fuzzy && fuzzySearch(searchString, searchArray).length > 0) {
+            filteredData.push(dataValue);
         }
     }
 
@@ -51,7 +62,7 @@ export function Table(props: TableProps) {
             return;
         }
 
-        setData(search(props.columns, props.data, debouncedSearch));
+        setData(search(props.columns, props.data, debouncedSearch, props.fuzzySearch));
     }, [debouncedSearch]);
 
     useEffect(() => {

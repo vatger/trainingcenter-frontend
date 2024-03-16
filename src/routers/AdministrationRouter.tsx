@@ -15,8 +15,6 @@ import { OpenTrainingRequestView } from "@/pages/administration/mentor/request/o
 import { MentorTrainingListView } from "@/pages/administration/mentor/training-session/planned-list/MentorTrainingList.view";
 import { MentorTrainingView } from "@/pages/administration/mentor/training-session/planned-view/MentorTraining.view";
 import { TrainingSessionLogsCreateView } from "@/pages/administration/mentor/training-session/session-log-create/TrainingSessionLogsCreate.view";
-import { CPTCreateView } from "@/pages/administration/mentor/cpt/cpt-create/CPTCreate.view";
-import { CPTListView } from "@/pages/administration/mentor/cpt/cpt-list/CPTList.view";
 import { TrainingSessionCreateView } from "@/pages/administration/mentor/training-session/session-create/TrainingSessionCreate.view";
 import { TrainingSessionCreateFromRequestView } from "@/pages/administration/mentor/training-session/session-create/TrainingSessionCreateFromRequest.view";
 import { MentorGroupListView } from "@/pages/administration/lm/mentor-group/list/MentorGroupList.view";
@@ -33,9 +31,6 @@ import { ActionListView } from "@/pages/administration/lm/actions/list/ActionLis
 import { EndorsementGroupListView } from "@/pages/administration/lm/endorsement-group/list/EndorsementGroupList.view";
 import { EndorsementGroupCreateView } from "@/pages/administration/lm/endorsement-group/create/EndorsementGroupCreate.view";
 import { EndorsementGroupViewView } from "@/pages/administration/lm/endorsement-group/view/EndorsementGroupView.view";
-import { AllCPTView } from "@/pages/administration/atd/atd-examiner/all-cpt/AllCPT.view";
-import { AvailableCPTView } from "@/pages/administration/atd/atd-examiner/available-cpt/AvailableCPT.view";
-import { MyCPTListView } from "@/pages/administration/atd/atd-examiner/my-cpt/MyCPTList.view";
 import { FastTrackListView } from "@/pages/administration/atd/fast-track/list/FastTrackList.view";
 import { FastTrackViewView } from "@/pages/administration/atd/fast-track/view/FastTrackView.view";
 import { SyslogListView } from "@/pages/administration/tech/syslog/list/SyslogList.view";
@@ -83,11 +78,6 @@ export function AdministrationRouter() {
                 </Route>
             </Route>
 
-            <Route path={"cpt"}>
-                <Route path={"create"} element={<CPTCreateView />} />
-                <Route path={"open"} element={<CPTListView />} />
-            </Route>
-
             <Route path={"training-session"}>
                 <Route path={"create"} element={<TrainingSessionCreateView />} />
                 <Route path={"create/:uuid"} element={<TrainingSessionCreateFromRequestView />} />
@@ -125,14 +115,6 @@ export function AdministrationRouter() {
                 <Route path={"create"} element={<EndorsementGroupCreateView />} />
 
                 <Route path={":id"} element={<EndorsementGroupViewView />} />
-            </Route>
-
-            <Route path={"atd-examiner"}>
-                <Route path={"cpt"}>
-                    <Route path={""} element={<AllCPTView />} />
-                    <Route path={"available"} element={<AvailableCPTView />} />
-                    <Route path={"my"} element={<MyCPTListView />} />
-                </Route>
             </Route>
 
             <Route path={"fast-track"}>

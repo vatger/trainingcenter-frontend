@@ -20,4 +20,6 @@ export type TableProps = {
     defaultSortField?: string | number;
     defaultSortAsc?: boolean;
     persistTableHead?: boolean;
+
+    fuzzySearch?: boolean;
 };

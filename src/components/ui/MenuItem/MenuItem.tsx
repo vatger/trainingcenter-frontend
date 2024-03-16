@@ -36,7 +36,7 @@ export function MenuItem(props: MenuItemProps) {
             truthValue={props.requiredPerm == null || userPermissions.indexOf(props.requiredPerm?.toUpperCase()) != -1}
             elementTrue={
                 <RenderIf
-                    truthValue={props.isNoLink ?? false}
+                    truthValue={props.isNoLink == true || props.disabled == true}
                     elementTrue={
                         <div onClick={handleClick} className={classes} style={{ height: MENU_ITEM_HEIGHT }}>
                             <div className="h-full w-full flex flex-row items-center overflow-hidden">

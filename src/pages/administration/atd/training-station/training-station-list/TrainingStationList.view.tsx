@@ -6,7 +6,7 @@ import { TrainingStationModel } from "@/models/TrainingStationModel";
 import TSLListTypes from "@/pages/administration/atd/training-station/training-station-list/_types/TSLList.types";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/Button/Button";
-import { COLOR_OPTS } from "@/assets/theme.config";
+import { COLOR_OPTS, ICON_SIZE_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbReload } from "react-icons/tb";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosResponse } from "axios";
@@ -44,7 +44,19 @@ export function TrainingStationListView() {
         <>
             <PageHeader title={"Trainingsstationen Verwalten"} hideBackLink />
 
-            <Card>
+            <Card
+                header={
+                    <Button
+                        variant={"twoTone"}
+                        size={SIZE_OPTS.SM}
+                        color={COLOR_OPTS.PRIMARY}
+                        icon={<TbReload size={ICON_SIZE_OPTS.SM} />}
+                        onClick={syncStations}
+                        loading={submitting}>
+                        Jetzt Synchronisieren
+                    </Button>
+                }
+                headerBorder>
                 <Table
                     paginate
                     searchable
@@ -53,10 +65,6 @@ export function TrainingStationListView() {
                     data={trainingStations ?? []}
                     loading={loadingTrainingStations}
                 />
-
-                <Button variant={"twoTone"} color={COLOR_OPTS.PRIMARY} icon={<TbReload size={20} />} onClick={syncStations} loading={submitting}>
-                    Jetzt Synchronisieren
-                </Button>
             </Card>
         </>
     );

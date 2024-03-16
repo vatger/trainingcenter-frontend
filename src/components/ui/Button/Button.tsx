@@ -1,9 +1,9 @@
 import { ButtonProps } from "./Button.props";
 import { getButtonColor, getButtonShape, getButtonSize } from "./Button.helper";
-import { joinClassNames } from "../../../utils/helper/ClassNameHelper";
+import { joinClassNames } from "@/utils/helper/ClassNameHelper";
 import React from "react";
 import { Spinner } from "../Spinner/Spinner";
-import { getRgbFromColorOpt } from "../../../utils/helper/ColorHelper";
+import { getRgbFromColorOpt } from "@/utils/helper/ColorHelper";
 
 export function Button(props: ButtonProps) {
     const defaultClass = "button";

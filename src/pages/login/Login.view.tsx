@@ -21,7 +21,7 @@ export function LoginView() {
 
     useEffect(() => {
         if (auth.signedIn) {
-            navigate("/overview");
+            navigate("/");
         }
     }, [auth.signedIn]);
 

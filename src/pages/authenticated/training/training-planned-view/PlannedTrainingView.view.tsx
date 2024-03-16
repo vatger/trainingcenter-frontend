@@ -87,36 +87,6 @@ export function PlannedTrainingView() {
                         }
                     />
                     <Input labelSmall preIcon={<TbUsers size={20} />} label={"Teilnehmer"} disabled value={trainingSession?.users?.length.toString() ?? "0"} />
-
-                    <RenderIf
-                        truthValue={trainingSession?.training_type?.type == "cpt"}
-                        elementTrue={
-                            <>
-                                <Input
-                                    labelSmall
-                                    preIcon={<TbId size={20} />}
-                                    label={"CPT Prüfer"}
-                                    inputError={trainingSession?.cpt_examiner == null}
-                                    hideInputErrorText
-                                    disabled
-                                    value={
-                                        trainingSession?.cpt_examiner == null
-                                            ? `N/A`
-                                            : `${trainingSession?.cpt_examiner?.first_name} ${trainingSession?.cpt_examiner?.last_name} (${trainingSession?.cpt_examiner?.id})`
-                                    }
-                                />
-                                <Input
-                                    labelSmall
-                                    preIcon={<TbId size={20} />}
-                                    label={"ATSIM Test Bestanden"}
-                                    inputError={!trainingSession?.cpt_atsim_passed}
-                                    hideInputErrorText
-                                    disabled
-                                    value={trainingSession?.cpt_atsim_passed ? "Ja" : "Nein"}
-                                />
-                            </>
-                        }
-                    />
                 </div>
 
                 <RenderIf

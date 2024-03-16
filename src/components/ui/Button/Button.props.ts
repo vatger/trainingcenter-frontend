@@ -1,4 +1,4 @@
-import { COLOR_OPTS, SIZE_OPTS } from "../../../assets/theme.config";
+import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import React, { ReactNode } from "react";
 
 export type ButtonProps = {

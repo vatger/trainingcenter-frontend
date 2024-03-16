@@ -1,9 +1,7 @@
 import { TableColumn } from "react-data-table-component";
 import { TrainingStationModel } from "@/models/TrainingStationModel";
 import { Badge } from "@/components/ui/Badge/Badge";
-import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { Button } from "@/components/ui/Button/Button";
-import { TbEye } from "react-icons/tb";
+import { COLOR_OPTS } from "@/assets/theme.config";
 import { NavigateFunction } from "react-router-dom";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
@@ -17,28 +15,44 @@ function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationMod
             sortable: true,
         },
         {
-            name: "gcap_class",
-            selector: row => row.gcap_class,
-            searchable: false,
-            sortable: true,
+            name: "Gcap Klasse",
+            cell: row => {
+                return <Badge color={COLOR_OPTS.DEFAULT}>{row.gcap_class}</Badge>;
+            },
         },
         {
-            name: "gcap_class_group",
-            selector: row => row.gcap_class_group ?? "Wird Ermittelt",
-            searchable: true,
-            sortable: true,
+            name: "Gcap Gruppe",
+            cell: row => {
+                return <Badge color={COLOR_OPTS.DEFAULT}>{row.gcap_class_group}</Badge>;
+            },
         },
         {
-            name: "gcap_training_airport",
-            selector: row => (row.gcap_training_airport ? "Ja" : "Nein"),
-            searchable: false,
+            name: "Training",
+            cell: row => {
+                if (row.gcap_training_airport) {
+                    return <Badge color={COLOR_OPTS.SUCCESS}>Ja</Badge>;
+                }
+
+                return <Badge color={COLOR_OPTS.DANGER}>Nein</Badge>;
+            },
             sortable: true,
+            sortFunction: (a, b) => {
+                return a.gcap_training_airport ? -1 : 1;
+            },
         },
         {
-            name: "s1_twr",
-            selector: row => (row.s1_twr ? "Ja" : "Nein"),
-            searchable: false,
+            name: "S1 Twr",
+            cell: row => {
+                if (row.s1_twr) {
+                    return <Badge color={COLOR_OPTS.SUCCESS}>Ja</Badge>;
+                }
+
+                return <Badge color={COLOR_OPTS.DANGER}>Nein</Badge>;
+            },
             sortable: true,
+            sortFunction: (a, b) => {
+                return a.s1_twr ? -1 : 1;
+            },
         },
         {
             name: "Zuletzt Aktualisiert (UTC)",

@@ -164,15 +164,6 @@ export function SideNav() {
                                                 </MenuItem>
                                                 <MenuItem icon={<TbList size={20} />}>Meine Trainings</MenuItem>
                                             </CollapsableMenu>
-
-                                            <CollapsableMenu title={"CPTs"} icon={<TbCertificate size={20} />}>
-                                                <MenuItem href={"/administration/cpt/create"} icon={<TbInbox size={20} />}>
-                                                    CPT Erstellen
-                                                </MenuItem>
-                                                <MenuItem href={"/administration/cpt/open"} icon={<TbCalendarEvent size={20} />}>
-                                                    CPT Übersicht
-                                                </MenuItem>
-                                            </CollapsableMenu>
                                         </>
                                     }
                                 />
@@ -194,7 +185,7 @@ export function SideNav() {
                                             <MenuItem href={"administration/training-type"} icon={<TbTemplate size={20} />}>
                                                 Trainingstypen
                                             </MenuItem>
-                                            <MenuItem icon={<TbAdjustments size={20} />} href={"administration/action-requirement"}>
+                                            <MenuItem disabled icon={<TbAdjustments size={20} />} href={"administration/action-requirement"}>
                                                 Aktionen | Bedingungen
                                             </MenuItem>
                                         </>
@@ -206,17 +197,6 @@ export function SideNav() {
                                     elementTrue={
                                         <>
                                             <div className="menu-title menu-title-transparent">ATD</div>
-                                            <CollapsableMenu requiredPerm={"atd.examiner.view"} title={"Prüfer"} icon={<TbUsers size={20} />}>
-                                                <MenuItem href={"/administration/atd-examiner/cpt"} icon={<TbClipboardList size={20} />}>
-                                                    CPTs
-                                                </MenuItem>
-                                                <MenuItem href={"/administration/atd-examiner/cpt/available"} icon={<TbCalendar size={20} />}>
-                                                    Offene CPTs
-                                                </MenuItem>
-                                                <MenuItem href={"/administration/atd-examiner/cpt/my"} icon={<TbList size={20} />}>
-                                                    Meine CPTs
-                                                </MenuItem>
-                                            </CollapsableMenu>
 
                                             <MenuItem href={"administration/log-template"} icon={<TbTemplate size={20} />}>
                                                 Logvorlagen
