@@ -9,7 +9,8 @@ import { CVDangerSubpage } from "@/pages/administration/lm/course/view/_subpages
 import React from "react";
 import { CVTrainingTypesSubpage } from "@/pages/administration/lm/course/view/_subpages/CVTrainingTypes.subpage";
 
-const tabHeaders = ["Einstellungen", "Mentorgruppen", "Trainingstypen", "Aktionen & Bedingungen", "Teilnehmer", "Gefahrenbereich"];
+// "Aktionen & Bedingungen",
+const tabHeaders = ["Einstellungen", "Mentorgruppen", "Trainingstypen",  "Teilnehmer", "Gefahrenbereich"];
 
 export function CourseViewView() {
     const { uuid } = useParams();
@@ -23,7 +24,7 @@ export function CourseViewView() {
                     <CVSettingsSubpage courseUUID={uuid} />
                     <CVMentorgroupsSubpage courseUUID={uuid} />
                     <CVTrainingTypesSubpage courseUUID={uuid} />
-                    <div></div>
+                    {/*<div></div>*/}
                     <CVUsersSubpage courseUUID={uuid} />
                     <CVDangerSubpage uuid={uuid} />
                 </Tabs>

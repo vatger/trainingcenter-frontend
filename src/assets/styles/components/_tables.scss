@@ -21,7 +21,7 @@
 }
 
 .table-default, .rdt_Table {
-    @apply table-auto min-w-full divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800;
+    @apply table-auto min-w-full divide-y divide-gray-200 dark:divide-gray-700 dark:bg-transparent;
 
     div:nth-child(2) {
         @apply dark:bg-transparent dark:text-white;
@@ -29,6 +29,10 @@
 
     thead, .rdt_TableHead, .rdt_TableHeadRow {
         @apply bg-gray-50 rounded-t border-0 dark:bg-gray-700;
+
+        +div {
+            @apply bg-transparent;
+        }
 
         >tr, .rdt_TableCol {
             @apply mx-auto;
@@ -65,8 +69,8 @@
         }
     }
 
-    &:first-child {
-        @apply dark:bg-gray-700 dark:text-white #{!important};
+    div + div:first-child {
+        @apply dark:bg-gray-700 dark:text-white;
     }
 }
 
