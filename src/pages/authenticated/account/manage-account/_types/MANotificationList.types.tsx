@@ -73,7 +73,7 @@ function getColumns(notifications: NotificationModel[], setNotifications: Dispat
         },
         {
             name: "Inhalt",
-            cell: row => <span dangerouslySetInnerHTML={{ __html: NotificationHelper.convertNotificationContent(row, "de") }}></span>,
+            selector: row => NotificationHelper.convertNotificationContent(row),
         },
         {
             name: "Erstellt Am (UTC)",
