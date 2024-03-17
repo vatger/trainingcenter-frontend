@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendar, TbCalendarEvent, TbCalendarTime, TbEye, TbId, TbListCheck, TbRadar, TbTrash } from "react-icons/tb";
+import { TbCalendar, TbCalendarEvent, TbCalendarTime, TbEye, TbId, TbLink, TbListCheck, TbRadar, TbTrash } from "react-icons/tb";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/Button/Button";
 import { Separator } from "@/components/ui/Separator/Separator";
@@ -149,23 +149,9 @@ export function TrainingOpenRequestViewView() {
                                     variant={"twoTone"}
                                     color={COLOR_OPTS.PRIMARY}
                                     onClick={() => navigate("/course/active/" + trainingRequest?.course?.uuid)}
-                                    icon={<TbEye size={20} />}>
-                                    Kurs Ansehen
+                                    icon={<TbLink size={20} />}>
+                                    Zum Kurs
                                 </Button>
-
-                                <RenderIf
-                                    truthValue={trainingRequest?.training_session_id != null && trainingRequest.training_session != null}
-                                    elementTrue={
-                                        <Button
-                                            className={"lg:mt-0 mt-3"}
-                                            variant={"twoTone"}
-                                            color={COLOR_OPTS.PRIMARY}
-                                            onClick={() => navigate("/training/planned/" + trainingRequest?.training_session?.uuid)}
-                                            icon={<TbCalendarTime size={20} />}>
-                                            Geplante Session Ansehen
-                                        </Button>
-                                    }
-                                />
 
                                 <RenderIf
                                     truthValue={trainingRequest?.status == "requested" && trainingRequest.training_session == null}

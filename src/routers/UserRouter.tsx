@@ -15,6 +15,9 @@ import { TrainingLogViewView } from "@/pages/authenticated/training/training-log
 import React from "react";
 import { Error403 } from "@/pages/errors/403";
 import { Error404 } from "@/pages/errors/404";
+import { CourseCompletedListView } from "@/pages/authenticated/course/course-completed-list/CourseCompletedList.view";
+import { CourseCompletedView } from "@/pages/authenticated/course/course-completed-view/CourseCompleted.view";
+import { TrainingCompletedListView } from "@/pages/authenticated/training/training-completed-list/TrainingCompletedList.view";
 
 export function UserRouter() {
     const location = useLocation();
@@ -38,7 +41,8 @@ export function UserRouter() {
                 </Route>
 
                 <Route path={"completed"}>
-                    <Route path={""} element={<>TODO</>} />
+                    <Route path={""} element={<CourseCompletedListView />} />
+                    <Route path={":uuid"} element={<CourseCompletedView />} />
                 </Route>
             </Route>
 
@@ -56,6 +60,8 @@ export function UserRouter() {
                 <Route path={"log"}>
                     <Route path={":uuid"} element={<TrainingLogViewView />} />
                 </Route>
+
+                <Route path={"completed"} element={<TrainingCompletedListView />} />
             </Route>
 
             <Route path={"403"} element={<Error403 />} />

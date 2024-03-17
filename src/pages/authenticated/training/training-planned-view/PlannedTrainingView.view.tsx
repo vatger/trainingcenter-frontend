@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/ui/PageHeader/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "@/components/ui/Card/Card";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendarEvent, TbDoorExit, TbId, TbListCheck, TbRadar, TbUsers } from "react-icons/tb";
+import { TbCalendarEvent, TbDoorExit, TbId, TbLink, TbListCheck, TbRadar, TbUsers } from "react-icons/tb";
 import React, { useState } from "react";
 import StringHelper from "../../../../utils/helper/StringHelper";
 import dayjs from "dayjs";
@@ -29,7 +29,7 @@ export function PlannedTrainingView() {
 
     return (
         <>
-            <PageHeader title={"Geplante Session Verwalten"} />
+            <PageHeader title={"Session Verwalten"} />
 
             <RenderIf
                 truthValue={loading}
@@ -115,6 +115,24 @@ export function PlannedTrainingView() {
                                         color={COLOR_OPTS.DANGER}
                                         icon={<TbDoorExit size={20} />}>
                                         Abmelden
+                                    </Button>
+                                </>
+                            }
+                        />
+
+                        <RenderIf
+                            truthValue={trainingSession?.completed == true}
+                            elementTrue={
+                                <>
+                                    <Separator />
+
+                                    <Button
+                                        variant={"twoTone"}
+                                        loading={submitting}
+                                        onClick={() => navigate(`/course/completed/${trainingSession?.course?.uuid}`)}
+                                        color={COLOR_OPTS.PRIMARY}
+                                        icon={<TbLink size={20} />}>
+                                        Zum Kurs
                                     </Button>
                                 </>
                             }

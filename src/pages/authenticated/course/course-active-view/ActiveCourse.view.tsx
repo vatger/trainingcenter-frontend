@@ -4,9 +4,9 @@ import { CAVInformationSkeleton } from "./_skeletons/CAVInformation.skeleton";
 import { RenderIf } from "@/components/conditionals/RenderIf";
 import { CAVTrainingHistorySkeleton } from "./_skeletons/CAVTrainingHistory.skeleton";
 import React, { useState } from "react";
-import { CAVInformationPartial } from "./_partials/CAVInformation.partial";
-import { CAVTrainingRequestsPartial } from "./_partials/CAVTrainingRequests.partial";
-import { CAVTrainingHistoryPartial } from "./_partials/CAVTrainingHistory.partial";
+import { CInformationPartial } from "@/pages/authenticated/course/course-active-view/_partials/CInformation.partial";
+import { CTrainingRequestsPartial } from "@/pages/authenticated/course/course-active-view/_partials/CTrainingRequests.partial";
+import { CTrainingHistoryPartial } from "@/pages/authenticated/course/_partials/CTrainingHistory.partial";
 import { CAVTrainingRequestsSkeleton } from "./_skeletons/CAVTrainingRequests.skeleton";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
@@ -53,48 +53,35 @@ export function ActiveCourseView() {
         method: "get",
     });
 
+    const loading = loadingCourse || loadingActiveTrainingRequests || loadingTrainingData;
+
     return (
         <>
             <PageHeader title={"Kurs Verwalten"} />
 
             {/* Wait until all elements have loaded and show them all at the same time */}
             <RenderIf
-                truthValue={loadingCourse || loadingTrainingData || loadingActiveTrainingRequests}
+                truthValue={loadingCourseError != null || loadingTrainingDataError != null || loadingActiveTrainingRequestsError != null}
                 elementTrue={
-                    <>
-                        <CAVInformationSkeleton />
-                        <CAVTrainingRequestsSkeleton />
-                        <CAVTrainingHistorySkeleton />
-                    </>
+                    <Alert type={TYPE_OPTS.DANGER} showIcon>
+                        Ein Fehler ist beim Laden der Seite aufgetreten. Versuche es bitte erneut
+                    </Alert>
                 }
                 elementFalse={
-                    <RenderIf
-                        truthValue={loadingCourseError != null || loadingTrainingDataError != null || loadingActiveTrainingRequestsError != null}
-                        elementTrue={
-                            <Alert type={TYPE_OPTS.DANGER} showIcon>
-                                Ein Fehler ist beim Laden der Seite aufgetreten. Versuche es bitte erneut
-                            </Alert>
-                        }
-                        elementFalse={
-                            <>
-                                <CAVInformationPartial
-                                    showRequestTrainingModal={showRequestTrainingModal}
-                                    setShowRequestTrainingModal={setShowRequestTrainingModal}
-                                    setTrainingRequests={setActiveTrainingRequests}
-                                    course={course}
-                                    loadingCourse={loadingCourse}
-                                    trainingRequests={activeTrainingRequests ?? []}
-                                />
+                    <>
+                        <CInformationPartial
+                            showRequestTrainingModal={showRequestTrainingModal}
+                            setShowRequestTrainingModal={setShowRequestTrainingModal}
+                            setTrainingRequests={setActiveTrainingRequests}
+                            course={course}
+                            loadingCourse={loading}
+                            trainingRequests={activeTrainingRequests ?? []}
+                        />
 
-                                <CAVTrainingRequestsPartial
-                                    trainingRequests={activeTrainingRequests ?? []}
-                                    loadingTrainingRequests={loadingActiveTrainingRequests}
-                                />
+                        <CTrainingRequestsPartial trainingRequests={activeTrainingRequests ?? []} loading={loading} />
 
-                                <CAVTrainingHistoryPartial trainingData={trainingData ?? []} />
-                            </>
-                        }
-                    />
+                        <CTrainingHistoryPartial trainingData={trainingData ?? []} loading={loading} />
+                    </>
                 }
             />
         </>

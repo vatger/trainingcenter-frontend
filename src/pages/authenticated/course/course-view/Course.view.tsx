@@ -13,7 +13,6 @@ import { getAtcRatingLong, getAtcRatingShort } from "@/utils/helper/vatsim/AtcRa
 import React from "react";
 import useApi from "@/utils/hooks/useApi";
 import { CourseModel } from "@/models/CourseModel";
-import { Tooltip } from "@/components/ui/Tooltip/Tooltip";
 
 function getTypeString(type: "online" | "sim" | "cpt" | "lesson") {
     switch (type) {

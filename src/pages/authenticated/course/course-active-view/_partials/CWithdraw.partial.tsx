@@ -15,7 +15,7 @@ type WithdrawFromCoursePartialProps = {
     course?: CourseModel;
 };
 
-export function CAVWithdrawPartial(props: WithdrawFromCoursePartialProps) {
+export function CWithdrawPartial(props: WithdrawFromCoursePartialProps) {
     const navigate = useNavigate();
     const [withdrawing, setWithdrawing] = useState<boolean>(false);
 
