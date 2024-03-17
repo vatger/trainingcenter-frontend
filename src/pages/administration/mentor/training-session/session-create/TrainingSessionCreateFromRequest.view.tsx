@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "@/components/ui/Input/Input";
 import { TbCalendarEvent, TbCalendarPlus, TbId, TbUser } from "react-icons/tb";
 import dayjs from "dayjs";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "@/components/ui/Table/Table";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
@@ -28,25 +28,23 @@ import TrainingSessionCreateService from "@/pages/administration/mentor/training
 export function TrainingSessionCreateFromRequestView() {
     const navigate = useNavigate();
     const { uuid: courseUUID } = useParams();
-    const { data: trainingRequest, loading } = useApi<TrainingRequestModel>({
-        url: `/administration/training-request/${courseUUID}`,
-        method: "get",
-    });
-
     const [submitting, setSubmitting] = useState<boolean>(false);
 
     const [participants, setParticipants] = useState<UserModel[]>([]);
-
     const [newParticipantID, setNewParticipantID] = useState<string>("");
     const [loadingUser, setLoadingUser] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (trainingRequest != null && !loading && trainingRequest.user != null) {
-            let p = [...participants];
-            p.push(trainingRequest.user);
-            setParticipants(p);
-        }
-    }, [trainingRequest]);
+    const { data: trainingRequest, loading } = useApi<TrainingRequestModel>({
+        url: `/administration/training-request/${courseUUID}`,
+        method: "get",
+        onLoad: trainingRequest => {
+            if (trainingRequest.user != null) {
+                let p = [...participants];
+                p.push(trainingRequest.user);
+                setParticipants(p);
+            }
+        },
+    });
 
     return (
         <>
@@ -82,7 +80,7 @@ export function TrainingSessionCreateFromRequestView() {
                                 </div>
                                 <div className={"grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5"}>
                                     <Input
-                                        label={"Datum (UTC)"}
+                                        label={"Datum"}
                                         type={"datetime-local"}
                                         name={"date"}
                                         labelSmall

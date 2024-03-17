@@ -15,7 +15,7 @@ function getColumns(
 ): TableColumn<TrainingSessionModel>[] {
     return [
         {
-            name: "Datum (UTC)",
+            name: "Datum",
             selector: row => dayjs.utc(row.date).format(Config.DATETIME_FORMAT),
         },
         {

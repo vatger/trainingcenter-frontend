@@ -38,6 +38,10 @@ function getColumns(): TableColumn<TrainingSessionBelongsToUserModel>[] {
             sortable: true,
         },
         {
+            name: "Trainingstyp",
+            cell: row => row.training_session?.training_type?.name ?? "[Error]",
+        },
+        {
             name: "Aktion",
             cell: row => {
                 return (

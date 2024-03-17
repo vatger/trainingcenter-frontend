@@ -62,7 +62,7 @@ export function MTLDeleteSessionModal({
             <Input className={"mt-3"} label={"Trainingstyp"} labelSmall disabled readOnly value={selectedTrainingSession?.training_type?.name} />
             <Input
                 className={"mt-3"}
-                label={"Datum (UTC)"}
+                label={"Datum"}
                 labelSmall
                 disabled
                 readOnly

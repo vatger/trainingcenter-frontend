@@ -13,7 +13,7 @@ function getColumns(): TableColumn<TrainingRequestModel>[] {
             selector: row => row.training_type?.name ?? "N/A",
         },
         {
-            name: "Erstellt Am (UTC)",
+            name: "Erstellt Am",
             selector: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT),
         },
         {

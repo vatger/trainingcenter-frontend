@@ -23,16 +23,6 @@ function getColumns(): TableColumn<FastTrackRequestModel>[] {
             name: "Erstellt Am",
             selector: row => dayjs.utc(row.createdAt).format(Config.DATE_FORMAT),
         },
-        {
-            name: "Aktion",
-            cell: row => {
-                return (
-                    <Button className={"my-3"} size={SIZE_OPTS.SM} variant={"twoTone"} color={COLOR_OPTS.PRIMARY} icon={<TbEye size={20} />}>
-                        Ansehen
-                    </Button>
-                );
-            },
-        },
     ];
 }
 

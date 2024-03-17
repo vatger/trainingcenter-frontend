@@ -38,6 +38,7 @@ import { useSettingsSelector } from "@/app/features/settingsSlice";
 import SidenavTranslation from "@/assets/lang/sidenav/sidenav.translation";
 import { toggleSidenav, useSideNavSelector } from "@/app/features/sideNavSlice";
 import { useAppDispatch } from "@/app/hooks";
+import sidenavTranslation from "@/assets/lang/sidenav/sidenav.translation";
 
 export function SideNav() {
     const dispatch = useAppDispatch();
@@ -111,29 +112,29 @@ export function SideNav() {
                                 </MenuItem>
 
                                 <div className="menu-group">
-                                    <div className="menu-title menu-title-transparent">Ausbildung</div>
+                                    <div className="menu-title menu-title-transparent">{SidenavTranslation.training[language]}</div>
 
-                                    <CollapsableMenu title={"Kurse"} icon={<TbBooks size={20} />}>
+                                    <CollapsableMenu title={sidenavTranslation.course[language]} icon={<TbBooks size={20} />}>
                                         <MenuItem href={"course"} icon={<TbSearch size={20} />}>
-                                            {"Suchen"}
+                                            {sidenavTranslation.course_search[language]}
                                         </MenuItem>
                                         <MenuItem href={"course/active"} icon={<TbListDetails size={20} />}>
-                                            {"Aktiv"}
+                                            {sidenavTranslation.course_active[language]}
                                         </MenuItem>
                                         <MenuItem href={"course/completed"} icon={<TbCheckupList size={20} />}>
-                                            {"Abgeschlossen"}
+                                            {sidenavTranslation.course_completed[language]}
                                         </MenuItem>
                                     </CollapsableMenu>
 
-                                    <CollapsableMenu title={"Trainings"} icon={<TbCalendarEvent size={20} />}>
+                                    <CollapsableMenu title={sidenavTranslation.trainings[language]} icon={<TbCalendarEvent size={20} />}>
                                         <MenuItem href={"training/request/open"} icon={<TbClock size={20} />}>
-                                            Offene Trainingsanfragen
+                                            {sidenavTranslation.trainings_open[language]}
                                         </MenuItem>
                                         <MenuItem href={"training/planned"} icon={<TbCalendarStats size={20} />}>
-                                            Geplante Trainings
+                                            {sidenavTranslation.trainings_planned[language]}
                                         </MenuItem>
                                         <MenuItem href={"training/completed"} icon={<TbList size={20} />}>
-                                            Abgeschlossene Trainings
+                                            {sidenavTranslation.trainings_completed[language]}
                                         </MenuItem>
                                     </CollapsableMenu>
                                 </div>
@@ -205,10 +206,6 @@ export function SideNav() {
                                                 requiredPerm={"atd.fast_track.view"}
                                                 icon={<TbChevronsRight size={20} />}>
                                                 Fast-Tracks
-                                            </MenuItem>
-
-                                            <MenuItem requiredPerm={"atd.atsim.view"} icon={<TbSquareCheck size={20} />}>
-                                                ATSIM Anfragen
                                             </MenuItem>
 
                                             <MenuItem href={"administration/training-station"} icon={<TbRss size={20} />}>

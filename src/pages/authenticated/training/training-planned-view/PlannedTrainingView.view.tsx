@@ -38,7 +38,7 @@ export function PlannedTrainingView() {
                     <Card>
                         <Input
                             labelSmall
-                            label={"Zuletzt aktualisiert (UTC)"}
+                            label={"Zuletzt aktualisiert"}
                             preIcon={<TbCalendarEvent size={20} />}
                             disabled
                             value={dayjs.utc(trainingSession?.updatedAt).format(Config.DATETIME_FORMAT)}

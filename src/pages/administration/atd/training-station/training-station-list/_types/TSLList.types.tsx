@@ -55,7 +55,7 @@ function getColumns(navigate: NavigateFunction): (TableColumn<TrainingStationMod
             },
         },
         {
-            name: "Zuletzt Aktualisiert (UTC)",
+            name: "Zuletzt Aktualisiert",
             selector: row => dayjs.utc(row.updatedAt).format(Config.DATETIME_FORMAT),
         },
     ];

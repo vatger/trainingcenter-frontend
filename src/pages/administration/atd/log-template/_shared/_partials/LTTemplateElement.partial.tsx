@@ -99,10 +99,10 @@ function render(type: LogTemplateType, element: LogTemplateElement) {
                     <div className={`flex flex-col w-full ${elem.disableText ? "" : "xl:w-1/2"} xl:min-w-[420px]`}>
                         <div className={"flex justify-between"}>
                             <h6 className={"mb-2"}>{elem.title}</h6>
-                            <span>1 / {elem.max}</span>
+                            <span>0 / {elem.max}</span>
                         </div>
                         <div>
-                            <ProgressBar value={(1 / elem.max) * 100} hidePercentage />
+                            <ProgressBar value={0} hidePercentage />
                         </div>
                         {elem.subtitle != null && (
                             <div className={"mt-2"}>

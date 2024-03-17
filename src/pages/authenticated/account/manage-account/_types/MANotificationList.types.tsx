@@ -29,7 +29,7 @@ function getColumns(
             sortFunction: (a, b) => (a.read && !b.read ? 1 : -1),
         },
         {
-            name: "Erstellt Am (UTC)",
+            name: "Erstellt Am",
             cell: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT),
             sortable: true,
             sortFunction: (a, b) => {

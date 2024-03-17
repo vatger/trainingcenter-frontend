@@ -15,7 +15,7 @@ function getColumns(navigate: NavigateFunction): (TableColumn<TrainingLogTemplat
             searchable: true,
         },
         {
-            name: "Erstellt Am (UTC)",
+            name: "Erstellt Am",
             selector: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT),
         },
         {

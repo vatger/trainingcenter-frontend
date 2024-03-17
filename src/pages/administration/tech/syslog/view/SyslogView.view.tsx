@@ -41,7 +41,7 @@ export function SyslogViewView() {
                 </div>
 
                 <div className={"grid grid-cols-1 md:grid-cols-2 gap-5 mt-5"}>
-                    <Input label={"Datum (UTC)"} labelSmall disabled value={dayjs.utc(syslog?.createdAt).format(Config.DATETIME_FORMAT)} />
+                    <Input label={"Datum"} labelSmall disabled value={dayjs.utc(syslog?.createdAt).format(Config.DATETIME_FORMAT)} />
 
                     <Input label={"Pfad"} labelSmall disabled value={syslog?.path} />
                 </div>

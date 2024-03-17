@@ -35,7 +35,7 @@ function getColumns(navigate: NavigateFunction): TableColumn<TrainingRequestMode
             },
         },
         {
-            name: "Beantragt Am (UTC)",
+            name: "Beantragt Am",
             cell: row => dayjs.utc(row.createdAt).format(Config.DATETIME_FORMAT),
         },
         {

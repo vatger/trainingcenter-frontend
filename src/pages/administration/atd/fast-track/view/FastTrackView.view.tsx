@@ -8,20 +8,20 @@ import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { AxiosResponse } from "axios";
 import { Buffer } from "buffer";
 import { RenderIf } from "@/components/conditionals/RenderIf";
-import { Spinner } from "@/components/ui/Spinner/Spinner";
 import { Input } from "@/components/ui/Input/Input";
-import { TbCalendar, TbId, TbRefresh } from "react-icons/tb";
+import { TbCalendar, TbDownload, TbId, TbRefresh } from "react-icons/tb";
 import { getAtcRatingLong, getAtcRatingShort } from "@/utils/helper/vatsim/AtcRatingHelper";
 import { Select } from "@/components/ui/Select/Select";
 import { TextArea } from "@/components/ui/Textarea/TextArea";
 import { Separator } from "@/components/ui/Separator/Separator";
 import { Button } from "@/components/ui/Button/Button";
-import { COLOR_OPTS } from "@/assets/theme.config";
+import { COLOR_OPTS, ICON_SIZE_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import FormHelper from "@/utils/helper/FormHelper";
 import ToastHelper from "@/utils/helper/ToastHelper";
 import dayjs from "dayjs";
 import { Config } from "@/core/Config";
-import { Skeleton } from "@/components/ui/Skeleton/Skeleton";
+import { FastTrackViewSkeleton } from "@/pages/administration/atd/fast-track/view/_skeletons/FastTrackView.skeleton";
+import DownloadHelper from "@/utils/helper/DownloadHelper";
 
 const magicNumbers = {
     jpg: "ffd8ffe0",
@@ -40,24 +40,8 @@ export function FastTrackViewView() {
         url: `/administration/fast-track/${id}`,
         method: "get",
     });
-    const [imageSource, setImageSource] = useState<string | undefined>(undefined);
-    const [imageFormat, setImageFormat] = useState<"png" | "jpg" | "gif">("png");
     const [submitting, setSubmitting] = useState<boolean>(false);
-
-    useEffect(() => {
-        if (id == null) return;
-
-        axiosInstance.get(`/administration/fast-track/attachment/${id}`, { responseType: "arraybuffer" }).then((res: AxiosResponse) => {
-            const base64 = Buffer.from(res.data, "binary").toString("base64");
-            const magix = Buffer.from(res.data, "binary").toString("hex", 0, 4);
-
-            if (magix == magicNumbers.jpg) setImageFormat("jpg");
-            if (magix == magicNumbers.png) setImageFormat("png");
-            if (magix == magicNumbers.gif) setImageFormat("gif");
-
-            setImageSource(base64);
-        });
-    }, [id]);
+    const [downloadingAttachment, setDownloadingAttachment] = useState<boolean>(false);
 
     function updateFastTrack(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -80,13 +64,22 @@ export function FastTrackViewView() {
             .finally(() => setSubmitting(false));
     }
 
+    function downloadAttachment() {
+        if (fastTrackRequest == null) return;
+        setDownloadingAttachment(true);
+
+        DownloadHelper.downloadFile(`/administration/fast-track/attachment/${id}`, fastTrackRequest.file_name, "arraybuffer").finally(() =>
+            setDownloadingAttachment(false)
+        );
+    }
+
     return (
         <>
             <PageHeader title={"Fast-Track Ansehen"} />
 
             <RenderIf
                 truthValue={loadingFastTrackRequest}
-                elementTrue={<Skeleton />}
+                elementTrue={<FastTrackViewSkeleton />}
                 elementFalse={
                     <Card header={"Anfrage"} headerBorder>
                         <form onSubmit={updateFastTrack}>
@@ -119,7 +112,7 @@ export function FastTrackViewView() {
                                 />
 
                                 <Input
-                                    label={"Angefragt Am (UTC)"}
+                                    label={"Angefragt Am"}
                                     labelSmall
                                     preIcon={<TbCalendar size={20} />}
                                     disabled
@@ -128,7 +121,7 @@ export function FastTrackViewView() {
                                 />
 
                                 <Input
-                                    label={"Zuletzt Aktualisiert (UTC)"}
+                                    label={"Zuletzt Aktualisiert"}
                                     labelSmall
                                     preIcon={<TbCalendar size={20} />}
                                     disabled
@@ -145,6 +138,17 @@ export function FastTrackViewView() {
                                 labelSmall
                                 value={fastTrackRequest?.comment ?? "N/A"}
                             />
+
+                            <Button
+                                onClick={() => downloadAttachment()}
+                                icon={<TbDownload size={ICON_SIZE_OPTS.SM} />}
+                                className={"mt-5"}
+                                size={SIZE_OPTS.SM}
+                                loading={downloadingAttachment}
+                                variant={"twoTone"}
+                                color={COLOR_OPTS.PRIMARY}>
+                                Anhang Herunterladen
+                            </Button>
 
                             <Separator />
 
@@ -177,14 +181,6 @@ export function FastTrackViewView() {
                     </Card>
                 }
             />
-
-            <Card className={"mt-5"} header={"Datei"} headerBorder>
-                <RenderIf
-                    truthValue={imageSource != null}
-                    elementTrue={<img className={"max-h-72"} src={`data:image/${imageFormat};charset=utf-8;base64,${imageSource}`} alt={"image"} />}
-                    elementFalse={<Spinner size={30} />}
-                />
-            </Card>
         </>
     );
 }

@@ -42,7 +42,7 @@ export function TrainingOpenRequestViewView() {
                             <Input
                                 labelSmall
                                 className={"mt-5"}
-                                label={"Zuletzt aktualisiert (UTC)"}
+                                label={"Zuletzt aktualisiert"}
                                 preIcon={<TbCalendarEvent size={20} />}
                                 disabled
                                 value={dayjs.utc(trainingRequest?.updatedAt).format(Config.DATETIME_FORMAT)}
@@ -53,7 +53,7 @@ export function TrainingOpenRequestViewView() {
                             <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                                 <Input
                                     labelSmall
-                                    label={"Anfrage Datum (UTC)"}
+                                    label={"Anfrage Datum"}
                                     className={"flex flex-col"}
                                     inputClassName={"mt-auto"}
                                     description={
@@ -67,7 +67,7 @@ export function TrainingOpenRequestViewView() {
 
                                 <Input
                                     labelSmall
-                                    label={"Läuft Ab (UTC)"}
+                                    label={"Läuft Ab"}
                                     className={"flex flex-col"}
                                     inputClassName={"mt-auto"}
                                     description={

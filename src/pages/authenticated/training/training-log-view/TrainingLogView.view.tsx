@@ -51,7 +51,7 @@ export function TrainingLogViewView() {
                             <Input
                                 type={"text"}
                                 labelSmall
-                                label={"Erstellt Am (UTC)"}
+                                label={"Erstellt Am"}
                                 value={dayjs.utc(trainingLog?.createdAt).format(Config.DATETIME_FORMAT)}
                                 preIcon={<TbCalendar size={20} />}
                                 disabled

@@ -3,7 +3,6 @@ import { Select } from "@/components/ui/Select/Select";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS } from "@/assets/theme.config";
 import React, { useState } from "react";
-import GDPRService from "../_services/UserGDPRService";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { TbDownload, TbRefresh, TbRefreshOff } from "react-icons/tb";
 import { RenderIf } from "@/components/conditionals/RenderIf";
@@ -15,6 +14,7 @@ import { setLanguage, TColorScheme, TLanguage, useSettingsSelector } from "@/app
 import LocalStorageLibrary from "@/utils/library/LocalStorageLibrary";
 import { updateData, useUserSelector } from "@/app/features/authSlice";
 import { store } from "@/app/store";
+import DownloadHelper from "@/utils/helper/DownloadHelper";
 
 export function MASettingsPartial() {
     const user = useUserSelector();
@@ -43,7 +43,8 @@ export function MASettingsPartial() {
 
     function downloadGDPR() {
         setLoadingGDPR(true);
-        GDPRService.getData()
+
+        DownloadHelper.downloadFile("/gdpr", `gdpr-${user?.id}-${dayjs.utc().unix()}.json`)
             .catch(err => {
                 console.log(err);
                 ToastHelper.error("Fehler beim herunterladen deiner Daten");

@@ -69,7 +69,7 @@ export function CVSettingsSubpage({ courseUUID }: { courseUUID: string | undefin
                             <Input
                                 labelSmall
                                 disabled
-                                label={"Zuletzt aktualisiert (UTC)"}
+                                label={"Zuletzt aktualisiert"}
                                 preIcon={<TbCalendarEvent size={20} />}
                                 value={course?.updatedAt == null ? "N/A" : dayjs.utc(course?.updatedAt).format(Config.DATETIME_FORMAT)}
                             />

@@ -115,7 +115,7 @@ export function TrainingSessionCreateView() {
                                 </div>
                                 <div className={"grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5"}>
                                     <Input
-                                        label={"Datum (UTC)"}
+                                        label={"Datum"}
                                         type={"datetime-local"}
                                         name={"date"}
                                         labelSmall

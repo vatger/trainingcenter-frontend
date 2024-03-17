@@ -83,7 +83,7 @@ export function UserCourseProgressView() {
                                     />
 
                                     <Input
-                                        label={"Einschreibedatum (UTC)"}
+                                        label={"Einschreibedatum"}
                                         labelSmall
                                         preIcon={<TbCalendar size={20} />}
                                         disabled

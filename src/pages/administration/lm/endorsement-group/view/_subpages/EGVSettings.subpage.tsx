@@ -53,7 +53,7 @@ export function EGVSettingsSubpage() {
                 <>
                     <Input
                         labelSmall
-                        label={"Zuletzt Aktualisiert (UTC)"}
+                        label={"Zuletzt Aktualisiert"}
                         className={"flex flex-col"}
                         disabled
                         preIcon={<TbCalendarTime size={20} />}

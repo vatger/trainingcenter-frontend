@@ -29,7 +29,7 @@ function getColumns(): (TableColumn<FastTrackRequestModel> & { searchable?: bool
             cell: row => FastTrackHelper.statusToBadge(row.status),
         },
         {
-            name: "Angefragt Am (UTC)",
+            name: "Angefragt Am",
             cell: row => dayjs.utc(row.createdAt).format(Config.DATE_FORMAT),
             sortable: true,
         },

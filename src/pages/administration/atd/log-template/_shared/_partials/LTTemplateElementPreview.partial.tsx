@@ -5,9 +5,9 @@ import {
     LogTemplateElementTextarea,
     LogTemplateType,
 } from "@/models/TrainingLogTemplateModel";
-import { ProgressBar } from "../../../../../../components/ui/ProgressBar/ProgressBar";
-import { Separator } from "../../../../../../components/ui/Separator/Separator";
-import { RenderIf } from "../../../../../../components/conditionals/RenderIf";
+import { ProgressBar } from "@/components/ui/ProgressBar/ProgressBar";
+import { Separator } from "@/components/ui/Separator/Separator";
+import { RenderIf } from "@/components/conditionals/RenderIf";
 
 function render(type: LogTemplateType, element: LogTemplateElement, index: number) {
     let elem;
@@ -28,18 +28,15 @@ function render(type: LogTemplateType, element: LogTemplateElement, index: numbe
 
         case "rating":
             elem = element as LogTemplateElementRating;
-            const randValue = Math.ceil(Math.random() * elem.max);
             return (
                 <div className={"flex h-full flex-col xl:flex-row justify-between"}>
                     <div className={`flex flex-col w-full ${elem.disableText ? "" : "xl:w-1/2"} xl:min-w-[420px]`}>
                         <div className={"flex justify-between"}>
                             <h6 className={"mb-2"}>{elem.title}</h6>
-                            <span>
-                                {randValue} / {elem.max}
-                            </span>
+                            <span>0 / {elem.max}</span>
                         </div>
                         <div>
-                            <ProgressBar value={(randValue / elem.max) * 100} hidePercentage />
+                            <ProgressBar value={0} hidePercentage />
                         </div>
                         {elem.subtitle != null && (
                             <div className={"mt-2"}>

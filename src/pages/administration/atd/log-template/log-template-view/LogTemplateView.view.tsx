@@ -108,7 +108,7 @@ export function LogTemplateViewView() {
                                     type={"text"}
                                     className={"mt-5"}
                                     labelSmall
-                                    label={"Zuletzt Aktualisiert (UTC)"}
+                                    label={"Zuletzt Aktualisiert"}
                                     disabled
                                     value={dayjs.utc(trainingLogTemplate?.updatedAt ?? trainingLogTemplate?.createdAt).format(Config.DATETIME_FORMAT)}
                                     preIcon={<TbCalendarTime size={20} />}
