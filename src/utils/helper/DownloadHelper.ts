@@ -9,7 +9,6 @@ async function downloadFile(url: string, filename: string, responseType: Respons
 
     let blob;
     if (contentType.includes("application/json")) {
-        console.log(1);
         blob = new Blob([JSON.stringify(res.data)], { type: contentType });
     } else {
         blob = new Blob([res.data], { type: contentType });
