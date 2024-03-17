@@ -103,7 +103,7 @@ export function Table(props: TableProps) {
                     paginationRowsPerPageOptions={[5, 10, 15, 30, 50, 100]}
                     className={"table-default tab-hide-scrollbar"}
                     progressPending={loading}
-                    progressComponent={<Spinner className={"mt-7"} size={35}/>}
+                    progressComponent={<Spinner className={"mt-7"} size={35} />}
                     persistTableHead={props.persistTableHead ?? true}
                 />
             </div>

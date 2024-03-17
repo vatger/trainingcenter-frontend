@@ -14,7 +14,7 @@ export function ManageAccountView() {
     return (
         <>
             <PageHeader
-                title={"Konto Verwalten"}
+                title={"Account Verwalten"}
                 breadcrumbs={<pre className={"bg-gray-200 mt-2 md:mt-0 dark:bg-gray-700 px-3 rounded text-gray-400"}>{"v" + APP_VERSION}</pre>}
                 hideBackLink
             />

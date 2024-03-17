@@ -28,12 +28,17 @@ export function CAVInformationPartial(props: ActiveCourseInformationPartialProps
 
     return (
         <>
-            <CAVRequestTrainingModal
-                show={props.showRequestTrainingModal}
-                onClose={() => props.setShowRequestTrainingModal(false)}
-                course={props.course ?? ({} as CourseModel)}
-                trainingRequests={props.trainingRequests}
-                setTrainingRequests={props.setTrainingRequests}
+            <RenderIf
+                truthValue={props.course != null}
+                elementTrue={
+                    <CAVRequestTrainingModal
+                        show={props.showRequestTrainingModal}
+                        onClose={() => props.setShowRequestTrainingModal(false)}
+                        course={props.course}
+                        trainingRequests={props.trainingRequests}
+                        setTrainingRequests={props.setTrainingRequests}
+                    />
+                }
             />
 
             <Card header={"Allgemeine Informationen"} headerBorder headerExtra={<Badge color={COLOR_OPTS.PRIMARY}>Eingeschrieben</Badge>}>
@@ -79,7 +84,7 @@ export function CAVInformationPartial(props: ActiveCourseInformationPartialProps
                             <Button
                                 className={"mt-3 lg:mt-0"}
                                 loading={props.loadingCourse}
-                                disabled={props.course?.UsersBelongsToCourses?.next_training_type == null}
+                                disabled={props.course == null || props.course.UsersBelongsToCourses?.next_training_type == null}
                                 icon={<TbChevronsRight size={20} />}
                                 size={SIZE_OPTS.SM}
                                 onClick={() => props.setShowRequestTrainingModal(true)}

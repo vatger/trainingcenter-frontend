@@ -5,6 +5,7 @@ import { COLOR_OPTS } from "../../../../../assets/theme.config";
 import { useState } from "react";
 import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { TbTrash } from "react-icons/tb";
 
 export function CAVDeleteTrainingRequestModal(props: {
     open: boolean;
@@ -41,7 +42,7 @@ export function CAVDeleteTrainingRequestModal(props: {
             onClose={props.onClose}
             footer={
                 <div className={"flex justify-end"}>
-                    <Button loading={submitting} color={COLOR_OPTS.DANGER} variant={"twoTone"} onClick={deleteTrainingRequest}>
+                    <Button icon={<TbTrash size={20} />} loading={submitting} color={COLOR_OPTS.DANGER} variant={"twoTone"} onClick={deleteTrainingRequest}>
                         Löschen
                     </Button>
                 </div>

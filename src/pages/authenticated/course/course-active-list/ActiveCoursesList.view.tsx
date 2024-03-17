@@ -37,7 +37,7 @@ export function ActiveCoursesListView() {
             <PageHeader title={"Aktive Kurse"} hideBackLink />
 
             <RenderIf
-                truthValue={loading || (courses != null && courses.length > 0)}
+                truthValue={loading || (courses != null && courses?.length > 0)}
                 elementTrue={
                     <RenderIf
                         truthValue={!loading && courses != null && courses.length > 0}

@@ -25,7 +25,7 @@ export type ParticipantStatus = {
     progressValues: Map<string, number>;
     passed: boolean;
     visible: boolean;
-    nextTraining: number;
+    nextTraining?: number;
     course_completed: boolean;
 };
 
@@ -33,29 +33,39 @@ export function TrainingSessionLogsCreateView() {
     const { uuid } = useParams();
     const navigate = useNavigate();
 
-    const { data: participants, loading: loadingParticipants } = useApi<UserModel[]>({
-        url: `/administration/training-session/participants/${uuid}`,
-        method: "get",
-    });
-    const { data: logTemplate, loading: loadingLogTemplate } = useApi<TrainingLogTemplateModel>({
-        url: `/administration/training-session/log-template/${uuid}`,
-        method: "get",
-    });
-    const { data: courseTrainingTypes, loading: loadingCourseTrainingTypes } = useApi<TrainingTypeModel[]>({
-        url: `/administration/training-session/training-types/${uuid}`,
-        method: "get",
-    });
-
     const [logTemplateElements, setLogTemplateElements] = useState<(LogTemplateElement & { uuid: string })[]>([]);
     const [participantValues, setParticipantValues] = useState<ParticipantStatus[] | undefined>(undefined);
 
     const [completedIds, setCompletedIds] = useState<number[]>([]);
     const [submitting, setSubmitting] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (loadingLogTemplate) return;
+    const { data: participants, loading: loadingParticipants } = useApi<UserModel[]>({
+        url: `/administration/training-session/participants/${uuid}`,
+        method: "get",
+        onLoad: participants => {
+            if (participants == null) return;
 
-        if (logTemplate != null) {
+            let arr: ParticipantStatus[] = [];
+            for (let i = 0; i < participants?.length; i++) {
+                arr.push({
+                    user_id: participants[i].id,
+                    stringValues: new Map<string, string>(),
+                    progressValues: new Map<string, number>(),
+                    passed: true,
+                    visible: true,
+                    nextTraining: undefined,
+                    course_completed: false,
+                });
+            }
+
+            setParticipantValues(arr);
+        },
+    });
+
+    const { loading: loadingLogTemplate } = useApi<TrainingLogTemplateModel>({
+        url: `/administration/training-session/log-template/${uuid}`,
+        method: "get",
+        onLoad: logTemplate => {
             let logTemplates = logTemplate.content as LogTemplateElement[];
             if (logTemplates == null) return;
 
@@ -63,29 +73,16 @@ export function TrainingSessionLogsCreateView() {
 
             setLogTemplateElements(logTemplatesWithUUID);
             return;
-        }
+        },
+        onError: () => {
+            setLogTemplateElements([{ uuid: generateUUID(), type: "textarea", title: "Bewertung" }]);
+        },
+    });
 
-        setLogTemplateElements([{ uuid: generateUUID(), type: "textarea", title: "Bewertung" }]);
-    }, [loadingLogTemplate]);
-
-    useEffect(() => {
-        if (participants == null || loadingParticipants) return;
-
-        let arr: ParticipantStatus[] = [];
-        for (let i = 0; i < participants?.length; i++) {
-            arr.push({
-                user_id: participants[i].id,
-                stringValues: new Map<string, string>(),
-                progressValues: new Map<string, number>(),
-                passed: true,
-                visible: true,
-                nextTraining: -1,
-                course_completed: false,
-            });
-        }
-
-        setParticipantValues(arr);
-    }, [loadingParticipants]);
+    const { data: courseTrainingTypes, loading: loadingCourseTrainingTypes } = useApi<TrainingTypeModel[]>({
+        url: `/administration/training-session/training-types/${uuid}`,
+        method: "get",
+    });
 
     return (
         <>
@@ -115,17 +112,34 @@ export function TrainingSessionLogsCreateView() {
                                     />
 
                                     <div className={"flex flex-col mt-5"}>
-                                        <Checkbox checked onChange={e => (participantValues![index].passed = e)}>
+                                        <Checkbox
+                                            checked
+                                            onChange={e => {
+                                                const p = [...participantValues!];
+                                                p[index].passed = e;
+                                                setParticipantValues(p);
+                                            }}>
                                             Bestanden
                                         </Checkbox>
-                                        <Checkbox className={"mt-3"} checked onChange={e => (participantValues![index].visible = e)}>
+
+                                        <Checkbox
+                                            className={"mt-3"}
+                                            checked
+                                            onChange={e => {
+                                                const p = [...participantValues!];
+                                                p[index].visible = e;
+                                                setParticipantValues(p);
+                                            }}>
                                             Log Öffentlich - Für den Trainee sichtbar
                                         </Checkbox>
+
                                         <Checkbox
                                             className={"mt-3"}
                                             checked={false}
                                             onChange={e => {
-                                                participantValues![index].course_completed = e;
+                                                const p = [...participantValues!];
+                                                p[index].course_completed = e;
+                                                setParticipantValues(p);
 
                                                 if (e) {
                                                     setCompletedIds([...completedIds, index]);
@@ -135,23 +149,25 @@ export function TrainingSessionLogsCreateView() {
                                             }}>
                                             Kurs Abgeschlossen - Markiert den Kurs als abgeschlossen und ignoriert die Auswahl des nächsten Trainings
                                         </Checkbox>
+
                                         <Select
                                             label={"Nächstes Training"}
                                             labelSmall
-                                            inputError={!completedIds.includes(index) && participantValues![index].nextTraining == -1}
+                                            inputError={!completedIds.includes(index) && participantValues![index].nextTraining == undefined}
                                             disabled={completedIds.includes(index)}
                                             className={"mt-3"}
-                                            defaultValue={"-1"}
+                                            defaultValue={"none"}
                                             onChange={e => {
-                                                const num = Number(e);
-                                                if (isNaN(num) || num == -1) {
-                                                    return;
+                                                let num: number | undefined = Number(e);
+                                                if (isNaN(num)) {
+                                                    num = undefined;
                                                 }
 
-                                                participantValues![index].nextTraining = num;
-                                                setParticipantValues([...participantValues!]);
+                                                let p = [...participantValues!];
+                                                p[index].nextTraining = num;
+                                                setParticipantValues(p);
                                             }}>
-                                            <option value={"-1"} disabled>
+                                            <option value={"none"} disabled>
                                                 Nächstes Training Auswählen
                                             </option>
                                             <MapArray

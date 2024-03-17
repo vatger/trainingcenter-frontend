@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/authSlice";
 import settingsReducer from "./features/settingsSlice";
 import sideNavReducer from "./features/sideNavSlice";
+import notificationReducer from "./features/notificationSlice";
 import { getLoginLanguage, trySignIn } from "@/app/boot";
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
         authReducer,
         settingsReducer,
         sideNavReducer,
+        notificationReducer,
     },
 });
 

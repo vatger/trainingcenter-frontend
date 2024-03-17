@@ -10,7 +10,7 @@ import React from "react";
 import { CVTrainingTypesSubpage } from "@/pages/administration/lm/course/view/_subpages/CVTrainingTypes.subpage";
 
 // "Aktionen & Bedingungen",
-const tabHeaders = ["Einstellungen", "Mentorgruppen", "Trainingstypen",  "Teilnehmer", "Gefahrenbereich"];
+const tabHeaders = ["Einstellungen", "Mentorgruppen", "Trainingstypen", "Teilnehmer", "Gefahrenbereich"];
 
 export function CourseViewView() {
     const { uuid } = useParams();

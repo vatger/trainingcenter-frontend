@@ -2,7 +2,9 @@ import { NotificationModel } from "@/models/NotificationModel";
 import { TbAlertTriangle, TbCheck, TbCircleCheck, TbClipboard, TbDoorExit, TbTrash } from "react-icons/tb";
 import { TLanguage } from "@/app/features/settingsSlice";
 
-function convertNotificationContent(notification: NotificationModel, language: TLanguage): string {
+function convertNotificationContent(notification: NotificationModel | undefined, language: TLanguage): string {
+    if (notification == null) return "";
+
     let s = notification.content_de;
 
     if (language == "en") {

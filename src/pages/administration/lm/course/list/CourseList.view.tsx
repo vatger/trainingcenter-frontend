@@ -10,18 +10,15 @@ import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
 import { TbPlus } from "react-icons/tb";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
+import useApi from "@/utils/hooks/useApi";
 
 export function AdminCourseListView() {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState<boolean>(true);
-    const [courseData, setCourseData] = useState<CourseModel[]>([]);
 
-    useEffect(() => {
-        axiosInstance.get("/administration/course/editable").then(res => {
-            setCourseData(res.data as CourseModel[]);
-            setLoading(false);
-        });
-    }, []);
+    const { data: courseData, loading } = useApi<CourseModel[]>({
+        url: "/administration/course/editable",
+        method: "get",
+    });
 
     const columns: (TableColumn<CourseModel> & { searchable?: boolean })[] = getCourseTableColumns(navigate);
 
@@ -38,7 +35,7 @@ export function AdminCourseListView() {
                     </Link>
                 }
                 headerBorder>
-                <Table searchable paginate loading={loading} columns={columns} data={courseData} />
+                <Table searchable paginate loading={loading} columns={columns} data={courseData ?? []} />
             </Card>
         </>
     );

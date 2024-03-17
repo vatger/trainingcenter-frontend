@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios, { AxiosError, AxiosResponse, Method, ResponseType } from "axios";
+import { Dispatch, useEffect, useRef, useState } from "react";
+import { AxiosError, AxiosResponse, Method, ResponseType } from "axios";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 
 interface IUseApi<T> {
@@ -10,13 +10,14 @@ interface IUseApi<T> {
     responseType?: ResponseType;
 
     onLoad?: (value: T) => any;
+    onError?: (err: AxiosError) => any;
 }
 
 interface IUseApiReturn<T> {
     loading: boolean;
     loadingError: AxiosError | undefined;
     data: T | undefined;
-    setData: React.Dispatch<T | undefined>;
+    setData: Dispatch<T | undefined>;
 }
 
 /**
@@ -25,12 +26,17 @@ interface IUseApiReturn<T> {
  * @param props
  */
 function useApi<T>(props: IUseApi<T>): IUseApiReturn<T> {
-    const [loading, setLoading] = React.useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(true);
     const [loadingError, setLoadingError] = useState<AxiosError | undefined>(undefined);
-    const [responseData, setResponseData] = React.useState<T | undefined>(undefined);
+    const [responseData, setResponseData] = useState<T | undefined>(undefined);
 
     useEffect(() => {
         const controller = new AbortController();
+
+        if (props.url.includes("undefined")) {
+            setLoading(false);
+            return;
+        }
 
         axiosInstance({
             method: props.method,
@@ -47,9 +53,20 @@ function useApi<T>(props: IUseApi<T>): IUseApiReturn<T> {
                 props.onLoad?.(response);
             })
             .catch((err: AxiosError) => {
+                if (controller.signal.aborted) {
+                    return;
+                }
+
                 setLoadingError(err);
+                props.onError?.(err);
             })
-            .finally(() => setLoading(false));
+            .finally(() => {
+                if (controller.signal.aborted) {
+                    return;
+                }
+
+                setLoading(false);
+            });
 
         return () => {
             controller.abort();

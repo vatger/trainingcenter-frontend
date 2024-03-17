@@ -34,7 +34,7 @@ export function ActiveCourseView() {
     });
 
     const {
-        data: ActiveTrainingRequests,
+        data: activeTrainingRequests,
         setData: setActiveTrainingRequests,
         loading: loadingActiveTrainingRequests,
     } = useApi<TrainingRequestModel[]>({
@@ -64,10 +64,10 @@ export function ActiveCourseView() {
                             setTrainingRequests={setActiveTrainingRequests}
                             course={course}
                             loadingCourse={loadingCourse}
-                            trainingRequests={ActiveTrainingRequests ?? []}
+                            trainingRequests={activeTrainingRequests ?? []}
                         />
 
-                        <CAVTrainingRequestsPartial trainingRequests={ActiveTrainingRequests ?? []} loadingTrainingRequests={loadingActiveTrainingRequests} />
+                        <CAVTrainingRequestsPartial trainingRequests={activeTrainingRequests ?? []} loadingTrainingRequests={loadingActiveTrainingRequests} />
 
                         <CAVTrainingHistoryPartial trainingData={trainingData ?? []} />
                     </>

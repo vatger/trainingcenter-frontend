@@ -30,16 +30,13 @@ export function RatingTimesPartial() {
 
     const [chartData, setChartData] = useState<any[]>([]);
 
-    const { data, loading, loadingError } = useApi<any>({
+    const { data, loadingError } = useApi<any>({
         url: "/statistics/rating-times",
         method: "get",
+        onLoad: value => {
+            setChartData(findRatingTimes(value));
+        },
     });
-
-    useEffect(() => {
-        if (loading || data == null) return;
-
-        setChartData(findRatingTimes(data));
-    }, [loading]);
 
     return (
         <Card header={"Lotsenstunden nach Rating"} headerBorder>

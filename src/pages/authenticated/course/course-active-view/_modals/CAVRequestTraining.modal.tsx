@@ -25,15 +25,16 @@ import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 type RequestTrainingModalPartialProps = {
     show: boolean;
     onClose: () => any;
-    course: CourseModel;
+    course: CourseModel | undefined;
     trainingRequests: TrainingRequestModel[];
     setTrainingRequests: Dispatch<TrainingRequestModel[]>;
 };
 
 export function CAVRequestTrainingModal(props: RequestTrainingModalPartialProps) {
     const [submitting, setSubmitting] = useState<boolean>(false);
+
     const { data: nextTraining, loading: loadingNextTraining } = useApi<TrainingTypeModel>({
-        url: `/training-type/${props.course.UsersBelongsToCourses?.next_training_type}`,
+        url: `/training-type/${props.course?.UsersBelongsToCourses?.next_training_type}`,
         method: "get",
     });
 
@@ -42,7 +43,8 @@ export function CAVRequestTrainingModal(props: RequestTrainingModalPartialProps)
         setSubmitting(true);
 
         const formData = FormHelper.getEntries(e.target);
-        FormHelper.set(formData, "testkey", { key: "value", key2: 2 });
+        FormHelper.set(formData, "course_id", props.course?.id);
+        FormHelper.set(formData, "training_type_id", nextTraining?.id);
 
         axiosInstance
             .post("/training-request", formData)
@@ -65,10 +67,6 @@ export function CAVRequestTrainingModal(props: RequestTrainingModalPartialProps)
                 elementTrue={<CAVTrainingModalSkeleton />}
                 elementFalse={
                     <form onSubmit={handleSubmit}>
-                        {/* Hidden inputs for form */}
-                        <input type="text" className={"hidden"} name={"course_id"} readOnly value={props.course.id} />
-                        <input type="text" className={"hidden"} name={"training_type_id"} readOnly value={nextTraining?.id} />
-
                         <Input disabled label={"Name"} labelSmall readOnly value={nextTraining?.name ?? ""} />
 
                         <Input disabled className={"mt-5"} label={"Typ"} readOnly labelSmall value={StringHelper.capitalize(nextTraining?.type) ?? ""} />

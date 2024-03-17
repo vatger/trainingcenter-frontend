@@ -1,7 +1,6 @@
 import { TbBell, TbMailOpened } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { NotificationModel } from "@/models/NotificationModel";
-import { AxiosError, AxiosResponse } from "axios";
 import { MapArray } from "../../conditionals/MapArray";
 import NotificationHelper from "../../../utils/helper/NotificationHelper";
 import dayjs from "dayjs";
@@ -11,52 +10,37 @@ import ToastHelper from "../../../utils/helper/ToastHelper";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button/Button";
 import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { useUserSelector } from "@/app/features/authSlice";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
 import { useSettingsSelector } from "@/app/features/settingsSlice";
 import { useDropdown } from "@/utils/hooks/useDropdown";
+import { useAppDispatch } from "@/app/hooks";
+import { clearUnreadNotifications, loadNotifications, setNotifications, useNotificationSelector } from "@/app/features/notificationSlice";
 
 export function NotificationHeader() {
-    const user = useUserSelector();
     const { language } = useSettingsSelector();
+    const dispatch = useAppDispatch();
+    const { unreadNotifications } = useNotificationSelector();
     const [markingAllRead, setMarkingAllRead] = useState<boolean>(false);
 
     const uuid = useDropdown();
 
-    const [notifications, setNotifications] = useState<NotificationModel[]>([]);
-
-    function loadNotifications(user_id?: number) {
-        if (user_id == null) return;
-
-        axiosInstance
-            .get("/notification/unread")
-            .then((res: AxiosResponse) => {
-                const notifications = res.data as NotificationModel[];
-                setNotifications(notifications);
-            })
-            .catch((err: AxiosError) => {
-                console.log("Error");
-            });
-    }
-
     useEffect(() => {
-        loadNotifications(user?.id);
+        loadNotifications(dispatch);
 
         setInterval(() => {
-            loadNotifications(user?.id);
+            loadNotifications(dispatch);
         }, 1000 * 60 * 2);
     }, []);
 
     function markAllAsRead() {
-        if (notifications.length == 0) return;
+        if (unreadNotifications.length == 0) return;
 
         setMarkingAllRead(true);
 
         axiosInstance
             .post("/notification/read/all")
             .then(() => {
-                setNotifications([]);
-                ToastHelper.success("Notifications marked as read");
+                dispatch(clearUnreadNotifications());
             })
             .finally(() => {
                 setMarkingAllRead(false);
@@ -70,7 +54,7 @@ export function NotificationHeader() {
                     <div className="header-action-item header-action-item-hoverable flex items-center">
                         <TbBell size={20} />
                         <RenderIf
-                            truthValue={notifications.length > 0}
+                            truthValue={unreadNotifications.length > 0}
                             elementTrue={<div className={"rounded-full w-[8px] h-[8px] bg-red-500 absolute top-[7px]"} />}
                         />
                     </div>
@@ -82,7 +66,7 @@ export function NotificationHeader() {
                     className="dropdown-menu bottom-end p-0 min-w-[300px] md:min-w-[340px] opacity-100 right-[-50px] sm:right-0 hidden">
                     <li className="menu-item-header">
                         <div className="border-b border-gray-200 dark:border-gray-600 px-4 py-2 flex items-center justify-between">
-                            <h6>Notifications ({notifications.length})</h6>
+                            <h6>Notifications ({unreadNotifications.length})</h6>
                             <span className="tooltip-wrapper">
                                 <Tooltip content={"Mark all as read"}>
                                     <Button
@@ -101,12 +85,12 @@ export function NotificationHeader() {
                         <div className={"relative w-full h-full"}>
                             <div className={"absolute inset-0 overflow-y-auto side-nav-hide-scrollbar mr-0 mb-0"}>
                                 <MapArray
-                                    data={notifications}
+                                    data={unreadNotifications}
                                     mapFunction={(n: NotificationModel, index: number) => {
                                         return (
                                             <div
                                                 key={index}
-                                                className="relative flex px-4 py-2 cursor-pointer hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-black dark:hover:bg-opacity-20 border-b border-gray-200 dark:border-gray-600">
+                                                className="relative flex px-4 py-2 hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-black dark:hover:bg-opacity-20 border-b border-gray-200 dark:border-gray-600">
                                                 <div>
                                                     <span
                                                         className={`avatar avatar-circle avatar-sm flex justify-center ${NotificationHelper.getIconColorBySeverity(

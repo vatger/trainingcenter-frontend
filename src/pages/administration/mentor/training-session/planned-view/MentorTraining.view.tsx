@@ -26,24 +26,21 @@ export function MentorTrainingView() {
     const navigate = useNavigate();
     const { uuid } = useParams();
 
+    const [participants, setParticipants] = useState<UserModel[]>([]);
+    const [updating, setUpdating] = useState<boolean>(false);
+
     const { data: trainingSession, loading } = useApi<TrainingSessionModel>({
         url: `/administration/training-session/${uuid ?? "-1"}`,
         method: "get",
+        onLoad: session => {
+            setParticipants(session.users as UserModel[]);
+        },
     });
 
     const { data: mentors, loading: loadingMentors } = useApi<UserModel[]>({
         url: `/administration/training-session/${uuid}/mentors`,
         method: "get",
     });
-
-    const [participants, setParticipants] = useState<UserModel[]>([]);
-    const [updating, setUpdating] = useState<boolean>(false);
-
-    useEffect(() => {
-        if (!loading && trainingSession != undefined) {
-            setParticipants(trainingSession.users as UserModel[]);
-        }
-    }, [loading]);
 
     function updateSessionDetails(e: FormEvent<HTMLFormElement>) {
         setUpdating(true);
