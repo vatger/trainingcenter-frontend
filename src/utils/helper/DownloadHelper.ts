@@ -4,10 +4,12 @@ import { ResponseType } from "axios";
 async function downloadFile(url: string, filename: string, responseType: ResponseType = "json"): Promise<void> {
     const res = await axiosInstance.get(url, { timeout: 60_000, responseType: responseType });
 
-    const contentType = res.headers["content-type"];
+    const contentType = res.headers["content-type"] as string | undefined;
+    if (contentType == undefined) return;
 
     let blob;
-    if (contentType == "application/json") {
+    if (contentType.includes("application/json")) {
+        console.log(1);
         blob = new Blob([JSON.stringify(res.data)], { type: contentType });
     } else {
         blob = new Blob([res.data], { type: contentType });
