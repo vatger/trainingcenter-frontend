@@ -14,12 +14,14 @@ import ToastHelper from "../../../../../utils/helper/ToastHelper";
 import useApi from "@/utils/hooks/useApi";
 import { PermissionModel, RoleModel } from "@/models/PermissionModel";
 import { axiosInstance } from "@/utils/network/AxiosInstance";
+import { PVAddUserModal } from "@/pages/administration/tech/permission/view/_modals/PVAddUser.modal";
 
 const name_regex: RegExp = RegExp("^(?!\\s*$).+");
 
 export function RoleViewView() {
     const { role_id } = useParams();
 
+    const [showAddRoleModal, setShowAddRoleModal] = useState<boolean>(false);
     const [updating, setUpdating] = useState<boolean>(false);
 
     const { data: permissions, loading: loadingPermissions } = useApi<PermissionModel[]>({
@@ -80,7 +82,12 @@ export function RoleViewView() {
                 header={"Benutzer & Berechtigungen"}
                 headerBorder
                 headerExtra={
-                    <Button size={SIZE_OPTS.XS} icon={<TbPlus size={20} />} variant={"twoTone"} color={COLOR_OPTS.PRIMARY}>
+                    <Button
+                        size={SIZE_OPTS.XS}
+                        onClick={() => setShowAddRoleModal(true)}
+                        icon={<TbPlus size={20} />}
+                        variant={"twoTone"}
+                        color={COLOR_OPTS.PRIMARY}>
                         Benutzer Hinzufügen
                     </Button>
                 }>
@@ -91,9 +98,26 @@ export function RoleViewView() {
                         role={roleData}
                         setRole={setRoleData}
                     />
-                    <RVRoleUserTablePartial loading={loadingRoleData || loadingPermissions} users={roleData?.users} />
+
+                    <RVRoleUserTablePartial loading={loadingRoleData || loadingPermissions} roleData={roleData} setRoleData={setRoleData} role_id={role_id} />
                 </Tabs>
             </Card>
+
+            <PVAddUserModal
+                show={showAddRoleModal}
+                onClose={() => {
+                    setShowAddRoleModal(false);
+                }}
+                onCreate={user => {
+                    if (roleData == null) return;
+
+                    const roleD = { ...roleData };
+                    roleD.users = [...(roleD.users ?? []), user];
+                    setRoleData(roleD);
+                    setShowAddRoleModal(false);
+                }}
+                role_id={role_id}
+            />
         </>
     );
 }
