@@ -148,7 +148,9 @@ export function SideNav() {
                                                 <MenuItem href={"administration/users/list"} icon={<TbSearch size={20} />}>
                                                     Mitglied Suchen
                                                 </MenuItem>
-                                                <MenuItem icon={<TbList size={20} />}>Übersicht Trainees</MenuItem>
+                                                <MenuItem href={"administration/users/overview"} icon={<TbList size={20} />}>
+                                                    Übersicht Trainees
+                                                </MenuItem>
                                             </CollapsableMenu>
 
                                             <CollapsableMenu title={"Trainings"} icon={<TbCalendar size={20} />}>

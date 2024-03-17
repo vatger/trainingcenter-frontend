@@ -49,6 +49,7 @@ export function AdministrationRouter() {
         <Routes>
             <Route path={"users"}>
                 <Route path={"list"} element={<UserListView />} />
+                <Route path={"overview"} element={<h1>TBD</h1>} />
 
                 <Route path={":user_id"}>
                     <Route path={""} element={<UserViewView />} />

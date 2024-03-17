@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/Badge/Badge";
 import useApi from "@/utils/hooks/useApi";
 import { TrainingRequestModel } from "@/models/TrainingRequestModel";
 import TrainingSessionCreateService from "@/pages/administration/mentor/training-session/session-create/_services/TrainingSessionCreate.service";
+import { TrainingSessionCalendar } from "@/pages/administration/mentor/training-session/_components/TrainingSessionCalendar";
 
 /**
  * Creates a new training session based on a training request. It loads all initial data and allows the mentor to add more people at will
@@ -159,6 +160,8 @@ export function TrainingSessionCreateFromRequestView() {
 
                             <Table paginate columns={TSCParticipantListTypes.getColumns(participants, setParticipants)} data={participants} />
                         </Card>
+
+                        <TrainingSessionCalendar />
                     </>
                 }
             />

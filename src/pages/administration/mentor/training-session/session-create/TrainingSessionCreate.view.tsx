@@ -22,6 +22,10 @@ import { TrainingTypeModel } from "@/models/TrainingTypeModel";
 import { Badge } from "@/components/ui/Badge/Badge";
 import { Alert } from "@/components/ui/Alert/Alert";
 import TrainingSessionCreateService from "@/pages/administration/mentor/training-session/session-create/_services/TrainingSessionCreate.service";
+import { Calendar, dayjsLocalizer, Views } from "react-big-calendar";
+
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { TrainingSessionCalendar } from "@/pages/administration/mentor/training-session/_components/TrainingSessionCalendar";
 
 export function TrainingSessionCreateView() {
     const navigate = useNavigate();
@@ -232,6 +236,8 @@ export function TrainingSessionCreateView() {
 
                             <Table paginate columns={TSCParticipantListTypes.getColumns(participants, setParticipants)} data={participants} />
                         </Card>
+
+                        <TrainingSessionCalendar />
                     </>
                 }
             />
