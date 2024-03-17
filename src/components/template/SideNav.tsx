@@ -161,7 +161,9 @@ export function SideNav() {
                                                 <MenuItem href={"administration/training-request/planned"} icon={<TbCalendarStats size={20} />}>
                                                     Geplante Trainings
                                                 </MenuItem>
-                                                <MenuItem icon={<TbList size={20} />}>Meine Trainings</MenuItem>
+                                                <MenuItem href={"administration/training-session/my"} icon={<TbList size={20} />}>
+                                                    Meine Trainings
+                                                </MenuItem>
                                             </CollapsableMenu>
                                         </>
                                     }

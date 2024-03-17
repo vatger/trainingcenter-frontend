@@ -73,7 +73,7 @@ export function UserCourseProgressView() {
                     <>
                         <Card header={"Allgemeine Informationen"} headerBorder>
                             <form onSubmit={updateUserCourseProgress}>
-                                <div className={"grid grid-cols-1 md:grid-cols-2 md:gap-5"}>
+                                <div className={"grid grid-cols-1 md:grid-cols-2 gap-5"}>
                                     <Input
                                         label={"Benutzer"}
                                         labelSmall

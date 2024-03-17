@@ -61,7 +61,7 @@ export function MentorTrainingView() {
 
     return (
         <>
-            <PageHeader title={trainingSession?.training_type?.type == "cpt" ? "Geplantes CPT" : "Geplantes Training"} />
+            <PageHeader title={"Geplantes Training"} />
 
             <RenderIf
                 truthValue={loading || loadingMentors}

@@ -39,6 +39,8 @@ import { JoblogListView } from "@/pages/administration/tech/joblog/list/JoblogLi
 import { JoblogViewView } from "@/pages/administration/tech/joblog/view/JoblogView.view";
 import { PermissionListView } from "@/pages/administration/tech/permission/list/PermissionList.view";
 import { RoleViewView } from "@/pages/administration/tech/permission/view/RoleView.view";
+import { MyTrainingSessionListView } from "@/pages/administration/mentor/training-session/my-list/MyTrainingSessionList.view";
+import { MyTrainingSessionView } from "@/pages/administration/mentor/training-session/my-view/MyTrainingSession.view";
 
 export function AdministrationRouter() {
     const location = useLocation();
@@ -79,6 +81,8 @@ export function AdministrationRouter() {
             </Route>
 
             <Route path={"training-session"}>
+                <Route path={"my"} element={<MyTrainingSessionListView />} />
+                <Route path={"my/:uuid"} element={<MyTrainingSessionView />} />
                 <Route path={"create"} element={<TrainingSessionCreateView />} />
                 <Route path={"create/:uuid"} element={<TrainingSessionCreateFromRequestView />} />
             </Route>

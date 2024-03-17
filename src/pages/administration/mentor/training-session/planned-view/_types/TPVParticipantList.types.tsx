@@ -1,9 +1,5 @@
 import { TableColumn } from "react-data-table-component";
 import { UserModel } from "@/models/UserModel";
-import { Button } from "@/components/ui/Button/Button";
-import { COLOR_OPTS, SIZE_OPTS } from "@/assets/theme.config";
-import { TbTrash } from "react-icons/tb";
-import { Dispatch } from "react";
 
 function getColumns(): TableColumn<UserModel>[] {
     return [

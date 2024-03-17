@@ -12,14 +12,17 @@ import useApi from "@/utils/hooks/useApi";
 function findRatingTimes(data: any) {
     let times: any[] = [];
 
-    for (const rating of ["s1", "s2", "s3", "c1", "c3"]) {
-        if (rating in data) {
-            const time = Math.round(Number(data[rating]));
-            times.push({
-                name: rating.toUpperCase(),
-                time: time,
-            });
-        }
+    const ratings = ["s1", "s2", "s3", "c1", "c3"];
+
+    for (const key of Object.keys(data)) {
+        const time = Math.round(Number(data[key]));
+
+        if (!ratings.includes(key) || (time == 0 && key == "c3")) continue;
+
+        times.push({
+            name: key.toUpperCase(),
+            time: time,
+        });
     }
 
     return times;
